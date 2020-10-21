@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Media extends Model
+class Cust_comp_info extends Model
 {
-    protected $table="medias";
     use HasFactory;
+    protected $table="cust_comp_info";
 }
