@@ -25,7 +25,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'phone',
         'password',
     ];
 
@@ -46,9 +46,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    
 
     /**
      * The accessors to append to the model's array form.
@@ -58,4 +56,11 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function group(){
+        return $this->belongsTo('App\Models\User_group');
+    }
+    public function hasRole($role){
+        return in_array($this->group->name,$role, TRUE);
+    }
 }
