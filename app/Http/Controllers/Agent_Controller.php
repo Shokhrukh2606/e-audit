@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class Agent_Controller extends Controller
 {
-    function __construct($foo = null)
+    function __construct()
     {
-    	$this->middleware('multi_auth:agent,auditor,customer');
+    	$this->middleware('multi_auth:agent');
     }
     public function hello(){
     	print_r("hello");
