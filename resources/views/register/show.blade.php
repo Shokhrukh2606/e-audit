@@ -4,97 +4,97 @@
     }
 
 </style>
-<a href="#" class="navigator" data-id="user">Пользователь</a>
-<a href="#" class="navigator" data-id="agent">Агент</a>
+<a href="#" class="navigator" data-id="user">{{ __('auth.user') }}</a>
+<a href="#" class="navigator" data-id="agent">{{ __('auth.agent') }}</a>
 <div class="user d-none" id="user">
-    <h1>Register User</h1>
+    <h1>{{__("auth.Register User")}}</h1>
     <form method="POST" action="{{ route('reg_cust') }}">
         @csrf
         <div>
-            <label>Name</label>
+            <label>{{__("auth.Name")}}</label>
             <input type="text" name="name">
         </div>
         <div>
-            <label>Surname</label>
+            <label>{{__("auth.Surname")}}</label>
             <input type="text" name="surname">
         </div>
         <div>
-            <label>Patronymic</label>
+            <label>{{__("auth.Patronymic")}}</label>
             <input type="text" name="patronymic">
         </div>
-        <label>Phone number</label>
+        <label>{{__("auth.Phone number")}}</label>
         <input type="text" name="phone">
         <div>
-            <label>Password</label>
+            <label>{{__("auth.Password")}}</label>
             <input type="text" name="password">
         </div>
-        <button type="submit">Register</button>
+        <button type="submit">{{__("auth.Register")}}</button>
     </form>
 </div>
 
 
 <div class="agent d-none" id="agent">
-    <h1>Register Agent</h1>
+    <h1>{{__("auth.Register Agent")}}</h1>
     <form method="POST" action="{{ route('reg_agent') }}" enctype="multipart/form-data">
         @csrf
         <div>
-            <label>Name</label>
+            <label>{{__("auth.Name")}}</label>
             <input type="text" name="name">
         </div>
         <div>
-            <label>Surname</label>
+            <label>{{__("auth.Surname")}}</label>
             <input type="text" name="surname">
         </div>
         <div>
-            <label>Patronymic</label>
+            <label>{{__("auth.Patronymic")}}</label>
             <input type="text" name="patronymic">
         </div>
         <div>
-            <label>Phone number</label>
+            <label>{{__("auth.Phone number")}}</label>
             <input type="text" name="phone">
         </div>
         <div>
-            <label>Passport Number</label>
+            <label>{{__("auth.Passport Number")}}</label>
             <input type="text" maxlength="9" name="passport_number">
         </div>
         <div>
-            <label>Passport Copy</label>
+            <label>{{__("auth.Passport Copy")}}</label>
             <input type="file" name="passport_copy">
         </div>
         <div>
-            <label>Inn</label>
+            <label>{{__("auth.Inn")}}</label>
             <input type="text" maxlength="9" name="inn">
         </div>
         <div>
-            <label>Certificate Number</label>
+            <label>{{__("auth.Certificate Number")}}</label>
             <input type="text" name="cert_number">
         </div>
         <div>
-            <label>Certificate Date</label>
+            <label>{{__("auth.Certificate Date")}}</label>
             <input type="date" name="cert_date">
         </div>
         <div>
-            <label>Region</label>
+            <label>{{__("auth.Region")}}</label>
             <input type="text" name="region">
         </div>
         <div>
-            <label>District</label>
+            <label>{{__("auth.District")}}</label>
             <input type="text" name="district">
         </div>
         <div>
-            <label>Address</label>
+            <label>{{__("auth.Address")}}</label>
             <input type="text" name="address">
         </div>
         <div>
-            <label>Password</label>
+            <label>{{__("auth.Password")}}</label>
             <input type="text" name="password">
         </div>
         <div>
-            <label>I agree</label>
+            <label>{{__("auth.I agree")}}</label>
             <input type="checkbox">
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit">{{__("auth.Register")}}</button>
     </form>
 </div>
 
