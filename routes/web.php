@@ -36,23 +36,37 @@ Route::namespace('App\Http\Controllers')->group(function () {
 
 	/*==========Customer routes=================*/
 	Route::prefix('customer')->group(function(){
-		// select type of template(i.e. 80, 70)
-		// view: customer.select_template;
-		Route::get("select_temp", "Customer_Controller@select_temp")->name("select_temp");
-		// route to create order
-		// view:get customer.create_order
-		// view:post no view
-		Route::match(["GET", "POST"],"/create_order", "Customer_Controller@create_order")
+		Route::name('customer.')->group(function(){
+
+			// select type of template(i.e. 80, 70)
+			// view: customer.select_template;
+			Route::get("select_temp", "Customer_Controller@select_temp")->name("select_temp");
+			// route to create order
+			// view:get customer.create_order
+			// view:post no view
+			Route::match(["GET", "POST"],"/create_order", "Customer_Controller@create_order")
 			->name('create_order');
+
+			// order list
+			// view: Customer.list_orders
+			Route::get("orders", "Customer_Controller@orders")->name("orders");
+
+			// view order
+			// view: Customer.view_order
+			Route::get("order_view/{id}", "Customer_Controller@order_view")->name("order_view");
+
+		});
 	});
-
-
-
+	/**===========File Class ======================**/
+	// open file retriever
+	// pass path in a query like route('file')."?path=".$path;
+	Route::get('file', "FileController@open" )->name('file');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+	return view('dashboard');
 })->name('dashboard');
+
 
 
 

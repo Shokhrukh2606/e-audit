@@ -1,4 +1,4 @@
-<form action="{{route('create_order')}}">
+<form action="{{route('customer.create_order')}}">
 	<div>
 		Please select template:
 		<select name="template_id" required onchange="alter_use_cases(this)">
