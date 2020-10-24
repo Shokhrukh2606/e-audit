@@ -8,6 +8,7 @@ use App\Models\Use_Case;
 use App\Models\Order;
 use App\Models\Cust_comp_info;
 use App\Models\Ciucm;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -84,6 +85,76 @@ class Customer_Controller extends Controller
         $data['order']=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
         if($data['order'])
             return $this->view('view_order', $data);
+        return abort(404);
+    }
+    public function edit_order(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+                $data['order']=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
+                if($data['order'])
+                    return $this->view('edit_order', $data);
+                return abort(404);
+                break;
+            case 'POST':
+                $all=$req->all();
+                $order_fields=$req->input('order');
+                $cust_info_fields=$req->input('cust_info');
+                $custom_fields_files=$req->file('custom');
+                $custom_fields=$req->input('custom');
+
+                // customer_info-use_case mappings
+                
+                $order=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
+                
+                if(!$order)
+                    abort(404);
+
+                foreach ($order_fields??[] as $key => $value) {
+                    $order->$key=$value;
+                }
+
+                $order->save();
+
+                $CCI=$order->cust_info;
+                foreach ($cust_info_fields??[] as $key => $value) {
+                    $CCI->$key=$value;
+                }
+                $original_custom=json_decode($CCI->custom_fields, true);
+                foreach ($custom_fields_files??[] as $key => $value) {
+                    Storage::delete($original_custom[$key]??null);
+                    /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
+                   $original_custom[$key]=$value
+                   ->storeAs("orders/$order->id", time().$value->getClientOriginalName());
+                }
+                foreach ($custom_fields??[] as $key => $value) {
+                   $original_custom[$key]=$value;
+                }
+
+                $CCI->custom_fields=json_encode($original_custom);
+               
+                $CCI->save();
+                return redirect()->route('customer.orders');
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+    public function send(Request $req){
+        $order=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
+        if($order){
+            $order->status="open";
+            $order->save();
+            return redirect()->route('customer.order_view', $order->id);
+        }
+        return abort(404);
+    }
+    public function cancel_order(Request $req){
+        $order=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
+        if($order){
+            $order->fulldelete();
+            return redirect()->route('customer.orders');
+        }
         return abort(404);
     }
 }

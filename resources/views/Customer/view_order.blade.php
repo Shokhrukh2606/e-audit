@@ -1,7 +1,9 @@
 @php
 	$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields"];
+	$editable_status=['initiated', 'rewrite'];
 @endphp
 <h2>Order {{$order->id}}</h2>
+Status: {{$order->status}} <br>
 Details: <br>
 {{-- Order info --}}
 <h3>Order info</h3>
@@ -31,8 +33,13 @@ Details: <br>
 	{{-- get custom fields meta and iterate --}}
 
 	@foreach(custom_fields($order->cust_info->template_id) as $field)
+
 		<li>
-			{{$field->label->ru}} :  
+			{{$field->label->ru}} : 
+			@if(!isset($custom_fields->{$field->name}))
+				Nothing yet
+				@continue
+			@endif 
 			@if($field->type=='file')
 				<a href="{{route('file')."?path=".$custom_fields->{$field->name} }}" 
 				   target="blank">
@@ -44,6 +51,10 @@ Details: <br>
 		</li>
 	@endforeach
 </ul>
-<a href="#">Cancel</a>
-<a href="#">Edit</a>
-<a href="#">Send to auditor</a>
+@if($order->status=='initiated')
+	<a href="{{route('customer.cancel_order', $order->id)}}">Delete</a>
+@endif
+@if(in_array($order->status, $editable_status))
+	<a href="{{route('customer.edit_order', $order->id)}}">Edit</a>
+	<a href="{{route('customer.send', $order->id)}}">Send to auditor</a>
+@endif

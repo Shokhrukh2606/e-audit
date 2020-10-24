@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Cust_comp_info;
+use Illuminate\Support\Facades\Storage;
 
 class Order extends Model
 {
@@ -15,5 +16,8 @@ class Order extends Model
     public function cust_info(){
     	return $this->hasOne(Cust_comp_info::class);
     }
-   
+   	public function fulldelete(){
+   		Storage::deleteDirectory("orders/".$this->id);
+   		$this->delete();
+   	}
 }

@@ -55,6 +55,21 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			// view: Customer.view_order
 			Route::get("order_view/{id}", "Customer_Controller@order_view")->name("order_view");
 
+			// edit order
+			// view: Customer.edit_order
+			Route::match(["GET", "POST"],"/edit_order/{id}", 
+				"Customer_Controller@edit_order"
+			)->name('edit_order');
+
+			// send order
+			// no view
+			Route::get("send/{id}", "Customer_Controller@send")->name("send");
+
+			// cancel_order
+			// no view
+			Route::get("cancel_order/{id}", "Customer_Controller@cancel_order")->name("cancel_order");
+
+
 		});
 	});
 	/**===========File Class ======================**/
