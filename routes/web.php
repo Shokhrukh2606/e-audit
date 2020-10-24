@@ -17,7 +17,13 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
-
+function generate_view_form($path, $controller, $method){
+	$router = app()->make('router');
+	$salt=substr($path, 1);
+	$router->get($path, "$controller"."@"."$method")->name("get_$salt");
+	$router->post($path,  "$controller"."@"."$method")->name("post_$salt");
+	return $router;
+}
 Route::namespace('App\Http\Controllers')->group(function () {
 	/*==========public routes=============*/
 	// show register form of all type of users
@@ -32,7 +38,11 @@ Route::namespace('App\Http\Controllers')->group(function () {
 	Route::prefix('agent')->group(function(){
 		Route::get("/hello", "Agent_Controller@hello");
 	});
-
+	/*==========AAC routes=================*/
+	Route::prefix('aac')->group(function(){
+		generate_view_form('/checkfunds', 'AAC_Controller', 'checkfunds');
+		Route::get("/", "@checkfunds")->name('checkfunds');
+	});
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

@@ -60,7 +60,11 @@ class User extends Authenticatable
     public function group(){
         return $this->belongsTo('App\Models\User_group');
     }
+    public function funds(){
+        return $this->hasMany('App\Models\Payment', 'user_id');
+    }
     public function hasRole($role){
         return in_array($this->group->name,$role, TRUE);
     }
+
 }

@@ -8,5 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     protected $table="payments";
-    use HasFactory;
+    protected $fillable = [
+        'amount',
+        'type',
+        'user_id'
+    ];
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }
