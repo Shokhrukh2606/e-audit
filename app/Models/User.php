@@ -55,13 +55,18 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'oldFunds'
     ];
 
     public function group(){
         return $this->belongsTo('App\Models\User_group');
     }
-    public function funds(){
+    public function oldFunds(){
         return $this->hasMany('App\Models\Payment', 'user_id');
+    }
+    public function add_funds($amount){
+        $this->funds+=$amount;
+        $this->save();
     }
     public function hasRole($role){
         return in_array($this->group->name,$role, TRUE);
