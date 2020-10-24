@@ -9,4 +9,5 @@ class Cust_comp_info extends Model
 {
     use HasFactory;
     protected $table="cust_comp_info";
+    public $timestamps=false;
 }

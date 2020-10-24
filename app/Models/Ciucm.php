@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Ciucm extends Model
 {
-    protected $table="orders";
     use HasFactory;
+    protected $table="cust_info_use_case_map";
     public $timestamps=false;
 }

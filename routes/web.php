@@ -33,11 +33,27 @@ Route::namespace('App\Http\Controllers')->group(function () {
 		Route::get("/hello", "Agent_Controller@hello");
 	});
 
+
+	/*==========Customer routes=================*/
+	Route::prefix('customer')->group(function(){
+		// select type of template(i.e. 80, 70)
+		// view: customer.select_template;
+		Route::get("select_temp", "Customer_Controller@select_temp")->name("select_temp");
+		// route to create order
+		// view:get customer.create_order
+		// view:post no view
+		Route::match(["GET", "POST"],"/create_order", "Customer_Controller@create_order")
+			->name('create_order');
+	});
+
+
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
 
 
 
