@@ -17,11 +17,10 @@ class MultiAuth
      */
     public function handle(Request $request, Closure $next, ...$role)
     {
-        
         if (auth()->check() && auth()->user()->hasRole($role)) {
 
             return $next($request);
         }
-        return abort(401);
+        return redirect()->route('login');
     }
 }

@@ -81,6 +81,27 @@ Route::namespace('App\Http\Controllers')->group(function () {
 
 		});
 	});
+
+	/*==========Auditor routes=================*/
+	Route::prefix('auditor')->group(function(){
+		Route::name('auditor.')->group(function(){
+			// select type of template(i.e. 80, 70)
+			// view: auditor.select_template;
+			Route::get("select_temp", "Audit_Controller@select_temp")->name("select_temp");
+			// route to create conclusion
+			// view:get auditor.create_order
+			// view:post no view
+			Route::match(["GET", "POST"],"/create_conclusion", "Audit_Controller@create_conclusion")
+			->name('create_conclusion');
+
+			// list conclusions of auditor
+			// view: auditor.list_conclusions;
+			Route::get("conclusions", "Audit_Controller@conclusions")->name("conclusions");
+
+			// experiment
+			Route::get('pdf/{id}', "Audit_Controller@pdf")->name("pdf");
+		});
+	});
 	/*==========AAC routes=================*/
 	Route::prefix('aac')->group(function(){
 		// route to create payment

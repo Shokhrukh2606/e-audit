@@ -1,4 +1,4 @@
-<form action="{{route('customer.create_order')}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('auditor.create_order')}}" method="POST" enctype="multipart/form-data">
 	@csrf
 	<input type="hidden" name="cust_info[template_id]" value="{{$template_id}}">
 	@foreach($use_cases as $use_case=>$value)
@@ -6,7 +6,7 @@
 	@endforeach
 	<div>
 		<label>Language</label>
-		<select name="order[lang]">
+		<select name="cust_info[lang]">
 			<option value="uz">Uzbek</option>
 			<option value="ru">Russian</option>
 		</select>
