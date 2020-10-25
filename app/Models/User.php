@@ -55,7 +55,8 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
-        'oldFunds'
+        'oldFunds',
+        'agent_conclusions'
     ];
 
     public function group(){
@@ -64,6 +65,9 @@ class User extends Authenticatable
     public function oldFunds(){
         return $this->hasMany('App\Models\Payment', 'user_id');
     }
+    public function agent_conclusions(){
+        return $this->hasMany('App\Models\Conclusion', 'agent_id');
+    }
     public function add_funds($amount){
         $this->funds+=$amount;
         $this->save();
@@ -71,5 +75,12 @@ class User extends Authenticatable
     public function hasRole($role){
         return in_array($this->group->name,$role, TRUE);
     }
-
+    public static function specificFullname($user_id){
+         $found=self::where(['id'=>$user_id])->one();
+         if($found){
+             return "$found->surname $found->name $found->patronymic";
+         }else{
+             return 'Not found';
+         }
+    }
 }

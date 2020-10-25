@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Conclusion extends Model
 {
     protected $table="conclusions";
-    use HasFactory;
+    public function user(){
+        $this->belongsTo('App\Models\User');
+    }
 }

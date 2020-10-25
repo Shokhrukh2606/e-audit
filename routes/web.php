@@ -32,7 +32,7 @@ Route::namespace('App\Http\Controllers')->group(function () {
 	/*==========Agent routes=================*/
 	Route::prefix('agent')->group(function(){
 		Route::get('/list_conclusions', 'Agent_Controller@list_conclusions')->name('list_conclusions');
-		Route::get('/create_conclusion', 'Agent_Controller@create_conclusion')->name('create_conclusion');
+		Route::match(["GET", "POST"], '/create_conclusion', 'Agent_Controller@create_conclusion')->name('create_conclusion');
 		Route::get('/pay_for_conclusion', 'Agent_Controller@pay_for_conclusion')->name('pay_for_conclusion');
 		Route::get('/view_conclusion_protected', 'Agent_Controller@view_conclusion_protected')->name('view_conclusion_protected');
 		Route::get('/view_conclusion_open', 'Agent_Controller@list_conclusions')->name('list_conclusions');

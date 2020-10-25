@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Agent_Controller extends Controller
 {
@@ -15,9 +16,11 @@ class Agent_Controller extends Controller
         return view('Agent.'.$file, $data);
     }
     public function list_conclusions(){
-    	return $this->view('list_conclusions');
+        $data['conclusions']=Auth::user()->agent_conclusions()->paginate(15);   
+    	return $this->view('list_conclusions', $data);
     }
     public function create_conclusion(){
+        
     	return $this->view('create_conclusion');
     }
     public function pay_for_conclusion()
