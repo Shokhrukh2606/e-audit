@@ -1,4 +1,5 @@
 <h2>{{"You have ".Auth::user()->agent_conclusions->count()." conclusions" }}</h2>
+<a href="{{route('create_conclusion')}}">Create conclusion</a>
 <table style="width:100%">
     <tr>
         <th>Full name</th>

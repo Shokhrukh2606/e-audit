@@ -44,14 +44,63 @@ Route::namespace('App\Http\Controllers')->group(function () {
 	
 	/*==========Customer routes=================*/
 	Route::prefix('customer')->group(function(){
-		// select type of template(i.e. 80, 70)
-		// view: customer.select_template;
-		Route::get("select_temp", "Customer_Controller@select_temp")->name("select_temp");
-		// route to create order
-		// view:get customer.create_order
-		// view:post no view
-		Route::match(["GET", "POST"],"/create_order", "Customer_Controller@create_order")
+		Route::name('customer.')->group(function(){
+
+			// select type of template(i.e. 80, 70)
+			// view: customer.select_template;
+			Route::get("select_temp", "Customer_Controller@select_temp")->name("select_temp");
+			// route to create order
+			// view:get customer.create_order
+			// view:post no view
+			Route::match(["GET", "POST"],"/create_order", "Customer_Controller@create_order")
 			->name('create_order');
+
+
+			// order list
+			// view: Customer.list_orders
+			Route::get("orders", "Customer_Controller@orders")->name("orders");
+
+			// view order
+			// view: Customer.view_order
+			Route::get("order_view/{id}", "Customer_Controller@order_view")->name("order_view");
+
+			// edit order
+			// view: Customer.edit_order
+			Route::match(["GET", "POST"],"/edit_order/{id}", 
+				"Customer_Controller@edit_order"
+			)->name('edit_order');
+
+			// send order
+			// no view
+			Route::get("send/{id}", "Customer_Controller@send")->name("send");
+
+			// cancel_order
+			// no view
+			Route::get("cancel_order/{id}", "Customer_Controller@cancel_order")->name("cancel_order");
+
+
+		});
+	});
+
+	/*==========Auditor routes=================*/
+	Route::prefix('auditor')->group(function(){
+		Route::name('auditor.')->group(function(){
+			// select type of template(i.e. 80, 70)
+			// view: auditor.select_template;
+			Route::get("select_temp", "Audit_Controller@select_temp")->name("select_temp");
+			// route to create conclusion
+			// view:get auditor.create_order
+			// view:post no view
+			Route::match(["GET", "POST"],"/create_conclusion", "Audit_Controller@create_conclusion")
+			->name('create_conclusion');
+
+			// list conclusions of auditor
+			// view: auditor.list_conclusions;
+			Route::get("conclusions", "Audit_Controller@conclusions")->name("conclusions");
+
+			// experiment
+			Route::get('pdf/{id}', "Audit_Controller@pdf")->name("pdf");
+		});
 	});
 	/*==========AAC routes=================*/
 	Route::prefix('aac')->group(function(){
@@ -59,15 +108,24 @@ Route::namespace('App\Http\Controllers')->group(function () {
 		// view:post no view
 		Route::get('checkfunds', 'AAC_Controller@checkfunds')->name('checkfunds');
 		Route::match(["GET", "POST"],"/add_funds", "AAC_Controller@add_funds")
-			->name('add_funds');
+		->name('add_funds');
 	});
 
-
+	/**===========File Class ======================**/
+	// open file retriever
+	// pass path in a query like route('file')."?path=".$path;
+	Route::get('file', "FileController@open" )->name('file');
 });
 
+
+
+
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+	return view('dashboard');
 })->name('dashboard');
+
 
 
 
