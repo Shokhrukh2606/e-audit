@@ -55,8 +55,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
-        'oldFunds',
-        'agent_conclusions'
+        'oldFunds'
     ];
 
     public function group(){
@@ -76,7 +75,7 @@ class User extends Authenticatable
         return in_array($this->group->name,$role, TRUE);
     }
     public static function specificFullname($user_id){
-         $found=self::where(['id'=>$user_id])->one();
+         $found=self::where(['id'=>$user_id])->first();
          if($found){
              return "$found->surname $found->name $found->patronymic";
          }else{

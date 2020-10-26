@@ -1,4 +1,4 @@
-<form action="{{route('create_conclusion')}}">
+<form action="{{route('agent.create_conclusion')}}">
 	<div>
 		Please select template:
 		<select name="template_id" required onchange="alter_use_cases(this)">

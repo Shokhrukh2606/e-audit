@@ -30,21 +30,23 @@ Route::namespace('App\Http\Controllers')->group(function () {
 	Route::post("/reg_agent", "RegisterController@reg_agent")->name("reg_agent");
 
 	/*==========Agent routes=================*/
-	Route::prefix('agent')->group(function(){
-		Route::get('/list_conclusions', 'Agent_Controller@list_conclusions')->name('list_conclusions');
-		Route::match(["GET", "POST"], '/create_conclusion', 'Agent_Controller@create_conclusion')->name('create_conclusion');
-		Route::get('/pay_for_conclusion', 'Agent_Controller@pay_for_conclusion')->name('pay_for_conclusion');
-		Route::get('/view_conclusion_protected', 'Agent_Controller@view_conclusion_protected')->name('view_conclusion_protected');
-		Route::get('/view_conclusion_open', 'Agent_Controller@list_conclusions')->name('list_conclusions');
-		Route::get('/cashback_log', 'Agent_Controller@cashback_log')->name('cashback_log');
-		Route::get('/transactions_log', 'Agent_Controller@transactions_log')->name('transactions_log');
-		Route::get('/payment_log', 'Agent_Controller@payment_log')->name('payment_log');
+	Route::prefix('agent')->group(function () {
+		Route::name('agent.')->group(function () {
+			Route::get('/list_conclusions', 'Agent_Controller@list_conclusions')->name('list_conclusions');
+			Route::match(["GET", "POST"], '/create_conclusion', 'Agent_Controller@create_conclusion')->name('create_conclusion');
+			Route::get('/pay_for_conclusion', 'Agent_Controller@pay_for_conclusion')->name('pay_for_conclusion');
+			Route::get('/view_conclusion_protected', 'Agent_Controller@view_conclusion_protected')->name('view_conclusion_protected');
+			Route::get('/view_conclusion_open/{id}', 'Agent_Controller@view_conclusion_open')->name('view_conclusion_open');
+			Route::get('/cashback_log', 'Agent_Controller@cashback_log')->name('cashback_log');
+			Route::get('/transactions_log', 'Agent_Controller@transactions_log')->name('transactions_log');
+			Route::get('/payment_log', 'Agent_Controller@payment_log')->name('payment_log');
+		});
 	});
 
-	
+
 	/*==========Customer routes=================*/
-	Route::prefix('customer')->group(function(){
-		Route::name('customer.')->group(function(){
+	Route::prefix('customer')->group(function () {
+		Route::name('customer.')->group(function () {
 
 			// select type of template(i.e. 80, 70)
 			// view: customer.select_template;
@@ -52,8 +54,8 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			// route to create order
 			// view:get customer.create_order
 			// view:post no view
-			Route::match(["GET", "POST"],"/create_order", "Customer_Controller@create_order")
-			->name('create_order');
+			Route::match(["GET", "POST"], "/create_order", "Customer_Controller@create_order")
+				->name('create_order');
 
 
 			// order list
@@ -66,7 +68,9 @@ Route::namespace('App\Http\Controllers')->group(function () {
 
 			// edit order
 			// view: Customer.edit_order
-			Route::match(["GET", "POST"],"/edit_order/{id}", 
+			Route::match(
+				["GET", "POST"],
+				"/edit_order/{id}",
 				"Customer_Controller@edit_order"
 			)->name('edit_order');
 
@@ -77,22 +81,20 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			// cancel_order
 			// no view
 			Route::get("cancel_order/{id}", "Customer_Controller@cancel_order")->name("cancel_order");
-
-
 		});
 	});
 
 	/*==========Auditor routes=================*/
-	Route::prefix('auditor')->group(function(){
-		Route::name('auditor.')->group(function(){
+	Route::prefix('auditor')->group(function () {
+		Route::name('auditor.')->group(function () {
 			// select type of template(i.e. 80, 70)
 			// view: auditor.select_template;
 			Route::get("select_temp", "Audit_Controller@select_temp")->name("select_temp");
 			// route to create conclusion
 			// view:get auditor.create_order
 			// view:post no view
-			Route::match(["GET", "POST"],"/create_conclusion", "Audit_Controller@create_conclusion")
-			->name('create_conclusion');
+			Route::match(["GET", "POST"], "/create_conclusion", "Audit_Controller@create_conclusion")
+				->name('create_conclusion');
 
 			// list conclusions of auditor
 			// view: auditor.list_conclusions;
@@ -103,18 +105,18 @@ Route::namespace('App\Http\Controllers')->group(function () {
 		});
 	});
 	/*==========AAC routes=================*/
-	Route::prefix('aac')->group(function(){
+	Route::prefix('aac')->group(function () {
 		// route to create payment
 		// view:post no view
 		Route::get('checkfunds', 'AAC_Controller@checkfunds')->name('checkfunds');
-		Route::match(["GET", "POST"],"/add_funds", "AAC_Controller@add_funds")
-		->name('add_funds');
+		Route::match(["GET", "POST"], "/add_funds", "AAC_Controller@add_funds")
+			->name('add_funds');
 	});
 
 	/**===========File Class ======================**/
 	// open file retriever
 	// pass path in a query like route('file')."?path=".$path;
-	Route::get('file', "FileController@open" )->name('file');
+	Route::get('file', "FileController@open")->name('file');
 });
 
 
@@ -125,8 +127,3 @@ Route::namespace('App\Http\Controllers')->group(function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 	return view('dashboard');
 })->name('dashboard');
-
-
-
-
-

@@ -116,7 +116,6 @@
 				@php
 				$div= $dom->createElement("div");
 				$dom->appendChild($div);
-
 				$label = $dom->createElement("label", $field->label->uz.":");
 				$div->appendChild($label);
 				
@@ -125,13 +124,11 @@
 				$attr = $dom->createAttribute('type');
 				$attr->value = $field->type;
 				$input->appendChild($attr);
-
 				$attr = $dom->createAttribute('name');
 				$attr->value = "custom[$field->name]";
 				$input->appendChild($attr);
 				
 				$div->appendChild($input);
-
 				@endphp
 			@endforeach
 		<?=$dom->saveHTML()?>

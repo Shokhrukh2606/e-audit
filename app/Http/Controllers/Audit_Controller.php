@@ -76,7 +76,7 @@ class Audit_Controller extends Controller
     	}
     }
     public function conclusions(){
-        $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->get();
+        $data['conclusions']=Conclusion::where('auditor_id', 7)->get();
         return $this->view("list_conclusions", $data);
     }
     public function pdf(Request $req){
