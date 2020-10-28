@@ -19,7 +19,7 @@
 			@endforeach
 			</td>
 			<td>{{$conclusion->created_at}}</td>
-			<td><a href="{{route('auditor.pdf', $conclusion->id)}}">More</a></td>
+			<td><a href="#">More</a></td>
 		</tr>
 		@endforeach
 	</tbody>

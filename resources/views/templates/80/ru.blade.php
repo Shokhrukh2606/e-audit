@@ -2,7 +2,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <style>
-	* { font-family: DejaVu Sans, sans-serif; }
+	* { 
+		font-family: DejaVu Sans, sans-serif;
+	}
+	body{
+		background-image: url("{{asset('shutterstock.png')}}");
+	}
 </style>
 </head>
 <body>

@@ -8,6 +8,7 @@ use App\Models\Use_Case;
 use App\Models\Conclusion;
 use App\Models\Cust_comp_info;
 use App\Models\Ciucm;
+use App\Models\Order;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 
@@ -79,9 +80,46 @@ class Audit_Controller extends Controller
         $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->get();
         return $this->view("list_conclusions", $data);
     }
+    public function orders(){
+        $data['orders']=Order::where('auditor_id', auth()->user()->id)->get();
+        return $this->view("list_orders", $data);
+    }
     public function pdf(Request $req){
         $data['word']="word";
         $pdf = PDF::loadView('templates.80.ru', $data);
         return $pdf->stream('conclusion.pdf');
+    }
+    public function view_order(Request $req){
+        $data['order']=Order::where(['id'=>$req->id, 'auditor_id'=>auth()->user()->id])->first();
+        if($data['order'])
+            return $this->view('view_order', $data);
+        return abort(404);
+    }
+    public function create_conc_on_order(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+                $data['order']=Order::where(['id'=>$req->id, 'auditor_id'=>auth()->user()->id])->first();
+                if($data['order'])
+                    return $this->view('create_conc_on_order', $data);
+                return abort(404);
+                break;
+            case 'POST':
+                $all=$req->all();
+                $conclusion_fields=$req->input('conclusion');
+                $conclusion=new Conclusion();
+                $conclusion->auditor_id=auth()->user()->id;
+                foreach ($conclusion_fields??[] as $key => $value) {
+                    $conclusion->$key=$value;
+                }
+                $conclusion->save();
+                $CCI=Cust_comp_info::where('id', $req->id)->first();
+                $CCI->conclusion_id=$conclusion->id;
+                $CCI->save();
+                return redirect()->route('auditor.conclusions');
+                break;
+            default:
+                # code...
+                break;
+        }
     }
 }

@@ -98,8 +98,19 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			// view: auditor.list_conclusions;
 			Route::get("conclusions", "Audit_Controller@conclusions")->name("conclusions");
 
-			// experiment
-			Route::get('pdf/{id}', "Audit_Controller@pdf")->name("pdf");
+			// list orders of auditor
+			// view: auditor.list_orders;
+			Route::get("orders", "Audit_Controller@orders")->name("orders");
+
+			// view order
+			// view: auditor.view_order;
+			Route::get("view_order/{id}", "Audit_Controller@view_order")->name("view_order");
+			// write conclusion based on order
+			// view: create_conc_on_order
+			// POST: no view. 
+			// hint: {id} on get means order id, on post it means cust_comp_info id
+			Route::match(["GET", "POST"],"/create_conc_on_order/{id}", "Audit_Controller@create_conc_on_order")
+			->name('create_conc_on_order');
 		});
 	});
 	/*==========AAC routes=================*/
