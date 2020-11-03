@@ -74,6 +74,7 @@ class User extends Authenticatable
     public function hasRole($role){
         return in_array($this->group->name,$role, TRUE);
     }
+
     public static function specificFullname($user_id){
          $found=self::where(['id'=>$user_id])->first();
          if($found){

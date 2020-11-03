@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Use_Case;
 use App\Models\Template;
+use App\Models\Order;
 
 class Cust_comp_info extends Model
 {
@@ -19,5 +20,8 @@ class Cust_comp_info extends Model
     }
     public function template(){
     	return $this->belongsTo(Template::class);
+    }
+    public function order(){
+        return $this->belongsTo(Order::class);
     }
 }

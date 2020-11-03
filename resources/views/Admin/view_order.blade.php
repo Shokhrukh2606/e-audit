@@ -50,8 +50,16 @@ Details: <br>
 		</li>
 	@endforeach
 </ul>
-@if($order->cust_info->auditor_id??false)
-	<a href="#">View Conclusion</a>
-@else
-<a href="{{route('auditor.create_conc_on_order', $order->id)}}">Write Conclusion based on this order</a>
+@if($order->status=='open')
+	<form action="{{route('admin.assign_order', $order->id)}}" method="POST">
+		@csrf
+		<select name="auditor_id">
+			@foreach($auditors as $auditor)
+				<option value="{{$auditor->id}}">
+					{{$auditor->name}} {{$auditor->surname}}
+				</option>
+			@endforeach
+		</select>
+		<button>Assign</button>
+	</form>
 @endif

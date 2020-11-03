@@ -6,6 +6,7 @@
 		<th>Use cases</th>
 		<th>Date</th>
 		<th>More</th>
+		<th>Send</th>
 	</thead>
 	<tbody>
 		@foreach($conclusions as $conclusion)
@@ -19,7 +20,12 @@
 			@endforeach
 			</td>
 			<td>{{$conclusion->created_at}}</td>
-			<td><a href="{{route('auditor.pdf', $conclusion->id)}}">More</a></td>
+			<td>
+				<a href="{{route('auditor.conclusion', $conclusion->id)}}">More</a>
+			</td>
+			<td>
+				<a href="{{route('auditor.send', $conclusion->id)}}">Send</a>
+			</td>
 		</tr>
 		@endforeach
 	</tbody>
