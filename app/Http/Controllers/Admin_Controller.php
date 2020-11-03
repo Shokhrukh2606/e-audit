@@ -7,56 +7,62 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\Conclusion;
 use App\Models\Payment;
+use App\Models\User_group;
 
 class Admin_Controller extends Controller
 {
     function __construct()
     {
-    	$this->middleware('multi_auth:admin');
+        $this->middleware('multi_auth:admin');
     }
     private function view($file, $data = [])
     {
-        return view('Admin.'.$file, $data);
+        return view('Admin.' . $file, $data);
     }
-    public function list_orders(){
-    	$data['orders']=Order::where('status','!=','initiated')->get();
-    	return $this->view('list_orders', $data);
+    public function list_orders()
+    {
+        $data['orders'] = Order::where('status', '!=', 'initiated')->get();
+        return $this->view('list_orders', $data);
     }
-    public function order(Request $req){
-        $data['auditors']=User::where('group_id', 2)->get();
-        $data['order']=Order::where('id',$req->id)->first();
-        if($data['order'])
+    public function order(Request $req)
+    {
+        $data['auditors'] = User::where('group_id', 2)->get();
+        $data['order'] = Order::where('id', $req->id)->first();
+        if ($data['order'])
             return $this->view('view_order', $data);
         return abort(404);
     }
-    public function assign_order(Request $req){
-        $order=Order::where('id',$req->id)->first();
-        if(!$order)
+    public function assign_order(Request $req)
+    {
+        $order = Order::where('id', $req->id)->first();
+        if (!$order)
             abort(404);
-        $order->auditor_id=$req->input('auditor_id');
-        $order->status='checking';
+        $order->auditor_id = $req->input('auditor_id');
+        $order->status = 'checking';
         $order->save();
         return redirect()->route('admin.list_orders');
     }
-    public function conclusions(Request $req){
-        $data['conclusions']=Conclusion::all();
+    public function conclusions(Request $req)
+    {
+        $data['conclusions'] = Conclusion::all();
         return $this->view('list_conclusions', $data);
     }
-    public function add_funds(Request $req){
+    public function add_funds(Request $req)
+    {
         switch ($req->method()) {
             case 'GET':
-                $data['users']=User::where('group_id','!=','1')->get();
+                $data['users'] = User::where('group_id', '!=', '1')->get();
                 return $this->view('add_funds', $data);
                 break;
             case 'POST':
-                $fields=$req->all();
+                $fields = $req->all();
                 unset($fields['_token']);
-                $payment=new Payment;
+                $payment = new Payment;
                 foreach ($fields as $name => $value) {
-                    $payment->$name=$value;
+                    $payment->$name = $value;
                 }
                 $payment->save();
-                $user=User::where('id', $req->input('user_id'))->first();
+                $user = User::where('id', $req->input('user_id'))->first();
                 $user->add_funds($req->input('amount'));
                 $user->save();
                 return 0;
@@ -65,5 +71,21 @@ class Admin_Controller extends Controller
                 # code...
                 break;
         }
+    }
+    public function list_users(Request $request)
+    {
+        if (count($request->query())>0) {
+            $my_query=User::query();
+            foreach ($request->query() as $key=>$value)
+            {
+                $my_query->where($key,"=",$value);
+            }
+            $data['users'] = $my_query->get();
+            $data['groups'] = User_group::all();
+        } else {
+            $data['users'] = User::all();
+            $data['groups'] = User_group::all();
+        }
+        return $this->view('list_users', $data);
     }
 }
