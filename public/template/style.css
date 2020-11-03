@@ -1,0 +1,49 @@
+.container {
+  max-width: 1250px;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.authority {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.right {
+  text-align: right;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.blue {
+  color: #000078;
+}
+
+.center {
+  text-align: center;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.mb-5 {
+  margin-bottom: 5px;
+}
+
+.mt-0{
+  margin-top: 0;
+}

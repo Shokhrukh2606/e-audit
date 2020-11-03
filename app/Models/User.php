@@ -71,5 +71,4 @@ class User extends Authenticatable
     public function hasRole($role){
         return in_array($this->group->name,$role, TRUE);
     }
-
 }
