@@ -10,6 +10,9 @@ class Conclusion extends Model
 {
     protected $table="conclusions";
     use HasFactory;
+    public function user(){
+        $this->belongsTo('App\Models\User');
+    }
     public $timestamps=false;
     
     public function cust_info(){

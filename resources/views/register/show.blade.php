@@ -4,6 +4,15 @@
     }
 
 </style>
+@if ($errors->any())
+  <div class="alert alert-danger">
+     <ul>
+        @foreach ($errors->all() as $error)
+           <li>{{ $error }}</li>
+        @endforeach
+     </ul>
+  </div>
+@endif
 <a href="#" class="navigator" data-id="user">{{ __('auth.user') }}</a>
 <a href="#" class="navigator" data-id="agent">{{ __('auth.agent') }}</a>
 <div class="user d-none" id="user">

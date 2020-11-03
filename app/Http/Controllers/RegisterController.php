@@ -14,6 +14,9 @@ class RegisterController extends Controller
     	return view("register.show");
     }
     public function reg_cust(Request $req){
+		$req->validate([
+			'phone' => 'required|unique:users'
+		]);
     	$fields=$req->all();
     	unset($fields['_token']);
     	$customer=new User();
@@ -27,7 +30,10 @@ class RegisterController extends Controller
     	$customer->save();
     }
     public function reg_agent(Request $req){
-    	$fields=$req->all();
+		$req->validate([
+			'phone' => 'required|unique:users'
+		]);
+		$fields=$req->all();
     	unset($fields['_token']);
     	$agent=new User();
     	foreach ($fields as $name => $value) {
