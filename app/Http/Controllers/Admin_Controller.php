@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Conclusion;
 use App\Models\Payment;
 use App\Models\User_group;
+use Illuminate\Support\Facades\Hash;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Admin_Controller extends Controller
 {
@@ -65,7 +67,7 @@ class Admin_Controller extends Controller
                 $user = User::where('id', $req->input('user_id'))->first();
                 $user->add_funds($req->input('amount'));
                 $user->save();
-                return 0;
+                return redirect()->back()->with("success", "Successfully added");
                 break;
             default:
                 # code...
@@ -74,18 +76,62 @@ class Admin_Controller extends Controller
     }
     public function list_users(Request $request)
     {
-        if (count($request->query())>0) {
-            $my_query=User::query();
-            foreach ($request->query() as $key=>$value)
-            {
-                $my_query->where($key,"=",$value);
-            }
-            $data['users'] = $my_query->get();
-            $data['groups'] = User_group::all();
-        } else {
-            $data['users'] = User::all();
-            $data['groups'] = User_group::all();
+
+        $query = QueryBuilder::for(User::class)
+            ->allowedFilters(['inn', 'group_id', 'phone', 'name']);
+        if ($came = $request->input("filter.name")) {
+            $query->where('name', 'like', "%${came}%")->orWhere('surname', 'like', "%${came}%")->orWhere('patronymic', 'like', "%${came}%");
         }
+        $data['users'] = $query->get();
+        $data['groups'] = User_group::all();
         return $this->view('list_users', $data);
+    }
+    public function create_user(Request $req)
+    {
+        switch ($req->method()) {
+            case 'GET':
+                $data['groups'] = User_group::whereIn('id', [1, 2])->get();
+                return $this->view('create_user', $data);
+                break;
+            case 'POST':
+                $fields = $req->input("user");
+                unset($fields['_token']);
+                $user = new User;
+                foreach ($fields as $name => $value) {
+                    $user->$name = $value;
+                }
+                $user->password = Hash::make($req->input('user.password'));
+                $user->save();
+                return redirect()->back()->with("success", "Successfully added");
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+    public function view_user(Request $req)
+    {
+        switch ($req->method()) {
+            case 'GET':
+                $data['user'] = User::where(['id' => $req->id])->first();
+                $data['groups'] = User_group::whereIn('id', [1, 2])->get();
+                if ($data['user'])
+                    return $this->view('view_user', $data);
+                return abort(404);
+                break;
+            case 'POST':
+                $fields = $req->input("user");
+                $user = User::where(['id'=>$req->id])->first();
+                unset($fields['password']);
+                foreach ($fields as $name => $value) {
+                    $user->$name = $value;
+                }
+                $user->save();
+                return redirect()->back()->with("success", "Successfully updated");
+                break;
+            default:
+                # code...
+                break;
+        }
     }
 }

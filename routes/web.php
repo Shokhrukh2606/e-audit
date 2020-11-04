@@ -141,8 +141,9 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			// list users with filter
 			// view: admin.conclusions
 			Route::get("list_users", "Admin_Controller@list_users")->name("users");
-			Route::get("user_view", "Admin_Controller@user_view")->name("user_view");
-			Route::get("user_create", "Admin_Controller@user_create")->name("user_create");
+			Route::match(["GET", "POST"],"/view_user/{id}", "Admin_Controller@view_user")->name("view_user");
+			Route::match(["GET", "POST"],"/create_user", "Admin_Controller@create_user")
+			->name('create_user');
 			// add funds to user
 			// view: admin.add_funds
 			Route::match(["GET", "POST"],"/add_funds", "Admin_Controller@add_funds")
