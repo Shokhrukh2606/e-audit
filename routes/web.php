@@ -108,8 +108,12 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			Route::get("conclusion/{id}", "Customer_Controller@conclusion")->name("conclusion");
 
 			// create invoice
+			// view: redirects to payment
+			Route::get("create_invoice/{conclusion_id}", "Customer_Controller@create_invoice")->name("create_invoice");
+
+			// pay
 			// view: pay_for_order
-			Route::get("pay/{id}", "Customer_Controller@pay")->name("pay");
+			Route::get("pay/{invoice_id}", "Customer_Controller@pay")->name("pay");
 
 		});
 	});

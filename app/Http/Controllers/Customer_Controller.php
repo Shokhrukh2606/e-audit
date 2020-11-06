@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Cust_comp_info;
 use App\Models\Ciucm;
 use App\Models\Conclusion;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 
@@ -168,8 +169,25 @@ class Customer_Controller extends Controller
         }
         abort(404);
     }
+    public function create_invoice(Request $req){
+        $conclusion=Conclusion::where('id', $req->conclusion_id)->first();
+        if($conclusion??false){
+            $service=$conclusion->cust_info->template->service;
+            $invoice=new Invoice();
+            $invoice->conclusion_id=$conclusion->id;
+            $invoice->user_id=auth()->user()->id;
+            $invoice->service_id=$service->id;
+            $invoice->save();
+            return redirect()->route('pay', $invoice->id);
+        }else{
+           abort(404);
+        }
+    }
     public function pay(Request $req){
-        return $this->view('pay_for_order');
+        $data['invoice']=Invoice::where('id', $req->invoice_id)->first();
+        if($data['invoice'])
+            return $this->view('pay_for_order',$data);
+        return abort(404);
     }
 }
 

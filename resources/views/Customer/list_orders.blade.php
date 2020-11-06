@@ -7,6 +7,7 @@
 		<th>Date</th>
 		<th>View</th>
 		<th>View Conclusion</th>
+		<th>Accept</th>
 		<th>Pay</th>
 	</thead>
 	<tbody>
@@ -35,11 +36,24 @@
 			</td>
 			<td>
 				@if($order->cust_info->conclusion->id??false)
-				<a href="{{route('customer.pay', $order->cust_info->conclusion->id)}}">
-					Accept and pay
+					@if($order->cust_info->conclusion->invoice??false)
+						Already accepted
+					@else
+					<a href="{{route('customer.create_invoice', $order->cust_info->conclusion->id)}}">
+						Accept
+					</a>
+					@endif
+				@else
+				No conclusion written yet
+				@endif
+			</td>
+			<td>
+				@if($order->cust_info->conclusion->invoice??false)
+				<a href="{{route('customer.pay', $order->cust_info->conclusion->invoice->id)}}">
+					pay
 				</a>
 				@else
-					No conclusion written yet
+				Not accepted by you yet
 				@endif
 			</td>
 		</tr>
