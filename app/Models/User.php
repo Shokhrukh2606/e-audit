@@ -46,7 +46,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    
+
 
     /**
      * The accessors to append to the model's array form.
@@ -55,32 +55,42 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
-        'oldFunds'
+        'oldFunds',
+        'fullname'
     ];
 
-    public function group(){
+    public function group()
+    {
         return $this->belongsTo('App\Models\User_group');
     }
-    public function oldFunds(){
+    public function oldFunds()
+    {
         return $this->hasMany('App\Models\Payment', 'user_id');
     }
-    public function agent_conclusions(){
+    public function agent_conclusions()
+    {
         return $this->hasMany('App\Models\Conclusion', 'agent_id');
     }
-    public function add_funds($amount){
-        $this->funds+=$amount;
+    public function add_funds($amount)
+    {
+        $this->funds += $amount;
         $this->save();
     }
-    public function hasRole($role){
-        return in_array($this->group->name,$role, TRUE);
+    public function hasRole($role)
+    {
+        return in_array($this->group->name, $role, TRUE);
     }
-
-    public static function specificFullname($user_id){
-         $found=self::where(['id'=>$user_id])->first();
-         if($found){
-             return "$found->surname $found->name $found->patronymic";
-         }else{
-             return 'Not found';
-         }
+    public function getFullnameAttribute()
+    {
+        return "{$this->surname} {$this->name} {$this->patronymic}";
+    }
+    public static function specificFullname($user_id)
+    {
+        $found = self::where(['id' => $user_id])->first();
+        if ($found) {
+            return "$found->surname $found->name $found->patronymic";
+        } else {
+            return 'Not found';
+        }
     }
 }
