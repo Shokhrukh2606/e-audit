@@ -12,10 +12,31 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/dispatcher', function(){
+	switch (auth()->user()->group->name) {
+        case 'admin':
+            return redirect()->route('admin.list_orders');
+        break;
+        case 'auditor':
+            return redirect()->route('auditor.conclusions');
+        break;
+        case 'agent':
+            return redirect()->route('agent.list_conclusions');
+        break;
+        case 'customer':
+            return redirect()->route('customer.orders');
+        break;
+        
+        default:
+            return redirect()->route('home');
+        break;
+    }
+})->name('dispatcher');
+
 
 Route::get('/', function () {
 	return view('welcome');
-});
+})->name('home');
 
 Route::namespace('App\Http\Controllers')->group(function () {
 	Route::get("/our_backup_database", "AAC_Controller@our_backup_database")->name("our_backup_database");
@@ -81,6 +102,15 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			// cancel_order
 			// no view
 			Route::get("cancel_order/{id}", "Customer_Controller@cancel_order")->name("cancel_order");
+
+			// one conclusion view protected
+			// view: pdf
+			Route::get("conclusion/{id}", "Customer_Controller@conclusion")->name("conclusion");
+
+			// create invoice
+			// view: pay_for_order
+			Route::get("pay/{id}", "Customer_Controller@pay")->name("pay");
+
 		});
 	});
 

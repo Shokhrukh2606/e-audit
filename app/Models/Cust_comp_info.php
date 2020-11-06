@@ -24,4 +24,7 @@ class Cust_comp_info extends Model
     public function order(){
         return $this->belongsTo(Order::class);
     }
+    public function conclusion(){
+        return $this->belongsTo(Conclusion::class);
+    }
 }

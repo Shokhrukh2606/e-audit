@@ -5,7 +5,7 @@
 		<th>Template Standart Number</th>
 		<th>Use cases</th>
 		<th>Date</th>
-		<th>More</th>
+		<th>View</th>
 		<th>Send</th>
 	</thead>
 	<tbody>
@@ -21,7 +21,7 @@
 			</td>
 			<td>{{$conclusion->created_at}}</td>
 			<td>
-				<a href="{{route('auditor.conclusion', $conclusion->id)}}">More</a>
+				<a href="{{route('auditor.conclusion', $conclusion->id)}}">View</a>
 			</td>
 			<td>
 				<a href="{{route('auditor.send', $conclusion->id)}}">Send</a>
@@ -30,3 +30,4 @@
 		@endforeach
 	</tbody>
 </table>
+<a href="{{route('auditor.create_conclusion')}}">Create New</a>

@@ -28,6 +28,7 @@ class RegisterController extends Controller
     	$customer->group_id=4;
         $customer->password=Hash::make($req->input('password'));
     	$customer->save();
+        return redirect()->route('dispatcher');
     }
     public function reg_agent(Request $req){
 		$req->validate([
@@ -45,5 +46,6 @@ class RegisterController extends Controller
         $agent->password=Hash::make($req->input('password'));
     	$agent->passport_copy=$req->file('passport_copy')->store('agents');
     	$agent->save();
+        return redirect()->route('dispatcher');
     }
 }
