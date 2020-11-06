@@ -8,8 +8,9 @@ use App\Models\Use_Case;
 use App\Models\Order;
 use App\Models\Cust_comp_info;
 use App\Models\Ciucm;
+use App\Models\Conclusion;
 use Illuminate\Support\Facades\Storage;
-
+use PDF;
 
 
 class Customer_Controller extends Controller
@@ -156,6 +157,19 @@ class Customer_Controller extends Controller
             return redirect()->route('customer.orders');
         }
         return abort(404);
+    }
+    public function conclusion(Request $req){
+        $data['conclusion']=Conclusion::where('id', $req->id)->first();
+        if($data['conclusion']){
+            $template=$data['conclusion']->cust_info->template->standart_num;
+            $lang=$data['conclusion']->cust_info->lang;
+            $pdf = PDF::loadView("templates.$template.$lang", $data);
+            return $pdf->stream('invoice.pdf');
+        }
+        abort(404);
+    }
+    public function pay(Request $req){
+        return $this->view('pay_for_order');
     }
 }
 
