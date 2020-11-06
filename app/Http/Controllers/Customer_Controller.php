@@ -172,6 +172,8 @@ class Customer_Controller extends Controller
     public function create_invoice(Request $req){
         $conclusion=Conclusion::where('id', $req->conclusion_id)->first();
         if($conclusion??false){
+            if($conclusion->invoice)
+                return redirect()->route('customer.orders');
             $service=$conclusion->cust_info->template->service;
             $invoice=new Invoice();
             $invoice->conclusion_id=$conclusion->id;
