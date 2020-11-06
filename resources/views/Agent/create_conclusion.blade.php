@@ -1,112 +1,112 @@
 <form action="{{route('agent.create_conclusion')}}" method="POST" enctype="multipart/form-data">
 	@csrf
-	<input type="hidden" name="cust_info[template_id]" value="{{$template_id}}">
+	<input class="form-control" type="hidden" name="cust_info[template_id]" value="{{$template_id}}">
 	@foreach($use_cases as $use_case=>$value)
 		<input type="hidden" name="ciucm[{{$use_case}}]" value="{{$use_case}}">
 	@endforeach
 
 	<div>
 		<label>Language</label>
-		<select name="cust_info[lang]">
+		<select class="form-control" name="cust_info[lang]">
 			<option value="uz">Uzbek</option>
 			<option value="ru">Russian</option>
 		</select>
 	</div>
 	<div>
 		<label>Audit Company Name</label>
-		<input type="text" name="conclusion[audit_comp_name]">
+		<input class="form-control" type="text" name="conclusion[audit_comp_name]">
 	</div>
 	<div>
 		<label>Audit Company Government Registration Number</label>
-		<input type="text" name="conclusion[audit_comp_gov_reg_num]">
+		<input class="form-control" type="text" name="conclusion[audit_comp_gov_reg_num]">
 	</div>
 	<div>
 		<label>Audit Company Government Registration Date</label>
-		<input type="date" name="conclusion[audit_comp_gov_reg_date]">
+		<input class="form-control" type="date" name="conclusion[audit_comp_gov_reg_date]">
 	</div>
 	<div>
 		<label>Audit Company INN</label>
-		<input type="text" maxlength="9" name="conclusion[audit_comp_inn]">
+		<input class="form-control" type="text" maxlength="9" name="conclusion[audit_comp_inn]">
 	</div>
 	<div>
 		<label>Audit Company Government OKED</label>
-		<input type="text" maxlength="5" name="conclusion[audit_comp_oked]">
+		<input class="form-control" type="text" maxlength="5" name="conclusion[audit_comp_oked]">
 	</div>
 	<div>
 		<label>Audit Company Licence Number</label>
-		<input type="text" name="conclusion[audit_comp_lic]">
+		<input class="form-control" type="text" name="conclusion[audit_comp_lic]">
 	</div>
 	<div>
 		<label>Audit Company Licence Date</label>
-		<input type="date" name="conclusion[audit_comp_lic_date]">
+		<input class="form-control" type="date" name="conclusion[audit_comp_lic_date]">
 	</div>
 	<div>
 		<label>Audit Company Bank Name</label>
-		<input type="text" name="conclusion[audit_comp_bank_name]">
+		<input class="form-control" type="text" name="conclusion[audit_comp_bank_name]">
 	</div>
 	<div>
 		<label>Audit Company Bank Account</label>
-		<input type="text" maxlength="20" name="conclusion[audit_comp_bank_acc]">
+		<input class="form-control" type="text" maxlength="20" name="conclusion[audit_comp_bank_acc]">
 	</div>
 	<div>
 		<label>Audit Company Bank MFO</label>
-		<input type="text" maxlength="5" name="conclusion[audit_comp_bank_mfo]">
+		<input class="form-control" type="text" maxlength="5" name="conclusion[audit_comp_bank_mfo]">
 	</div>
 	<div>
 		<label>Audit Company Director Name</label>
-		<input type="text" name="conclusion[audit_comp_director_name]">
+		<input class="form-control" type="text" name="conclusion[audit_comp_director_name]">
 	</div>
 	<div>
 		<label>Audit Company Director Certificate Number</label>
-		<input type="text" name="conclusion[audit_comp_director_cert_num]">
+		<input class="form-control" type="text" name="conclusion[audit_comp_director_cert_num]">
 	</div>
 	<div>
 		<label>Audit Company Director Cert Date</label>
-		<input type="date" name="conclusion[audit_comp_director_cert_date]">
+		<input class="form-control" type="date" name="conclusion[audit_comp_director_cert_date]">
 	</div>
 	<div>
 		<label>Conclusion Base</label>
-		<input type="text" name="conclusion[conclusion_base]">
+		<input class="form-control" type="text" name="conclusion[conclusion_base]">
 	</div>
 	<div>
 		<label>Customer Company Government Registration Number</label>
-		<input type="text" name="cust_info[cust_comp_gov_reg_num]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]">
 	</div>
 	<div>
 		<label>Customer Company Government Registration Date</label>
-		<input type="date" name="cust_info[cust_comp_gov_reg_date]">
+		<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]">
 	</div>
 	<div>
 		<label>Customer Company Address</label>
-		<input type="text" name="cust_info[cust_comp_address]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_address]">
 	</div>
 	<div>
 		<label>Customer Company Bank Name</label>
-		<input type="text" name="cust_info[cust_comp_bank_name]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]">
 	</div>
 	<div>
 		<label>Customer Company Bank Account</label>
-		<input type="text" name="cust_info[cust_comp_bank_acc]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]">
 	</div>
 	<div>
 		<label>Customer Company Bank MFO</label>
-		<input type="text" name="cust_info[cust_comp_bank_mfo]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]">
 	</div>
 	<div>
 		<label>Customer Company INN</label>
-		<input type="text" name="cust_info[cust_comp_inn]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_inn]">
 	</div>
 	<div>
 		<label>Customer Company OKED</label>
-		<input type="text" name="cust_info[cust_comp_oked]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_oked]">
 	</div>
 	<div>
 		<label>Customer Company Director Name</label>
-		<input type="text" name="cust_info[cust_comp_director_name]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_director_name]">
 	</div>
 	<div>
 		<label>Customer Company Activity</label>
-		<input type="text" name="cust_info[cust_comp_activity]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_activity]">
 	</div>
 	<div>
 		@php
@@ -133,5 +133,5 @@
 			@endforeach
 		<?=$dom->saveHTML()?>
 	</div>
-	<button type="submit">Submit</button>
+	<button class="btn btn-success" type="submit">Submit</button>
 </form>

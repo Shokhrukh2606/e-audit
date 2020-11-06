@@ -42,9 +42,9 @@ font-weight: 600;
         </div>
         <ul class="nav mynav">
           <li>
-            <a href="{{route("agent.list_conclusions")}}">
-              <i class="tim-icons icon-puzzle-10"></i>
-              <p>Заключении</p>
+            <a href="{{route("customer.orders")}}">
+              <i class="tim-icons icon-pin"></i>
+              <p>Заказы</p>
             </a>
           </li>
           <li>
@@ -68,7 +68,7 @@ font-weight: 600;
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Панель администратора</a>
+            <a class="navbar-brand" href="javascript:void(0)">Панель клиента</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>

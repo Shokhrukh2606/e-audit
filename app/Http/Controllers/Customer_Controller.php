@@ -21,7 +21,9 @@ class Customer_Controller extends Controller
     	$this->middleware('multi_auth:customer');
     }
     private function view($file, $data=[]){
-    	return view('Customer.'.$file, $data);
+        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['body']='Customer.'.$file;
+        return view('customer_index', $data);
     } 
    	public function select_temp(){
    		$data['templates']=Template::all();

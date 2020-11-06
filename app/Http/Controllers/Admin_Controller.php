@@ -19,7 +19,9 @@ class Admin_Controller extends Controller
     }
     private function view($file, $data = [])
     {
-        return view('Admin.' . $file, $data);
+        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['body']='Admin.'.$file;
+        return view('admin_index', $data);
     }
     public function list_orders()
     {

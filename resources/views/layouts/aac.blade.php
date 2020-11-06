@@ -33,42 +33,30 @@ font-weight: 600;
       <div class="sidebar-wrapper">
         <div class="logo">
           <a href="javascript:void(0)" class="simple-text logo-mini">
-            GI
+            HA
           </a>
           <a href="javascript:void(0)" class="simple-text logo-normal">
-            GROSS INSURANCE
+            «HIMOYA-AUDIT» МЧЖ
           </a>
           
         </div>
         <ul class="nav mynav">
           <li >
-            <a href="{{route('monitoring')}}">
-              <i class="tim-icons icon-chart-pie-36"></i>
-              <p>Мониторинг</p>
+          <a href="{{route("admin.list_users")}}">
+              <i class="tim-icons icon-single-02"></i>
+              <p>Пользователи</p>
             </a>
           </li>
           <li>
-            <a href="{{route('depository')}}">
-              <i class="tim-icons icon-bank"></i>
-              <p>Депозитарий</p>
+            <a href="{{route("admin.list_orders")}}">
+              <i class="tim-icons icon-pin"></i>
+              <p>Заказы</p>
             </a>
           </li>
           <li>
-            <a href="{{route('auctions')}}">
-              <i class="tim-icons icon-cart"></i>
-              <p>Аукционы</p>
-            </a>
-          </li>
-          <li>
-            <a href="{{route('emit.clearing')}}">
-              <i class="tim-icons icon-money-coins"></i>
-              <p>Клиринг</p>
-            </a>
-          </li>
-          <li>
-            <a href="{{route('bank')}}">
-              <i class="tim-icons icon-coins"></i>
-              <p>Банк</p>
+            <a href="{{route("admin.conclusions")}}">
+              <i class="tim-icons icon-puzzle-10"></i>
+              <p>Заключении</p>
             </a>
           </li>
         </ul>
@@ -86,7 +74,7 @@ font-weight: 600;
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">ПАНЕЛЬ ЭМИТЕНТА</a>
+            <a class="navbar-brand" href="javascript:void(0)">Панель администратора</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -138,7 +126,7 @@ font-weight: 600;
           <ul class="nav">
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link">
-                РЫНОК ОБЛИГАЦИЙ "GROSS INSURANCE"
+                «HIMOYA-AUDIT» МЧЖ
               </a>
             </li>
   

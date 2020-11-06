@@ -12,25 +12,26 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/dispatcher', function(){
+
+Route::get('/dispatcher', function () {
 	switch (auth()->user()->group->name) {
-        case 'admin':
-            return redirect()->route('admin.list_orders');
-        break;
-        case 'auditor':
-            return redirect()->route('auditor.conclusions');
-        break;
-        case 'agent':
-            return redirect()->route('agent.list_conclusions');
-        break;
-        case 'customer':
-            return redirect()->route('customer.orders');
-        break;
-        
-        default:
-            return redirect()->route('home');
-        break;
-    }
+		case 'admin':
+			return redirect()->route('admin.list_orders');
+			break;
+		case 'auditor':
+			return redirect()->route('auditor.conclusions');
+			break;
+		case 'agent':
+			return redirect()->route('agent.list_conclusions');
+			break;
+		case 'customer':
+			return redirect()->route('customer.orders');
+			break;
+
+		default:
+			return redirect()->route('home');
+			break;
+	}
 })->name('dispatcher');
 
 
@@ -110,7 +111,6 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			// create invoice
 			// view: pay_for_order
 			Route::get("pay/{id}", "Customer_Controller@pay")->name("pay");
-
 		});
 	});
 
@@ -149,13 +149,13 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			// view: create_conc_on_order
 			// POST: no view. 
 			// hint: {id} on get means order id, on post it means cust_comp_info id
-			Route::match(["GET", "POST"],"/create_conc_on_order/{id}", "Audit_Controller@create_conc_on_order")
-			->name('create_conc_on_order');
+			Route::match(["GET", "POST"], "/create_conc_on_order/{id}", "Audit_Controller@create_conc_on_order")
+				->name('create_conc_on_order');
 		});
 	});
 	/*===============Admin routes==================*/
-	Route::prefix('admin')->group(function(){
-		Route::name('admin.')->group(function(){
+	Route::prefix('admin')->group(function () {
+		Route::name('admin.')->group(function () {
 			// all order
 			// view: admin.list_orders
 			Route::get("orders", "Admin_Controller@list_orders")->name("list_orders");
@@ -170,36 +170,29 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			Route::get("conclusions", "Admin_Controller@conclusions")->name("conclusions");
 			// list users with filter
 			// view: admin.conclusions
-			Route::get("list_users", "Admin_Controller@list_users")->name("users");
-			Route::match(["GET", "POST"],"/view_user/{id}", "Admin_Controller@view_user")->name("view_user");
-			Route::match(["GET", "POST"],"/create_user", "Admin_Controller@create_user")
-			->name('create_user');
+			Route::get("list_users", "Admin_Controller@list_users")->name("list_users");
+			Route::match(["GET", "POST"], "/view_user/{id}", "Admin_Controller@view_user")->name("view_user");
+			Route::match(["GET", "POST"], "/create_user", "Admin_Controller@create_user")
+				->name('create_user');
 			// add funds to user
 			// view: admin.add_funds
-			Route::match(["GET", "POST"],"/add_funds", "Admin_Controller@add_funds")
-			->name('add_funds');
+			Route::match(["GET", "POST"], "/add_funds", "Admin_Controller@add_funds")
+				->name('add_funds');
 		});
 	});
 	/*==========AAC routes=================*/
 	Route::prefix('aac')->group(function () {
-		// route to create payment
-		// view:post no view
-		Route::get('checkfunds', 'AAC_Controller@checkfunds')->name('checkfunds');
-		Route::match(["GET", "POST"], "/add_funds", "AAC_Controller@add_funds")
-			->name('add_funds');
-	});
+		Route::name('aac.')->group(function () {
 
+			// route to create payment
+			// view:post no view
+			Route::get('checkfunds', 'AAC_Controller@checkfunds')->name('checkfunds');
+			Route::match(["GET", "POST"], "/add_funds", "AAC_Controller@add_funds")
+				->name('add_funds');
+		});
+	});
 	/**===========File Class ======================**/
 	// open file retriever
 	// pass path in a query like route('file')."?path=".$path;
 	Route::get('file', "FileController@open")->name('file');
 });
-
-
-
-
-
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-	return view('dashboard');
-})->name('dashboard');
