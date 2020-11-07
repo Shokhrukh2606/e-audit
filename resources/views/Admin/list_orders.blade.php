@@ -6,12 +6,12 @@
         <table class="table tablesorter">
             <thead>
                 <th>ID</th>
-                <th>Customer</th>
-                <th>Auditor</th>
-                <th>Standart Number</th>
-                <th>Status</th>
-                <th>Created</th>
-                <th>View</th>
+                <th>{{__('front.customer')}}</th>
+                <th>{{__('front.auditor')}}</th>
+                <th>{{__('front.template_num')}}</th>
+                <th>{{__('front.status')}}</th>
+                <th>{{__('front.created_at')}}</th>
+                <th>{{__('custom.show')}}</th>
             </thead>
             <tbody>
                 @foreach ($orders as $order)
@@ -20,9 +20,9 @@
                         <td>{{ $order->customer->name }}</td>
                         <td>{{ $order->auditor->name ?? 'No one yet' }}</td>
                         <td>{{ $order->cust_info->template->standart_num }}</td>
-                        <td>{{ $order->status }}</td>
+                        <td>{{__('front.'.$order->status)}}</td>
                         <td>{{ $order->created_at }}</td>
-                        <td><a href="{{ route('admin.order', $order->id) }}">View</a></td>
+                        <td><a href="{{ route('admin.order', $order->id) }}">{{__('custom.show')}}</a></td>
                     </tr>
                 @endforeach
             </tbody>

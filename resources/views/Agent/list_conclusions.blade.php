@@ -1,18 +1,18 @@
-<h2>{{"You have ".Auth::user()->agent_conclusions->count()." conclusions" }}</h2>
+<h2>{{"У вас есть ".Auth::user()->agent_conclusions->count()." заключены" }}</h2>
 <div class="card">
 	<div class="card-header">
       <h1 class="card-title">Заключении</h1>
-    <a class="btn btn-sm btn-success" href="{{route('agent.create_conclusion')}}">Create conclusion</a>
+    <a class="btn btn-sm btn-success" href="{{route('agent.create_conclusion')}}">{{__('custom.create')}}</a>
 	</div>
 	<div class="card-body">
         <table class="table tablesorter">
             <tr>
-                <th>Template Standart Number</th>
-                <th>Use cases</th>
-                <th>Full name</th>
-                <th>Audit company name</th>
-                <th>Audit company`s director name</th>
-                <th>Audit company INN</th>
+				<th>{{__('front.template_num')}}</th>
+                <th>{{__('front.use_cases')}}</th>
+                <th>{{__('front.fio')}}</th>
+                <th>{{__('front.aduit_comp_name')}}</th>
+                <th>{{__('front.audit_comp_direc_name')}}</th>
+                <th>{{__('front.audit_comp_inn')}}</th>
             </tr>
             @foreach ($conclusions as $item)
                 <tr>
@@ -35,11 +35,11 @@
         <table class="table tablesorter">
 			<thead>
 				<th>ID</th>
-				<th>Customer</th>
-				<th>Auditor</th>
-				<th>Agent</th>
-				<th>Standard Number</th>
-				<th>View</th>
+				<th>{{__('front.customer')}}</th>
+				<th>{{__('front.auditor')}}</th>
+				<th>{{__('front.agent')}}</th>
+				<th>{{__('front.template_num')}}</th>
+				<th>{{__('front.actions')}}</th>
 			</thead>
 			<tbody>
 				<tr>

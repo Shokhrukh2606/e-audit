@@ -19,7 +19,9 @@ class Audit_Controller extends Controller
     	$this->middleware('multi_auth:auditor');
     }
     private function view($file, $data=[]){
-    	return view('Auditor.'.$file, $data);
+        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['body']='Auditor.'.$file;
+        return view('auditor_index', $data);
     } 
     public function select_temp(){
         $data['templates']=Template::all();

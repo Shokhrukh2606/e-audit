@@ -1,46 +1,46 @@
 <form action="{{route('admin.view_user', ['id'=>$user->id])}}" method="POST">
     @csrf
 
-    <label>First Name</label>
+    <label>{{__('front.username')}}</label>
     <input class="form-control" type="text" name="user[name]" value="{{$user->name}}"><br>
 
-    <label>Surname</label>
+    <label>{{__('front.last_name')}}</label>
     <input class="form-control" type="text" name="user[surname]" value="{{$user->surname}}"><br>
 
-    <label>Patronymic</label>
+    <label>{{__('front.middle_name')}}</label>
     <input class="form-control" type="text" name="user[patronymic]" value="{{$user->patronymic}}"><br>
 
-    <label>Phone</label>
+    <label>{{__('front.phone')}}</label>
     <input class="form-control" type="text" name="user[phone]" value="{{$user->phone}}"><br>
 
-    <label>Passport Serial Number</label>
+    <label>{{__('front.p_ser')}}</label>
     <input class="form-control" type="text" name="user[passport_number]" value="{{$user->passport_number}}"><br>
 
-    <label>Certificate number</label>
+    <label>{{__('front.cer_number')}}</label>
     <input class="form-control" type="text" name="user[cert_number]" value="{{$user->cert_number}}"><br>
 
-    <label>Certificate date</label>
+    <label>{{__('front.cer_date')}}</label>
     <input class="form-control" type="date" name="user[cert_date]" value="{{$user->cert_date}}"><br>
 
-    <label>Region</label>
+    <label>{{__('front.region')}}</label>
     <input class="form-control" type="text" name="user[region]" value="{{$user->region}}"><br>
 
-    <label>District</label>
+    <label>{{__('front.district')}}</label>
     <input class="form-control" type="text" name="user[district]" value="{{$user->district}}"><br>
 
-    <label>Address</label>
+    <label>{{__('front.address_permanent')}}</label>
     <input class="form-control" type="text" name="user[address]" value="{{$user->address}}"><br>
 
-    <label>Password</label>
+    <label>{{__('front.password')}}</label>
     <input class="form-control" type="text" name="user[password]"><br>
 
-    <label>Role</label>
+    <label>{{__('front.role')}}</label>
     <select class="form-control" name="user[group_id]" }}>
-        <option value="">Role</option>
+        <option value="">{{__('front.role')}}</option>
         @foreach ($groups as $item)
         <option value="{{ $item->id }}" {{$user->group_id == $item->id ? 'selected' : '' }}>
             {{ $item->name }}</option>
         @endforeach
     </select><br>
-    <button class="btn btn-sm btn-success" type="submit">Save</button>
+    <button class="btn btn-sm btn-success" type="submit">{{__('front.save')}}</button>
 </form>

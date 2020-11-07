@@ -6,14 +6,14 @@
 	@endforeach
 
 	<div>
-		<label>Language</label>
+		<label>{{__('front.language')}}</label>
 		<select class="form-control" name="cust_info[lang]">
 			<option value="uz">Uzbek</option>
 			<option value="ru">Russian</option>
 		</select>
 	</div>
 	<div>
-		<label>Audit Company Name</label>
+		<label>{{__('front.audit_comp_name')}}</label>
 		<input class="form-control" type="text" name="conclusion[audit_comp_name]">
 	</div>
 	<div>
