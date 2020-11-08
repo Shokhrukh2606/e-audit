@@ -19,7 +19,7 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
     @endforeach
 </ul>
 {{-- Customer info --}}
-<h3>Customer info</h3>
+<h3>{{__('front.custom_comp_info')}}</h3>
 <ul>
     @foreach ($order->cust_info->getAttributes() as $key => $value)
         @continue(in_array($key, $not_iterated, TRUE))
