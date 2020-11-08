@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Intergration with click payment system
+Route::prefix('click')->group(function(){
+		// prepare api endpoint for click
+	Route::post('prepare', "Click@prepare");
+		// complete api endpoint for click		
+	Route::post('complete', "Click@complete");
 });
+
+?>
