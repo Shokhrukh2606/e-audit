@@ -1,5 +1,5 @@
 <h2>{{Auth::user()->funds}}</h2>
-<a href="{{route('aac.add_funds')}}">{{__('front.add_funds')}}</a>
+<a class="btn btn-sm btn-success" href="{{route('aac.add_funds')}}">{{__('front.add_funds')}}</a>
 <table style="width:100%">
     <tr>
     <th>{{__('front.amount')}}</th>

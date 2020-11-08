@@ -58,7 +58,21 @@ class User extends Authenticatable
         'oldFunds',
         'fullname'
     ];
+    public static function booted()
+    {
+        parent::boot();
 
+        self::created(function($model){
+            $model->full_name="{$model->surname} {$model->name} {$model->patronymic}";
+            $model->save();
+        });
+
+        self::updated(function($model){
+            $model->full_name="{$model->surname} {$model->name} {$model->patronymic}";
+            $model->save();
+        });
+
+    }
     public function group()
     {
         return $this->belongsTo('App\Models\User_group');

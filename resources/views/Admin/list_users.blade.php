@@ -2,7 +2,7 @@
     &nbsp;
     <div class="col">
         <label>{{__('front.fio')}}</label>
-        <input class="form-control" type="text" value="{{ request()->input('filter.name') }}" name="filter[name]">
+        <input class="form-control" type="text" value="{{ request()->input('filter.full_name') }}" name="filter[full_name]">
     </div>
     <div class="col">
         <label>{{__('front.role')}}</label>

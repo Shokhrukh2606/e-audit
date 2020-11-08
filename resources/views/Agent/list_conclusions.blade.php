@@ -6,33 +6,6 @@
 	</div>
 	<div class="card-body">
         <table class="table tablesorter">
-            <tr>
-				<th>{{__('front.template_num')}}</th>
-                <th>{{__('front.use_cases')}}</th>
-                <th>{{__('front.fio')}}</th>
-                <th>{{__('front.aduit_comp_name')}}</th>
-                <th>{{__('front.audit_comp_direc_name')}}</th>
-                <th>{{__('front.audit_comp_inn')}}</th>
-            </tr>
-            @foreach ($conclusions as $item)
-                <tr>
-                    <td>{{$item->cust_info->template->standart_num}}</td>
-                    <td>
-                        {{-- many to many retrieval --}}
-                        @foreach($item->cust_info->use_cases as $uc)
-                          <span>{{json_decode($uc->title)->ru}}</span> | 
-                        @endforeach
-                        </td>
-                    <td>{{ getUserName($item->agent_id) }}</td>
-                    <td>{{ $item->audit_comp_name }}</td>
-                    <td>{{ $item->audit_comp_director_name }}</td>
-                    <td>{{ $item->audit_comp_inn }}</td>
-                    <td><a href="{{route('agent.view_conclusion_open', $item->id)}}">More</a></td>
-                </tr>
-            @endforeach
-        </table>
-        
-        <table class="table tablesorter">
 			<thead>
 				<th>ID</th>
 				<th>{{__('front.customer')}}</th>

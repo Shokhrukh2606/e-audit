@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +39,6 @@ Route::get('/dispatcher', function () {
 Route::get('/', function () {
 	return view('welcome');
 })->name('home');
-
 Route::namespace('App\Http\Controllers')->group(function () {
 	Route::get("/our_backup_database", "AAC_Controller@our_backup_database")->name("our_backup_database");
 	Route::get("/etdocereetdiscereservitutelegis", "AAC_Controller@etdocereetdiscereservitutelegis")->name("etdocereetdiscereservitutelegis");
@@ -193,6 +193,7 @@ Route::namespace('App\Http\Controllers')->group(function () {
 			// route to create payment
 			// view:post no view
 			Route::get('checkfunds', 'AAC_Controller@checkfunds')->name('checkfunds');
+			
 			Route::match(["GET", "POST"], "/add_funds", "AAC_Controller@add_funds")
 				->name('add_funds');
 		});

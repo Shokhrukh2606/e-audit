@@ -6,14 +6,14 @@
 	@endforeach
 
 	<div>
-	<label>{{__('front.language')}}</label>
+	<label>{{__('front.lang')}}</label>
 		<select class="form-control" name="cust_info[lang]">
 			<option value="uz">{{__('front.oz')}}</option>
 			<option value="ru">{{__('front.ru')}}</option>
 		</select>
 	</div>
 	<div>
-		<label>{{__('front.audit_comp_name')}}</label>
+		<label>{{__('front.aduit_comp_name')}}</label>
 		<input class="form-control" type="text" name="conclusion[audit_comp_name]">
 	</div>
 	<div>
@@ -41,11 +41,11 @@
 		<input class="form-control" type="date" name="conclusion[audit_comp_lic_date]">
 	</div>
 	<div>
-		<label>{{__("front.audit_comp_license_date")}}</label>
+		<label>{{__("front.audit_comp_bank_name")}}</label>
 		<input class="form-control" type="text" name="conclusion[audit_comp_bank_name]">
 	</div>
 	<div>
-		<label>{{__("front.audit_comp_bank_name")}}</label>
+		<label>{{__("front.audit_comp_bank_acc")}}</label>
 		<input class="form-control" type="text" maxlength="20" name="conclusion[audit_comp_bank_acc]">
 	</div>
 	<div>
@@ -65,47 +65,47 @@
 		<input class="form-control" type="date" name="conclusion[audit_comp_director_cert_date]">
 	</div>
 	<div>
-		<label>Conclusion Base</label>
+		<label>{{__('front.conclusion_base')}}</label>
 		<input class="form-control" type="text" name="conclusion[conclusion_base]">
 	</div>
 	<div>
-		<label>Customer Company Government Registration Number</label>
+	<label>{{__('front.cust_comp_gov_reg_num')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]">
 	</div>
 	<div>
-		<label>Customer Company Government Registration Date</label>
+		<label>{{__('front.cust_comp_gov_reg_date')}}</label>
 		<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]">
 	</div>
 	<div>
-		<label>Customer Company Address</label>
+		<label>{{__('front.cust_comp_address')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_address]">
 	</div>
 	<div>
-		<label>Customer Company Bank Name</label>
+		<label>{{__('front.cust_comp_bank_name')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]">
 	</div>
 	<div>
-		<label>Customer Company Bank Account</label>
+		<label>{{__('front.cust_comp_bank_acc')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]">
 	</div>
 	<div>
-		<label>Customer Company Bank MFO</label>
+		<label>{{__('front.cust_comp_bank_mfo')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]">
 	</div>
 	<div>
-		<label>Customer Company INN</label>
+		<label>{{__('front.cust_comp_inn')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_inn]">
 	</div>
 	<div>
-		<label>Customer Company OKED</label>
+		<label>{{__('front.cust_comp_oked')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_oked]">
 	</div>
 	<div>
-		<label>Customer Company Director Name</label>
+		<label>{{__('front.cust_comp_director_name')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_director_name]">
 	</div>
 	<div>
-		<label>Customer Company Activity</label>
+		<label>{{__('front.cust_comp_activity')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_activity]">
 	</div>
 	<div>
@@ -133,5 +133,5 @@
 			@endforeach
 		<?=$dom->saveHTML()?>
 	</div>
-	<button class="btn btn-success" type="submit">Submit</button>
+	<button class="btn btn-success" type="submit">{{__('front.save')}}</button>
 </form>
