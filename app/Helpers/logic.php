@@ -1,4 +1,4 @@
-<?
+<?php
 use App\Models\Template;
 use App\Models\User;
 

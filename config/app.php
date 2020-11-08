@@ -179,13 +179,10 @@ return [
 
         // view to pdf
 
-        Barryvdh\DomPDF\ServiceProvider::class
-        
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Class Aliases
     |--------------------------------------------------------------------------
     |
     | This array of class aliases will be registered when this application
