@@ -42,7 +42,7 @@ font-weight: 600;
         </div>
         <ul class="nav mynav">
           <li>
-            <a href="{{route("auditor.list_orders")}}">
+            <a href="{{route("auditor.orders")}}">
               <i class="tim-icons icon-pin"></i>
               <p>Заказы</p>
             </a>

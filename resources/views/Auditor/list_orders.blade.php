@@ -6,10 +6,10 @@
 		<table class="table tablesorter">
 			<thead>
 				<th>ID</th>
-				<th>Customer</th>
-				<th>Template</th>
-				<th>Use Cases</th>
-				<th>Action</th>
+			<th>{{__('front.customer')}}</th>
+				<th>{{__('front.template')}}</th>
+				<th>{{__('front.use_cases')}}</th>
+				<th>{{__('front.actions')}}</th>
 			</thead>
 			<tbody>
 		
@@ -23,7 +23,7 @@
 					@endforeach
 				</td>
 				<td>
-					<a href="{{route('auditor.view_order', $order->id)}}">More</a>
+					<a href="{{route('auditor.view_order', $order->id)}}">{{__('custom.show')}}</a>
 				</td>
 				@endforeach
 			</tbody>

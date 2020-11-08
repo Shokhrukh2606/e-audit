@@ -16,7 +16,10 @@ class AAC_Controller extends Controller
     }
     private function view($file, $data = [])
     {
-        return view('AAC.' . $file, $data);
+        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['body']='AAC.'.$file;
+        
+        return view(getUserLayout(Auth::user()->group_id).'_index', $data);
     }
     public function add_funds(Request $req)
     {
