@@ -180,7 +180,7 @@ return [
         // view to pdf
 
         Barryvdh\DomPDF\ServiceProvider::class
-
+        
     ],
 
     /*
@@ -195,7 +195,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
