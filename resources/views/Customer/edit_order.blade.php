@@ -2,77 +2,77 @@
 	@csrf
 	<div>
 		<label>Language</label>
-		<select name="order[lang]">
+		<select class="form-control"  name="order[lang]">
 			<option value="uz" {{$order->lang=='uz'?"selected":""}}>Uzbek</option>
 			<option value="ru" {{$order->lang=='ru'?"selected":""}}>Russian</option>
 		</select>
 	</div>
 	<div>
 		<label>Phone</label>
-		<input type="text" maxlength="13" name="order[phone]" value="{{$order->phone}}">
+		<input class="form-control"  type="text" maxlength="13" name="order[phone]" value="{{$order->phone}}">
 	</div>
 	<div>
 		<label>Address to deliver</label>
-		<input type="text" name="order[address_to_deliver]" value="{{$order->address_to_deliver}}">
+		<input class="form-control"  type="text" name="order[address_to_deliver]" value="{{$order->address_to_deliver}}">
 	</div>
 	<div>
 		<label>Customer Company Government Registration Number</label>
-		<input type="text" 
+		<input class="form-control"  type="text" 
 			name="cust_info[cust_comp_gov_reg_num]"
 			value="{{$order->cust_info->cust_comp_gov_reg_num}}"
 		>
 	</div>
 	<div>
 		<label>Customer Company Government Registration Date</label>
-		<input type="date" name="cust_info[cust_comp_gov_reg_date]"
+		<input class="form-control"  type="date" name="cust_info[cust_comp_gov_reg_date]"
 		value="{{date("Y-m-d",strtotime($order->cust_info->cust_comp_gov_reg_date))}}"
 		>
 	</div>
 	<div>
 		<label>Customer Company Address</label>
-		<input type="text" name="cust_info[cust_comp_address]"
+		<input class="form-control"  type="text" name="cust_info[cust_comp_address]"
 		value="{{$order->cust_info->cust_comp_address}}"
 		>
 	</div>
 	<div>
 		<label>Customer Company Bank Name</label>
-		<input type="text" name="cust_info[cust_comp_bank_name]"
+		<input class="form-control"  type="text" name="cust_info[cust_comp_bank_name]"
 			value="{{$order->cust_info->cust_comp_bank_name}}"
 		>
 	</div>
 	<div>
 		<label>Customer Company Bank Account</label>
-		<input type="text" name="cust_info[cust_comp_bank_acc]"
+		<input class="form-control"  type="text" name="cust_info[cust_comp_bank_acc]"
 			value="{{$order->cust_info->cust_comp_bank_acc}}"
 		>
 	</div>
 	<div>
 		<label>Customer Company Bank MFO</label>
-		<input type="text" name="cust_info[cust_comp_bank_mfo]"
+		<input class="form-control"  type="text" name="cust_info[cust_comp_bank_mfo]"
 			value="{{$order->cust_info->cust_comp_bank_mfo}}"
 		>
 	</div>
 	<div>
 		<label>Customer Company INN</label>
-		<input type="text" name="cust_info[cust_comp_inn]"
+		<input class="form-control"  type="text" name="cust_info[cust_comp_inn]"
 			value="{{$order->cust_info->cust_comp_inn}}"
 		>
 	</div>
 	<div>
 		<label>Customer Company OKED</label>
-		<input type="text" name="cust_info[cust_comp_oked]"
+		<input class="form-control"  type="text" name="cust_info[cust_comp_oked]"
 			value="{{$order->cust_info->cust_comp_oked}}"
 		>
 	</div>
 	<div>
 		<label>Customer Company Director Name</label>
-		<input type="text" name="cust_info[cust_comp_director_name]"
+		<input class="form-control"  type="text" name="cust_info[cust_comp_director_name]"
 			value="{{$order->cust_info->cust_comp_director_name}}"
 		>
 	</div>
 	<div>
 		<label>Customer Company Activity</label>
-		<input type="text" name="cust_info[cust_comp_activity]"
+		<input class="form-control"  type="text" name="cust_info[cust_comp_activity]"
 			value="{{$order->cust_info->cust_comp_activity}}"
 		>
 	</div>
@@ -130,5 +130,5 @@
 			@endforeach
 		<?=$dom->saveHTML()?>
 	</div>
-	<button type="submit">Submit</button>
+	<button class="btn btn-sm btn-success" type="submit">Submit</button>
 </form>

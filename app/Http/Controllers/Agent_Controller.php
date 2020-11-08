@@ -20,7 +20,9 @@ class Agent_Controller extends Controller
     }
     private function view($file, $data = [])
     {
-        return view('Agent.' . $file, $data);
+        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['body']='Agent.'.$file;
+        return view('agent_index', $data);
     }
     public function list_conclusions()
     {

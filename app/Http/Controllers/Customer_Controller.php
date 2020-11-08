@@ -8,8 +8,10 @@ use App\Models\Use_Case;
 use App\Models\Order;
 use App\Models\Cust_comp_info;
 use App\Models\Ciucm;
+use App\Models\Conclusion;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Storage;
-
+use PDF;
 
 
 class Customer_Controller extends Controller
@@ -20,7 +22,9 @@ class Customer_Controller extends Controller
     	$this->middleware('multi_auth:customer');
     }
     private function view($file, $data=[]){
-    	return view('Customer.'.$file, $data);
+        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['body']='Customer.'.$file;
+        return view('customer_index', $data);
     } 
    	public function select_temp(){
    		$data['templates']=Template::all();
@@ -155,6 +159,38 @@ class Customer_Controller extends Controller
             $order->fulldelete();
             return redirect()->route('customer.orders');
         }
+        return abort(404);
+    }
+    public function conclusion(Request $req){
+        $data['conclusion']=Conclusion::where('id', $req->id)->first();
+        if($data['conclusion']){
+            $template=$data['conclusion']->cust_info->template->standart_num;
+            $lang=$data['conclusion']->cust_info->lang;
+            $pdf = PDF::loadView("templates.$template.$lang", $data);
+            return $pdf->stream('invoice.pdf');
+        }
+        abort(404);
+    }
+    public function create_invoice(Request $req){
+        $conclusion=Conclusion::where('id', $req->conclusion_id)->first();
+        if($conclusion??false){
+            if($conclusion->invoice)
+                return redirect()->route('customer.orders');
+            $service=$conclusion->cust_info->template->service;
+            $invoice=new Invoice();
+            $invoice->conclusion_id=$conclusion->id;
+            $invoice->user_id=auth()->user()->id;
+            $invoice->service_id=$service->id;
+            $invoice->save();
+            return redirect()->route('pay', $invoice->id);
+        }else{
+           abort(404);
+        }
+    }
+    public function pay(Request $req){
+        $data['invoice']=Invoice::where('id', $req->invoice_id)->first();
+        if($data['invoice'])
+            return $this->view('pay_for_order',$data);
         return abort(404);
     }
 }

@@ -1,7 +1,7 @@
 <form action="{{route('auditor.create_conclusion')}}">
 	<div>
 		Please select template:
-		<select name="template_id" required onchange="alter_use_cases(this)">
+		<select class="form-control" name="template_id" required onchange="alter_use_cases(this)">
 			@foreach($templates as $template)
 			<option value="{{$template->id}}">{{$template->standart_num}}</option>
 			@endforeach
@@ -12,13 +12,13 @@
 		<div id="use_cases">
 			@foreach($use_cases as $use_case)
 			<div data-value="{{$use_case->id}}" data-temp_id="{{$use_case->template_id}}">
-				<input type="checkbox" name="use_cases[{{$use_case->id}}]" class="uc">
+				<input class="form-control" type="checkbox" name="use_cases[{{$use_case->id}}]" class="uc">
 				{{json_decode($use_case->title)->uz}}
 			</div>
 			@endforeach
 		</div>
 	</div>
-	<button type="submit">Continue</button>
+	<button class="btn btn-sm btn-success" type="submit">Continue</button>
 </form>
 <script>
 	function alter_use_cases(elem){

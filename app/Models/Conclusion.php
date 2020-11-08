@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Cust_comp_info;
+use App\Models\Invoice;
 
 class Conclusion extends Model
 {
@@ -31,5 +32,8 @@ class Conclusion extends Model
         $order=$this->cust_info->order;
         $order->status="sent";
         $order->save();
+    }
+    public function invoice(){
+      return $this->hasOne(Invoice::class,"conclusion_id");
     }
 }
