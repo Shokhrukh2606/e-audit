@@ -179,7 +179,9 @@ return [
 
         // view to pdf
 
-        Barryvdh\DomPDF\ServiceProvider::class
+        Barryvdh\DomPDF\ServiceProvider::class,
+        //helper loader
+        App\Providers\HelperServiceProvider::class
 
     ],
 
