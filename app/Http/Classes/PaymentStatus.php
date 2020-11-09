@@ -7,7 +7,7 @@
 // ╚██████╗███████╗██║╚██████╗██║   ██╗ ██╗█████████║██████████╗
 //  ╚═════╝╚══════╝╚═╝ ╚═════╝╚═╝   ╚═╝ ╚═╝╚════════╝╚═════════╝
 
-namespace App\Http\Classes;
+namespace App\Classes;
 
 /**
  * @name PaymentsStatus class, the some std payment status
