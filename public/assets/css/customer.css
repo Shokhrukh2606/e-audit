@@ -1,4 +1,4 @@
-#use_cases div {
+/* #use_cases div {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -12,9 +12,10 @@
 
 #use_cases div input{
   cursor: pointer;
-}
+} */
 
 .content button {
   width: max-content;
   padding: 0.5rem 2rem;
 }
+

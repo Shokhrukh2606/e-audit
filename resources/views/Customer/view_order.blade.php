@@ -52,9 +52,9 @@
 	@endforeach
 </ul>
 @if($order->status=='initiated')
-	<a href="{{route('customer.cancel_order', $order->id)}}">{{__('custom.delete')}}</a>
+	<a href="{{route('customer.cancel_order', $order->id)}}" class="btn btn-fill btn-primary">{{__('custom.delete')}}</a>
 @endif
 @if(in_array($order->status, $editable_status))
-	<a href="{{route('customer.edit_order', $order->id)}}">{{__('custom.edit')}}</a>
-	<a href="{{route('customer.send', $order->id)}}">{{__('front.send_to_auditor')}}</a>
+	<a href="{{route('customer.edit_order', $order->id)}}" class="btn btn-fill btn-primary">{{__('custom.edit')}}</a>
+	<a href="{{route('customer.send', $order->id)}}" class="btn btn-fill btn-primary">{{__('front.send_to_auditor')}}</a>
 @endif

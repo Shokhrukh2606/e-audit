@@ -1,82 +1,82 @@
 <form action="{{route('customer.edit_order', $order->id)}}" method="POST" enctype="multipart/form-data">
 	@csrf
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.lang')}}</label>
 		<select class="form-control"  name="order[lang]">
 			<option value="uz" {{$order->lang=='uz'?"selected":""}}>{{__('front.oz')}}</option>
 			<option value="ru" {{$order->lang=='ru'?"selected":""}}>{{__('front.ru')}}</option>
 		</select>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.phone')}}</label>
 		<input class="form-control"  type="text" maxlength="13" name="order[phone]" value="{{$order->phone}}">
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.address_to_deliver')}}</label>
 		<input class="form-control"  type="text" name="order[address_to_deliver]" value="{{$order->address_to_deliver}}">
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_gov_reg_num')}}</label>
 		<input class="form-control"  type="text" 
 			name="cust_info[cust_comp_gov_reg_num]"
 			value="{{$order->cust_info->cust_comp_gov_reg_num}}"
 		>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_gov_reg_date')}}</label>
 		<input class="form-control"  type="date" name="cust_info[cust_comp_gov_reg_date]"
 		value="{{date("Y-m-d",strtotime($order->cust_info->cust_comp_gov_reg_date))}}"
 		>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_address')}}</label>
 		<input class="form-control"  type="text" name="cust_info[cust_comp_address]"
 		value="{{$order->cust_info->cust_comp_address}}"
 		>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_bank_name')}}</label>
 		<input class="form-control"  type="text" name="cust_info[cust_comp_bank_name]"
 			value="{{$order->cust_info->cust_comp_bank_name}}"
 		>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_bank_acc')}}</label>
 		<input class="form-control"  type="text" name="cust_info[cust_comp_bank_acc]"
 			value="{{$order->cust_info->cust_comp_bank_acc}}"
 		>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_bank_mfo')}}</label>
 		<input class="form-control"  type="text" name="cust_info[cust_comp_bank_mfo]"
 			value="{{$order->cust_info->cust_comp_bank_mfo}}"
 		>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_inn')}}</label>
 		<input class="form-control"  type="text" name="cust_info[cust_comp_inn]"
 			value="{{$order->cust_info->cust_comp_inn}}"
 		>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_oked')}}</label>
 		<input class="form-control"  type="text" name="cust_info[cust_comp_oked]"
 			value="{{$order->cust_info->cust_comp_oked}}"
 		>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_director_name')}}</label>
 		<input class="form-control"  type="text" name="cust_info[cust_comp_director_name]"
 			value="{{$order->cust_info->cust_comp_director_name}}"
 		>
 	</div>
-	<div>
+	<div class='mb-4'>
 		<label>{{__('front.cust_comp_activity')}}</label>
 		<input class="form-control"  type="text" name="cust_info[cust_comp_activity]"
 			value="{{$order->cust_info->cust_comp_activity}}"
 		>
 	</div>
-	<div>
+	<div class='file-wrapper mb-4'>
 		@php
 			$dom = new DOMDocument('1.0');
 			$custom_fields=json_decode($order->cust_info->custom_fields);

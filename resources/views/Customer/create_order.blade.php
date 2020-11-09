@@ -4,62 +4,63 @@
 	@foreach($use_cases as $use_case=>$value)
 		<input class="form-control" type="hidden" name="ciucm[{{$use_case}}]" value="{{$use_case}}">
 	@endforeach
-	<div>
+	<div class="mb-4">
 	<label>{{__('front.lang')}}</label>
 		<select class="form-control" name="cust_info[lang]">
 			<option value="uz">{{__('front.oz')}}</option>
 			<option value="ru">{{__('front.ru')}}</option>
 		</select>
 	</div>
-	<div>
+	
+	<div class="mb-4">
 	<label>{{__('front.phone')}}</label>
-		<input class="form-control" type="text" maxlength="13" name="order[phone]">
+		<input class="form-control" type="text" maxlength="13" name="order[phone]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 		<label>{{__('front.address_to_deliver')}}</label>
-		<input class="form-control" type="text" name="order[address_to_deliver]">
+		<input class="form-control" type="text" name="order[address_to_deliver]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 		<label>{{__('front.cust_comp_gov_reg_num')}}</label>
-		<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 	<label>{{__('front.cust_comp_gov_reg_date')}}</label>
-		<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]">
+		<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 	<label>{{__('front.cust_comp_address')}}</label>
-		<input class="form-control" type="text" name="cust_info[cust_comp_address]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_address]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 	<label>{{__('front.cust_comp_bank_name')}}</label>
-		<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 		<label>{{__('front.cust_comp_bank_acc')}}</label>
-		<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 	<label>{{__('front.cust_comp_bank_mfo')}}</label>
-		<input class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 	<label>{{__('front.cust_comp_inn')}}</label>
-		<input class="form-control" type="text" name="cust_info[cust_comp_inn]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_inn]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 	<label>{{__('front.cust_comp_oked')}}</label>
-		<input class="form-control" type="text" name="cust_info[cust_comp_oked]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_oked]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 	<label>{{__('front.cust_comp_director_name')}}</label>
-		<input class="form-control" type="text" name="cust_info[cust_comp_director_name]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_director_name]" required>
 	</div>
-	<div>
+	<div class="mb-4">
 	<label>{{__('front.cust_comp_activity')}}</label>
-		<input class="form-control" type="text" name="cust_info[cust_comp_activity]">
+		<input class="form-control" type="text" name="cust_info[cust_comp_activity]" required>
 	</div>
-	<div>
+	<div class="file-wrapper mb-4">
 		@php
 			$dom = new DOMDocument('1.0');
 		@endphp
