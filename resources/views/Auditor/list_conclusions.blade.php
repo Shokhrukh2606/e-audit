@@ -1,3 +1,8 @@
+<form method="POST" action="{{ route('logout') }}">
+    @csrf
+
+    <button>Logout</button>
+</form>
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">My Conclusions</h3>
@@ -15,23 +20,23 @@
             </thead>
             <tbody>
                 @foreach ($conclusions as $conclusion)
-                    <tr>
-                        <td>{{ $conclusion->id }}</td>
-                        <td>{{ $conclusion->cust_info->template->standart_num }}</td>
-                        <td>
-                            {{-- many to many retrieval --}}
-                            @foreach ($conclusion->cust_info->use_cases as $uc)
-                                <span>{{ json_decode($uc->title)->ru }}</span> |
-                            @endforeach
-                        </td>
-                        <td>{{ $conclusion->created_at }}</td>
-                        <td>
-                            <a href="{{ route('auditor.conclusion', $conclusion->id) }}">View</a>
-                        </td>
-                        <td>
-                            <a href="{{ route('auditor.send', $conclusion->id) }}">Send</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>{{ $conclusion->id }}</td>
+                    <td>{{ $conclusion->cust_info->template->standart_num }}</td>
+                    <td>
+                        {{-- many to many retrieval --}}
+                        @foreach ($conclusion->cust_info->use_cases as $uc)
+                        <span>{{ json_decode($uc->title)->ru }}</span> |
+                        @endforeach
+                    </td>
+                    <td>{{ $conclusion->created_at }}</td>
+                    <td>
+                        <a href="{{ route('auditor.conclusion', $conclusion->id) }}">View</a>
+                    </td>
+                    <td>
+                        <a href="{{ route('auditor.send', $conclusion->id) }}">Send</a>
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>

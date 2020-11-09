@@ -11,7 +11,6 @@
                 {{ session('status') }}
             </div>
         @endif
-        asd
         <form method="POST" action="{{ route('login') }}">
             @csrf
 

@@ -65,7 +65,7 @@
 			на расчетный счет Исполнителя. После предоставления услуги, Исполнитель уведомляет об этом Заказчика посредством
 		отправки электронного письма на электронный почтовый адрес Заказчика: axtrem13@gmail.com.</p>
 	</div>
-
+	@if($invoice->status=='waiting')
 	<div class="mb-30">
 		<h2 class="center">Способ оплаты</h2>
 		<div class="payment-box mb-20">
@@ -90,9 +90,23 @@
 		</div>
 	</div>
 
+	
+	<form class="pay" 
+		  action="https://my.click.uz/services/pay" 
+		  method="get" 
+		  target="_blank"
+		>
+		<input type="hidden" name="merchant_id" value="12244" />
+		<input type="hidden" name="merchant_user_id" value="18124" />
+		<input type="hidden" name="service_id" value="16912" />
+		<input type="hidden" name="transaction_param" value="{{$invoice->id}}" />
+		<input type="hidden" name="amount" value="{{$invoice->price}}" />
+		<input type="hidden" name="return_url" value={{route('customer.pay', $invoice->id)}} />
 
-	<div class="pay">
 		<p class="mt-0">Сумма оплаты: 8400.00 сум</p>
-		<button>Оплатить</button>
-	</div>
+		<button>Оплатить CLICK</button>
+	</form>
+	@else
+	<h3>Already paid</h3>
+	@endif
 </div>
