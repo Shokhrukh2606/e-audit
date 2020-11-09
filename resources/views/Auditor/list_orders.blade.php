@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">My Orders</h3>
+        <h3 class="card-title">{{__('front.my_orders')}}</h3>
     </div>
     <div class="card-body">
 		<table class="table tablesorter">
@@ -23,7 +23,7 @@
 					@endforeach
 				</td>
 				<td>
-					<a href="{{route('auditor.view_order', $order->id)}}">{{__('custom.show')}}</a>
+					<a class="btn btn-sm btn-info" href="{{route('auditor.view_order', $order->id)}}">{{__('custom.show')}}</a>
 				</td>
 				@endforeach
 			</tbody>

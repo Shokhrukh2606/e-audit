@@ -278,6 +278,10 @@ textarea {
   line-height: inherit;
 }
 
+select option{
+  color: #000;
+}
+
 button,
 input {
   overflow: visible;
