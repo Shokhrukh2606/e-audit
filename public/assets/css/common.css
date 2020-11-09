@@ -1,0 +1,24 @@
+:root {
+  --dark-bg: #1e1e2f;
+  --white-bg:  #f5f6fa;
+}
+
+.logo-normal {
+  text-align: center;
+}
+
+/* #filterer select {
+  background-color: var(--dark-bg);
+}
+
+.white-content #filterer select {
+  background-color: var(--white-bg);
+} */
+
+select.form-control, select.form-control option {
+  background-color: var(--dark-bg);
+}
+
+.white-content select.form-control, .white-content select.form-control option {
+  background-color: var(--white-bg);
+}

@@ -16,14 +16,17 @@
   <link href="{{asset('assets/css/black-dashboard.css?v=1.0.0')}}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/common.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/customer.css')}}" rel="stylesheet" />
 </head>
 <style>
-  .sidebar .nav p, .off-canvas-sidebar .nav p{
+  .sidebar .nav p,
+  .off-canvas-sidebar .nav p {
     font-size: 10px;
-font-weight: 600;
+    font-weight: 600;
   }
-  
 </style>
+
 <body class="">
   <div class="wrapper">
     <div class="sidebar">
@@ -32,13 +35,13 @@ font-weight: 600;
       -->
       <div class="sidebar-wrapper">
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-mini">
+          <!-- <a href="javascript:void(0)" class="simple-text logo-mini">
             HA
-          </a>
+          </a> -->
           <a href="javascript:void(0)" class="simple-text logo-normal">
             «HIMOYA-AUDIT» МЧЖ
           </a>
-          
+
         </div>
         <ul class="nav mynav">
           <li>
@@ -95,10 +98,10 @@ font-weight: 600;
                     @csrf
                     <button>Logout</button>
                   </form>
-                  
+
                 </a>
                 <ul class="dropdown-menu dropdown-navbar">
-                  <li class="nav-link"><a href="javascript:void(0)"  onclick="logout()" class="nav-item dropdown-item"> Выйти</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" onclick="logout()" class="nav-item dropdown-item"> Выйти</a></li>
                 </ul>
               </li>
               <li class="separator d-lg-none"></li>
@@ -106,14 +109,14 @@ font-weight: 600;
           </div>
         </div>
       </nav>
-       <script>
-       function logout(){
-        document.getElementById("logout-form").submit();
-      }
-    </script>
+      <script>
+        function logout() {
+          document.getElementById("logout-form").submit();
+        }
+      </script>
       <!-- End Navbar -->
       <div class="content">
-            @yield('content')       
+        @yield('content')
       </div>
       <footer class="footer">
         <div class="container-fluid">
@@ -123,9 +126,9 @@ font-weight: 600;
                 «HIMOYA-AUDIT» МЧЖ
               </a>
             </li>
-  
+
           </ul>
-         {{--  <div class="copyright">
+          {{-- <div class="copyright">
             ©
             <script>
               document.write(new Date().getFullYear())
@@ -159,90 +162,90 @@ font-weight: 600;
           <span class="badge dark-badge ml-2"></span>
           <span class="color-label">DARK</span>
         </li>
-  
-  
+
+
       </ul>
     </div>
   </div>
- <!--   Core JS Files   -->
-<script src="{{asset('assets/js/core/jquery.min.js')}}"></script>
-<script src="{{asset('assets/js/core/popper.min.js')}}"></script>
-<script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
-<script src="{{asset('assets/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
-<!--  Google Maps Plugin    -->
-<!-- Place this tag in your head or just before your close body tag. -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!-- Chart JS -->
-<script src="{{asset('assets/js/plugins/chartjs.min.js')}}"></script>
-<!--  Notifications Plugin    -->
-<script src="{{asset('assets/js/plugins/bootstrap-notify.js')}}"></script>
-<!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="{{asset('assets/js/black-dashboard.min.js?v=1.0.0')}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
-<script src="{{asset('assets/demo/demo.js')}}"></script>
-<script>
-  $(document).ready(function() {
-    $().ready(function() {
-      $sidebar = $('.sidebar');
-      $navbar = $('.navbar');
-      $main_panel = $('.main-panel');
+  <!--   Core JS Files   -->
+  <script src="{{asset('assets/js/core/jquery.min.js')}}"></script>
+  <script src="{{asset('assets/js/core/popper.min.js')}}"></script>
+  <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
+  <script src="{{asset('assets/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="{{asset('assets/js/plugins/chartjs.min.js')}}"></script>
+  <!--  Notifications Plugin    -->
+  <script src="{{asset('assets/js/plugins/bootstrap-notify.js')}}"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{{asset('assets/js/black-dashboard.min.js?v=1.0.0')}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="{{asset('assets/demo/demo.js')}}"></script>
+  <script>
+    $(document).ready(function() {
+      $().ready(function() {
+        $sidebar = $('.sidebar');
+        $navbar = $('.navbar');
+        $main_panel = $('.main-panel');
 
-      $full_page = $('.full-page');
+        $full_page = $('.full-page');
 
-      $sidebar_responsive = $('body > .navbar-collapse');
-      sidebar_mini_active = true;
-      white_color = false;
+        $sidebar_responsive = $('body > .navbar-collapse');
+        sidebar_mini_active = true;
+        white_color = false;
 
-      window_width = $(window).width();
+        window_width = $(window).width();
 
-      fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
 
 
-      $('.fixed-plugin a').click(function(event) {
-        if ($(this).hasClass('switch-trigger')) {
-          if (event.stopPropagation) {
-            event.stopPropagation();
-          } else if (window.event) {
-            window.event.cancelBubble = true;
+        $('.fixed-plugin a').click(function(event) {
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
           }
-        }
-      });
+        });
 
-      $('.fixed-plugin .background-color span').click(function() {
-        $(this).siblings().removeClass('active');
-        $(this).addClass('active');
+        $('.fixed-plugin .background-color span').click(function() {
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
 
-        var new_color = $(this).data('color');
+          var new_color = $(this).data('color');
 
-        if ($sidebar.length != 0) {
-          $sidebar.attr('data', new_color);
-        }
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data', new_color);
+          }
 
-        if ($main_panel.length != 0) {
-          $main_panel.attr('data', new_color);
-        }
+          if ($main_panel.length != 0) {
+            $main_panel.attr('data', new_color);
+          }
 
-        if ($full_page.length != 0) {
-          $full_page.attr('filter-color', new_color);
-        }
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', new_color);
+          }
 
-        if ($sidebar_responsive.length != 0) {
-          $sidebar_responsive.attr('data', new_color);
-        }
-      });
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data', new_color);
+          }
+        });
 
-      $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
-        var $btn = $(this);
+        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
 
-        if (sidebar_mini_active == true) {
-          $('body').removeClass('sidebar-mini');
-          sidebar_mini_active = false;
-          blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
-        } else {
-          $('body').addClass('sidebar-mini');
-          sidebar_mini_active = true;
-          blackDashboard.showSidebarMessage('Sidebar mini activated...');
-        }
+          if (sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            sidebar_mini_active = false;
+            blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+          } else {
+            $('body').addClass('sidebar-mini');
+            sidebar_mini_active = true;
+            blackDashboard.showSidebarMessage('Sidebar mini activated...');
+          }
 
           // we simulate the window Resize so the charts will get updated in realtime.
           var simulateWindowResize = setInterval(function() {
@@ -255,77 +258,72 @@ font-weight: 600;
           }, 1000);
         });
 
-      $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
-        var $btn = $(this);
+        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
 
-        if (white_color == true) {
+          if (white_color == true) {
 
-          $('body').addClass('change-background');
-          setTimeout(function() {
-            $('body').removeClass('change-background');
-            $('body').removeClass('white-content');
-          }, 900);
-          white_color = false;
-        } else {
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').removeClass('white-content');
+            }, 900);
+            white_color = false;
+          } else {
 
-          $('body').addClass('change-background');
-          setTimeout(function() {
-            $('body').removeClass('change-background');
-            $('body').addClass('white-content');
-          }, 900);
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').addClass('white-content');
+            }, 900);
 
-          white_color = true;
-        }
+            white_color = true;
+          }
 
 
-      });
+        });
 
-      $('.light-badge').click(function() {
-        $('body').addClass('white-content');
-      });
+        $('.light-badge').click(function() {
+          $('body').addClass('white-content');
+        });
 
-      $('.dark-badge').click(function() {
-        $('body').removeClass('white-content');
+        $('.dark-badge').click(function() {
+          $('body').removeClass('white-content');
+        });
       });
     });
-  });
-</script>
+  </script>
 
-@yield('additional_js')
+  @yield('additional_js')
 
-<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-<script>
-  window.TrackJS &&
-  TrackJS.install({
-    token: "ee6fab19c5a04ac1a32a645abde4613a",
-    application: "black-dashboard-free"
-  });
-</script>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS &&
+      TrackJS.install({
+        token: "ee6fab19c5a04ac1a32a645abde4613a",
+        application: "black-dashboard-free"
+      });
+  </script>
 </body>
 <script>
-  
-
-  var menu=document.getElementsByClassName('mynav')[0].children;
-  for(let i=0;i<menu.length;i++){
-    if(window.location.href.split("#")[0]==menu[i].children[0].href){
+  var menu = document.getElementsByClassName('mynav')[0].children;
+  for (let i = 0; i < menu.length; i++) {
+    if (window.location.href.split("#")[0] == menu[i].children[0].href) {
       menu[i].classList.add('active');
-    }else{
+    } else {
       menu[i].classList.remove('active');
     }
   }
-
 </script>
 <script>
-  
-
-  var menu=document.getElementsByClassName('mynav')[0].children;
-  for(let i=0;i<menu.length;i++){
-    if(window.location.href.split("#")[0]==menu[i].children[0].href){
+  var menu = document.getElementsByClassName('mynav')[0].children;
+  for (let i = 0; i < menu.length; i++) {
+    if (window.location.href.split("#")[0] == menu[i].children[0].href) {
       menu[i].classList.add('active');
-    }else{
+    } else {
       menu[i].classList.remove('active');
     }
   }
-
 </script>
+
 </html>

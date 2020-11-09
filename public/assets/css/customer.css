@@ -1,0 +1,20 @@
+#use_cases div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#use_cases div label{
+  margin-bottom: 0;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+#use_cases div input{
+  cursor: pointer;
+}
+
+.content button {
+  width: max-content;
+  padding: 0.5rem 2rem;
+}
