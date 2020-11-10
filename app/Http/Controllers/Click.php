@@ -38,6 +38,12 @@ class Click extends Controller
         if($result['error']==0){
             if($req->error<0){
                 $transaction=Transaction::where('id', $req->merchant_prepare_id)->first();
+                if($transaction->state=='confirmed'){
+                    return [
+                        'error' => -4,
+                        'error_note' => 'Already paid'
+                    ];
+                }
                 $transaction->state='rejected';
                 $transaction->save();
                 return [
