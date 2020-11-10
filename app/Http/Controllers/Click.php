@@ -36,8 +36,8 @@ class Click extends Controller
         
         // if there is no error
         if($result['error']==0){
+            $transaction=Transaction::where('id', $req->merchant_prepare_id)->first();
             if($req->error<0){
-                $transaction=Transaction::where('id', $req->merchant_prepare_id)->first();
                 if($transaction->state=='confirmed'){
                     return [
                         'error' => -4,
@@ -51,6 +51,8 @@ class Click extends Controller
                     'error_note' => 'Transaction cancelled'
                 ];
             }
+            $transaction->state='confirmed';
+            $transaction->save();
             $invoice=Invoice::where('id',$req->merchant_trans_id)->first();
             $invoice->status='confirmed';
             $invoice->save();
