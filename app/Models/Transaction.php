@@ -31,7 +31,7 @@ class Transaction extends Model
     }
     public static function init_click_check( $req){
         $transaction=self::where([
-            'invoice_id'=> $req->invoice_id,
+            'invoice_id'=> $req->merchant_trans_id,
             'system_transaction_id'=>$req->click_trans_id,
             'payment_system'=>'click'
         ])->first();
