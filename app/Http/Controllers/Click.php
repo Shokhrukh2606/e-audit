@@ -55,6 +55,7 @@ class Click extends Controller
             $transaction->save();
             $invoice=Invoice::where('id',$req->merchant_trans_id)->first();
             $invoice->status='confirmed';
+            $invoice->closed_with='transaction';
             $invoice->save();
             $result+=[
                 'click_trans_id'=>$req->click_trans_id,
