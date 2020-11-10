@@ -18,7 +18,7 @@ class Click extends Controller
         $result=$error_check->request_check($req, $this->click_secret_key);
         // if there is no error
         if($result['error']==0){
-            $merchant_prepare_id=Transaction::init($req->merchant_trans_id)->id;
+            $merchant_prepare_id=Transaction::init_click($req)->id;
             $result+=[
                 'click_trans_id'=>$req->click_trans_id,
                 'merchant_trans_id'=>$req->merchant_trans_id,
@@ -26,11 +26,6 @@ class Click extends Controller
             ];
             return $result;
         }else{
-            $result+=[
-                'click_trans_id'=>$req->click_trans_id,
-                'merchant_trans_id'=>$req->merchant_trans_id,
-                'merchant_prepare_id'=>null
-            ];
             return $result;
         }
 	}
@@ -38,6 +33,15 @@ class Click extends Controller
 		// error checking
         $error_check= new BasePaymentErrors();
         $result=$error_check->request_check($req, $this->click_secret_key);
+        if($req->error<0){
+            $transaction=Transaction::where('id', $req->merchant_prepare_id)->first();
+            $transaction->state='rejected';
+            $transaction->save();
+            return [
+                'error' => -9,
+                'error_note' => 'Transaction cancelled'
+            ];
+        }
         // if there is no error
         if($result['error']==0){
             $invoice=Invoice::where('id',$req->merchant_trans_id)->first();
@@ -50,11 +54,6 @@ class Click extends Controller
             ];
             return $result;
         }else{
-            $result+=[
-                'click_trans_id'=>$req->click_trans_id,
-                'merchant_trans_id'=>$req->merchant_trans_id,
-                'merchant_confirm_id'=>null
-            ];
             return $result;
         }	
 	}
