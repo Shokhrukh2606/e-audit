@@ -52,7 +52,7 @@
                         <input type="text" class="form-control" placeholder="{{__("auth.Surname")}}" value="" name="surname" />
                       </div>
                       <div class="form-group">
-                        <input type="password" class="form-control" placeholder="{{__("auth.Patronymic")}}" value="" name="patronymic" />
+                        <input type="text" class="form-control" placeholder="{{__("auth.Patronymic")}}" value="" name="patronymic" />
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -84,7 +84,7 @@
                         <input type="text" class="form-control" placeholder="{{__("auth.Surname")}}" value="" name="surname" />
                       </div>
                       <div class="form-group">
-                        <input type="password" class="form-control" placeholder="{{__("auth.Patronymic")}}" value="" name="patronymic" />
+                        <input type="text" class="form-control" placeholder="{{__("auth.Patronymic")}}" value="" name="patronymic" />
                       </div>
                       <div class="form-group">
                         <input type="text" minlength="10" maxlength="10" class="form-control" placeholder="{{__("auth.Phone number")}}" value="" name="phone" />

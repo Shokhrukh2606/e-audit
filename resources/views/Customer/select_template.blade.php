@@ -1,7 +1,7 @@
 <form action="{{route('customer.create_order')}}">
 	<div>
 		{{__('front.select_temp')}}:
-		<select class="form-control" name="template_id" required onchange="alter_use_cases(this)">
+		<select class="form-control" id='template-type' name="template_id" required onchange="alter_use_cases(this)">
 			@foreach($templates as $template)
 			<option value="{{$template->id}}">{{$template->standart_num}}</option>
 			@endforeach
@@ -21,7 +21,8 @@
 	<button class="form-control" type="submit">{{__('front.continue')}}</button>
 </form>
 <script>
-	function alter_use_cases(elem) {
+	function alter_use_cases() {
+		const elem = document.getElementById("template-type");
 		let value = elem.value;
 		let use_cases = document.getElementById("use_cases").children;
 		for (use_case_cont of use_cases) {
@@ -33,4 +34,6 @@
 			}
 		}
 	}
+	
+	alter_use_cases()
 </script>
