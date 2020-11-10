@@ -21,7 +21,6 @@ class Transaction extends Model
             return $transaction;
         }
         $transaction=new self;
-        $transaction->invoice_id=$invoice_id;
         $transaction->payment_system='click';
         $transaction->system_transaction_id=$req->click_trans_id;
         $transaction->invoice_id=$req->merchant_trans_id;
