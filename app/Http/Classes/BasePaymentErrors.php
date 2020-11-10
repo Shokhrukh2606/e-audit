@@ -52,7 +52,7 @@ class BasePaymentErrors {
         }
 
         // get payment data by merchant_trans_id
-        $payment = Invoice::where('id', $request['merchant_trans_id'])->first();
+        $payment = Invoice::where('id', $request->merchant_trans_id)->first();
 
         if(!$payment){
             // return response array-like
@@ -64,7 +64,7 @@ class BasePaymentErrors {
 
         // get payment data by merchant_prepare_id
         if( $request->action == 1 ) {
-            $transaction = Transaction::where('id', $request['merchant_prepare_id'])->first();
+            $transaction = Transaction::where('id', $request->merchant_prepare_id)->first();
             if(!$transaction){
                 // return response array-like
                 return [
@@ -72,8 +72,27 @@ class BasePaymentErrors {
                     'error_note' => 'Transaction does not exist '
                 ];
             }
-        }
+             // check status to transaction cancelled
+            if($transaction['state'] == PaymentsStatus::REJECTED){
+            // return response array-like
+                return [
+                    'error' => -9,
+                    'error_note' => 'Transaction cancelled'
+                ];
+            }
 
+        }
+        if($request->action==0){
+            $transaction = Transaction::init_click_check($req);
+            if($transaction){
+                if($transaction->state==PaymentsStatus::REJECTED){
+                    return [
+                        'error' => -9,
+                        'error_note' => 'Transaction cancelled'
+                    ];
+                }
+            }
+        }
 
         // check to already paid
         if($payment->status == PaymentsStatus::CONFIRMED){
@@ -93,14 +112,6 @@ class BasePaymentErrors {
             ];
         }
 
-        // check status to transaction cancelled
-        if($payment['status'] == PaymentsStatus::REJECTED){
-            // return response array-like
-            return [
-                'error' => -9,
-                'error_note' => 'Transaction cancelled'
-            ];
-        }
 
         // return response array-like as success
         return [

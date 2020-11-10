@@ -11,12 +11,33 @@ class Transaction extends Model
     protected $table='transactions';
     public $timestamps=false;
 
-    public static function init($invoice_id){
-    	if($transaction=self::where('invoice_id', $invoice_id)->first())
-    		return $transaction;
-    	$transaction=new self;
-    	$transaction->invoice_id=$invoice_id;
-    	$transaction->save();
-    	return $transaction;
+    public static function init_click( $req){
+    	$transaction=self::where([
+            'invoice_id'=> $req->invoice_id,
+            'system_transaction_id'=>$req->click_trans_id,
+            'payment_system'=>'click'
+        ])->first();
+        if($transaction){
+            return $transaction;
+        }
+        $transaction=new self;
+        $transaction->invoice_id=$invoice_id;
+        $transaction->payment_system='click';
+        $transaction->system_transaction_id=$req->click_trans_id;
+        $transaction->invoice_id=$req->merchant_trans_id;
+        $transaction->system_create_time=$req->sign_time;
+        $transaction->save();
+        return $transaction;
+    }
+    public static function init_click_check( $req){
+        $transaction=self::where([
+            'invoice_id'=> $req->invoice_id,
+            'system_transaction_id'=>$req->click_trans_id,
+            'payment_system'=>'click'
+        ])->first();
+        if($transaction){
+            return $transaction;
+        }
+        return false;
     }
 }
