@@ -80,14 +80,7 @@ class BasePaymentErrors {
                     'error_note' => 'Transaction cancelled'
                 ];
             }
-             // check to already paid
-            if($payment->status == PaymentsStatus::CONFIRMED){
-                // return response array-like
-                return [
-                    'error' => -4,
-                    'error_note' => 'Already paid'
-                ];
-            }
+            
 
         }
         if($request->action==0){
@@ -100,6 +93,14 @@ class BasePaymentErrors {
                     ];
                 }
             }
+        }
+         // check to already paid
+        if($payment->status == PaymentsStatus::CONFIRMED){
+            // return response array-like
+            return [
+                'error' => -4,
+                'error_note' => 'Already paid'
+            ];
         }
 
        
