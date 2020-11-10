@@ -83,7 +83,7 @@ class BasePaymentErrors {
 
         }
         if($request->action==0){
-            $transaction = Transaction::init_click_check($req);
+            $transaction = Transaction::init_click_check($request);
             if($transaction){
                 if($transaction->state==PaymentsStatus::REJECTED){
                     return [
