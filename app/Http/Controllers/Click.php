@@ -33,17 +33,18 @@ class Click extends Controller
 		// error checking
         $error_check= new BasePaymentErrors();
         $result=$error_check->request_check($req, $this->click_secret_key);
-        if($req->error<0){
-            $transaction=Transaction::where('id', $req->merchant_prepare_id)->first();
-            $transaction->state='rejected';
-            $transaction->save();
-            return [
-                'error' => -9,
-                'error_note' => 'Transaction cancelled'
-            ];
-        }
+        
         // if there is no error
         if($result['error']==0){
+            if($req->error<0){
+                $transaction=Transaction::where('id', $req->merchant_prepare_id)->first();
+                $transaction->state='rejected';
+                $transaction->save();
+                return [
+                    'error' => -9,
+                    'error_note' => 'Transaction cancelled'
+                ];
+            }
             $invoice=Invoice::where('id',$req->merchant_trans_id)->first();
             $invoice->status='confirmed';
             $invoice->save();
