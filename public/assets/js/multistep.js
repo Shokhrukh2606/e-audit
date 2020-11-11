@@ -21,6 +21,7 @@ function showTab(n) {
 }
 
 function nextPrev(n) {
+  document.querySelector('.main-panel').scrollTo(0, 0);
   // This function will figure out which tab to display
   var x = document.getElementsByClassName("tab");
   // Exit the function if any field in the current tab is invalid:
