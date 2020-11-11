@@ -59,6 +59,7 @@ input[type="file"]::-webkit-file-upload-button:focus {
 
 #use_cases div input{
   cursor: pointer;
+  width: auto;
 }
 
 .file-wrapper div{
