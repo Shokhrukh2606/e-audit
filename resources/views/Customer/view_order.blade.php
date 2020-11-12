@@ -2,29 +2,29 @@
 	$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields"];
 	$editable_status=['initiated', 'rewrite'];
 @endphp
-<h2>Order {{$order->id}}</h2>
-Status: {{$order->status}} <br>
-Details: <br>
+<h2>{{__('front.order')}} {{$order->id}}</h2>
+{{__('front.status')}}: {{__('front.'.$order->status)}} <br>
+{{__('front.details')}}: <br>
 {{-- Order info --}}
-<h3>Order info</h3>
+<h3>{{__('front.order_info')}}</h3>
 <ul>
-	<li>Template Standart Number:{{$order->cust_info->template->standart_num}}</li>	
-	<li>Use Cases: 
+	<li>{{__('front.template_num')}}:{{$order->cust_info->template->standart_num}}</li>	
+	<li>{{__('front.use_cases')}}: 
 		@foreach($order->cust_info->use_cases as $uc)
 			<span>{{json_decode($uc->title)->ru}}</span> | 
 		@endforeach
 	</li>
 	@foreach($order->getAttributes() as $key=>$value)
 		@continue(in_array($key, $not_iterated, TRUE))
-		<li>{{$key}}:{{$value}}</li>
+		<li>{{__('front.'.$key)}}:{{$value}}</li>
 	@endforeach
 </ul>
 {{-- Customer info --}}
-<h3>Customer info</h3>
+<h3>{{__('front.custom_comp_info')}}</h3>
 <ul>
 	@foreach($order->cust_info->getAttributes() as $key=>$value)
 		@continue(in_array($key, $not_iterated, TRUE))
-		<li>{{$key}}:{{$value}}</li>
+		<li>{{__('front.'.$key)}}:{{$value}}</li>
 	@endforeach
 	@php
 		// get custom fields array
@@ -37,13 +37,13 @@ Details: <br>
 		<li>
 			{{$field->label->ru}} : 
 			@if(!isset($custom_fields->{$field->name}))
-				Nothing yet
+				{{__('front.nothing_yet')}}
 				@continue
 			@endif 
 			@if($field->type=='file')
 				<a href="{{route('file')."?path=".$custom_fields->{$field->name} }}" 
 				   target="blank">
-					View
+				   {{__('custom.show')}}
 				</a>
 			@else
 				{{$custom_fields->{$field->name} }}
@@ -52,9 +52,9 @@ Details: <br>
 	@endforeach
 </ul>
 @if($order->status=='initiated')
-	<a href="{{route('customer.cancel_order', $order->id)}}">Delete</a>
+	<a href="{{route('customer.cancel_order', $order->id)}}">{{__('custom.delete')}}</a>
 @endif
 @if(in_array($order->status, $editable_status))
-	<a href="{{route('customer.edit_order', $order->id)}}">Edit</a>
-	<a href="{{route('customer.send', $order->id)}}">Send to auditor</a>
+	<a href="{{route('customer.edit_order', $order->id)}}">{{__('custom.edit')}}</a>
+	<a href="{{route('customer.send', $order->id)}}">{{__('front.send_to_auditor')}}</a>
 @endif

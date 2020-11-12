@@ -79,7 +79,7 @@ class Agent_Controller extends Controller
                     $cuicm->use_case_id = $value;
                     $cuicm->save();
                 }
-                return redirect()->route('agent.conclusions');
+                return redirect()->route('agent.list_conclusions');
                 break;
             default:
                 # code...

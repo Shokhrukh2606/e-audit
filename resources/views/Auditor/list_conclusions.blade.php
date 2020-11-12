@@ -5,18 +5,18 @@
 </form>
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">My Conclusions</h3>
-        <a href="{{ route('auditor.create_conclusion') }}">Create New</a>
+        <h3 class="card-title">{{__('front.my_conclusions')}}</h3>
+        <a class="btn btn-sm btn-success" href="{{ route('auditor.create_conclusion') }}">{{__('custom.create')}}</a>
     </div>
     <div class="card-body">
         <table class="table tablesorter">
             <thead>
                 <th>ID</th>
-                <th>Template Standart Number</th>
-                <th>Use cases</th>
-                <th>Date</th>
-                <th>View</th>
-                <th>Send</th>
+            <th>{{__('front.template_num')}}</th>
+                <th>{{__('front.use_cases')}}</th>
+                <th>{{__('front.date')}}</th>
+                <th>{{__('custom.show')}}</th>
+                <th>{{__('front.actions')}}</th>
             </thead>
             <tbody>
                 @foreach ($conclusions as $conclusion)
