@@ -25,6 +25,7 @@ class Payme extends Controller
                 $dif = time() -(12);
                 if (date('Y-m-d H:i:s', $dif)>$created_date) {
                     return response()->json([
+                        "jsonrpc"=>"2.0",
                         'create_time' => $transaction->created_at,
                         'transaction' => $transaction->id,
                         'state'       => $transaction->state,
@@ -32,6 +33,7 @@ class Payme extends Controller
                     ]);
                 } else {
                     return response()->json([
+                        "jsonrpc"=>"2.0",
                         'result' => '',
                         'error' => [
                             'message' => [
@@ -47,6 +49,7 @@ class Payme extends Controller
             } else {
                 // Невозможно выполнить операцию.
                 return response()->json([
+                    "jsonrpc"=>"2.0",
                     'result' => '',
                     'error' => [
                         'code' => -31008,
@@ -76,6 +79,7 @@ class Payme extends Controller
                 $new_transaction->save();
             } else {
                 return response()->json([
+                    "jsonrpc"=>"2.0",
                     'result' => '',
                     'error' => [
                         'message' => [
