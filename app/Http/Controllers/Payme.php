@@ -23,7 +23,7 @@ class Payme extends Controller
         if ($transaction) {
             if ($transaction->state == PaymentsStatus::WAITING) {
                 $dif = time() -(12);
-                if (date('Y-m-d H:i:s', $dif)==$created_date) {
+                if (date('Y-m-d H:i:s', $dif)>$created_date) {
                     return response()->json([
                         'create_time' => $transaction->created_at,
                         'transaction' => $transaction->id,
