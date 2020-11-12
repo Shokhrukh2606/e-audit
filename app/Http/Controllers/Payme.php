@@ -43,7 +43,8 @@ class Payme extends Controller
             ];
         } 
         return [
-            'result'=>$error
+            'result'=>null,
+            $error
         ];   
     }
     
