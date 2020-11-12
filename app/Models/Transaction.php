@@ -39,21 +39,4 @@ class Transaction extends Model
         }
         return false;
     }
-    public static function init_payme_check( $req){
-        $transaction=self::where([
-            'invoice_id'=> $req->account->test,
-            'system_transaction_id'=>$req->id,
-            'payment_system'=>'payme'
-        ])->first();
-        if($transaction){
-            return [
-                'error'=> -31050,
-                'message'=>'Transaction not found'
-            ];;  
-        }
-        return [
-            'error'=> -31050,
-            'message'=>'Transaction not found'
-        ];
-    }
 }

@@ -22,18 +22,46 @@ class Payme extends Controller
             if($transaction->status==PaymentsStatus::WAITING){
                 $dif=time() - $transaction->system_create_time;
                 if($dif < 43200000 ){
-
+                    $transaction=new Transaction();
+                    $transaction->payment_system='payme';
+                    $transaction->system_transaction_id=$params->id;
+                    $transaction->invoice_id=$params->account->id;
+                    $transaction->system_create_time=$req->time;
+                    $transaction->save();
                 }else{
-
+                    return [
+                        'result'=>'',
+                        'error'=>-31008,
+                        'message'=>[
+                            'uz'=>'Transaction time out',
+                            'ru'=>'Transaction time out',
+                            'en'=>'Transaction time out'
+                        ]
+                    ];    
                 }
             }else{
                 // Невозможно выполнить операцию.
                 return [
-                    'result'=>[-31008];
+                    'result'=>'',
+                    'error'=>-31008,
+                    'message'=>[
+                        'uz'=>'Transaction status is rejected',
+                        'ru'=>'Transaction status is rejected',
+                        'en'=>'Transaction status is rejected'
+                    ]
+                ];
 
             }
         }else{
-
+                 return [
+                    'result'=>'',
+                    'error'=>-31008,
+                    'message'=>[
+                        'uz'=>'Transaction not found',
+                        'ru'=>'Transaction not found',
+                        'en'=>'Transaction not found'
+                    ]
+                ];
         }
 
 	}
