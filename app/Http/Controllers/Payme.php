@@ -42,7 +42,9 @@ class Payme extends Controller
                 ]
             ];
         } 
-        return $error;      
+        return [
+            'result'=>$error
+        ];   
     }
     
     public function create(Request $req){
