@@ -22,7 +22,7 @@ Route::prefix('click')->group(function(){
 	Route::post('complete', "Click@complete");
 	// prepare api endpoint for click
 });
-Route::post('create', "Payme@create");
+Route::post('payme', "Payme@create");
 
 // Route::prefix('payme')->group(function(){
 // 	Route::post('create', "Payme@create");
