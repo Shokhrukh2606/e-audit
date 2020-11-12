@@ -6,18 +6,51 @@ use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\Transaction;
 use App\Classes\BasePaymentErrors;
-use App\Classes\PaymePaymentPaymentErrors;
+use App\Classes\PaymeChecks;
 
 class Payme extends Controller
 {
-    private $click_secret_key="1HzIg1cDboO";
-
-	public function create(Request $req){
+    private $payme_secret_key="1HzIg1cDboO";
+    /**
+    * @name checkPerformTransaction
+    * @param request object-like
+    * @return array-like
+    */
+    public function dispatcher(Request $req){
+        switch ($req->method) {
+            case 'CheckPerformTransaction':
+                return $this->checkPerformTransaction($req);
+                break;
+            
+            default:
+                return [
+                    'error'=>[
+                        'code'=>-32601,
+                        'message'=>'Method not found'
+                    ]
+                ];
+                break;
+        }
+    }
+    public function checkPerformTransaction(Request $req){
+        $check=new PaymeChecks();
+        $error=$check->validateCheckParams($req->params);
+        if($error['error']['code']==0){
+            return [
+                "result" =>[
+                    "allow" => true
+                ]
+            ];
+        } 
+        return $error;      
+    }
+    
+    public function create(Request $req){
         // error checking
         $params=$req->params;
         // $transaction=Transaction::where(['id'=>$params->id, ''])
-	}
-	public function perform(Request $req){
+    }
+    public function perform(Request $req){
 		// error checking
         $error_check= new BasePaymentErrors();
         $result=$error_check->request_check($req, $this->click_secret_key);
@@ -54,5 +87,5 @@ class Payme extends Controller
         }else{
             return $result;
         }	
-	}
+    }
 }
