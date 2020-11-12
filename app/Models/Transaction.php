@@ -21,7 +21,6 @@ class Transaction extends Model
             return $transaction;
         }
         $transaction=new self;
-        $transaction->invoice_id=$invoice_id;
         $transaction->payment_system='click';
         $transaction->system_transaction_id=$req->click_trans_id;
         $transaction->invoice_id=$req->merchant_trans_id;
@@ -31,7 +30,7 @@ class Transaction extends Model
     }
     public static function init_click_check( $req){
         $transaction=self::where([
-            'invoice_id'=> $req->invoice_id,
+            'invoice_id'=> $req->merchant_trans_id,
             'system_transaction_id'=>$req->click_trans_id,
             'payment_system'=>'click'
         ])->first();
@@ -39,5 +38,22 @@ class Transaction extends Model
             return $transaction;
         }
         return false;
+    }
+    public static function init_payme_check( $req){
+        $transaction=self::where([
+            'invoice_id'=> $req->account->test,
+            'system_transaction_id'=>$req->id,
+            'payment_system'=>'payme'
+        ])->first();
+        if($transaction){
+            return [
+                'error'=> -31050,
+                'message'=>'Transaction not found'
+            ];;  
+        }
+        return [
+            'error'=> -31050,
+            'message'=>'Transaction not found'
+        ];
     }
 }

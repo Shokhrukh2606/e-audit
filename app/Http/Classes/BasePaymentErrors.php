@@ -80,10 +80,11 @@ class BasePaymentErrors {
                     'error_note' => 'Transaction cancelled'
                 ];
             }
+            
 
         }
         if($request->action==0){
-            $transaction = Transaction::init_click_check($req);
+            $transaction = Transaction::init_click_check($request);
             if($transaction){
                 if($transaction->state==PaymentsStatus::REJECTED){
                     return [
@@ -93,8 +94,7 @@ class BasePaymentErrors {
                 }
             }
         }
-
-        // check to already paid
+         // check to already paid
         if($payment->status == PaymentsStatus::CONFIRMED){
             // return response array-like
             return [
@@ -103,6 +103,7 @@ class BasePaymentErrors {
             ];
         }
 
+       
         // check to correct amount
         if(abs((float)$payment->price - (float)$request->amount) > 0.01){
             // return response array-like
