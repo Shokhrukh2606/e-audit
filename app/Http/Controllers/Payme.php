@@ -67,6 +67,8 @@ class Payme extends Controller
                 $new_transaction->system_transaction_id=$params->id;
                 $new_transaction->system_create_time=date('Y-m-d H:i:s',$params->time);
                 $new_transaction->state=PaymentsStatus::WAITING;
+                $new_transaction->paymen_system='payme';
+                $new_transaction->invoice_id=$params->account->id;
                 $new_transaction->save();
             }else{
                  return [
