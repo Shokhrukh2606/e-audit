@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\Transaction;
 use App\Classes\BasePaymentErrors;
+use App\Classes\PaymentsStatus;
 use App\Classes\PaymePaymentPaymentErrors;
 
 class Payme extends Controller
@@ -15,7 +16,26 @@ class Payme extends Controller
 	public function create(Request $req){
         // error checking
         $params=$req->params;
-        // $transaction=Transaction::where(['id'=>$params->id, ''])
+        $created_date=date('Y-m-d H:i:s',$params->time);
+        $transaction=Transaction::where(['id'=>$params->id, 'system_create_time'=>$created_date])->first();
+        if($transaction){
+            if($transaction->status==PaymentsStatus::WAITING){
+                $dif=time() - $transaction->system_create_time;
+                if($dif < 43200000 ){
+
+                }else{
+
+                }
+            }else{
+                // Невозможно выполнить операцию.
+                return [
+                    'result'=>[-31008];
+
+            }
+        }else{
+
+        }
+
 	}
 	public function perform(Request $req){
 		// error checking
