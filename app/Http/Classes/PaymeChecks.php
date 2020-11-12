@@ -79,7 +79,7 @@ class PaymeChecks{
 			];
 		}
 		$transaction=Transaction::where([
-			'iinvoice_id'=>$invoice->id,
+			'invoice_id'=>$invoice->id,
 			'payment_system'=>'payme'
 		])->first();
 		if($transaction&&
