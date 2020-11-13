@@ -98,6 +98,33 @@ class PaymeChecks{
 				]
 			];
 	}
+	public function validateCreateParams($params){
+		$params=(object) $params;
+		if (!is_numeric($params->amount)) {
+			return [
+				'error'=>[
+					'message'=>'Incorrect amount.',
+					'code'=>-31001
+				]
+			];
+		}
+
+        // todo: Validate account, if failed throw error
+        // assume, we should have order_id
+
+		if (!isset($params->account['test'])||!$params->account['test']) {
+			return [
+				'error'=>[
+					'message'=>[
+						'uz'=>'Неверный код заказа.',
+						'ru'=>'Harid kodida xatolik.',
+						'en'=>'Incorrect order code.'
+					],
+					'code'=>-31050
+				]
+			];
+		}
+	}
 }
 
 

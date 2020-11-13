@@ -17,10 +17,12 @@ class Payme extends Controller
     */
     public function dispatcher(Request $req){
         switch ($req->method) {
-            case 'CheckPerformTransaction':
-                return $this->checkPerformTransaction($req);
+            case 'CreateTransaction':
+                return $this->checkCreateTransaction($req);
                 break;
-            
+            case 'CheckPerformTransaction':
+                    return $this->checkPerformTransaction($req);
+                    break;
             default:
                 return [
                     'error'=>[
@@ -32,6 +34,18 @@ class Payme extends Controller
         }
     }
     public function checkPerformTransaction(Request $req){
+        $check=new PaymeChecks();
+        $error=$check->validateCheckParams($req->params);
+        if($error['error']['code']==0){
+            return [
+                "result" =>[
+                    "allow" => true
+                ]
+            ];
+        } 
+        return $error;      
+    }
+    public function checkCreateTransaction(Request $req){
         $check=new PaymeChecks();
         $error=$check->validateCheckParams($req->params);
         if($error['error']['code']==0){
