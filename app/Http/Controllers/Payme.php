@@ -22,6 +22,9 @@ class Payme extends Controller
             case 'CancelTransaction':
                 return $this->cancelTransaction($req);
                 break;
+            case 'CreateTransaction':
+                return $this->checkCreateTransaction($req);
+                break;
             default:
                 return [
                     'error'=>[
@@ -110,10 +113,14 @@ class Payme extends Controller
         }
         return $param_check;
     }
-    public function create(Request $req){
-        // error checking
-        $params=$req->params;
-        // $transaction=Transaction::where(['id'=>$params->id, ''])
+    public function checkCreateTransaction(Request $req)
+    {
+        $check = new PaymeChecks();
+        $answer = $check->validateCreateParams($req->params);
+        if ($answer['error']['code'] == 0) {
+            return ['result' => $answer['result']];
+        }
+        return ['error' => $answer['error']];
     }
     public function perform(Request $req){
 		// error checking
