@@ -63,13 +63,13 @@ class Payme extends Controller
         if($transaction_check['error']['code']==0){
             $transaction=$transaction_check['transaction'];
             $formatted_transaction=[
-                'create_time'=>strtotime($transaction->created_at),
+                'create_time'=>strtotime($transaction->created_at)*1000,
                 'perform_time'=>$transaction->perform_time?
-                    strtotime($transaction->perform_time)
+                    strtotime($transaction->perform_time)*1000
                     :null
                 ,
                 'cancel_time'=>$transaction->cancel_time?
-                    strtotime($transaction->cancel_time)
+                    strtotime($transaction->cancel_time)*1000
                     :null
                 ,
                 'transaction'=>$transaction->id,
