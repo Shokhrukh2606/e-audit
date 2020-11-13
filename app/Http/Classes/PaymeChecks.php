@@ -62,7 +62,11 @@ class PaymeChecks{
         if ($invoice->price !=  $params->amount) {
 			return[
 				'error'=>[
-					'message'=>'Incorrect amount.',
+					'message'=>[
+						'uz'=>'Incorrect amount.',
+						'ru'=>'Incorrect amount.',
+						'en'=>'Incorrect amount.'
+					],	
 					'code'=>-31001
 				]
 			];
