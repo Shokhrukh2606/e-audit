@@ -167,7 +167,7 @@ class PaymeChecks
 				]
 			];
 		}
-		if ($transaction->transaction_state() != 1) {
+		if ($transaction->transaction_state() != 1 &&$transaction->transaction_state() != 2) {
 			return [
 				'error' => [
 					'message' => [
