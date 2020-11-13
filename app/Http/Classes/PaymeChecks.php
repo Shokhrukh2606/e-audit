@@ -225,7 +225,7 @@ class PaymeChecks
 			$new_transaction->error_code=1;
 			$new_transaction->system_create_time=date('Y-m-d H:i:s', floor($params->time/1000));
 			$new_transaction->save();
-			dd($new_transaction->created_at);
+			$new_transaction=Transaction::where(['id'=>$new_transaction->id])->first();
 			return [
 				'error' => [
 					'message' => 'Successfull',
