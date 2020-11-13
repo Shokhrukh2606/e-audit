@@ -66,15 +66,15 @@ class Payme extends Controller
                 'create_time'=>strtotime($transaction->created_at)*1000,
                 'perform_time'=>$transaction->perform_time?
                     strtotime($transaction->perform_time)*1000
-                    :null
+                    :0
                 ,
                 'cancel_time'=>$transaction->cancel_time?
                     strtotime($transaction->cancel_time)*1000
-                    :null
+                    :0
                 ,
                 'transaction'=>"$transaction->id",
                 'state'=>$transaction->transaction_state(),
-                'reason'=>$transaction->reason
+                'reason'=>$transaction->reason?intval($transaction->reason):null
             ];
             return [
                 'result'=>$formatted_transaction
