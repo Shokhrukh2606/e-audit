@@ -52,7 +52,7 @@ class PaymeChecks{
 						'ru'=>'Harid kodida xatolik.',
 						'en'=>'Incorrect order code.'
 					],
-					'code'=>-31050
+					'code'=>-31051
 				]
 			];
 		}
