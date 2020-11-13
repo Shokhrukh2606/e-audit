@@ -29,6 +29,9 @@ class Payme extends Controller
             case 'CreateTransaction':
                 return $this->checkCreateTransaction($req);
                 break;
+            case 'PerformTransaction':
+                return $this->performTransaction($req);
+                break;
             default:
                 return [
                     'error'=>[
@@ -166,5 +169,13 @@ class Payme extends Controller
         }else{
             return $result;
         }	
+    }
+    public function performTransaction(Request $req){
+        $answer = new PaymeChecks();
+        $answer->doFuckPerform($req->params);
+        if ($answer['error']['code'] == 0) {
+            return ['result' => $answer['result']];
+        }
+        return ['error' => $answer['error']];
     }
 }
