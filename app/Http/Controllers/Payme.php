@@ -98,10 +98,13 @@ class Payme extends Controller
         if($param_check['error']['code']==0){
             $transaction=$param_check['transaction'];
             $transaction->cancel($req->params['reason']); 
-            return [
+            $formatted_transaction=[
                 'transaction'=>$transaction->id,
                 'cancel_time'=>$transaction->cancel_time,
                 'state'=>$transaction->transaction_state()
+            ];
+            return [
+                'result'=>$formatted_transaction
             ];
         }
         return $param_check;
