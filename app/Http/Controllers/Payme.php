@@ -106,9 +106,7 @@ class Payme extends Controller
             $response['id']=$req->id;
             $response['jsonrpc']='2.0';
             $response['result']=$formatted_transaction; 
-            return [
-                'result'=>$response
-            ];
+            return $response;
         }
         return $param_check;
     }
