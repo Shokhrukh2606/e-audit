@@ -15,10 +15,6 @@ class Payme extends Controller
      * @param request object-like
      * @return array-like
      */
-    public function dispatcher(Request $req)
-    {
-
-    
     public function dispatcher(Request $req){
         switch ($req->method) {
             case 'CheckPerformTransaction':
