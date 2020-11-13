@@ -15,10 +15,7 @@ class Payme extends Controller
      * @param request object-like
      * @return array-like
      */
-    
 
-    
-    
     public function dispatcher(Request $req){
         switch ($req->method) {
             case 'CheckPerformTransaction':
@@ -32,6 +29,9 @@ class Payme extends Controller
                 break;
             case 'CreateTransaction':
                 return $this->checkCreateTransaction($req);
+                break;
+            case 'PerformTransaction':
+                return $this->performTransaction($req);
                 break;
             default:
                 return [
@@ -170,5 +170,13 @@ class Payme extends Controller
         }else{
             return $result;
         }	
+    }
+    public function performTransaction(Request $req){
+        $check = new PaymeChecks();
+        $answer=$check->doFuckPerform($req->params);
+        if ($answer['error']['code'] == 0) {
+            return ['result' => $answer['result']];
+        }
+        return ['error' => $answer['error']];
     }
 }
