@@ -171,8 +171,8 @@ class Payme extends Controller
         }	
     }
     public function performTransaction(Request $req){
-        $answer = new PaymeChecks();
-        $answer->doFuckPerform($req->params);
+        $check = new PaymeChecks();
+        $answer=$check->doFuckPerform($req->params);
         if ($answer['error']['code'] == 0) {
             return ['result' => $answer['result']];
         }
