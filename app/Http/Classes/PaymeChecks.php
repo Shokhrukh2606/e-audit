@@ -29,7 +29,7 @@ class PaymeChecks
 		// todo: Validate account, if failed throw error
 		// assume, we should have order_id
 
-		if (!isset($params->account['test']) || !$params->account['test']) {
+		if (!isset($params->account['Test']) || !$params->account['Test']) {
 			return [
 				'error' => [
 					'message' => [
@@ -44,7 +44,7 @@ class PaymeChecks
 
 		// todo: Check is invoice available
 
-		$invoice = Invoice::where('id', $params->account['test'])->first();
+		$invoice = Invoice::where('id', $params->account['Test'])->first();
 
 		// Check, is order found by specified order_id
 		if (!$invoice || !$invoice->id) {
@@ -82,7 +82,7 @@ class PaymeChecks
 			];
 		}
 		$transaction = Transaction::where([
-			'test' => $invoice->id,
+			'Test' => $invoice->id,
 			'payment_system' => 'payme'
 		])->first();
 		if (
@@ -120,7 +120,7 @@ class PaymeChecks
 		// todo: Validate account, if failed throw error
 		// assume, we should have order_id
 
-		if (!isset($params->account['test']) || !$params->account['test']) {
+		if (!isset($params->account['Test']) || !$params->account['Test']) {
 			return [
 				'error' => [
 					'message' => [
@@ -135,7 +135,7 @@ class PaymeChecks
 		// Find transaction by id
 		$transaction = Transaction::where(['system_transaction_id' => $params->id])->first();
 		if (!$transaction) {
-			$invoice=Invoice::where(['id'=>$params->account['test'], 'price'=>$params->amount]);
+			$invoice=Invoice::where(['id'=>$params->account['Test'], 'price'=>$params->amount]);
 			if(!$invoice){
 				return [
 					'error' => [
