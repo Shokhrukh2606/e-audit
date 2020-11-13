@@ -59,7 +59,7 @@ class Payme extends Controller
         $transaction_check=$check->transaction_check($req->params);
         if($transaction_check['error']['code']==0){
             $transaction=$transaction_check['transaction'];
-            $response=[
+            $formatted_transaction=[
                 'create_time'=>strtotime($transaction->created_at),
                 'perform_time'=>$transaction->perform_time?
                     strtotime($transaction->perform_time)
@@ -73,7 +73,9 @@ class Payme extends Controller
                 'state'=>$transaction->transaction_state(),
                 'reason'=>$transaction->reason
             ];
-            return $response;
+            return [
+                'result'=>$formatted_transaction
+            ];
         }
         $transaction_check['id']=$req->id;
         $transaction_check['jsonrpc']='2.0';
