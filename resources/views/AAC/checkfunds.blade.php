@@ -1,10 +1,10 @@
 <h2>{{Auth::user()->funds}}</h2>
-<a href="{{route('add_funds')}}">Add funds</a>
+{{-- <a class="btn btn-sm btn-success" href="{{route('aac.add_funds')}}">{{__('front.add_funds')}}</a> --}}
 <table style="width:100%">
     <tr>
-        <th>Amount</th>
-        <th>Price</th>
-        <th>Transferred date</th>
+    <th>{{__('front.amount')}}</th>
+        <th>{{__('front.price')}}</th>
+    <th>{{__('front.transferred_date')}}</th>
     </tr>
     @foreach (Auth::user()->oldFunds as $item)
         <tr>

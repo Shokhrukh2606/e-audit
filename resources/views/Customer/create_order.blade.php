@@ -5,58 +5,58 @@
 		<input class="form-control" type="hidden" name="ciucm[{{$use_case}}]" value="{{$use_case}}">
 	@endforeach
 	<div>
-		<label>Language</label>
+	<label>{{__('front.lang')}}</label>
 		<select class="form-control" name="cust_info[lang]">
-			<option value="uz">Uzbek</option>
-			<option value="ru">Russian</option>
+			<option value="uz">{{__('front.oz')}}</option>
+			<option value="ru">{{__('front.ru')}}</option>
 		</select>
 	</div>
 	<div>
-		<label>Phone</label>
+	<label>{{__('front.phone')}}</label>
 		<input class="form-control" type="text" maxlength="13" name="order[phone]">
 	</div>
 	<div>
-		<label>Address to deliver</label>
+		<label>{{__('front.address_to_deliver')}}</label>
 		<input class="form-control" type="text" name="order[address_to_deliver]">
 	</div>
 	<div>
-		<label>Customer Company Government Registration Number</label>
+		<label>{{__('front.cust_comp_gov_reg_num')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]">
 	</div>
 	<div>
-		<label>Customer Company Government Registration Date</label>
+	<label>{{__('front.cust_comp_gov_reg_date')}}</label>
 		<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]">
 	</div>
 	<div>
-		<label>Customer Company Address</label>
+	<label>{{__('front.cust_comp_address')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_address]">
 	</div>
 	<div>
-		<label>Customer Company Bank Name</label>
+	<label>{{__('front.cust_comp_bank_name')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]">
 	</div>
 	<div>
-		<label>Customer Company Bank Account</label>
+		<label>{{__('front.cust_comp_bank_acc')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]">
 	</div>
 	<div>
-		<label>Customer Company Bank MFO</label>
+	<label>{{__('front.cust_comp_bank_mfo')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]">
 	</div>
 	<div>
-		<label>Customer Company INN</label>
+	<label>{{__('front.cust_comp_inn')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_inn]">
 	</div>
 	<div>
-		<label>Customer Company OKED</label>
+	<label>{{__('front.cust_comp_oked')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_oked]">
 	</div>
 	<div>
-		<label>Customer Company Director Name</label>
+	<label>{{__('front.cust_comp_director_name')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_director_name]">
 	</div>
 	<div>
-		<label>Customer Company Activity</label>
+	<label>{{__('front.cust_comp_activity')}}</label>
 		<input class="form-control" type="text" name="cust_info[cust_comp_activity]">
 	</div>
 	<div>
@@ -87,5 +87,5 @@
 			@endforeach
 		<?=$dom->saveHTML()?>
 	</div>
-	<button class="btn btn-sm btn-success" type="submit">Submit</button>
+<button class="btn btn-sm btn-success" type="submit">{{__('custom.create')}}</button>
 </form>

@@ -80,10 +80,10 @@ class Admin_Controller extends Controller
     {
 
         $query = QueryBuilder::for(User::class)
-            ->allowedFilters(['inn', 'group_id', 'phone', 'name']);
-        if ($came = $request->input("filter.name")) {
-            $query->where('name', 'like', "%${came}%")->orWhere('surname', 'like', "%${came}%")->orWhere('patronymic', 'like', "%${came}%");
-        }
+            ->allowedFilters(['inn', 'group_id', 'phone', 'name', 'full_name']);
+        // if ($came = $request->input("filter.name")) {
+        //     $query->where('full_name', 'like', "%${came}");
+        // }
         $data['users'] = $query->get();
         $data['groups'] = User_group::all();
         return $this->view('list_users', $data);
@@ -104,7 +104,7 @@ class Admin_Controller extends Controller
                 }
                 $user->password = Hash::make($req->input('user.password'));
                 $user->save();
-                return redirect()->back()->with("success", "Successfully added");
+                return redirect()->route('admin.list_users')->with("success", "Successfully added");
                 break;
             default:
                 # code...
@@ -125,11 +125,12 @@ class Admin_Controller extends Controller
                 $fields = $req->input("user");
                 $user = User::where(['id'=>$req->id])->first();
                 unset($fields['password']);
-                foreach ($fields as $name => $value) {
-                    $user->$name = $value;
-                }
-                $user->save();
-                return redirect()->back()->with("success", "Successfully updated");
+                // foreach ($fields as $name => $value) {
+                //     $user->$name = $value;
+                // }
+                $user->update($fields);
+                // $user->save();
+                return redirect()->route('admin.list_users')->with("success", "Successfully updated");
                 break;
             default:
                 # code...

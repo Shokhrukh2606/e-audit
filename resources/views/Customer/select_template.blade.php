@@ -1,6 +1,6 @@
 <form action="{{route('customer.create_order')}}">
 	<div>
-		Please select template:
+		{{__('front.select_temp')}}:
 		<select class="form-control" name="template_id"  required onchange="alter_use_cases(this)">
 			@foreach($templates as $template)
 			<option value="{{$template->id}}">{{$template->standart_num}}</option>
@@ -8,7 +8,7 @@
 		</select>
 	</div>
 	<div>
-		Please select use case:
+		{{__('front.select_use_case')}}:
 		<div id="use_cases">
 			@foreach($use_cases as $use_case)
 			<div data-value="{{$use_case->id}}" data-temp_id="{{$use_case->template_id}}">
@@ -18,7 +18,7 @@
 			@endforeach
 		</div>
 	</div>
-	<button class="form-control" type="submit">Continue</button>
+	<button class="form-control" type="submit">{{__('front.continue')}}</button>
 </form>
 <script>
 	function alter_use_cases(elem){
