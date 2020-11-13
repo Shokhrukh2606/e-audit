@@ -160,7 +160,7 @@ class PaymeChecks
 					'code' => 0
 				],
 				'result' => [
-					"create_time" =>strtotime($new_transaction->system_create_time) ,
+					"create_time" =>$new_transaction->system_create_time ,
 					"transaction" => $new_transaction->invoice_id,
 					"state" => 1
 				]
@@ -201,7 +201,7 @@ class PaymeChecks
 				'code' => 0
 			],
 			'result' => [
-				"create_time" =>strtotime($transaction->system_create_time),
+				"create_time" =>$transaction->system_create_time,
 				"transaction" =>$transaction->invoice_id,
 				"state" => 1
 			]
