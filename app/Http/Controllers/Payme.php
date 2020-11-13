@@ -43,6 +43,7 @@ class Payme extends Controller
             ];
         } 
         $error['id']=$req->id;
+        $error['jsonrpc']='2.0';
         $error['result']=null;        
         return $error;
     }
