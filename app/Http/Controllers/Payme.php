@@ -21,9 +21,9 @@ class Payme extends Controller
             case 'CreateTransaction':
                 return $this->checkCreateTransaction($req);
                 break;
-            case 'CheckPerformTransaction':
-                return $this->checkPerformTransaction($req);
-                break;
+            // case 'CheckPerformTransaction':
+            //     return $this->checkPerformTransaction($req);
+            //     break;
             default:
                 return [
                     'error' => [
