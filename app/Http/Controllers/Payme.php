@@ -94,12 +94,13 @@ class Payme extends Controller
     public function cancelTransaction(Request $req){
         $check=new PaymeChecks();
         $param_check=$check->cancel_param_check($req->params);
+
         if($param_check['error']['code']==0){
             $transaction=$param_check['transaction'];
             $transaction->cancel($req->params['reason']); 
             $formatted_transaction=[
                 'transaction'=>"$transaction->id",
-                'cancel_time'=>strval(strtotime(date("Y-m-d H:i:s"))),
+                'cancel_time'=>strtotime($transaction->cancel_time),
                 'state'=>$transaction->transaction_state()
             ];
             return [
@@ -152,5 +153,3 @@ class Payme extends Controller
         }	
     }
 }
-
-
