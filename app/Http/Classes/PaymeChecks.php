@@ -214,18 +214,9 @@ class PaymeChecks
 		// Find transaction by id
 		$transaction = Transaction::where(['system_transaction_id' => $params->id, 'payment_system'=>'payme'])->first();
 		if (!$transaction) {
-			$invoice=Invoice::where(['id'=>$params->account['Test'], 'price'=>$params->amount])->first();
-			if(!$invoice){
-				return [
-					'error' => [
-						'message' => [
-							'uz' => 'Bu id bilan ochilgan invoice topilmadi',
-							'ru' => 'Этот идентификатор счета-фактуры не существует',
-							'en' => 'This kind of id does not exist.'
-						],
-						'code' => -31050
-					]
-				];
+			$checkPerformTransaction=$this->validateCheckParams((Array) $params);
+			if($checkPerformTransaction['error']['code']!=0){
+			  return $checkPerformTransaction;
 			}
 			$new_transaction=new Transaction;
 			$new_transaction->payment_system='payme';
