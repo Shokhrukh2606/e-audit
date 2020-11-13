@@ -133,7 +133,7 @@ class PaymeChecks
 			];
 		}
 		// Find transaction by id
-		$transaction = Transaction::where(['system_transaction_id' => $params->id, 'payment_system'=>'payme'])->first();
+		$transaction = Transaction::where(['system_transaction_id' => $params->account['id'], 'payment_system'=>'payme'])->first();
 		if (!isset($transaction)) {
 			$invoice=Invoice::where(['id'=>$params->account['Test'], 'price'=>$params->amount])->first();
 			if(!isset($invoice)){
@@ -150,7 +150,7 @@ class PaymeChecks
 			}
 			$new_transaction=new Transaction;
 			$new_transaction->payment_system='payme';
-			$new_transaction->system_transaction_id=$params->id;
+			$new_transaction->system_transaction_id=$params->account['id'];
 			$new_transaction->invoice_id=$params->account['Test'];
 			$new_transaction->error_code=1;
 			$new_transaction->system_create_time=date('Y-m-d H:i:s', floor($params->time/1000));
