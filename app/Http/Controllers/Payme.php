@@ -99,7 +99,7 @@ class Payme extends Controller
             $transaction=$param_check['transaction'];
             $transaction->cancel($req->params['reason']); 
             $formatted_transaction=[
-                'transaction'=>$transaction->id,
+                'transaction'=>"$transaction->id",
                 'cancel_time'=>strtotime($transaction->cancel_time),
                 'state'=>$transaction->transaction_state()
             ];
