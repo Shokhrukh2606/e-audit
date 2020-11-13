@@ -33,7 +33,19 @@ class PaymeChecks
 			];
 		}
 		$transaction = Transaction::where(['system_transaction_id' => $params->id])->first();
-		if (!$transaction->transaction_state() != 1) {
+		if(!$transaction){
+			return [
+				'error' => [
+					'message' => [
+						'uz' => 'Транзакция не найдена.',
+						'ru' => 'Tranzaksiya topilmadi.',
+						'en' => 'Transaction not found.'
+					],
+					'code' => -31003
+				]
+			];
+		}
+		if ($transaction->transaction_state() != 1) {
 			if ($transaction->transaction_state() != 2) {
 				return [
 					'error' => [
