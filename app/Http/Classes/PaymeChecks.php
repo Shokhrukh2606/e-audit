@@ -227,6 +227,10 @@ class PaymeChecks
 					]
 				];
 			}
+			$error=$this->validateCheckParams($params);
+			if($error[0]['code']!=0){
+				return $error;
+			}
 			$new_transaction=new Transaction;
 			$new_transaction->payment_system='payme';
 			$new_transaction->system_transaction_id=$params->id;
