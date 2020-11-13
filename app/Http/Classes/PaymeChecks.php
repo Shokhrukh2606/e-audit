@@ -99,7 +99,7 @@ class PaymeChecks
 			return[
 				'error'=>[
 					'message'=>'There is other active/completed transaction for this order.',
-					'code'=>-31008
+					'code'=>-31050
 				]
 			];
 		}
