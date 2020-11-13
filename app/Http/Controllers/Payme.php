@@ -60,7 +60,7 @@ class Payme extends Controller
         if($transaction_check['error']['code']==0){
             $transaction=$transaction_check['transaction'];
             $response=[
-                'create_time'=>$transaction->created_at,
+                'create_time'=>"$transaction->created_at",
                 'perform_time'=>$transaction->perform_time,
                 'cancel_time'=>$transaction->cancel_time,
                 'transaction'=>$transaction->id,
