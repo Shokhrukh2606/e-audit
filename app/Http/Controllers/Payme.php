@@ -65,7 +65,7 @@ class Payme extends Controller
                     strtotime($transaction->perform_time)
                     :null
                 ,
-                'cancel_time'=>transaction->cancel_time?
+                'cancel_time'=>$transaction->cancel_time?
                     strtotime($transaction->cancel_time)
                     :null
                 ,
