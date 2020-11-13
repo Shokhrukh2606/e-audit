@@ -45,8 +45,25 @@ class PaymeChecks
 				]
 			];
 		}
-		if ($transaction->transaction_state() != 1) {
-			if ($transaction->transaction_state() != 2) {
+		switch ($transaction->transaction_state()) {
+			case '1':
+				
+				break;
+			case '2':
+				return [
+					'result' => [
+						"create_time" => strtotime($transaction->created_at) * 1000,
+						"transaction" => "$transaction->id",
+						"state" => 1
+					],
+					'error' => [
+						'message' => 'Successfull',
+						'code' => 0
+					]
+				];
+			break;
+			
+			default:
 				return [
 					'error' => [
 						'message' => [
@@ -57,19 +74,9 @@ class PaymeChecks
 						'code' => -31008
 					]
 				];
-			}
-			return [
-				'result' => [
-					"create_time" => strtotime($transaction->created_at) * 1000,
-					"transaction" => "$transaction->id",
-					"state" => 1
-				],
-				'error' => [
-					'message' => 'Successfull',
-					'code' => 0
-				]
-			];
+			break;
 		}
+		
 		if ((round(microtime(true) * 1000) - strtotime($transaction->system_create_time)) > 43200000) {
 			$transaction->state = 'rejected';
 			$transaction->error_code = 4;
