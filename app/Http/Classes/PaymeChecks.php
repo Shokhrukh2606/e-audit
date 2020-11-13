@@ -152,7 +152,7 @@ class PaymeChecks
 			$new_transaction->payment_system='payme';
 			$new_transaction->system_transaction_id=$params->id;
 			$new_transaction->invoice_id=$params->account['Test'];
-			$new_transaction->system_create_time=$params->time;
+			$new_transaction->system_create_time=date('Y-m-d H:i:s', $params->time);
 			$new_transaction->save();
 			return [
 				'error' => [
@@ -160,7 +160,7 @@ class PaymeChecks
 					'code' => 0
 				],
 				'result' => [
-					"create_time" =>$new_transaction->system_create_time ,
+					"create_time" =>strtotime($new_transaction->system_create_time)*1000 ,
 					"transaction" => $new_transaction->invoice_id,
 					"state" => 1
 				]
@@ -201,7 +201,7 @@ class PaymeChecks
 				'code' => 0
 			],
 			'result' => [
-				"create_time" =>$transaction->system_create_time,
+				"create_time" =>strtotime($transaction->system_create_time)*1000,
 				"transaction" =>$transaction->invoice_id,
 				"state" => 1
 			]
