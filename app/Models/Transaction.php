@@ -73,17 +73,19 @@ class Transaction extends Model
         }
     }
     public function cancel($reason){
+        $time = new DateTime("now", new DateTimeZone('Asia/Tashkent') );
+        
         switch ($this->transaction_state()) {
             case '1':
                 $this->reason=$reason;
                 $this->state='cancelled';
-                $this->cancel_time=date('Y-m-d H:i:s');
+                $this->cancel_time=$time->format('Y-m-d H:i:s');
                 $this->save();
                 break;
             case '2':
                 $this->reason=$reason;
                 $this->state='cancelled_after_confirmed';
-                $this->cancel_time=date('Y-m-d H:i:s');
+                $this->cancel_time=$time->format('Y-m-d H:i:s');
                 $this->save();
                 break;
             
