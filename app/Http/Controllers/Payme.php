@@ -10,18 +10,15 @@ use App\Classes\PaymeChecks;
 
 class Payme extends Controller
 {
-    private $payme_secret_key="1HzIg1cDboO";
-    /**
-    * @name checkPerformTransaction
-    * @param request object-like
-    * @return array-like
-    */
+    
     public function dispatcher(Request $req){
         switch ($req->method) {
             case 'CheckPerformTransaction':
                 return $this->checkPerformTransaction($req);
                 break;
-            
+            case 'CheckTransaction':
+                return $this->checkTransaction($req);
+                break;
             default:
                 return [
                     'error'=>[
@@ -32,6 +29,11 @@ class Payme extends Controller
                 break;
         }
     }
+    /**
+    * @name checkPerformTransaction
+    * @param request object-like
+    * @return array-like
+    */
     public function checkPerformTransaction(Request $req){
         $check=new PaymeChecks();
         $error=$check->validateCheckParams($req->params);
@@ -47,7 +49,31 @@ class Payme extends Controller
         $error['result']=null;        
         return $error;
     }
-    
+    /**
+    * @name checkTransaction
+    * @param request object-like
+    * @return array-like
+    */
+    public function checkTransaction(Request $req){
+        $check=new PaymeChecks();
+        $transaction_check=$check->transaction_check($req->params);
+        if($transaction_check['error']['code']==0){
+            $transaction=$transaction_check['transaction'];
+            return [
+                'create_time'=>$transaction->created_at,
+                'perform_time'=>$transaction->perform_time,
+                'cancel_time'=>$transaction->cancel_time,
+                'transaction'=>$transaction->id,
+                'state'=>$transaction->transaction_state(),
+                'reason'=>$transaction->reason
+            ];
+        }
+        $transaction_check['id']=$req->id;
+        $transaction_check['jsonrpc']='2.0';
+        $transaction_check['result']=null;        
+        return $transaction_check;
+
+    }
     public function create(Request $req){
         // error checking
         $params=$req->params;

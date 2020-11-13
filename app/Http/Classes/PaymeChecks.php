@@ -13,7 +13,7 @@ class PaymeChecks{
 	public function validateCheckParams($params){
 		// todo: Validate amount, if failed throw error
         // for example, check amount is numeric
-        $params=(object) $params;
+		$params=(object) $params;
 		if (!is_numeric($params->amount)) {
 			return [
 				'error'=>[
@@ -41,7 +41,7 @@ class PaymeChecks{
 
         // todo: Check is invoice available
 
-        $invoice = Invoice::where('id',$params->account['Test'])->first();
+		$invoice = Invoice::where('id',$params->account['Test'])->first();
 
         // Check, is order found by specified order_id
 		if (!$invoice||!$invoice->id) {
@@ -59,7 +59,7 @@ class PaymeChecks{
 
         // validate amount
 
-        if ($invoice->price !=  $params->amount) {
+		if ($invoice->price !=  $params->amount) {
 			return[
 				'error'=>[
 					'message'=>[
@@ -95,12 +95,43 @@ class PaymeChecks{
 				]
 			];
 		}
-        return [
-        		'error'=>[
-					'message'=>'Successfull',
-					'code'=>0
+		return [
+			'error'=>[
+				'message'=>'Successfull',
+				'code'=>0
+			]
+		];
+	}
+	public function transaction_check($params){
+		if(!$params['id']){
+			return [
+				'error'=>[
+					'message'=>'Incorrect params',
+					'code'=>-31008
 				]
 			];
+		}
+		$transaction=Transaction::where([
+			'system_transaction_id'=> $params['id'],
+			'payment_system'=> 'payme',
+		])->first();
+
+		if(!$transaction){
+			return [
+				'error'=>[
+					'message'=>'Transaction not found',
+					'code'=>-31003
+				]
+			];
+		}
+
+		return [
+			'error'=>[
+				'code'=>0,
+				'message'=>'Successfull',
+			],
+			'transaction'=>$transaction
+		];
 	}
 }
 
