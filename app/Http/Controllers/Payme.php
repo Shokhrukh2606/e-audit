@@ -100,7 +100,7 @@ class Payme extends Controller
             $transaction->cancel($req->params['reason']); 
             $formatted_transaction=[
                 'transaction'=>"$transaction->id",
-                'cancel_time'=>strtotime($transaction->cancel_time),
+                'cancel_time'=>strtotime($transaction->cancel_time)*1000,
                 'state'=>$transaction->transaction_state()
             ];
             $response['jsonrpc']='2.0';
