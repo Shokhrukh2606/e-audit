@@ -39,4 +39,20 @@ class Transaction extends Model
         }
         return false;
     }
+    public function transaction_state(){
+        switch ($this->state) {
+            case 'waiting':
+                return 1;
+                break;
+            case 'confirmed':
+                return 2;
+                break;
+            case 'cancelled':
+                return -1;
+                break;
+            case 'cancelled_after_confirmed':
+                return -2;
+                break;
+        }
+    }
 }
