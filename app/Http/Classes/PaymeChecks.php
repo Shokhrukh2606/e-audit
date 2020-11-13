@@ -88,9 +88,8 @@ class PaymeChecks
 				]
 			];
 		}
-		$created_date = date('Y-m-d H:i:s', $params->time);
-		$dif = time() -(12);
-		if ( !(date('Y-m-d H:i:s', $dif)>$created_date)) {
+		
+		if ((round(microtime(true) * 1000)-$params->time)>43200000) {
 			$transaction->state='rejected';
 			$transaction->error_code=4;
 			$transaction->save();
