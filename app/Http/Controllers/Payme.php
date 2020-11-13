@@ -19,6 +19,9 @@ class Payme extends Controller
             case 'CheckTransaction':
                 return $this->checkTransaction($req);
                 break;
+            case 'CancelTransaction':
+                return $this->cancelTransaction($req);
+                break;
             default:
                 return [
                     'error'=>[
@@ -82,6 +85,26 @@ class Payme extends Controller
         $transaction_check['result']=null;        
         return $transaction_check;
 
+    }
+    /*
+    *@name cancelTransaction
+    **@param Request object
+    *@return array
+    */
+    public function cancelTransaction(Request $req){
+        $check=new PaymeChecks();
+        $param_check=$check->cancel_param_check($req->params);
+
+        if($param_check['error']['code']==0){
+            $transaction=$param_check['transaction'];
+            $transaction->cancel($req->params['reason']); 
+            return [
+                'transaction'=>$transaction->id,
+                'cancel_time'=>$transaction->cancel_time,
+                'state'=>$transaction->transaction_state()
+            ];
+        }
+        return $param_check;
     }
     public function create(Request $req){
         // error checking

@@ -72,4 +72,23 @@ class Transaction extends Model
                 break;
         }
     }
+    public function cancel($reason){
+        switch ($this->transaction_state()) {
+            case '1':
+                $this->reason=$reason;
+                $this->state='cancelled';
+                $this->cancel_time=date('Y-m-d H:i:s');
+                $this->save();
+                break;
+            case '2':
+                $this->reason=$reason;
+                $this->state='cancelled_after_confirmed';
+                $this->cancel_time=date('Y-m-d H:i:s');
+                $this->save();
+                break;
+            
+            default:
+                break;
+        }
+    }
 }

@@ -10,7 +10,7 @@ class PaymeChecks{
 	*@param $params array-like
 	*@return array-like 
 	*/
-	public function validateCheckParams($params){
+	public function validateCheckParams(array $params):array{
 		// todo: Validate amount, if failed throw error
         // for example, check amount is numeric
 		$params=(object) $params;
@@ -102,7 +102,12 @@ class PaymeChecks{
 			]
 		];
 	}
-	public function transaction_check($params){
+	/*
+	*@name transaction_check
+	*@param $params array-like
+	*@return array-like 
+	*/
+	public function transaction_check(array $params):array{
 		if(!$params['id']){
 			return [
 				'error'=>[
@@ -132,6 +137,43 @@ class PaymeChecks{
 			],
 			'transaction'=>$transaction
 		];
+	}
+	/*
+	*
+	*
+	*
+	*/
+	public function cancel_param_check(array $params):array{
+		if(!$params['id']&&!$params['reason']){
+			return [
+				'error'=>[
+					'message'=>'Incorrect params',
+					'code'=>-31008
+				]
+			];
+		}
+
+		$transaction=Transaction::where([
+			'system_transaction_id'=> $params['id'],
+			'payment_system'=> 'payme',
+		])->first();
+
+		if(!$transaction){
+			return [
+				'error'=>[
+					'message'=>'Transaction not found',
+					'code'=>-31003
+				]
+			];
+		}
+
+		return [
+				'error'=>[
+					'message'=>'Successfull',
+					'code'=>0
+				],
+				'transaction'=>$transaction
+			];
 	}
 }
 
