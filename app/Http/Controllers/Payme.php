@@ -59,14 +59,14 @@ class Payme extends Controller
         $transaction_check=$check->transaction_check($req->params);
         if($transaction_check['error']['code']==0){
             $transaction=$transaction_check['transaction'];
-            return [
+            return response()->json([
                 'create_time'=>$transaction->created_at,
                 'perform_time'=>$transaction->perform_time,
                 'cancel_time'=>$transaction->cancel_time,
                 'transaction'=>$transaction->id,
                 'state'=>$transaction->transaction_state(),
                 'reason'=>$transaction->reason
-            ];
+            ]);
         }
         $transaction_check['id']=$req->id;
         $transaction_check['jsonrpc']='2.0';
