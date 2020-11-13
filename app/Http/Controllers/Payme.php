@@ -67,7 +67,7 @@ class Payme extends Controller
                 'state'=>$transaction->transaction_state(),
                 'reason'=>$transaction->reason
             ];
-            return $response;
+            return json_encode($response);
         }
         $transaction_check['id']=$req->id;
         $transaction_check['jsonrpc']='2.0';
