@@ -72,7 +72,7 @@ class Payme extends Controller
                     strtotime($transaction->cancel_time)*1000
                     :null
                 ,
-                'transaction'=>$transaction->id,
+                'transaction'=>"$transaction->id",
                 'state'=>$transaction->transaction_state(),
                 'reason'=>$transaction->reason
             ];
