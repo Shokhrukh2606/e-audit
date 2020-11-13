@@ -232,7 +232,7 @@ class PaymeChecks
 				],
 				'result' => [
 					"create_time" =>strtotime($new_transaction->system_create_time)*1000 ,
-					"transaction" => "$new_transaction->invoice_id",
+					"transaction" => "$new_transaction->id",
 					"state" => 1
 				]
 			];
@@ -272,7 +272,7 @@ class PaymeChecks
 			],
 			'result' => [
 				"create_time" =>strtotime($transaction->system_create_time)*1000,
-				"transaction" =>"$transaction->invoice_id",
+				"transaction" =>"$transaction->id",
 				"state" => 1
 			]
 			
