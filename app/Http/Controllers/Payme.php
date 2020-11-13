@@ -103,6 +103,9 @@ class Payme extends Controller
                 'cancel_time'=>strtotime($transaction->cancel_time),
                 'state'=>$transaction->transaction_state()
             ];
+            $formatted_transaction['id']=$req->id;
+            $formatted_transaction['jsonrpc']='2.0';
+            $formatted_transaction['result']=null; 
             return [
                 'result'=>$formatted_transaction
             ];
