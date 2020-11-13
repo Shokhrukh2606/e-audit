@@ -154,7 +154,7 @@ class PaymeChecks
 			$new_transaction->invoice_id=$params->account['Test'];
 			$new_transaction->error_code=1;
 			$new_transaction->system_create_time=date('Y-m-d H:i:s', floor($params->time/1000));
-            dd(date('Y-m-d H:i:s', floor($params->time/1000)));
+            dd($new_transaction->system_create_time);
 			$new_transaction->save();
 			return [
 				'error' => [
