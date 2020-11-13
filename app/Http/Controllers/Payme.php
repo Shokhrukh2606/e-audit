@@ -42,6 +42,7 @@ class Payme extends Controller
                 ]
             ];
         } 
+        $error['id']=$req->id;
         $error['result']=null;        
         return $error;
     }
