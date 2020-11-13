@@ -134,7 +134,7 @@ class PaymeChecks
 		}
 		// Find transaction by id
 		$transaction = Transaction::where(['system_transaction_id' => $params->id, 'payment_system'=>'payme'])->first();
-		if (!$transaction) {
+		if (!isset($transaction)) {
 			$invoice=Invoice::where(['id'=>$params->account['Test'], 'price'=>$params->amount]);
 			if(!$invoice){
 				return [
