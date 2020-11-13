@@ -271,7 +271,7 @@ class PaymeChecks
 				'code' => 0
 			],
 			'result' => [
-				"create_time" =>strtotime($new_transaction->created_at)*1000,
+				"create_time" =>strtotime($transaction->created_at)*1000,
 				"transaction" =>"$transaction->id",
 				"state" => 1
 			]
