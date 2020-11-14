@@ -179,7 +179,7 @@ class PaymeChecks
 			return [
 				'error' => [
 					'message' => 'Order state is invalid.',
-					'code' => -31008
+					'code' => -31051
 				]
 			];
 		}
