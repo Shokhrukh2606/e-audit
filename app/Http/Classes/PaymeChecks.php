@@ -52,9 +52,9 @@ class PaymeChecks
 			case 2:
 				return [
 					'result' => [
-						"create_time" => strtotime($transaction->created_at) * 1000,
+						"perform_time" => strtotime($transaction->perform_time) * 1000,
 						"transaction" => "$transaction->id",
-						"state" => 1
+						"state" => 2
 					],
 					'error' => [
 						'message' => 'Successfull',
