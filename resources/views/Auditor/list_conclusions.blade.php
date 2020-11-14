@@ -2,6 +2,7 @@
     @csrf
 
     <button>Logout</button>
+    {{lang('smth')}}
 </form>
 <div class="card">
     <div class="card-header">
