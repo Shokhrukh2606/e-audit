@@ -65,7 +65,7 @@
 			на расчетный счет Исполнителя. После предоставления услуги, Исполнитель уведомляет об этом Заказчика посредством
 		отправки электронного письма на электронный почтовый адрес Заказчика: axtrem13@gmail.com.</p>
 	</div>
-
+	@if($invoice->status=='waiting')
 	<div class="mb-30">
 		<h2 class="center">Способ оплаты</h2>
 		<div class="payment-box mb-20">
@@ -90,9 +90,89 @@
 		</div>
 	</div>
 
+	
+	<form method="POST" action="https://checkout.test.paycom.uz/">
 
-	<div class="pay">
+		<!-- Идентификатор WEB Кассы -->
+		<input type="hidden" name="merchant" value="5fa30924740f35d3638b7d41"/>
+	
+		<!-- Сумма платежа в тийинах -->
+		<input type="hidden" name="amount" value="{{$invoice->price}}"/>
+	
+		<!-- Поля Объекта Account -->
+		<input type="hidden" name="account[merchant_user_id]" value="18124"/>
+	
+		<!-- ==================== НЕОБЯЗАТЕЛЬНЫЕ ПОЛЯ ====================== -->
+		<!-- Язык. Доступные значения: ru|uz|en 
+			 Другие значения игнорируются
+			 Значение по умолчанию ru -->
+		<input type="hidden" name="lang" value="ru"/>
+	
+		<!-- Валюта. Доступные значения: 643|840|860|978
+			 Другие значения игнорируются
+			 Значение по умолчанию 860
+			 Коды валют в ISO формате
+			 643 - RUB
+			 840 - USD
+			 860 - UZS
+			 978 - EUR -->
+		<input type="hidden" name="currency" value="860"/>
+	
+		<!-- URL возврата после оплаты или отмены платежа.
+			 Если URL возврата не указан, он берется из заголовка запроса Referer.
+			 URL возврата может содержать параметры, которые заменяются Paycom при запросе.
+			 Доступные параметры для callback:
+			 :transaction - id транзакции или "null" если транзакцию не удалось создать
+			 :account.{field} - поля объекта Account
+			 Пример: https://your-service.uz/paycom/:transaction -->
+		<input type="hidden" name="callback" value="{{route('customer.pay', $invoice->id)}}"/>
+	
+		<!-- Таймаут после успешного платежа в миллисекундах. 
+			 Значение по умолчанию 15
+			 После успешной оплаты, по истечении времени callback_timeout
+			 производится перенаправление пользователя по url возврата после платежа -->
+		<input type="hidden" name="callback_timeout" value="5000"/>
+	
+		<!-- Выбор платежного инструмента Paycom.
+			 В Paycom доступна регистрация несколько платежных 
+			 инструментов. Если платёжный инструмент не указан, 
+			 пользователю предоставляется выбор инструмента оплаты. 
+			 Если указать id определённого платежного инструмента - 
+			 пользователь перенаправляется на указанный платежный инструмент. -->
+		{{-- <input type="hidden" name="payment" value="{payment_id}"/> --}}
+	
+		<!-- Описание платежа
+			 Для описания платежа доступны 3 языка: узбекский, русский, английский. 
+			 Для описания платежа на нескольких языках следует использовать 
+			 несколько полей с атрибутом  name="description[{lang}]"
+			 lang может принимать значения ru|en|uz -->
+		<input type="hidden" name="description" value="Test"/>
+	
+		<!-- Объект детализации платежа
+			 Поле для детального описания платежа, например, перечисления 
+			 купленных товаров, стоимости доставки, скидки. 
+			 Значение поля (value) — JSON-строка закодированная в BASE64 -->
+		<input type="hidden" name="detail" value=""/>
+		<!-- ================================================================== -->
+	
+		<button type="submit">Оплатить с помощью <b>Payme</b></button>
+	</form>
+	<form class="pay" 
+		  action="https://my.click.uz/services/pay" 
+		  method="get" 
+		  target="_blank"
+		>
+		<input type="hidden" name="merchant_id" value="12244" />
+		<input type="hidden" name="merchant_user_id" value="18124" />
+		<input type="hidden" name="service_id" value="16912" />
+		<input type="hidden" name="transaction_param" value="{{$invoice->id}}" />
+		<input type="hidden" name="amount" value="{{$invoice->price}}" />
+		<input type="hidden" name="return_url" value={{route('customer.pay', $invoice->id)}} />
+
 		<p class="mt-0">Сумма оплаты: 8400.00 сум</p>
-		<button>Оплатить</button>
-	</div>
+		<button>Оплатить CLICK</button>
+	</form>
+	@else
+	<h3>Already paid</h3>
+	@endif
 </div>

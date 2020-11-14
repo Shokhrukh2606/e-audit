@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Transaction;
 
 class Invoice extends Model
 {
@@ -15,5 +16,8 @@ class Invoice extends Model
     	if(self::where(['id'=>$id, 'amount'=>$amount, 'service_id'=>$service_id]))
     		return true;
     	return false;
+    }
+    public function transaction(){
+    	return $this->hasOne(Transaction::class,'invoice_id');
     }
 }

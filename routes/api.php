@@ -20,6 +20,9 @@ Route::prefix('click')->group(function(){
 	Route::post('prepare', "Click@prepare");
 		// complete api endpoint for click		
 	Route::post('complete', "Click@complete");
+	// prepare api endpoint for click
 });
+
+Route::post("payme", "Payme@dispatcher");
 
 ?>
