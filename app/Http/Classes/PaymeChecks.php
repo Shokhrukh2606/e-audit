@@ -46,10 +46,10 @@ class PaymeChecks
 			];
 		}
 		switch ($transaction->transaction_state()) {
-			case '1':
+			case 1:
 				
 				break;
-			case '2':
+			case 2:
 				return [
 					'result' => [
 						"create_time" => strtotime($transaction->created_at) * 1000,
