@@ -23,7 +23,7 @@ class Payme extends Controller
             abort(404);
         }
         
-        if($req->header('Authorization')!="Basic ".base64($this->login.":".$this->password)){
+        if($req->header('Authorization')!="Basic ".base64_encode($this->login.":".$this->password)){
             abort(404);
         }
         switch ($req->method) {
