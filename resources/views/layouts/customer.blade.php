@@ -17,6 +17,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
   <link href="{{asset('assets/css/common.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
   <link href="{{asset('assets/css/customer.css')}}" rel="stylesheet" />
 </head>
 <style>
@@ -182,6 +183,7 @@
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('assets/js/black-dashboard.min.js?v=1.0.0')}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="{{asset('assets/demo/demo.js')}}"></script>
+  <script src="{{asset('assets/js/multistep.js')}}"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
