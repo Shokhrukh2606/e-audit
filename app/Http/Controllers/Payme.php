@@ -15,14 +15,15 @@ class Payme extends Controller
      * @param request object-like
      * @return array-like
      */
-    private LOGIN='login';
-    private PASSWORD='password';
+    private $login='Paycom';
+    private $password='ahSiuA&y#mS7qf5%rOppR6FparQ1V#J@uOXj';
 
     public function dispatcher(Request $req){
         if (!$req->ip() == "195.158.31.134"&&!$req->ip()=="195.158.31.10"){
             abort(404);
         }
-        if($req->header('Authorization')!=base64(LOGIN.":".PASSWORD)){
+        dd("base64($login:$password)");
+        if($req->header('Authorization')!="Basic base64($login:$password)"){
             abort(404);
         }
         switch ($req->method) {
