@@ -20,11 +20,21 @@ class Payme extends Controller
 
     public function dispatcher(Request $req){
         if (!$req->ip() == "195.158.31.134"&&!$req->ip()=="195.158.31.10"){
-            abort(404);
+            return [
+                'error' => [
+                    'message' => "Unauthorized",
+                    'code' => -32504
+                ]
+            ];
         }
         
         if($req->header('Authorization')!="Basic ".base64_encode($this->login.":".$this->password)){
-            abort(404);
+            return [
+                'error' => [
+                    'message' => "Unauthorized",
+                    'code' => -32504
+                ]
+            ];
         }
         switch ($req->method) {
             case 'CheckPerformTransaction':
