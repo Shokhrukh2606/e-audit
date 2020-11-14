@@ -77,7 +77,7 @@ class PaymeChecks
 			break;
 		}
 		
-		if ((round(microtime(true) * 1000) - strtotime($transaction->system_create_time)) > 43200000) {
+		if ((round(microtime(true) * 1000) - strtotime($transaction->system_create_time)*1000) > 43200000) {
 			$transaction->state = 'rejected';
 			$transaction->error_code = 4;
 			$transaction->save();
