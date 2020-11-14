@@ -22,7 +22,7 @@ class Payme extends Controller
         if (!$req->ip() == "195.158.31.134"&&!$req->ip()=="195.158.31.10"){
             abort(404);
         }
-        if($req->header('Authorization')!=base64(LOGIN:PASSWORD)){
+        if($req->header('Authorization')!=base64(LOGIN.":".PASSWORD)){
             abort(404);
         }
         switch ($req->method) {
