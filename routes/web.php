@@ -15,18 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/dispatcher', function () {
+	
 	switch (auth()->user()->group->name) {
 		case 'admin':
-		return redirect()->route('admin.list_orders');
+			return redirect()->route('admin.list_orders');
 		break;
 		case 'auditor':
-		return redirect()->route('auditor.conclusions');
+			return redirect()->route('auditor.conclusions');
 		break;
 		case 'agent':
-		return redirect()->route('agent.list_conclusions');
+			return redirect()->route('agent.list_conclusions');
 		break;
 		case 'customer':
-		return redirect()->route('customer.orders');
+			return redirect()->route('customer.orders');
 		break;
 
 		default:

@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dispatcher';
+    public const HOME = '/uz/dispatcher';
 
     /**
      * The controller namespace for the application.
@@ -36,40 +36,45 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
-
+        
         $this->routes(function () {
+
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
+            Route::group(['prefix'=>"{l}", 'middleware'=>'lang'],function(){
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->prefix('customer')
-                ->name('customer.')
-                ->group(base_path('routes/customer.php'));
+                Route::middleware('web')
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/web.php'));
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->prefix('agent')
-                ->name('agent.')
-                ->group(base_path('routes/agent.php'));
+                Route::middleware('web')
+                    ->namespace($this->namespace)
+                    ->prefix('customer')
+                    ->name('customer.')
+                    ->group(base_path('routes/customer.php'));
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->prefix('auditor')
-                ->name('auditor.')
-                ->group(base_path('routes/auditor.php'));
+                Route::middleware('web')
+                    ->namespace($this->namespace)
+                    ->prefix('agent')
+                    ->name('agent.')
+                    ->group(base_path('routes/agent.php'));
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->prefix('admin')
-                ->name('admin.')
-                ->group(base_path('routes/admin.php'));
+                Route::middleware('web')
+                    ->namespace($this->namespace)
+                    ->prefix('auditor')
+                    ->name('auditor.')
+                    ->group(base_path('routes/auditor.php'));
+
+                Route::middleware('web')
+                    ->namespace($this->namespace)
+                    ->prefix('admin')
+                    ->name('admin.')
+                    ->group(base_path('routes/admin.php'));
+
+            });
         });
     }
 

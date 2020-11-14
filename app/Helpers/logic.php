@@ -25,4 +25,21 @@ function getUserLayout($u){
 		break;
 	}
 }
+
+
+function lang($word){
+	$words=[
+		'smth'=>[
+			'oz'=>'ozsmth',
+			'uz'=>'uzsmth',
+			'ru'=>'rusmth'
+		],
+		'anything'=>[
+			'oz'=>'anything',
+			'uz'=>'anything',
+			'ru'=>'anything'
+		]
+	];
+	return $words[$word][config('global.lang')];
+}
 ?>
