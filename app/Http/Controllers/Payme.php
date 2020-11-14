@@ -15,8 +15,16 @@ class Payme extends Controller
      * @param request object-like
      * @return array-like
      */
+    private LOGIN='login';
+    private PASSWORD='password';
 
     public function dispatcher(Request $req){
+        if (!$req->ip() == "195.158.31.134"&&!$req->ip()=="195.158.31.10"){
+            abort(404);
+        }
+        if($req->header('Authorization')!=base64(LOGIN:PASSWORD)){
+            abort(404);
+        }
         switch ($req->method) {
             case 'CheckPerformTransaction':
                 return $this->checkPerformTransaction($req);
