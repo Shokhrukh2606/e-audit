@@ -7,13 +7,13 @@
 			@endforeach
 		</select>
 	</div>
-	<div>
+	<div class="mt-4">
 		{{__('front.select_use_case')}}:
-		<div id="use_cases">
+		<div id="use_cases" class="mt-2">
 			@foreach($use_cases as $use_case)
 			<div data-value="{{$use_case->id}}" data-temp_id="{{$use_case->template_id}}">
-				<input type="checkbox" class="form-control" name="use_cases[{{$use_case->id}}]" class="uc">
-				{{json_decode($use_case->title)->uz}}
+				<input type="checkbox" name="use_cases[{{$use_case->id}}]" class="uc" id="use_cases[{{$use_case->id}}]">
+				<label for="use_cases[{{$use_case->id}}]">{{json_decode($use_case->title)->uz}}</label>
 			</div>
 			@endforeach
 		</div>

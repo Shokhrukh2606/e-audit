@@ -1,0 +1,67 @@
+:root {
+  --dark-bg: #1e1e2f;
+  --white-bg:  #f5f6fa;
+  --dark-text: #1d253b;
+}
+
+.logo-normal {
+  text-align: center;
+}
+
+/* #filterer select {
+  background-color: var(--dark-bg);
+}
+
+.white-content #filterer select {
+  background-color: var(--white-bg);
+} */
+
+select.form-control, select.form-control option {
+  background-color: var(--dark-bg);
+  color: white;
+}
+
+.white-content select.form-control, .white-content select.form-control option {
+  background-color: var(--white-bg);
+  color: var(--dark-text);
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
+  margin-left: 10px;
+  background: var(--dark-bg);
+  color:white;
+  border: 1px solid#2b3553;
+  border-radius: 0.4285rem;
+  padding: 5px 10px;
+}
+
+.white-content input[type="file"]::-webkit-file-upload-button {
+  background: var(--white-bg);
+  color: var(--dark-text);
+}
+
+input[type="file"]::-webkit-file-upload-button:focus {
+  outline: unset;
+}
+
+#use_cases div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#use_cases div label{
+  margin-bottom: 0;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+#use_cases div input{
+  cursor: pointer;
+  width: auto;
+}
+
+.file-wrapper div{
+  margin-bottom: 20px;
+}
