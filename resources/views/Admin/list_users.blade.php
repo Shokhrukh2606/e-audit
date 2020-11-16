@@ -1,4 +1,4 @@
-<form action="/admin/list_users" class="row mb-3" id="filterer">
+<form action="{{route('admin.list_users')}}" class="row mb-3" id="filterer">
     &nbsp;
     <div class="col">
         <label>{{__('front.fio')}}</label>
@@ -25,6 +25,18 @@
         <label>{{__('front.inn')}}</label>
         <input class="form-control" type="number" name="filter[inn]" value="{{ request()->input('filter.inn') }}">
     </div>
+    <div class="col">
+        <label>{{__('front.status')}}</label>
+        <select class="form-control" name="filter[status]">
+            <option value="">{{__('front.select')}}</option>
+            <option  {{ request()->input('filter.status') == 'active' ? 'selected' : '' }} value="active">
+                {{__('front.active')}}
+            </option>
+            <option {{ request()->input('filter.status') == 'inactive' ? 'selected' : '' }} value="inactive">
+                {{__('front.inactive')}}
+            </option>
+        </select>
+    </div>
     <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{__('front.search')}}</button>
 </form>
 
@@ -43,6 +55,7 @@
                 <th>{{__('front.role')}}</th>
                 <th>{{__('front.phone')}}</th>
                 <th>{{__('front.inn')}}</th>
+                <th>{{__('front.status')}}</th>
                 <th>{{__('custom.show')}}</th>
             </thead>
             </tbody>
@@ -54,6 +67,7 @@
                     <td>{{ $user->group->name }}</td>
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->inn }}</td>
+                    <td>{{ __("front.".$user->status) }}</td>
                     <td><a href="{{ route('admin.view_user', $user->id) }}">{{__('custom.show')}}</a></td>
                 </tr>
             @endforeach

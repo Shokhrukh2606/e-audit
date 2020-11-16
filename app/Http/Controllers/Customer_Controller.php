@@ -10,9 +10,10 @@ use App\Models\Cust_comp_info;
 use App\Models\Ciucm;
 use App\Models\Conclusion;
 use App\Models\Invoice;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Storage;
 use PDF;
-
+use QRCode;
 
 class Customer_Controller extends Controller
 {
@@ -166,6 +167,7 @@ class Customer_Controller extends Controller
         if($data['conclusion']){
             $template=$data['conclusion']->cust_info->template->standart_num;
             $lang=$data['conclusion']->cust_info->lang;
+            $data['qrcode']=base64_encode(QRCode::text('QR Code Generator for Laravel!')->png());
             $pdf = PDF::loadView("templates.$template.$lang", $data);
             return $pdf->stream('invoice.pdf');
         }
@@ -191,6 +193,12 @@ class Customer_Controller extends Controller
         $data['invoice']=Invoice::where('id', $req->invoice_id)->first();
         if($data['invoice'])
             return $this->view('pay_for_order',$data);
+        return abort(404);
+    }
+    public function transactions_log(Request $req){
+        $data['transactions']=Invoice::where(['user_id'=>$req->invoice_id, 'status'=>'confirmed'])->get();
+        if($data['transactions'])
+            return $this->view('transactions_log',$data);
         return abort(404);
     }
 }

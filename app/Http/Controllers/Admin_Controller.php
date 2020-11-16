@@ -80,7 +80,7 @@ class Admin_Controller extends Controller
     {
 
         $query = QueryBuilder::for(User::class)
-            ->allowedFilters(['inn', 'group_id', 'phone', 'name', 'full_name']);
+            ->allowedFilters(['inn', 'group_id', 'phone', 'name', 'full_name', 'status']);
         // if ($came = $request->input("filter.name")) {
         //     $query->where('full_name', 'like', "%${came}");
         // }
@@ -124,7 +124,11 @@ class Admin_Controller extends Controller
             case 'POST':
                 $fields = $req->input("user");
                 $user = User::where(['id'=>$req->id])->first();
-                unset($fields['password']);
+                if($fields['password']){
+                    $fields['password']=Hash::make($fields['password']);
+                }else{
+                    unset($fields['password']);
+                }                
                 // foreach ($fields as $name => $value) {
                 //     $user->$name = $value;
                 // }

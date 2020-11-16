@@ -57,7 +57,9 @@
       <p class="italic underline right bold">Такдим этилган сана : 23.05.2020 й</p>
     </div>
   </div>
-
+  <div>
+    <img src="data:image/png;base64, {!! $qrcode !!} "> 
+  </div>
 </body>
 
 </html>
