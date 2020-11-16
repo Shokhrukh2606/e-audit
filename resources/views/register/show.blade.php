@@ -58,24 +58,33 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input type="text" minlength="10" maxlength="10" class="form-control" placeholder="{{lang('phoneNumber')}}" value="" name="phone" />
+                        <div class="row">
+                          <div class="col-2">
+                            <div style="height:100%;display: flex;align-items: center;">
+                              <span>+998</span>
+                            </div >
+                          </div>
+                          <div class="col">
+                            <input type="text" minlength="9" maxlength="9" class="form-control phone" placeholder="{{lang('phoneNumber')}}" value="" name="phone" />
+                          </div>
+                        </div>
 
                       </div>
 
                       <div class="form-group">
                         <input type="password" class="form-control" placeholder="{{lang('password')}}" value="" name="password" />
                       </div>
-                       <div class="form-group ver_area" style="display: none;" >
+                      <div class="form-group ver_area" style="display: none;" >
                         <input type="text" 
                         placeholder="Please enter verification code" 
                         class="form-control" 
                         
                         onkeyup="test_code(this)"
                         >
-            </div>
+                      </div>
                       <!-- <input type="submit" class="btnRegister" value="Register" /> -->
 
-                      <button ttype="button" class="btnRegister" onclick="send_verification()">{{lang('register')}}</button>
+                      <button type="button" class="btnRegister" onclick="send_verification()">{{lang('register')}}</button>
 
                     </div>
                   </div>
@@ -97,7 +106,17 @@
                         <input type="text" class="form-control" placeholder="{{lang('patronymic')}}" value="" name="patronymic" />
                       </div>
                       <div class="form-group">
-                        <input type="text" minlength="9" maxlength="9" class="form-control" placeholder="{{lang('phoneNumber')}}" value="" name="phone" />
+                        <div class="row">
+                          <div class="col-2">
+                            <div style="height:100%;display: flex;align-items: center;">
+                              <span>+998</span>
+                            </div >
+                          </div>
+                          <div class="col">
+                            <input type="text" minlength="9" maxlength="9" class="form-control phone" placeholder="{{lang('phoneNumber')}}" value="" name="phone" />
+                          </div>
+                        </div>
+
                       </div>
                       <div class="form-group">
                         <input type="password" class="form-control" placeholder="{{lang('password')}}" value="" name=" password" />
@@ -133,7 +152,7 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="gridCheck">
                           <label class="form-check-label" for="gridCheck">
-                          {{lang('agree')}}
+                            {{lang('agree')}}
                           </label>
                         </div>
                       </div>
@@ -145,7 +164,7 @@
                         
                         onkeyup="test_code(this)"
                         >
-                    </div>
+                      </div>
                       <button type="button" class="btnRegister" onclick="send_verification()">
                         >{{lang('register')}}
                       </button>
@@ -165,20 +184,24 @@
   <script src="{{asset('assets/js/jquery.min.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-<<<<<<< HEAD
+
   <script src="{{asset('md5.js')}}"></script>
   <script>
     const verification_url="{{route('verification')}}";
     const customer=document.getElementById('home');
     const agent=document.getElementById('profile');
-    var verification_hash="{{md5("av")}}";
+    var verification_hash="";
+
+   
     function send_verification(){
       var phone="";
+      var phone_input="";
       if(customer.style.display!='none'){
         phone_input=customer.getElementsByClassName('phone')[0];
       }else{
         phone_input=agent.getElementsByClassName('phone')[0];
       }
+
       
       if(phone_input.value.length!=9){
         alert('Please enter proper phone number');
@@ -189,27 +212,18 @@
       
       $.get(url, function(data){
         verification_hash=data;
-      })
+      });
       open_verification_area();
-=======
-  <script>
+    } 
+
     $(document).on('change', '.custom-file-input', function(event) {
       $(this).next('.custom-file-label').html(event.target.files[0].name);
     })
-  </script>
-</body>
 
-</html>
-<!-- 
-<style>
-    .d-none {
-        display: none;
->>>>>>> cbae6d842376504e61bdf3e25fe7e85020a76c9c
-    }
-    
     function open_verification_area(){
-     $(".ver_area").css("display","block");
+      $(".ver_area").css("display","block");
     }
+
     function test_code(elem){
       let form;
       if(customer.style.display!='none'){

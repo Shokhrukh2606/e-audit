@@ -21,7 +21,7 @@ class RegisterController extends Controller
             case 'POST':
                 $phone="+".$req->input('phone');
                 $user=User::where('phone',$phone)->first();
-                if($user&&session('ver_code')&&session('ver_code')==$req->input('vercode'))
+                if($user&&session('ver_code')&&session('ver_code')==$req->input('ver_code'))
                 {
                     
                     $data['password']=Hash::make($req->input('password'));
@@ -42,17 +42,19 @@ class RegisterController extends Controller
         $verification=rand(1000, 10000);
         session(['ver_code'=>md5($verification)]);
         sms($phone, $verification);
+        header("Access-Control-Allow-Origin: *");
         return md5($verification);
     }
     public function reg_cust(Request $req){
-        if(!session('ver_code')||session('ver_code')!=$req->input('vercode')){
-            return redirect()->route('show_register');
-        }
+        // if(!session('ver_code')||session('ver_code')!=$req->input('ver_code')){
+        //     return redirect()->route('show_register');
+        // }
 		$req->validate([
 			'phone' => 'required|unique:users'
 		]);
     	$fields=$req->all();
     	unset($fields['_token']);
+        unset($fields['ver_code']);
     	$customer=new User();
     	foreach ($fields as $name => $value) {
     		$customer->$name=$value;
@@ -61,16 +63,19 @@ class RegisterController extends Controller
     	}
     	$customer->group_id=4;
         $customer->password=Hash::make($req->input('password'));
+       
     	$customer->save();
+        dd($customer);
         return redirect()->route('dispatcher');
     }
     public function reg_agent(Request $req){
-        if(!session('ver_code')||session('ver_code')!=$req->input('vercode')){
+        if(!session('ver_code')||session('ver_code')!=$req->input('ver_code')){
             return redirect()->route('show_register');
         }
 		$req->validate([
 			'phone' => 'required|unique:users'
 		]);
+        unset($fields['ver_code']);
 		$fields=$req->all();
     	unset($fields['_token']);
     	$agent=new User();

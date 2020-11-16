@@ -1,4 +1,4 @@
-<form action="/admin/list_users" class="row mb-3" id="filterer">
+<form action="{{route('admin.list_users')}}" class="row mb-3" id="filterer">
     &nbsp;
     <div class="col">
         <label>{{lang('fio')}}</label>

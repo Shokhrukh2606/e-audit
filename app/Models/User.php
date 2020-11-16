@@ -54,9 +54,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
-        'oldFunds',
-        'fullname'
+        'profile_photo_url'
     ];
     public static function booted()
     {
@@ -76,10 +74,6 @@ class User extends Authenticatable
     public function group()
     {
         return $this->belongsTo('App\Models\User_group');
-    }
-    public function oldFunds()
-    {
-        return $this->hasMany('App\Models\Payment', 'user_id');
     }
     public function agent_conclusions()
     {
