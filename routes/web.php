@@ -41,6 +41,11 @@ Route::get('/', function () {
 	return redirect()->route('login');
 })->name('home');
 
+Route::get('/register', function () {
+	return redirect()->route('show_register');
+})->name('register');
+
+
 
 /*==========public routes=============*/
 	// show register form of all type of users
@@ -50,6 +55,12 @@ Route::get("/register", "RegisterController@show")->name("show_register");
 	// no view
 Route::post("/reg_cust", "RegisterController@reg_cust")->name("reg_cust");
 Route::post("/reg_agent", "RegisterController@reg_agent")->name("reg_agent");
+
+// verification code trigger
+
+Route::get("/verification", "RegisterController@verification")->name("verification");
+Route::match(['GET', 'POST'],"/forgot_pswrd", "RegisterController@forgot_pswrd")->name("forgot_pswrd");
+
 
 
 /*==========AAC routes=================*/
