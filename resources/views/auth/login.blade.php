@@ -33,7 +33,7 @@
             </div>
             @if (Route::has('password.request'))
                 <a class="block text-center underline text-sm text-gray-600 hover:text-gray-900"
-                    href="{{ route('password.request') }}">
+                    href="{{ route('forgot_pswrd') }}">
                     {{ __('Забыли свой пароль?') }}
                 </a>
             @endif
