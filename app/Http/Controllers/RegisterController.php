@@ -11,9 +11,43 @@ class RegisterController extends Controller
 {
     private $passable=['password', 'passport_copy'];
     public function show(){
-    	return view("register.show");
+        return view("register.show");
+    }
+    public function forgot_pswrd(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+                return view('register.forgot_password');
+                break;
+            case 'POST':
+                $phone="+".$req->input('phone');
+                $user=User::where('phone',$phone)->first();
+                if($user&&session('ver_code')&&session('ver_code')==$req->input('vercode'))
+                {
+                    
+                    $data['password']=Hash::make($req->input('password'));
+                    User::where('phone',$phone)->update($data);
+                    return redirect()->route('login');
+                }
+                return redirect()->route('forgot_pswrd');
+                break;
+            default:
+                abort(401);
+                break;
+        }
+    }
+    public function verification(Request $req){
+        $phone=$_GET['phone']??false;
+        if(!$phone)
+            return 0;
+        $verification=rand(1000, 10000);
+        session(['ver_code'=>md5($verification)]);
+        sms($phone, $verification);
+        return md5($verification);
     }
     public function reg_cust(Request $req){
+        if(!session('ver_code')||session('ver_code')!=$req->input('vercode')){
+            return redirect()->route('show_register');
+        }
 		$req->validate([
 			'phone' => 'required|unique:users'
 		]);
@@ -31,6 +65,9 @@ class RegisterController extends Controller
         return redirect()->route('dispatcher');
     }
     public function reg_agent(Request $req){
+        if(!session('ver_code')||session('ver_code')!=$req->input('vercode')){
+            return redirect()->route('show_register');
+        }
 		$req->validate([
 			'phone' => 'required|unique:users'
 		]);
