@@ -11,13 +11,13 @@
 		</div>
 		<div class="mb-15 users">
 			<div>
-				<p class="mb-10"><span class="bold">Исполнитель: </span>ООО «SUVAN NET»</p>
+				<p class="mb-10"><span class="bold">Исполнитель: </span>ООО «HIMOYA-AUDIT»</p>
 				<p><span class="bold">Адрес: </span>100043, г. Ташкент, Чиланзарский район, проспект Бунедкор, квартал "E",
 				дом 8/1</p>
 				<p><span class="bold">Юридический адрес: </span>г. Ташкент, II Чимбай, 115-8
 				Телефон: (+998 78) 113-44-54</p>
 				<p><span class="bold">Телефон: </span>(+998 78) 113-44-54</p>
-				<p><span class="bold">Эл.почта: </span>info@ahost.uz</p>
+				<p><span class="bold">Эл.почта: </span>info@eauit.uz</p>
 				<p><span class="bold">Расчетный счет: </span>20208000104839322001 в АТИБ «Ипотека банк» Алмазарского филиала
 				</p>
 				<p><span class="bold">МФО: </span>00901</p>
@@ -90,8 +90,15 @@
 		</div>
 	</div>
 
-	
-	<form method="POST" action="https://checkout.test.paycom.uz/">
+	<style>
+		input{
+			width:unset;
+		}
+		*{
+			color:white;
+		}
+	</style>
+	<form method="POST" action="https://checkout.test.paycom.uz/" style="display: none">
 
 		<!-- Идентификатор WEB Кассы -->
 		<input type="hidden" name="merchant" value="5fa30924740f35d3638b7d41"/>
@@ -157,7 +164,7 @@
 	
 		<button type="submit">Оплатить с помощью <b>Payme</b></button>
 	</form>
-	<form class="pay" 
+	<form 
 		  action="https://my.click.uz/services/pay" 
 		  method="get" 
 		  target="_blank"
@@ -170,7 +177,7 @@
 		<input type="hidden" name="return_url" value={{route('customer.pay', $invoice->id)}} />
 
 		<p class="mt-0">Сумма оплаты: 8400.00 сум</p>
-		<button>Оплатить CLICK</button>
+		<button>Оплатить</button>
 	</form>
 	@else
 	<h3>Already paid</h3>

@@ -54,32 +54,24 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
-        'oldFunds',
-        'fullname'
+        'profile_photo_url'
     ];
-    public static function booted()
+    public static function boot()
     {
         parent::boot();
 
-        self::created(function($model){
+        self::creating(function($model){
             $model->full_name="{$model->surname} {$model->name} {$model->patronymic}";
-            $model->save();
         });
 
-        self::updated(function($model){
+        self::updating(function($model){
             $model->full_name="{$model->surname} {$model->name} {$model->patronymic}";
-            $model->save();
         });
 
     }
     public function group()
     {
         return $this->belongsTo('App\Models\User_group');
-    }
-    public function oldFunds()
-    {
-        return $this->hasMany('App\Models\Payment', 'user_id');
     }
     public function agent_conclusions()
     {

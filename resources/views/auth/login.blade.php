@@ -15,7 +15,7 @@
             @csrf
 
             <div>
-                <x-jet-label for="phone" value="Номер телефона" />
+                <x-jet-label for="phone" value="Номер телефона без знака +, например 998978775050" />
                 <x-jet-input id="phone" class="block mt-1 w-full" type="phone" name="phone" required autofocus />
             </div>
 
@@ -33,7 +33,7 @@
             </div>
             @if (Route::has('password.request'))
                 <a class="block text-center underline text-sm text-gray-600 hover:text-gray-900"
-                    href="{{ route('password.request') }}">
+                    href="{{ route('forgot_pswrd') }}">
                     {{ __('Забыли свой пароль?') }}
                 </a>
             @endif
