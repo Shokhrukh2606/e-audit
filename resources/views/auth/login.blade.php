@@ -15,7 +15,7 @@
             @csrf
 
             <div>
-                <x-jet-label for="phone" value="Номер телефона" />
+                <x-jet-label for="phone" value="Номер телефона без знака +, например 998978775050" />
                 <x-jet-input id="phone" class="block mt-1 w-full" type="phone" name="phone" required autofocus />
             </div>
 

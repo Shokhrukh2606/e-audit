@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    private $passable=['password', 'passport_copy'];
+    private $passable=['phone','password', 'passport_copy'];
     public function show(){
         return view("register.show");
     }
@@ -62,11 +62,11 @@ class RegisterController extends Controller
                 continue;
     	}
     	$customer->group_id=4;
+        $customer->phone="998".$req->input('phone');
         $customer->password=Hash::make($req->input('password'));
        
     	$customer->save();
-        dd($customer);
-        return redirect()->route('dispatcher');
+        return redirect()->route('login');
     }
     public function reg_agent(Request $req){
         if(!session('ver_code')||session('ver_code')!=$req->input('ver_code')){
@@ -75,8 +75,8 @@ class RegisterController extends Controller
 		$req->validate([
 			'phone' => 'required|unique:users'
 		]);
-        unset($fields['ver_code']);
 		$fields=$req->all();
+        unset($fields['ver_code']);
     	unset($fields['_token']);
     	$agent=new User();
     	foreach ($fields as $name => $value) {
@@ -85,9 +85,13 @@ class RegisterController extends Controller
     		$agent->$name=$value;
     	}
     	$agent->group_id=3;
+        $agent->phone="998".$req->input('phone');
+        $agent->status="inactive";
         $agent->password=Hash::make($req->input('password'));
     	$agent->passport_copy=$req->file('passport_copy')->store('agents');
     	$agent->save();
-        return redirect()->route('dispatcher');
+        
+        session(['message'=>'Вы успешно зарегистрировались, вы получите уведомление, когда администратор примет вас.']);
+        return redirect()->route('show_register');
     }
 }

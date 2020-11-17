@@ -56,18 +56,16 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url'
     ];
-    public static function booted()
+    public static function boot()
     {
         parent::boot();
 
-        self::created(function($model){
+        self::creating(function($model){
             $model->full_name="{$model->surname} {$model->name} {$model->patronymic}";
-            $model->save();
         });
 
-        self::updated(function($model){
+        self::updating(function($model){
             $model->full_name="{$model->surname} {$model->name} {$model->patronymic}";
-            $model->save();
         });
 
     }
