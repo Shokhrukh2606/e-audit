@@ -190,7 +190,7 @@ class Customer_Controller extends Controller
         }
     }
     public function pay(Request $req){
-        $data['invoice']=Invoice::where('id', $req->invoice_id)->first();
+        $data['invoice']=Invoice::where('conclusion_id', $req->invoice_id)->first();
         if($data['invoice'])
             return $this->view('pay_for_order',$data);
         return abort(404);

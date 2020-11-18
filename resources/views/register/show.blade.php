@@ -20,6 +20,14 @@
       </ul>
     </div>
     @endif
+    @if (session('message'))
+    <div class="alert alert-success">
+      {{session('message')}}
+      @php
+        Session::forget('message');
+      @endphp
+    </div>
+    @endif
     <div class="register">
       <div class="container">
         <div class="row">
@@ -122,7 +130,7 @@
                         <input type="password" class="form-control" placeholder="{{lang('password')}}" value="" name=" password" />
                       </div>
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="InputFile">
+                        <input type="file" name="passport_copy" class="custom-file-input" id="InputFile">
                         <label class="custom-file-label" for="InputFile" data-browse="{{lang('upload')}}">{{lang('passportCopy')}}</label>
                       </div>
 
@@ -166,7 +174,7 @@
                         >
                       </div>
                       <button type="button" class="btnRegister" onclick="send_verification()">
-                        >{{lang('register')}}
+                        {{lang('register')}}
                       </button>
                     </div>
                   </div>
@@ -192,11 +200,12 @@
     const agent=document.getElementById('profile');
     var verification_hash="";
 
+    var phone_input;
+    var phone="";
    
     function send_verification(){
-      var phone="";
-      var phone_input="";
-      if(customer.style.display!='none'){
+     
+      if(customer.classList.contains('show')){
         phone_input=customer.getElementsByClassName('phone')[0];
       }else{
         phone_input=agent.getElementsByClassName('phone')[0];
@@ -204,6 +213,7 @@
 
       
       if(phone_input.value.length!=9){
+        console.log(phone_input);
         alert('Please enter proper phone number');
         return 0;
       }
@@ -226,7 +236,7 @@
 
     function test_code(elem){
       let form;
-      if(customer.style.display!='none'){
+      if(customer.classList.contains('show')){
         form=customer.getElementsByTagName('form')[0];
       }else{
         form=agent.getElementsByTagName('form')[0];
