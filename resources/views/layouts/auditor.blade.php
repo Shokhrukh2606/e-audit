@@ -17,7 +17,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
   <link href="{{asset('assets/css/common.css')}}" rel="stylesheet" />
-  <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
+  <!-- <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" /> -->
 </head>
 <style>
   .sidebar .nav p,
@@ -98,7 +98,7 @@
                   </div>
                   <b class="caret d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none" onclick="logout()">
-                  {{lang('logout')}}
+                    {{lang('logout')}}
                   </p>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
@@ -186,7 +186,7 @@
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('assets/js/black-dashboard.min.js?v=1.0.0')}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="{{asset('assets/demo/demo.js')}}"></script>
-  <script src="{{asset('assets/js/multistep.js')}}"></script>
+  <!-- <script src="{{asset('assets/js/multistep.js')}}"></script> -->
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -308,6 +308,11 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "black-dashboard-free"
       });
+  </script>
+  <script>
+    $(document).on('change', '.custom-file-input', function(event) {
+      $(this).next('.custom-file-label').html(event.target.files[0].name);
+    })
   </script>
 </body>
 <script>

@@ -67,12 +67,13 @@ button:hover {
 
 .step.active {
   opacity: 1;
+  /* background-color: #bbbbbb; */
 }
 
 /* Mark the steps that are finished and valid: */
 .step.finish {
-  background-color:#00f2c3;
-  opacity: 1;
+  background-color: #00f2c3;
+  /* opacity: 1; */
 }
 
 #submit {
@@ -83,6 +84,17 @@ button:hover {
   margin-bottom: 0;
 }
 
-.files div {
+/* .files div {
   margin-bottom: 10px;
+} */
+
+.files {
+  display: flex;
+  flex-direction: column;
+}
+
+.files .custom-file {
+  margin-bottom: 40px;
+  width: max-content;
+  cursor: pointer;
 }

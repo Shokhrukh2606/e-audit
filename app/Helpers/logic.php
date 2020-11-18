@@ -181,6 +181,11 @@ function lang($word){
 			'uz'=>'Паспорт нусхаси',
 			'ru'=>'Паспорт копия'
 		],
+		'pay'=>[
+			'oz'=>"To'lash",
+			'uz'=>'Тўлаш',
+			'ru'=>'ОПЛАТИТЬ'
+		],
 		'upload'=>[
 			'oz'=>"Yuklash",
 			'uz'=>'Юклаш',
@@ -195,6 +200,91 @@ function lang($word){
 			'oz'=>"Korxona INNsi",
 			'uz'=>'Korxona INNsi',
 			'ru'=>'Предприятие ИНН'
+		],
+		'auditCompInn'=>[
+			'oz'=>"Auditorlik korxonasining INNsi",
+			'uz'=>'Аудиторлик корхонасининг ИННси',
+			'ru'=>'ИНН аудиторской компании'
+		],
+		'custCompInn'=>[
+			'oz'=>"Mijoz korxonasining INNsi",
+			'uz'=>'Мижоз корхонасининг ИННси',
+			'ru'=>'ИНН компании клиента'
+		],
+		'auditCompOked'=>[
+			'oz'=>"Auditorlik korxonasining OKEDi",
+			'uz'=>'Аудиторлик корхонасининг ОКEДи',
+			'ru'=>'ОКЭД аудиторской компании'
+		],
+		'custCompOked'=>[
+			'oz'=>"Mijoz korxonasining OKEDi",
+			'uz'=>'Мижоз корхонасининг ОКEДи',
+			'ru'=>'ОКЭД компании клиента'
+		],
+		'auditCompLicense'=>[
+			'oz'=>"Audit korxonasining litsenziya raqami",
+			'uz'=>'Аудит корхонасининг лицензия рақами',
+			'ru'=>'Номер Лицензии Аудиторской Компании'
+		],
+		'auditCompLicenseDate'=>[
+			'oz'=>"Audit korxonasining litsenziyasi ro'yxatdan o'tgan sanasi",
+			'uz'=>'Аудит корхонасининг лицензияси рўйхатдан ўтган санаси',
+			'ru'=>'Дата регистрации лицензии аудиторской компании'
+		],
+		'auditCompName'=>[
+			'oz'=>"Audit korxonasining nomi",
+			'uz'=>'Аудит корхонасининг номи',
+			'ru'=>'Наименование аудиторской компании'
+		],
+		'auditCompBank'=>[
+			'oz'=>"Audit korxonasining bank nomi",
+			'uz'=>'Аудит корхонасининг банк номи',
+			'ru'=>'Наименование банка аудиторской компании'
+		],
+		'custCompBank'=>[
+			'oz'=>"Mijoz korxonasining bank nomi",
+			'uz'=>'Мижоз корхонасининг банк номи',
+			'ru'=>'Название банка компании клиента'
+		],
+		'auditCompBankAccount'=>[
+			'oz'=>"Audit korxonasining bank hisob raqami",
+			'uz'=>'Аудит корхонасининг банк ҳисоб рақами',
+			'ru'=>'Банковский счет аудиторской компании'
+		],
+		'auditCompBankMfo'=>[
+			'oz'=>"Audit korxonasining bank MFOsi",
+			'uz'=>'Аудит корхонасининг банк МФОси',
+			'ru'=>'МФО Банка аудиторской компании'
+		],
+		'custCompBankMfo'=>[
+			'oz'=>"Mijoz korxonasining bank MFOsi",
+			'uz'=>'Мижоз корхонасининг банк МФОси',
+			'ru'=>'Банковский МФО компании клиента'
+		],
+		'auditCompDirector'=>[
+			'oz'=>"Audit korxonasining direkotori F.I.Osi",
+			'uz'=>'Аудит корхонасининг дирекотори Ф.И.Оси',
+			'ru'=>'Ф.И.О директора аудиторской компании'
+		],
+		'custCompDirector'=>[
+			'oz'=>"Mijoz korxonasining direkotori F.I.Osi",
+			'uz'=>'Мижоз корхонасининг дирекотори Ф.И.Оси',
+			'ru'=>'Ф.И.О Директора Компании Клиента'
+		],
+		'custCompActivity'=>[
+			'oz'=>"Mijoz kompaniyasining faoliyati",
+			'uz'=>'Мижоз компаниясининг фаолияти',
+			'ru'=>'Деятельность Компании-Заказчика'
+		],
+		'requiredDocs'=>[
+			'oz'=>"Kerakli hujjatlar",
+			'uz'=>'Керакли ҳужжатлар',
+			'ru'=>'Необходимые документы'
+		],
+		'auditCompGovNumber'=>[
+			'oz'=>"Auditorlik korxonasining davlat ro'yxatidan o'tgan raqami",
+			'uz'=>'Аудиторлик корхонасининг давлат рўйхатидан ўтган рақами',
+			'ru'=>'Государственный Регистрационный Номер Аудиторской Компании'
 		],
 		'sertificateNumber'=>[
 			'oz'=>"Sertifikat raqami",
@@ -225,6 +315,16 @@ function lang($word){
 			'oz'=>"Manzil",
 			'uz'=>'Манзил',
 			'ru'=>'Адрес'
+		],
+		'deliverAddress'=>[
+			'oz'=>"Yetkazib berish manzili",
+			'uz'=>'Етказиб бериш манзили',
+			'ru'=>'Адрес для доставки'
+		],
+		'custCompAddress'=>[
+			'oz'=>"Mijoz korxonasi manzili",
+			'uz'=>'Мижоз корхонаси манзили',
+			'ru'=>'Адрес Компании Клиента'
 		],
 		'agree'=>[
 			'oz'=>"Roziman",
@@ -261,6 +361,11 @@ function lang($word){
 			'uz'=>'Хулосалар',
 			'ru'=>'Заключении'
 		],
+		'conclusion'=>[
+			'oz'=>"Xulosa",
+			'uz'=>'Хулоса',
+			'ru'=>'Заключение'
+		],
 		'adminPanel'=>[
 			'oz'=>"Administrator paneli",
 			'uz'=>'Администратор панели',
@@ -270,6 +375,11 @@ function lang($word){
 			'oz'=>"Chiqish",
 			'uz'=>'Чиқиш',
 			'ru'=>'Выйти'
+		],
+		'mchj'=>[
+			'oz'=>"MCHJ",
+			'uz'=>'МЧЖ',
+			'ru'=>'OOO'
 		],
 		'sidebarBg'=>[
 			'oz'=>"Yon panel foni",
@@ -331,10 +441,20 @@ function lang($word){
 			'uz'=>'кўриш',
 			'ru'=>'ПОКАЗАТЬ'
 		],
+		'showConclusion'=>[
+			'oz'=>"Xulosani ko'rish",
+			'uz'=>'Хулосани кўриш',
+			'ru'=>'ПОСМОТРЕТЬ ЗАКЛЮЧЕНИЕ'
+		],
 		'standartNumber'=>[
 			'oz'=>"SHABLON STANDART RAQAMI",
 			'uz'=>'ШАБЛОН СТАНДАРТ РАҚАМИ',
 			'ru'=>'СТАНДАРТНЫЙ НОМЕР ШАБЛОНА'
+		],
+		'message'=>[
+			'oz'=>"xabar",
+			'uz'=>'xaбaр',
+			'ru'=>'сообщение'
 		],
 		'status'=>[
 			'oz'=>"HOLATI",
@@ -358,7 +478,7 @@ function lang($word){
 		],
 		'bill'=>[
 			'oz'=>"Hisob",
-			'uz'=>'Hisob',
+			'uz'=>'Ҳисоб',
 			'ru'=>'Счет'
 		],
 		'myConclusions'=>[
@@ -370,6 +490,16 @@ function lang($word){
 			'oz'=>"Auditor paneli",
 			'uz'=>'Аудитор панели',
 			'ru'=>'ПАНЕЛЬ аудиторa'
+		],
+		'agentPanel'=>[
+			'oz'=>"Agent paneli",
+			'uz'=>'Агент панели',
+			'ru'=>'Агент панель'
+		],
+		'customerPanel'=>[
+			'oz'=>"Mijoz paneli",
+			'uz'=>'Мижоз панели',
+			'ru'=>'Панель клиента'
 		],
 		'useCases'=>[
 			'oz'=>"Foydalanish turi",
@@ -405,6 +535,16 @@ function lang($word){
 			'oz'=>"Shablon",
 			'uz'=>'ШАБЛОН',
 			'ru'=>'ШАБЛОН'
+		],
+		'templateNum'=>[
+			'oz'=>"Shablon raqami",
+			'uz'=>'Шаблон рақами',
+			'ru'=>'Номер шаблона'
+		],
+		'forWhat'=>[
+			'oz'=>"Nima uchun?",
+			'uz'=>'Нима учун?',
+			'ru'=>'Для чего?'
 		],
 		'details'=>[
 			'oz'=>"Tafsilotlar",
@@ -481,6 +621,46 @@ function lang($word){
 			'uz'=>'Форма 2',
 			'ru'=>'Форма 2'
 		],
+		'Forma 1'=>[
+			'oz'=>"Forma 1",
+			'uz'=>'Форма 1',
+			'ru'=>'Форма 1'
+		],
+		'Forma 2'=>[
+			'oz'=>"Forma 2",
+			'uz'=>'Форма 2',
+			'ru'=>'Форма 2'
+		],
+		'newOrder'=>[
+			'oz'=>"Yangi buyurtma",
+			'uz'=>'Янги буюртма',
+			'ru'=>'Новый заказ'
+		],
+		'basicInfo'=>[
+			'oz'=>"Asosiy malumotlar",
+			'uz'=>'Асосий малумотлар',
+			'ru'=>'Базовая информация'
+		],
+		'structuredPhone'=>[
+			'oz'=>"998971112233 shaklidagi telefon raqami, + belgisiz",
+			'uz'=>'998971112233 шаклидаги телефон рақами, + белгисиз',
+			'ru'=>'Номер телефона, в виде 998971112233, без знака +'
+		],
+		'sentOrder'=>[
+			'oz'=>"Jo'natilgan buyurtma",
+			'uz'=>'Жўнатилган буюртма',
+			'ru'=>'Отправленные заказы'
+		],
+		'draftOrder'=>[
+			'oz'=>"Qoralamalar",
+			'uz'=>'Қораламалар',
+			'ru'=>'Черновики'
+		],
+		'recievedOrder'=>[
+			'oz'=>"Qabul qlingan buyurtmalar",
+			'uz'=>'Қабул қлинган буюртмалар',
+			'ru'=>'Полученные заключения'
+		],
 		'assign'=>[
 			'oz'=>"Biriktirmoq",
 			'uz'=>'Бириктирмоқ',
@@ -505,6 +685,116 @@ function lang($word){
 			'oz'=>"Saqlash",
 			'uz'=>'Сақлаш',
 			'ru'=>'Сохранить'
+		],
+		'save'=>[
+			'oz'=>"Saqlash",
+			'uz'=>'Сақлаш',
+			'ru'=>'Сохранить'
+		],
+		'draft'=>[
+			'oz'=>"Saqlash",
+			'uz'=>'Сақлаш',
+			'ru'=>'Сохранить'
+		],
+		'selectTemplate'=>[
+			'oz'=>"Iltimos, Shablonni tanlang",
+			'uz'=>'Илтимос, Шаблонни танланг',
+			'ru'=>'Пожалуйста, выберите шаблон'
+		],
+		'templateUseCase'=>[
+			'oz'=>"Iltimos, foydalanish turini tanlang:",
+			'uz'=>'Илтимос, фойдаланиш турини танланг:',
+			'ru'=>'Пожалуйста, выберите вариант использования:'
+		],
+		'Tender'=>[
+			'oz'=>"Tender",
+			'uz'=>'Тендер',
+			'ru'=>'Тендер'
+		],
+		'Тендер'=>[
+			'oz'=>"Tender",
+			'uz'=>'Тендер',
+			'ru'=>'Тендер'
+		],
+		'Kredit'=>[
+			'oz'=>"Kredit",
+			'uz'=>'Кредит',
+			'ru'=>'Кредит'
+		],
+		"moliyaviy hisobot bo'yicha fikr"=>[
+			'oz'=>"Moliyaviy hisobot bo'yicha fikr",
+			'uz'=>'Молиявий ҳисобот бўйича фикр',
+			'ru'=>'Заключение по финансовой отчетности'
+		],
+		'continue'=>[
+			'oz'=>"Davom etish",
+			'uz'=>'Давом этиш',
+			'ru'=>'Продолжать'
+		],
+		'uz'=>[
+			'oz'=>"O'zbek",
+			'uz'=>'Ўзбек',
+			'ru'=>'Узбекский'
+		],
+		'ru'=>[
+			'oz'=>"Ruscha",
+			'uz'=>'Русча',
+			'ru'=>'Русский'
+		],
+		'companyName'=>[
+			'oz'=>"Korxona Nomi",
+			'uz'=>'Корхона Номи',
+			'ru'=>'Наименование Компания'
+		],
+		'govRegDate'=>[
+			'oz'=>"Auditorlik korxonasining davlat ro'yxatidan o'tkazilgan sanasi",
+			'uz'=>'Аудиторлик корхонасининг давлат рўйхатидан ўтказилган санаси',
+			'ru'=>'Дата государственной регистрации аудиторской компании'
+		],
+		'userCompGovRegDate'=>[
+			'oz'=>"Mijoz korxonasining davlat ro'yxatidan o'tkazilgan sanasi",
+			'uz'=>'Мижоз корхонасининг давлат рўйхатидан ўтказилган санаси',
+			'ru'=>'Дата государственной регистрации компании заказчика'
+		],
+		'basicConclusions'=>[
+			'oz'=>"Asosiy xulosa",
+			'uz'=>'Асосий хулоса',
+			'ru'=>'Базовая заключения'
+		],
+		'next'=>[
+			'oz'=>"Keyingi",
+			'uz'=>'Кейинги',
+			'ru'=>'Следующий'
+		],
+		'previous'=>[
+			'oz'=>"Orqaga",
+			'uz'=>'Орқага',
+			'ru'=>'Предыдущий'
+		],
+		'saveDraft'=>[
+			'oz'=>"Qoralama sifatida saqlash",
+			'uz'=>'Қоралама сифатида сақлаш',
+			'ru'=>'Сохранить как черновик'
+		],
+		'saveAndSubmit'=>[
+			'oz'=>"Saqlang va yuboring",
+			'uz'=>'Сақланг ва юборинг',
+			'ru'=>'Сохранить и отправить'
+		],
+		'submit'=>[
+			'oz'=>"Jo'natish",
+			'uz'=>'Жўнатиш',
+			'ru'=>'Отправить'
+		],
+		'custInfo'=>[
+			'oz'=>"Mijoz malumotlari",
+			'uz'=>'Мижоз малумотлари',
+			'ru'=>'Информация о клиенте'
+		],
+		'custCompInfo'=>[
+			'oz'=>"Mijoz korxonasi haqida malumot",
+			'uz'=>'Мижоз корхонаси ҳақида малумот',
+			'ru'=>'Информация о компании клиента'
 		],
 	];
 	return $words[$word][config('global.lang')];
