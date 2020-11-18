@@ -2,6 +2,22 @@
 use App\Models\Template;
 use App\Models\User;
 
+if(!function_exists('file_fields_for_validation')){
+	function file_validation_rules($template_id){
+		$template=Template::where('id', $template_id)->first();
+		
+		$file_fields=array_filter(json_decode($template->fields, true),function($v){
+			return $v['type']=='file';
+		});
+
+		$rules=array_map(function($v){
+			return ["custom.".$v['name']=>"required | mimetypes:".$v['mime_types']];
+		}, $file_fields);
+
+		return array_merge(...$rules);
+	}
+}
+
 function custom_fields($id){
 	return json_decode(Template::where('id', $id)->first()->fields);
 }

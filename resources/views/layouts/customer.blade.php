@@ -17,7 +17,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
   <link href="{{asset('assets/css/common.css')}}" rel="stylesheet" />
-  <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
+  
   <link href="{{asset('assets/css/customer.css')}}" rel="stylesheet" />
 </head>
 <style>
@@ -26,34 +26,63 @@
     font-size: 10px;
     font-weight: 600;
   }
+  .sidebar .nav li > a{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .sidebar .nav li.active > a:not([data-toggle="collapse"])::before{
+    top:45%;
+  }
+  .sidebar .nav p{
+    white-space: initial ;
+  }
 </style>
 
-<body class="">
+<body>
   <div class="wrapper">
-    <div class="sidebar" data-color="blue">
+    <div class="sidebar" data="blue">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
       -->
-      <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper" >
         <div class="logo">
           <!-- <a href="javascript:void(0)" class="simple-text logo-mini">
             HA
           </a> -->
           <a href="javascript:void(0)" class="simple-text logo-normal">
-            «HIMOYA-AUDIT» МЧЖ
+            E-AUDIT
           </a>
 
         </div>
         <ul class="nav mynav">
           <li>
+            <a href="{{ route('customer.create_order') }}">
+              <i class="tim-icons icon-simple-add"></i>
+              <p>Новый заказ</p>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="tim-icons icon-send"></i>
+              <p>Отправленные заказы</p>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="tim-icons icon-pencil"></i>
+              <p>Черновики</p>
+            </a>
+          </li>
+          <li>
             <a href="{{route("customer.orders")}}">
-              <i class="tim-icons icon-pin"></i>
-              <p>Заказы</p>
+              <i class="tim-icons icon-attach-87"></i>
+              <p>Полученные заключения</p>
             </a>
           </li>
           <li>
             <a href="{{route("aac.checkfunds")}}">
-              <i class="tim-icons icon-bank"></i>
+              <i class="tim-icons icon-coins"></i>
               <p>Счет</p>
             </a>
           </li>
@@ -81,6 +110,27 @@
           </button>
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
+              <li class="dropdown nav-item">
+                <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  
+                  <i class="tim-icons icon-world"></i> O'zbek
+                  <p class="d-lg-none">
+                    <i class="tim-icons icon-world"></i>
+                  </p>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
+                  <li class="nav-link">
+                    <a href="#" class="nav-item dropdown-item">
+                      Uzbek
+                    </a>
+                  </li>
+                  <li class="nav-link">
+                    <a href="javascript:void(0)" class="nav-item dropdown-item">
+                      Russian
+                    </a>
+                  </li>
+                </ul>
+              </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   {{auth()->user()->name}}
@@ -124,7 +174,7 @@
           <ul class="nav">
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link">
-                «HIMOYA-AUDIT» МЧЖ
+                E-AUDIT
               </a>
             </li>
 
@@ -173,9 +223,6 @@
   <script src="{{asset('assets/js/core/popper.min.js')}}"></script>
   <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
   <script src="{{asset('assets/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
-  <!--  Google Maps Plugin    -->
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
   <script src="{{asset('assets/js/plugins/chartjs.min.js')}}"></script>
   <!--  Notifications Plugin    -->
@@ -183,7 +230,7 @@
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('assets/js/black-dashboard.min.js?v=1.0.0')}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="{{asset('assets/demo/demo.js')}}"></script>
-  <script src="{{asset('assets/js/multistep.js')}}"></script>
+
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -301,10 +348,10 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
     window.TrackJS &&
-      TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "black-dashboard-free"
-      });
+    TrackJS.install({
+      token: "ee6fab19c5a04ac1a32a645abde4613a",
+      application: "black-dashboard-free"
+    });
   </script>
 </body>
 <script>
@@ -317,15 +364,4 @@
     }
   }
 </script>
-<script>
-  var menu = document.getElementsByClassName('mynav')[0].children;
-  for (let i = 0; i < menu.length; i++) {
-    if (window.location.href.split("#")[0] == menu[i].children[0].href) {
-      menu[i].classList.add('active');
-    } else {
-      menu[i].classList.remove('active');
-    }
-  }
-</script>
-
 </html>

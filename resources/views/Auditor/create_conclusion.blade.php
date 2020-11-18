@@ -1,3 +1,5 @@
+<link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet"/>
+<script src="{{asset('assets/js/multistep.js')}}"></script>
 <div class="card">
 	<div class="card-body">
 
