@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{lang('htmlLang')}}">
 
 <head>
   <meta charset="utf-8" />
@@ -47,19 +47,19 @@
           <li>
             <a href="{{route("auditor.orders")}}">
               <i class="tim-icons icon-pin"></i>
-              <p>Заказы</p>
+              <p>{{lang('orders')}}</p>
             </a>
           </li>
           <li>
             <a href="{{route("auditor.conclusions")}}">
               <i class="tim-icons icon-puzzle-10"></i>
-              <p>Заключении</p>
+              <p>{{lang('conclusions')}}</p>
             </a>
           </li>
           <li>
             <a href="{{route("aac.checkfunds")}}">
               <i class="tim-icons icon-bank"></i>
-              <p>Счет</p>
+              <p>{{lang('bill')}}</p>
             </a>
           </li>
         </ul>
@@ -77,7 +77,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Панель администратора</a>
+            <a class="navbar-brand" href="javascript:void(0)">{{lang('auditorPanel')}}</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -98,16 +98,16 @@
                   </div>
                   <b class="caret d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none" onclick="logout()">
-                    Выйти
+                  {{lang('logout')}}
                   </p>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
-                    <button>Logout</button>
+                    <button>{{lang('logout')}}</button>
                   </form>
 
                 </a>
                 <ul class="dropdown-menu dropdown-navbar">
-                  <li class="nav-link"><a href="javascript:void(0)" onclick="logout()" class="nav-item dropdown-item"> Выйти</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" onclick="logout()" class="nav-item dropdown-item">{{lang('logout')}}</a></li>
                 </ul>
               </li>
               <li class="separator d-lg-none"></li>
@@ -151,7 +151,7 @@
         <i class="fa fa-cog fa-2x"> </i>
       </a>
       <ul class="dropdown-menu">
-        <li class="header-title"> Sidebar Background</li>
+        <li class="header-title">{{lang('sidebarBg')}}</li>
         <li class="adjustments-line">
           <a href="javascript:void(0)" class="switch-trigger background-color">
             <div class="badge-colors text-center">
@@ -163,13 +163,11 @@
           </a>
         </li>
         <li class="adjustments-line text-center color-change">
-          <span class="color-label">LIGHT</span>
+          <span class="color-label">{{lang('light')}}</span>
           <span class="badge light-badge mr-2"></span>
           <span class="badge dark-badge ml-2"></span>
-          <span class="color-label">DARK</span>
+          <span class="color-label">{{lang('dark')}}</span>
         </li>
-
-
       </ul>
     </div>
   </div>

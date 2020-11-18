@@ -159,7 +159,7 @@ class Customer_Controller extends Controller
         if($order){
             $order->fulldelete();
             return redirect()->route('customer.orders');
-        }
+        }   
         return abort(404);
     }
     public function conclusion(Request $req){
