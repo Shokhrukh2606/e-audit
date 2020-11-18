@@ -125,6 +125,11 @@ function lang($word){
 			'uz'=>'Отангизни исми',
 			'ru'=>'Отчество'
 		],
+		'userPatronymic'=>[
+			'oz'=>'Otansining ismi',
+			'uz'=>'Отасининг исми',
+			'ru'=>'Отчество'
+		],
 		'phoneNumber'=>[
 			'oz'=>'Telefon raqamingiz',
 			'uz'=>'Телефон рақамингиз',
@@ -216,9 +221,9 @@ function lang($word){
 			'ru'=>'ru'
 		],
 		'lang'=>[
-			'oz'=>"til",
-			'uz'=>'тил',
-			'ru'=>'язык'
+			'oz'=>"Til",
+			'uz'=>'Тил',
+			'ru'=>'Язык'
 		],
 		'users'=>[
 			'oz'=>"Foydalanuvchilar",
@@ -400,7 +405,7 @@ function lang($word){
 			'uz'=>'Мижоз ҳақида маълумот',
 			'ru'=>'Информация о клиенте'
 		],
-		'cust_comp_gov_reg_num'=>[
+		'passportSeries'=>[
 			'oz'=>"Pasport seriya",
 			'uz'=>'Паспорт серия',
 			'ru'=>'Паспортная серия'
@@ -416,9 +421,9 @@ function lang($word){
 			'ru'=>'Банк'
 		],
 		'cust_comp_bank_acc'=>[
-			'oz'=>"Bank ACC",
-			'uz'=>'Банк АCC',
-			'ru'=>'Банк АCC'
+			'oz'=>"Mijoz korxonasining bank hisobvarag'i",
+			'uz'=>'Мижоз корхонасининг банк ҳисобварағи',
+			'ru'=>'Банковский счет компании клиента'
 		],
 		'cust_comp_bank_mfo'=>[
 			'oz'=>"Bank MFO",
@@ -444,6 +449,46 @@ function lang($word){
 			'oz'=>"Ushbu buyurtma asosida xulosa yozish",
 			'uz'=>'Ушбу буюртма асосида хулоса ёзинг',
 			'ru'=>'Напишите заключение на основании этого приказа'
+		],
+		'cust_comp_gov_reg_num'=>[
+			'oz'=>"Mijoz korxonasining davlat ro'yxatidan o'tkgan raqami",
+			'uz'=>'Мижоз корхонасининг давлат рўйхатидан ўткган рақами',
+			'ru'=>'Государственный регистрационный номер компании заказчика'
+		],
+		'Форма 1'=>[
+			'oz'=>"Forma 1",
+			'uz'=>'Форма 1',
+			'ru'=>'Форма 1'
+		],
+		'Форма 2'=>[
+			'oz'=>"Forma 2",
+			'uz'=>'Форма 2',
+			'ru'=>'Форма 2'
+		],
+		'assign'=>[
+			'oz'=>"Biriktirmoq",
+			'uz'=>'Бириктирмоқ',
+			'ru'=>'Назначать'
+		],
+		'fillData'=>[
+			'oz'=>"Iltimos, foydalanuvchi ma'lumotlarini to'ldiring",
+			'uz'=>'Илтимос, фойдаланувчи маълумотларини тўлдиринг',
+			'ru'=>'Пожалуйста, заполните данные пользователя'
+		],
+		'certificateDate'=>[
+			'oz'=>"Sertifikat berilgan sanasi",
+			'uz'=>'Сертификат берилган санаси',
+			'ru'=>'Дата сертификата'
+		],
+		'addressLine'=>[
+			'oz'=>"Ko'cha / uy (kvartira)",
+			'uz'=>'Кўча / уй (квартира)',
+			'ru'=>'Улица / дом (квартира)'
+		],
+		'save'=>[
+			'oz'=>"Saqlash",
+			'uz'=>'Сақлаш',
+			'ru'=>'Сохранить'
 		],
 	];
 	return $words[$word][config('global.lang')];
