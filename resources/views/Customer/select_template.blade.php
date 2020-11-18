@@ -1,9 +1,16 @@
+<style>
+	label{
+		font-size: 14px !important;
+	}
+</style>
 <div class="card">
-	<div class="card-header">Пожалуйста, выберите шаблон</div>
+	<div class="card-header">
+		<h3>{{__('front.select_temp')}}</h3>
+	</div>
 	<div class="card-body">
 	<form action="{{route('customer.create_order')}}">
 		<div>
-			{{__('front.select_temp')}}:
+			<label>Номер шаблона</label>
 			<select class="form-control" id='template-type' name="template_id" required onchange="alter_use_cases(this)">
 				@foreach($templates as $template)
 				<option value="{{$template->id}}">{{$template->standart_num}}</option>
@@ -11,7 +18,7 @@
 			</select>
 		</div>
 		<div class="mt-4">
-			{{__('front.select_use_case')}}:
+			<h4>Для чего?</h4>
 			<div id="use_cases" class="mt-2">
 				@foreach($use_cases as $use_case)
 				<div data-value="{{$use_case->id}}" data-temp_id="{{$use_case->template_id}}">
@@ -21,7 +28,9 @@
 				@endforeach
 			</div>
 		</div>
-		<button class="form-control" type="submit">{{__('front.continue')}}</button>
+		<button class="form-control btn btn-primary" type="submit">
+			{{__('front.continue')}}
+		</button>
 	</form>
 <script>
 	function alter_use_cases() {

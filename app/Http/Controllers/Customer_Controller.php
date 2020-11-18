@@ -22,7 +22,7 @@ class Customer_Controller extends Controller
     	$this->middleware('multi_auth:customer');
     }
     private function view($file, $data=[]){
-        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['title']='e-audit client';
         $data['body']='Customer.'.$file;
         return view('customer_index', $data);
     } 
@@ -32,7 +32,7 @@ class Customer_Controller extends Controller
    		return $this->view('select_template', $data);
    	}
     public function create_order(Request $req){
-    	switch ($req->method()) {
+        switch ($req->method()) {
     		case 'GET':
     			$data['template_id']=$_GET['template_id']??false;
     			$data['use_cases']=$_GET['use_cases']??false;
@@ -41,7 +41,12 @@ class Customer_Controller extends Controller
     			return $this->select_temp();
     			break;
     		case 'POST':
-    			$all=$req->all();
+                $req->validate(
+                    file_validation_rules($req->cust_info['template_id'])
+                );
+    			
+                $all=$req->all();
+                
                 $order_fields=$req->input('order');
                 $cust_info_fields=$req->input('cust_info');
                 $custom_fields_files=$req->file('custom');
@@ -49,6 +54,12 @@ class Customer_Controller extends Controller
                 // customer_info-use_case mappings
                 $ciucm_fields=$req->input('ciucm');
                 $order=new Order();
+
+                if($all['send_to_admin']=="true"){
+                    $order->status=2;
+                }
+                unset($all['send_to_admin']);
+                
                 $order->customer_id=auth()->user()->id;
                 foreach ($order_fields??[] as $key => $value) {
                     $order->$key=$value;
