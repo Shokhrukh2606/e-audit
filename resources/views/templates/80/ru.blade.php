@@ -53,5 +53,8 @@
 «19» октябрь 2020 года
 
 </div>
+<div>
+    <img src="data:image/png;base64, {!! $qrcode !!} ">
+</div>
 </body>
 </html>

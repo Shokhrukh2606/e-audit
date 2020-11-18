@@ -17,7 +17,8 @@ class Invoice extends Model
     		return true;
     	return false;
     }
-    public function transaction(){
-    	return $this->hasOne(Transaction::class,'invoice_id');
+    public function transaction()
+    {
+        return $this->hasMany('App\Models\Transaction', 'invoice_id');
     }
 }

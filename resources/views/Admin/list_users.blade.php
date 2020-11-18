@@ -25,7 +25,19 @@
         <label>{{lang('inn')}}</label>
         <input class="form-control" type="number" name="filter[inn]" value="{{ request()->input('filter.inn') }}">
     </div>
-    <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{lang('search')}}</button>
+    <div class="col">
+        <label>{{__('front.status')}}</label>
+        <select class="form-control" name="filter[status]">
+            <option value="">{{__('front.select')}}</option>
+            <option  {{ request()->input('filter.status') == 'active' ? 'selected' : '' }} value="active">
+                {{__('front.active')}}
+            </option>
+            <option {{ request()->input('filter.status') == 'inactive' ? 'selected' : '' }} value="inactive">
+                {{__('front.inactive')}}
+            </option>
+        </select>
+    </div>
+    <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{__('front.search')}}</button>
 </form>
 
 <div class="card">
@@ -38,13 +50,14 @@
     <div class="card-body">
         <table class="table tablesorter">
             <thead>
-                <th>{{lang('id')}}</th>
-                <th>{{lang('fio')}}</th>
-                <th>{{lang('fund')}}</th>
-                <th>{{lang('role')}}</th>
-                <th>{{lang('anotherPhoneNumber')}}</th>
-                <th>{{lang('inn')}}</th>
-                <th>{{lang('show')}}</th>
+                <th>ID</th>
+                <th>{{__('front.fio')}}</th>
+                <th>{{__('front.funds')}}</th>
+                <th>{{__('front.role')}}</th>
+                <th>{{__('front.phone')}}</th>
+                <th>{{__('front.inn')}}</th>
+                <th>{{__('front.status')}}</th>
+                <th>{{__('custom.show')}}</th>
             </thead>
             </tbody>
             @foreach ($users as $user)
@@ -55,7 +68,9 @@
                     <td>{{ $user->group->name }}</td>
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->inn }}</td>
-                    <td><a href="{{ route('admin.view_user', $user->id) }}">{{lang('show')}}</a></td>
+                    <td><a href="{{ route('admin.user_conclusions', [$user->group->name, $user->id]) }}">Показать заключении</a></td>
+                    <td>{{ __("front.".$user->status) }}</td>
+                    <td><a href="{{ route('admin.view_user', $user->id) }}">{{__('custom.show')}}</a></td>
                 </tr>
             @endforeach
             </tbody>

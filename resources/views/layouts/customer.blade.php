@@ -57,6 +57,12 @@
               <p>Счет</p>
             </a>
           </li>
+          <li>
+            <a href="{{route("customer.transaction_log")}}">
+              <i class="tim-icons icon-coins"></i>
+              <p>Журнал транзакций</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

@@ -47,6 +47,8 @@ Route::get("create_invoice/{conclusion_id}", "Customer_Controller@create_invoice
 			// pay
 			// view: pay_for_order
 Route::get("pay/{invoice_id}", "Customer_Controller@pay")->name("pay");
-
+			// transactions
+			// log
+Route::get("transactions_log", "Customer_Controller@transactions_log")->name("transaction_log");
 
 ?>

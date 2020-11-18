@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Conclusion;
+use App\Models\Cust_comp_info;
 use App\Models\Payment;
 use App\Models\User_group;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\QueryBuilder\QueryBuilder;
+use QRCode;
+use PDF;
 
 class Admin_Controller extends Controller
 {
@@ -19,8 +23,8 @@ class Admin_Controller extends Controller
     }
     private function view($file, $data = [])
     {
-        $data['title']='«HIMOYA-AUDIT» МЧЖ';
-        $data['body']='Admin.'.$file;
+        $data['title'] = '«HIMOYA-AUDIT» МЧЖ';
+        $data['body'] = 'Admin.' . $file;
         return view('admin_index', $data);
     }
     public function list_orders()
@@ -48,8 +52,43 @@ class Admin_Controller extends Controller
     }
     public function conclusions(Request $req)
     {
-        $data['conclusions'] = Conclusion::all();
-        return $this->view('list_conclusions', $data);
+        $filtered = ['template_id', 'auditor_id', 'agent_id','customer_id', 'audit_comp_name', 'audit_comp_inn'];
+            $query = DB::table('conclusions')
+            ->join('cust_comp_info','cust_comp_info.conclusion_id','=','conclusions.id')->
+            join('templates','templates.id','=','cust_comp_info.template_id');
+            if($req->input('filter')){
+                foreach ($req->input('filter') as $key => $value) {
+                    if (in_array($key, $filtered)&&($value!='')) {
+                        $query->where($key, $value);
+                    }
+                }
+            }
+            $data['conclusions'] = $query->get();
+            return $this->view('list_conclusions', $data);
+    }
+    public function user_conclusions(Request $req)
+    {
+        $filtered = ['template_id', 'auditor_id', 'agent_id','customer_id', 'audit_comp_name', 'audit_comp_inn'];
+            $query = DB::table('conclusions')
+            ->join('cust_comp_info','cust_comp_info.conclusion_id','=','conclusions.id')->
+            join('templates','templates.id','=','cust_comp_info.template_id');
+            switch($req->type){
+                case 'agent':
+                    $query->where(['agent_id','=',$req->id]);
+                break;
+                case 'auditor':
+                    $query->where(['auditor_id','=',$req->id]);
+                break;
+            }
+            if($req->input('filter')){
+                foreach ($req->input('filter') as $key => $value) {
+                    if (in_array($key, $filtered)&&($value!='')) {
+                        $query->where($key, $value);
+                    }
+                }
+            }
+            $data['conclusions'] = $query->get();
+            return $this->view('list_conclusions', $data);
     }
     public function add_funds(Request $req)
     {
@@ -80,7 +119,7 @@ class Admin_Controller extends Controller
     {
 
         $query = QueryBuilder::for(User::class)
-            ->allowedFilters(['inn', 'group_id', 'phone', 'name', 'full_name']);
+            ->allowedFilters(['inn', 'group_id', 'phone', 'name', 'full_name', 'status']);
         // if ($came = $request->input("filter.name")) {
         //     $query->where('full_name', 'like', "%${came}");
         // }
@@ -116,19 +155,26 @@ class Admin_Controller extends Controller
         switch ($req->method()) {
             case 'GET':
                 $data['user'] = User::where(['id' => $req->id])->first();
-                $data['groups'] = User_group::whereIn('id', [1, 2])->get();
+                $data['groups'] = User_group::all();
                 if ($data['user'])
                     return $this->view('view_user', $data);
                 return abort(404);
                 break;
             case 'POST':
                 $fields = $req->input("user");
-                $user = User::where(['id'=>$req->id])->first();
-                unset($fields['password']);
-                // foreach ($fields as $name => $value) {
-                //     $user->$name = $value;
-                // }
-                $user->update($fields);
+                $user = User::where(['id' => $req->id])->first();
+                if ($fields['status'] != $user->status && $user->status == 'inactive') {
+                    sms($user->phone, 'Сизни аккаунтингиз фаоллаштирилди!');
+                }
+                if ($fields['password'] != '') {
+                    $fields['password'] = Hash::make($fields['password']);
+                } else {
+                    unset($fields['password']);
+                }
+                foreach ($fields as $name => $value) {
+                    $user->$name = $value;
+                }
+                $user->save();
                 // $user->save();
                 return redirect()->route('admin.list_users')->with("success", "Successfully updated");
                 break;
@@ -136,5 +182,17 @@ class Admin_Controller extends Controller
                 # code...
                 break;
         }
+    }
+    public function conclusion(Request $req)
+    {
+        $data['conclusion'] = Conclusion::where('id', $req->id)->first();
+        if ($data['conclusion']) {
+            $template = $data['conclusion']->cust_info->template->standart_num;
+            $lang = $data['conclusion']->cust_info->lang;
+            $data['qrcode'] = base64_encode(QRCode::text('QR Code Generator for Laravel!')->png());
+            $pdf = PDF::loadView("templates.$template.$lang", $data);
+            return $pdf->stream('invoice.pdf');
+        }
+        abort(404);
     }
 }
