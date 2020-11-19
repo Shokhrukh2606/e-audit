@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conclusion;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use PDF;
 
 class RegisterController extends Controller
 {
@@ -93,5 +95,16 @@ class RegisterController extends Controller
         
         session(['message'=>'Вы успешно зарегистрировались, вы получите уведомление, когда администратор примет вас.']);
         return redirect()->route('show_register');
+    }
+    public function open_conclusion(Request $req){
+        $data['conclusion']=Conclusion::where('qr_hash', $req->id)->first();
+        if($data['conclusion']){
+            $template=$data['conclusion']->cust_info->template->standart_num;
+            $lang=$data['conclusion']->cust_info->lang;
+            $data['qrcode']=base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
+            $pdf = PDF::loadView("templates.$template.$lang", $data);
+            return $pdf->stream('invoice.pdf');
+        }
+        abort(404);
     }
 }

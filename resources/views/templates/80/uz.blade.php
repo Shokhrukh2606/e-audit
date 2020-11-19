@@ -19,6 +19,11 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
   body{
     background-image: url("{{asset('shutterstock.png')}}");
   }
+  .qr-code{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
 </style>
 </head>
 
@@ -60,8 +65,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
       <p class="italic underline right bold">Такдим этилган сана : 23.05.2020 й</p>
     </div>
   </div>
-  <div>
-    {{QrCode::size(100)->generate($img)}}
+
+  <div class="qr-code">
+    <img src="data:application/octet-stream;base64, {{$qrcode }}" alt="">
   </div>
 </body>
 

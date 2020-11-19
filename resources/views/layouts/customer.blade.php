@@ -17,8 +17,9 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
   <link href="{{asset('assets/css/common.css')}}" rel="stylesheet" />
-
   <link href="{{asset('assets/css/customer.css')}}" rel="stylesheet" />
+  @yield('createOrderCss')
+  
 </head>
 <style>
   .sidebar .nav p,
@@ -362,6 +363,8 @@
         application: "black-dashboard-free"
       });
   </script>
+  @yield('createOrderJs')
+  
 </body>
 <script>
   var menu = document.getElementsByClassName('mynav')[0].children;

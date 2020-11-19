@@ -9,6 +9,11 @@
   body{
     background-image: url("{{asset('shutterstock.png')}}");
   }
+  .qr-code{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
 </style>
 </head>
 <body>
@@ -53,8 +58,8 @@
 «19» октябрь 2020 года
 
 </div>
-<div>
-    <img src="data:image/png;base64, {!! $qrcode !!} ">
+<div class="qr-code">
+    <img src="data:application/octet-stream;base64, {{$qrcode }}" alt="">
 </div>
 </body>
 </html>

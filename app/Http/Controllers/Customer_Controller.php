@@ -13,7 +13,7 @@ use App\Models\Invoice;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Storage;
 use PDF;
-use QRCode;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Customer_Controller extends Controller
 {
@@ -234,7 +234,7 @@ class Customer_Controller extends Controller
         if($data['conclusion']){
             $template=$data['conclusion']->cust_info->template->standart_num;
             $lang=$data['conclusion']->cust_info->lang;
-            $data['qrcode']=base64_encode(QRCode::text('QR Code Generator for Laravel!')->png());
+            $data['qrcode']=base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
             $pdf = PDF::loadView("templates.$template.$lang", $data);
             return $pdf->stream('invoice.pdf');
         }

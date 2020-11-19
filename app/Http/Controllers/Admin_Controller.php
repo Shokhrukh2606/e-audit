@@ -8,12 +8,13 @@ use App\Models\User;
 use App\Models\Conclusion;
 use App\Models\Cust_comp_info;
 use App\Models\Payment;
+use App\Models\Template;
 use App\Models\User_group;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\QueryBuilder\QueryBuilder;
-use QRCode;
 use PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Admin_Controller extends Controller
 {
@@ -79,6 +80,10 @@ class Admin_Controller extends Controller
                 }
             }
             $data['conclusions'] = $query->get();
+            $data['auditors']=User::where(['group_id'=>2])->get();
+            $data['agents']=User::where(['group_id'=>3])->get();
+            $data['customers']=User::where(['group_id'=>4])->get();
+            $data['templates']=Template::all();
             return $this->view('list_conclusions', $data);
     }
     public function user_conclusions(Request $req)
@@ -89,11 +94,17 @@ class Admin_Controller extends Controller
             join('templates','templates.id','=','cust_comp_info.template_id');
             switch($req->type){
                 case 'agent':
-                    $query->where(['agent_id','=',$req->id]);
+                    $query->where(['agent_id'=>$req->id]);
                 break;
                 case 'auditor':
-                    $query->where(['auditor_id','=',$req->id]);
+                    $query->where(['auditor_id'=>$req->id]);
                 break;
+                case 'customer':
+                    $query->where(['customer_id'=>$req->id]);
+                break;
+                default:
+                    $data['conclusions'] = [];
+                    return $this->view('user_conclusions', $data);
             }
             if($req->input('filter')){
                 foreach ($req->input('filter') as $key => $value) {
@@ -103,7 +114,7 @@ class Admin_Controller extends Controller
                 }
             }
             $data['conclusions'] = $query->get();
-            return $this->view('list_conclusions', $data);
+            return $this->view('user_conclusions', $data);
     }
     public function add_funds(Request $req)
     {
@@ -204,7 +215,7 @@ class Admin_Controller extends Controller
         if ($data['conclusion']) {
             $template = $data['conclusion']->cust_info->template->standart_num;
             $lang = $data['conclusion']->cust_info->lang;
-            $data['qrcode'] = base64_encode(QRCode::text('QR Code Generator for Laravel!')->png());
+            $data['qrcode']=base64_encode(QrCode::size(100)->generate('Hello'));
             $pdf = PDF::loadView("templates.$template.$lang", $data);
             return $pdf->stream('invoice.pdf');
         }

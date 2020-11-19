@@ -36,4 +36,17 @@ class Conclusion extends Model
     public function invoice(){
       return $this->hasOne(Invoice::class,"conclusion_id");
     }
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($model){
+            $model->qr_hash=md5($model->id);
+        });
+
+        self::updating(function($model){
+            $model->qr_hash=md5($model->id);
+        });
+
+    }
 }

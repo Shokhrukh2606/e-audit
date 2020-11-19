@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,7 +69,9 @@ Route::prefix('aac')->group(function () {
 			// route to create payment
 			// view:post no view
 		Route::get('checkfunds', 'AAC_Controller@checkfunds')->name('checkfunds');
-		
+			// route to profile info
+			// view:profile info
+		Route::get('profile', 'AAC_Controller@profile')->name('profile');
 		/*temporarily commented, because payment table was changing*/
 		// Route::match(["GET", "POST"], "/add_funds", "AAC_Controller@add_funds")
 		// ->name('add_funds');
@@ -81,3 +82,9 @@ Route::prefix('aac')->group(function () {
 	// open file retriever
 	// pass path in a query like route('file')."?path=".$path;
 Route::get('file', "FileController@open")->name('file');
+
+
+/**===========Open QR code for conclusion ======================**/
+	// open conclusion without auth
+Route::get('open_conclusion/{id}', "RegisterController@open_conclusion")->name('open_conclusion');
+	

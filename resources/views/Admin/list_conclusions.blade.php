@@ -1,24 +1,48 @@
-<form action="{{ route('admin.conclusions') }}" class="row mb-3" id="filterer">
+<form action="{{ route('admin.conclusions') }}" method="GET" class="row mb-3" id="filterer">
     &nbsp;
     <div class="col">
         <label>{{ lang('customer') }}</label>
-        <input class="form-control" type="text" value="{{ request()->input('filter.customer_id') }}"
-            name="filter[customer_id]">
+        <select class="filters form-control" name="filter[customer_id]" style='width: 200px;'>
+            <option value="">Select User</option> 
+            @foreach ($customers as $customer)
+                <option {{ request()->input('filter.customer_id')==$customer->id ?'selected':'' }} value="{{$customer->id}}">
+                    {{ getUserName($customer->id) }}
+                </option>
+            @endforeach
+        </select>
     </div>
     <div class="col">
         <label>{{ lang('auditor') }}</label>
-        <input class="form-control" type="text" value="{{ request()->input('filter.auditor_id') }}"
-            name="filter[auditor_id]">
+        <select class="filters form-control" name="filter[auditor_id]" value="{{ request()->input('filter.auditor_id') }}" style='width: 200px;'>
+            <option value="">Select Auditor</option> 
+            @foreach ($auditors as $auditor)
+                <option {{ request()->input('filter.auditor_id')==$auditor->id ?'selected':'' }} value="{{$auditor->id}}">
+                    {{ getUserName($auditor->id) }}
+                </option>
+            @endforeach
+        </select>
     </div>
     <div class="col">
         <label>{{ lang('agent') }}</label>
-        <input class="form-control" type="text" value="{{ request()->input('filter.agent_id') }}"
-            name="filter[agent_id]">
+        <select class="filters form-control" name="filter[agent_id]" value="{{ request()->input('filter.agent_id') }}" style='width: 200px;'>
+            <option value="">Select Agent</option> 
+            @foreach ($agents as $agent)
+                <option {{ request()->input('filter.agent_id')==$agent->id ?'selected':'' }} value="{{$agent->id}}">
+                    {{ getUserName($agent->id) }}
+                </option>
+            @endforeach
+        </select>
     </div>
     <div class="col">
         <label>{{ lang('standartNumber') }}</label>
-        <input class="form-control" type="text" value="{{ request()->input('filter.template_id') }}"
-            name="filter[template_id]">
+        <select class="filters form-control" name="filter[template_id]" style='width: 200px;'>
+            <option value="">Select Template</option> 
+            @foreach ($templates as $template)
+                <option {{ request()->input('filter.template_id')==$template->id ?'selected':'' }} value="{{$template->id}}">
+                    {{ $template->id }}
+                </option>
+            @endforeach
+        </select>
     </div>
     <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{ __('front.search') }}</button>
 </form>
@@ -50,14 +74,13 @@
                             {{ getUserName($conclusion->agent_id) }}
                         </td>
                         <td>{{ $conclusion->template_id }}</td>
-                        <td><a href="{{ route('admin.conclusion', $conclusion->id) }}">{{ lang('show') }}</a></td>
+                        <td><a href="{{ route('admin.conclusion', $conclusion->conclusion_id) }}">{{ lang('show') }}</a></td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
 </div>
-
 {{-- @foreach ($conclusions as $conclusion)
     <tr>
         <td>{{ $conclusion->id }}</td>

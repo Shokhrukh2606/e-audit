@@ -1,5 +1,6 @@
+@section('createConclusionCss')
 <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
-<!-- Scripti pasda -->
+@endsection
 
 <div class="card">
 	<div class="card-body">
@@ -184,13 +185,15 @@
 	</div>
 </div>
 
-<!-- bu scriptiyam qo'wvoriw kere layout/auditordan o'cirip <script>
+@section('createConclusionJs')
+<script script src="{{asset('assets/js/multistep.js')}}">
+</script>
+<script>
 	$(document).on('change', '.custom-file-input', function(event) {
 		$(this).next('.custom-file-label').html(event.target.files[0].name);
 	})
-</script> -->
-<script src="{{asset('assets/js/multistep.js')}}"></script>
-
+</script>
+@endsection
 
 <!-- <script>
 	var currentTab = 0; // Current tab is set to be the first tab (0)

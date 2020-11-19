@@ -11,6 +11,7 @@ use App\Models\Ciucm;
 use App\Models\Order;
 use Illuminate\Support\Facades\Storage;
 use PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 class Audit_Controller extends Controller
@@ -131,8 +132,7 @@ class Audit_Controller extends Controller
             $data['img']="img";
             $template=$data['conclusion']->cust_info->template->standart_num;
             $lang=$data['conclusion']->cust_info->lang;
-
-            return view("templates.$template.$lang", $data);
+            $data['qrcode']=base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
             $pdf = PDF::loadView("templates.$template.$lang", $data);
             return $pdf->stream('invoice.pdf');
         }
