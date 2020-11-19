@@ -1,3 +1,6 @@
+@php
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +61,7 @@
     </div>
   </div>
   <div>
-    <img src="data:image/png;base64, {!! $qrcode !!} "> 
+    {{QrCode::size(100)->generate($img)}}
   </div>
 </body>
 

@@ -12,6 +12,7 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 
+
 class Audit_Controller extends Controller
 {
     function __construct()
@@ -127,8 +128,11 @@ class Audit_Controller extends Controller
     public function conclusion(Request $req){
         $data['conclusion']=Conclusion::where('id', $req->id)->first();
         if($data['conclusion']){
+            $data['img']="img";
             $template=$data['conclusion']->cust_info->template->standart_num;
             $lang=$data['conclusion']->cust_info->lang;
+
+            return view("templates.$template.$lang", $data);
             $pdf = PDF::loadView("templates.$template.$lang", $data);
             return $pdf->stream('invoice.pdf');
         }
