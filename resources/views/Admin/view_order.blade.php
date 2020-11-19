@@ -1,7 +1,6 @@
 @php
-$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields"];
+    $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields"];
 @endphp
-<<<<<<< HEAD
 <div class="card">
     <div class="card-header">
        <h2>{{  lang('order')}} {{ $order->id }} 
@@ -31,7 +30,7 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
         <ul>
             @foreach ($order->cust_info->getAttributes() as $key => $value)
             @continue(in_array($key, $not_iterated, TRUE))
-            <li>{{ lang($key):{{ $value }}</li>
+            <li>{{ lang($key).':'. $value }}</li>
             @endforeach
             @php
 
@@ -41,8 +40,6 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
             {{-- get custom fields meta and iterate --}}
 
             @foreach (custom_fields($order->cust_info->template_id) as $field)
-
-<<<<<<< HEAD
             <li>
                 {{ lang($field->label->ru) }} :
                 @if (!isset($custom_fields->{$field->name}))

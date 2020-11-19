@@ -1,51 +1,33 @@
-<form action="{{ route('admin.conclusions') }}" method="GET" class="row mb-3" id="filterer">
+{{-- <form action="{{ route('admin.conclusions') }}" class="row mb-3" id="filterer">
     &nbsp;
     <div class="col">
         <label>{{ lang('customer') }}</label>
-        <select class="filters form-control" name="filter[customer_id]" style='width: 200px;'>
-            <option value="">Select User</option> 
-            @foreach ($customers as $customer)
-                <option {{ request()->input('filter.customer_id')==$customer->id ?'selected':'' }} value="{{$customer->id}}">
-                    {{ getUserName($customer->id) }}
-                </option>
-            @endforeach
-        </select>
+        <input class="form-control" type="text" value="{{ request()->input('filter.customer_id') }}"
+            name="filter[customer_id]">
     </div>
     <div class="col">
         <label>{{ lang('auditor') }}</label>
-        <select class="filters form-control" name="filter[auditor_id]" value="{{ request()->input('filter.auditor_id') }}" style='width: 200px;'>
-            <option value="">Select Auditor</option> 
+        <input class="form-control" type="text" value="{{ request()->input('filter.auditor_id') }}"
+            name="filter[auditor_id]">
+    </div>
+    <div class="col">
+        <label>{{ lang('agent') }}</label>
+        <select class="form-control" name="filter[agent_id]" id='selUser' value="{{ request()->input('filter.agent_id') }}" style='width: 200px;'>
+            <option value='0'>Select User</option> 
             @foreach ($auditors as $auditor)
-                <option {{ request()->input('filter.auditor_id')==$auditor->id ?'selected':'' }} value="{{$auditor->id}}">
+                <option value="{{$auditor->id}}">
                     {{ getUserName($auditor->id) }}
                 </option>
             @endforeach
         </select>
     </div>
     <div class="col">
-        <label>{{ lang('agent') }}</label>
-        <select class="filters form-control" name="filter[agent_id]" value="{{ request()->input('filter.agent_id') }}" style='width: 200px;'>
-            <option value="">Select Agent</option> 
-            @foreach ($agents as $agent)
-                <option {{ request()->input('filter.agent_id')==$agent->id ?'selected':'' }} value="{{$agent->id}}">
-                    {{ getUserName($agent->id) }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-    <div class="col">
         <label>{{ lang('standartNumber') }}</label>
-        <select class="filters form-control" name="filter[template_id]" style='width: 200px;'>
-            <option value="">Select Template</option> 
-            @foreach ($templates as $template)
-                <option {{ request()->input('filter.template_id')==$template->id ?'selected':'' }} value="{{$template->id}}">
-                    {{ $template->id }}
-                </option>
-            @endforeach
-        </select>
+        <input class="form-control" type="text" value="{{ request()->input('filter.template_id') }}"
+            name="filter[template_id]">
     </div>
     <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{ __('front.search') }}</button>
-</form>
+</form> --}}
 <div class="card">
     <div class="card-header">
         <h1 class="card-title">{{ lang('conclusions') }}</h1>
@@ -54,7 +36,6 @@
         <table class="table tablesorter">
             <thead>
                 <th>{{ lang('id') }}</th>
-                <th>{{ lang('customer') }}</th>
                 <th>{{ lang('auditor') }}</th>
                 <th>{{ lang('agent') }}</th>
                 <th>{{ lang('standartNumber') }}</th>
@@ -64,9 +45,6 @@
                 @foreach ($conclusions as $conclusion)
                     <tr>
                         <td>{{ $conclusion->id }}</td>
-                        <td>
-                            {{ getUserName($conclusion->customer_id) }}
-                        </td>
                         <td>
                             {{ getUserName($conclusion->auditor_id) }}
                         </td>
@@ -81,6 +59,12 @@
         </table>
     </div>
 </div>
+{{-- <script>
+    $(document).ready(function(){
+        // Initialize select2
+        $("#selUser").select2();
+    });
+</script> --}}
 {{-- @foreach ($conclusions as $conclusion)
     <tr>
         <td>{{ $conclusion->id }}</td>

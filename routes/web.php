@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,3 +80,9 @@ Route::prefix('aac')->group(function () {
 	// open file retriever
 	// pass path in a query like route('file')."?path=".$path;
 Route::get('file', "FileController@open")->name('file');
+
+
+/**===========Open QR code for conclusion ======================**/
+	// open conclusion without auth
+Route::get('open_conclusion/{id}', "RegisterController@open_conclusion")->name('open_conclusion');
+	

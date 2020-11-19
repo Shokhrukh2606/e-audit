@@ -16,6 +16,11 @@
   body{
     background-image: url("{{asset('shutterstock.png')}}");
   }
+  .qr-code{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
 </style>
 </head>
 
@@ -57,8 +62,8 @@
       <p class="italic underline right bold">Такдим этилган сана : 23.05.2020 й</p>
     </div>
   </div>
-  <div>
-    <img src="data:image/png;base64, {!! $qrcode !!} "> 
+  <div class="qr-code">
+    <img src="data:application/octet-stream;base64, {{$qrcode }}" alt="">
   </div>
 </body>
 
