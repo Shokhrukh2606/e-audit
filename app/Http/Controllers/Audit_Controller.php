@@ -19,7 +19,7 @@ class Audit_Controller extends Controller
     	$this->middleware('multi_auth:auditor');
     }
     private function view($file, $data=[]){
-        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['title']='e-audit auditor';
         $data['body']='Auditor.'.$file;
         return view('auditor_index', $data);
     } 
@@ -141,5 +141,26 @@ class Audit_Controller extends Controller
             return redirect()->route('auditor.conclusions');
         }
         abort(404);
+    }
+    public function send_with_errors(Request $req){
+        $order=Order::where('id',$req->id)->first();
+        if(!$order||!in_array($order->status,[3,6] , true))
+            return abort(404);
+        $order->status="5";
+        $order->message=$req->input("message");
+        $order->save();
+        $data['message']="Вы успешно отправили заказ клиенту для редактирования.";
+        $data['link']=route('auditor.orders');
+        return $this->view('message',$data);
+    }
+    public function confirm(Request $req){
+        $order=Order::where('id',$req->id)->first();
+        if(!$order||!in_array($order->status,[3,6] , true))
+            return abort(404);
+        $order->status="4";
+        $order->save();
+        $data['message']="Вы успешно подтвердили действительность документов и реквизитов заказа.";
+        $data['link']=route('auditor.orders');
+        return $this->view('message',$data);
     }
 }

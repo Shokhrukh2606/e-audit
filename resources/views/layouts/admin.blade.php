@@ -38,7 +38,7 @@
             HA
           </a> -->
           <a href="javascript:void(0)" class="simple-text logo-normal">
-            «HIMOYA-AUDIT» МЧЖ
+            e-audit
           </a>
 
         </div>

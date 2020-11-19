@@ -63,19 +63,19 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="{{route("customer.orders",'sent')}}">
               <i class="tim-icons icon-send"></i>
               <p>Отправленные заказы</p>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="{{route("customer.orders",'draft')}}">
               <i class="tim-icons icon-pencil"></i>
               <p>Черновики</p>
             </a>
           </li>
           <li>
-            <a href="{{route("customer.orders")}}">
+            <a href="{{route("customer.orders",'finished')}}">
               <i class="tim-icons icon-attach-87"></i>
               <p>Полученные заключения</p>
             </a>

@@ -18,11 +18,25 @@
                     <tr>
                         <td>{{ $order->id }}</td>
                         <td>{{ $order->customer->name }}</td>
-                        <td>{{ $order->auditor->name ?? 'No one yet' }}</td>
+                        <td>
+                            <span 
+                            class="{{$order->auditor->name??"badge badge-danger"}}"
+                            >
+                                {{ $order->auditor->name ?? 'Не назначен' }}
+                            </span>
+                        </td>
                         <td>{{ $order->cust_info->template->standart_num }}</td>
-                        <td>{{__('front.'.$order->status)}}</td>
+                        <td>
+                            {{$states[$order->status]}}
+                        </td>
                         <td>{{ $order->created_at }}</td>
-                        <td><a href="{{ route('admin.order', $order->id) }}">{{lang('show')}}</a></td>
+                        <td>
+                            <a href="{{ route('admin.order', $order->id) }}"
+                               class="btn btn-danger btn-sm"
+                            >
+                                {{lang('show')}}
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
