@@ -18,12 +18,26 @@ use QRCode;
 class Customer_Controller extends Controller
 {
     private $customer_id;
+    private $states=[
+        'draft'=>[1],
+        'sent'=>[2,3,4,5,6],
+        'finished'=>[7]
+    ];
+    private $reverted_states=[
+        '1'=>'draft',
+        '2'=>'sent_to_admin',
+        '3'=>'in_auditor',
+        '4'=>'docs_confirmed',
+        '5'=>'error_found_in_document',
+        '6'=>'resent_to_auditor',
+        '7'=>'finished'
+    ];
     function __construct()
     {
     	$this->middleware('multi_auth:customer');
     }
     private function view($file, $data=[]){
-        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['title']='e-audit client';
         $data['body']='Customer.'.$file;
         return view('customer_index', $data);
     } 
@@ -33,7 +47,7 @@ class Customer_Controller extends Controller
    		return $this->view('select_template', $data);
    	}
     public function create_order(Request $req){
-    	switch ($req->method()) {
+        switch ($req->method()) {
     		case 'GET':
     			$data['template_id']=$_GET['template_id']??false;
     			$data['use_cases']=$_GET['use_cases']??false;
@@ -42,7 +56,12 @@ class Customer_Controller extends Controller
     			return $this->select_temp();
     			break;
     		case 'POST':
-    			$all=$req->all();
+                $req->validate(
+                    file_validation_rules($req->cust_info['template_id'])
+                );
+    			
+                $all=$req->all();
+                
                 $order_fields=$req->input('order');
                 $cust_info_fields=$req->input('cust_info');
                 $custom_fields_files=$req->file('custom');
@@ -50,6 +69,12 @@ class Customer_Controller extends Controller
                 // customer_info-use_case mappings
                 $ciucm_fields=$req->input('ciucm');
                 $order=new Order();
+
+                if($all['send_to_admin']=="true"){
+                    $order->status=2;
+                }
+                unset($all['send_to_admin']);
+                
                 $order->customer_id=auth()->user()->id;
                 foreach ($order_fields??[] as $key => $value) {
                     $order->$key=$value;
@@ -64,7 +89,7 @@ class Customer_Controller extends Controller
                 foreach ($custom_fields_files??[] as $key => $value) {
                     /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
                    $custom_fields[$key]=$value
-                   ->storeAs("orders/$order->id", time().$value->getClientOriginalName());
+                   ->storeAs("orders/$order->id", time().$key.$value->getClientOriginalName());
                 }
 
                 $CCI->custom_fields=json_encode($custom_fields);
@@ -75,22 +100,40 @@ class Customer_Controller extends Controller
                     $cuicm->use_case_id=$value;
                     $cuicm->save();
                 }
-                return redirect()->route('customer.orders');
+                return redirect()->route('customer.orders', 
+                    $this->reverted_states[$order->status]??"sent"
+                );
     			break;
     		default:
     			# code...
     			break;
     	}
     }
-    public function orders(){
-        $data['orders']=Order::where('customer_id', auth()->user()->id)->get();
-        return $this->view("list_orders", $data);
+    public function orders(Request $req){
+        if(!array_key_exists($req->status,$this->states)){
+            abort(404);
+        }
+        $states=$this->states[$req->status];
+
+        $data['states']=$this->reverted_states;
+        
+        $data['orders']=Order::where(
+            'customer_id', auth()->user()->id
+        )->whereIn(
+            'status',$states
+        )->get();
+
+        return $this->view("list_orders.$req->status", $data);
     }
     public function order_view(Request $req){
         $data['order']=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
+        
+        $data['states']=$this->reverted_states;
+
         if($data['order'])
             return $this->view('view_order', $data);
         return abort(404);
+
     }
     public function edit_order(Request $req){
         switch ($req->method()) {
@@ -101,6 +144,7 @@ class Customer_Controller extends Controller
                 return abort(404);
                 break;
             case 'POST':
+               
                 $all=$req->all();
                 $order_fields=$req->input('order');
                 $cust_info_fields=$req->input('cust_info');
@@ -110,7 +154,13 @@ class Customer_Controller extends Controller
                 // customer_info-use_case mappings
                 
                 $order=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
-                
+
+                $CCI=$order->cust_info;
+
+                $req->validate(
+                    file_fields_for_validation_edit($CCI->template_id)
+                ); 
+
                 if(!$order)
                     abort(404);
 
@@ -120,11 +170,12 @@ class Customer_Controller extends Controller
 
                 $order->save();
 
-                $CCI=$order->cust_info;
+                
                 foreach ($cust_info_fields??[] as $key => $value) {
                     $CCI->$key=$value;
                 }
                 $original_custom=json_decode($CCI->custom_fields, true);
+                
                 foreach ($custom_fields_files??[] as $key => $value) {
                     Storage::delete($original_custom[$key]??null);
                     /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
@@ -138,7 +189,8 @@ class Customer_Controller extends Controller
                 $CCI->custom_fields=json_encode($original_custom);
                
                 $CCI->save();
-                return redirect()->route('customer.orders');
+                return redirect()
+                ->route('customer.order_view', $order->id);
                 break;
             default:
                 # code...
@@ -148,18 +200,33 @@ class Customer_Controller extends Controller
     public function send(Request $req){
         $order=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
         if($order){
-            $order->status="open";
+            $order->status="2";
             $order->save();
-            return redirect()->route('customer.order_view', $order->id);
+            $data['message']="Ваш заказ успешно отправлен";
+            $data['link']=route('customer.orders',"sent");
+            return $this->view('message',$data);
+        }
+        return abort(404);
+    }
+    public function resend(Request $req){
+        $order=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
+        if($order){
+            $order->status="6";
+            $order->save();
+            $data['message']="Ваш заказ успешно отправлен";
+            $data['link']=route('customer.orders',"sent");
+            return $this->view('message',$data);
         }
         return abort(404);
     }
     public function cancel_order(Request $req){
         $order=Order::where(['id'=>$req->id, 'customer_id'=>auth()->user()->id])->first();
         if($order){
+            $status=$this->reverted_states[$order->status];
             $order->fulldelete();
-            return redirect()->route('customer.orders');
-        }   
+            return redirect()->route('customer.orders', $status);
+        }
+
         return abort(404);
     }
     public function conclusion(Request $req){

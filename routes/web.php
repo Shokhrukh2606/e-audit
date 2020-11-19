@@ -27,7 +27,7 @@ Route::get('/dispatcher', function () {
 			return redirect()->route('agent.list_conclusions');
 		break;
 		case 'customer':
-			return redirect()->route('customer.orders');
+			return redirect()->route('customer.orders','draft');
 		break;
 
 		default:

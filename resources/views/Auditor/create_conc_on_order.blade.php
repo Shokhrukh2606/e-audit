@@ -1,23 +1,27 @@
 <div class="card">
 	<div class="card-body">
 		@php
-		$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields"];
+		$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields", "message","status"];
 		@endphp
-		<h2>Order {{$order->id}}</h2>
-		Status: {{$order->status}} <br>
-		Details: <br>
+		<h2>{{__('front.order')}} {{$order->id}}
+			<span class="badge badge-info">
+				{{config('global.reverted_states')[$order->status]}}
+			</span>
+		</h2>
 		{{-- Order info --}}
-		<h3>Order info</h3>
+		<h3>{{__('front.order_info')}}</h3>
 		<ul>
-			<li>Template Standart Number:{{$order->cust_info->template->standart_num}}</li>	
-			<li>Use Cases: 
+			<li>Стандартный номер шаблона:{{$order->cust_info->template->standart_num}}</li>	
+			<li>Для : 
 				@foreach($order->cust_info->use_cases as $uc)
-				<span>{{json_decode($uc->title)->ru}}</span> | 
+					<span class="badge badge-danger">
+						{{ json_decode($uc->title)->{config('global.lang')} }}
+					</span>
 				@endforeach
 			</li>
 			@foreach($order->getAttributes() as $key=>$value)
-			@continue(in_array($key, $not_iterated, TRUE))
-			<li>{{$key}}:{{$value}}</li>
+				@continue(in_array($key, $not_iterated, TRUE))
+				<li>{{__('front.'.$key)}}:{{$value}}</li>
 			@endforeach
 		</ul>
 		{{-- Customer info --}}
@@ -38,13 +42,16 @@
 			<li>
 				{{$field->label->ru}} : 
 				@if(!isset($custom_fields->{$field->name}))
-				Nothing yet
+				Пусто
 				@continue
 				@endif 
 				@if($field->type=='file')
-				<a href="{{route('file')."?path=".$custom_fields->{$field->name} }}" 
-					target="blank">
-					View
+				<a 
+				href="{{route('file')."?path=".$custom_fields->{$field->name} }}" 
+				target="blank"
+				class="btn btn-link btn-info btn-sm"
+				>
+					Посмотреть
 				</a>
 				@else
 				{{$custom_fields->{$field->name} }}

@@ -65,12 +65,16 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->fullname }}</td>
                     <td>{{ $user->funds }}</td>
-                    <td>{{ $user->group->name }}</td>
+                    <td>{{ lang($user->group->name) }}</td>
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->inn }}</td>
                     <td><a href="{{ route('admin.user_conclusions', [$user->group->name, $user->id]) }}">Показать заключении</a></td>
                     <td>{{ __("front.".$user->status) }}</td>
-                    <td><a href="{{ route('admin.view_user', $user->id) }}">{{__('custom.show')}}</a></td>
+                    <td>
+                        <a href="{{ route('admin.view_user', $user->id) }}">
+                          {{lang('show')}}
+                        </a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

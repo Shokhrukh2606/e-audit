@@ -12,17 +12,20 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    document.getElementById("nextBtn").innerHTML = document.getElementById("nextBtn").dataset.submit;
   } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
+    document.getElementById("nextBtn").innerHTML = document.getElementById("nextBtn").dataset.html;
   }
   //... and run a function that will display the correct step indicator:
   fixStepIndicator(n)
 }
 
 function nextPrev(n) {
-  document.querySelector('.main-panel').scrollTo(0, 0);
   // This function will figure out which tab to display
+  if (n === 1) {
+    document.querySelector('.main-panel').scrollTo(0, 0);
+  }
+
   var x = document.getElementsByClassName("tab");
   // Exit the function if any field in the current tab is invalid:
   if (n == 1 && !validateForm()) return false;

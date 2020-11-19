@@ -65,3 +65,8 @@ input[type="file"]::-webkit-file-upload-button:focus {
 .file-wrapper div{
   margin-bottom: 20px;
 }
+
+.inline-block-select {
+  display: inline-block;
+  width: max-content;
+}

@@ -35,4 +35,15 @@ Route::get("view_order/{id}", "Audit_Controller@view_order")->name("view_order")
 Route::match(["GET", "POST"], "/create_conc_on_order/{id}", "Audit_Controller@create_conc_on_order")
 ->name('create_conc_on_order');
 
+
+// send to customer with error
+// no view
+Route::post("send_with_errors/{id}", "Audit_Controller@send_with_errors")->name("send_with_errors");
+
+
+// confirm
+// no view
+Route::get("confirm/{id}", "Audit_Controller@confirm")->name("confirm");
+
+
 ?>

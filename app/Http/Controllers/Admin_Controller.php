@@ -17,19 +17,34 @@ use PDF;
 
 class Admin_Controller extends Controller
 {
+    private $states=[
+        'draft'=>[1],
+        'sent'=>[2,3,4,5,6],
+        'finished'=>[7]
+    ];
+    private $reverted_states=[
+        '1'=>'draft',
+        '2'=>'sent_to_admin',
+        '3'=>'in_auditor',
+        '4'=>'docs_confirmed',
+        '5'=>'error_found_in_document',
+        '6'=>'resent_to_auditor',
+        '7'=>'finished'
+    ];
     function __construct()
     {
         $this->middleware('multi_auth:admin');
     }
     private function view($file, $data = [])
     {
-        $data['title'] = '«HIMOYA-AUDIT» МЧЖ';
-        $data['body'] = 'Admin.' . $file;
+        $data['title']='e-audit admin';
+        $data['body']='Admin.'.$file;
         return view('admin_index', $data);
     }
     public function list_orders()
     {
-        $data['orders'] = Order::where('status', '!=', 'initiated')->get();
+        $data['states']=$this->reverted_states;
+        $data['orders'] = Order::where('status', '!=', '1')->get();
         return $this->view('list_orders', $data);
     }
     public function order(Request $req)
@@ -46,7 +61,7 @@ class Admin_Controller extends Controller
         if (!$order)
             abort(404);
         $order->auditor_id = $req->input('auditor_id');
-        $order->status = 'checking';
+        $order->status = '3';
         $order->save();
         return redirect()->route('admin.list_orders');
     }

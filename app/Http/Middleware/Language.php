@@ -17,7 +17,7 @@ class Language
      */
     public function handle(Request $req, Closure $next)
     {
-        if(!in_array($req->l, $this->allowed_langs, true))
+            if(!in_array($req->l, $this->allowed_langs, true))
             return "not allowed lang";
         
         \Config::set('global.lang', $req->l);

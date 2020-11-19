@@ -14,7 +14,7 @@ Route::match(["GET", "POST"], "/create_order", "Customer_Controller@create_order
 
 			// order list
 			// view: Customer.list_orders
-Route::get("orders", "Customer_Controller@orders")->name("orders");
+Route::get("orders/{status}", "Customer_Controller@orders")->name("orders");
 
 			// view order
 			// view: Customer.view_order
@@ -31,6 +31,11 @@ Route::match(
 			// send order
 			// no view
 Route::get("send/{id}", "Customer_Controller@send")->name("send");
+
+
+			// resend order
+			// no view
+Route::get("resend/{id}", "Customer_Controller@resend")->name("resend");
 
 			// cancel_order
 			// no view
