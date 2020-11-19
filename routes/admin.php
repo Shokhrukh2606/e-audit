@@ -27,5 +27,7 @@ Route::match(["GET", "POST"], "/create_user", "Admin_Controller@create_user")
 /*temporarily commented, payment table was renamed*/
 // Route::match(["GET", "POST"], "/add_funds", "Admin_Controller@add_funds")
 // ->name('add_funds');
+Route::get("conclusion/{id}", "Admin_Controller@conclusion")->name("conclusion");
+Route::get("user_conclusions/{type}/{id}", "Admin_Controller@user_conclusions")->name("user_conclusions");
 
 ?>

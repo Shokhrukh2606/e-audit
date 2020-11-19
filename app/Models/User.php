@@ -96,7 +96,10 @@ class User extends Authenticatable
         if ($found) {
             return "$found->surname $found->name $found->patronymic";
         } else {
-            return 'Not found';
+            return '-';
         }
+    }
+    public function invoices(){
+        return $this->hasMany('App\Models\Invoice', 'user_id');
     }
 }

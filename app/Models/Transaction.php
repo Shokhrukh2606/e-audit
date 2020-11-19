@@ -10,7 +10,6 @@ class Transaction extends Model
     use HasFactory;
     protected $table='transactions';
     public $timestamps=false;
-
     public static function init_click( $req){
     	$transaction=self::where([
             'invoice_id'=> $req->invoice_id,
@@ -73,5 +72,8 @@ class Transaction extends Model
             default:
                 break;
         }
+    }
+    public function invoice(){
+        return $this->belongsTo(Invoice::class, 'invoice_id');
     }
 }

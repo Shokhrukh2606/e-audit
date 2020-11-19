@@ -38,9 +38,16 @@
     <select class="form-control" name="user[group_id]" }}>
         <option value="">{{__('front.role')}}</option>
         @foreach ($groups as $item)
-        <option value="{{ $item->id }}" {{$user->group_id == $item->id ? 'selected' : '' }}>
+        <option value="{{ $item->id }}" {!!$user->group_id == $item->id ? 'selected' : '' !!}>
             {{ $item->name }}</option>
         @endforeach
     </select><br>
+    <label>{{__('front.status')}}</label>
+    <select class="form-control" name="user[status]" }}>
+        <option value="">{{__('front.select')}}</option>
+        <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>{{__('front.active')}}</option>
+        <option value="inactive" {{ $user->status == 'inactive' ? 'selected' : '' }}>{{__('front.inactive')}}</option>
+    </select><br>
+
     <button class="btn btn-sm btn-success" type="submit">{{__('front.save')}}</button>
 </form>
