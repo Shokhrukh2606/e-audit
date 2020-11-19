@@ -1,4 +1,6 @@
 @php
+
+
 $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields","status","message"];
 
 $editable_status=[1, 5];
@@ -14,25 +16,27 @@ $editable_status=[1, 5];
 	</div>
 	<div class="card-body">
 
-		<h3>{{__('front.order_info')}}</h3>
+		<h3>{{lang('orderDetails')}}</h3>
 		<ul>
-			<li>{{__('front.template_num')}}:{{$order->cust_info->template->standart_num}}</li>	
+			<li>{{lang('standartNumber')}}:{{$order->cust_info->template->standart_num}}</li>	
 			<li>{{__('front.use_cases')}}: 
 				@foreach($order->cust_info->use_cases as $uc)
-				<span class="badge badge-danger">{{json_decode($uc->title)->ru}}</span>
+				<span class="badge badge-danger">
+					{{lang(json_decode($uc->title)->{config('global.lang')} )}}
+				</span>
 				@endforeach
 			</li>
 			@foreach($order->getAttributes() as $key=>$value)
 			@continue(in_array($key, $not_iterated, TRUE))
-				<li>{{__('front.'.$key)}}:{{$value}}</li>
+				<li>{{lang($key)}} :{{$value}}</li>
 			@endforeach
 		</ul>
 		{{-- Customer info --}}
-		<h3>{{__('front.custom_comp_info')}}</h3>
+		<h3>{{lang('custInfo')}}</h3>
 		<ul>
 			@foreach($order->cust_info->getAttributes() as $key=>$value)
 			@continue(in_array($key, $not_iterated, TRUE))
-			<li>{{__('front.'.$key)}}:{{$value}}</li>
+			<li>{{lang($key)}} :{{$value}}</li>
 			@endforeach
 			@php
 		// get custom fields array
@@ -40,10 +44,11 @@ $editable_status=[1, 5];
 			@endphp
 			{{-- get custom fields meta and iterate --}}
 
+
 			@foreach(custom_fields($order->cust_info->template_id) as $field)
 
 			<li>
-				{{$field->label->ru}} : 
+				{{lang($field->label->{config('global.lang')} )}}: 
 				@if(!isset($custom_fields->{$field->name}))
 				{{__('front.nothing_yet')}}
 				@continue
@@ -51,7 +56,7 @@ $editable_status=[1, 5];
 				@if($field->type=='file')
 				<a href="{{route('file')."?path=".$custom_fields->{$field->name} }}" 	class="btn btn-primary btn-link"
 					target="blank">
-					{{__('custom.show')}}
+					{{lang('show')}}
 				</a>
 				@else
 				{{$custom_fields->{$field->name} }}
@@ -91,3 +96,4 @@ $editable_status=[1, 5];
 		@endif
 	</div>
 </div>
+

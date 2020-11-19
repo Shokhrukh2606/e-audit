@@ -1,17 +1,17 @@
 <div class="card">
     <div class="card-header">
-        <h3>{{ __('front.my_orders') }}</h3>
+        <h3>{{ lang('myOrders') }}</h3>
     </div>
     <div class="card-body">
         <table class="table tablesorter">
             <thead>
-                <th>ID</th>
-                <th>{{ __('front.template_num') }}</th>
-                <th>{{ __('front.use_cases') }}</th>
-                <th>{{ __('front.date') }}</th>
-                <th>{{ __('custom.show') }}</th>
-                <th>{{ __('custom.show_conclusion') }}</th>
-                <th>{{ __('custom.pay') }}</th>
+                <th>{{ lang('id') }}</th>
+                <th>{{ lang('standartNumber') }}</th>
+                <th>{{ lang('useCases') }}</th>
+                <th>{{ lang('date') }}</th>
+                <th>{{ lang('show') }}</th>
+                <th>{{ lang('showConclusion') }}</th>
+                <th>{{ lang('pay') }}</th>
             </thead>
             <tbody>
                 @foreach ($orders as $order)

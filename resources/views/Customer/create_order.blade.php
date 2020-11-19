@@ -2,7 +2,7 @@
 
 <div class="card">
 	<div class="card-header">
-		<h3>Новый заказ</h3>
+		<h3>{{lang('newOrder')}}</h3>
 	</div>
 	<div class="card-body">
 		<form action="{{route('customer.create_order')}}" method="POST" enctype="multipart/form-data">
@@ -17,73 +17,73 @@
 				</div>
 			@endif
 			<div class="tab">
-				<h4>1. Базовая информация</h4>
+				<h4>1. {{lang('basicInfo')}}</h4>
 				<input type="hidden" name="cust_info[template_id]" value="{{$template_id}}">
 				@foreach($use_cases as $use_case=>$value)
 				<input class="form-control" type="hidden" name="ciucm[{{$use_case}}]" value="{{$use_case}}">
 				@endforeach
 				<div class="mb-4">
-					<label>{{__('front.lang')}}</label>
+					<label>{{lang('lang')}}</label>
 					<select class="form-control" name="cust_info[lang]">
-						<option value="uz">{{__('front.oz')}}</option>
-						<option value="ru">{{__('front.ru')}}</option>
+						<option value="uz">{{lang('uz')}}</option>
+						<option value="ru">{{lang('ru')}}</option>
 					</select>
 				</div>
 
 				<div class="mb-4">
-					<label>{{__('front.phone')}}, в виде 998971112233, без знака +</label>
+					<label>{{lang('structuredPhone')}}</label>
 					<input class="form-control" type="text" minlength="12" maxlength="12" name="order[phone]" required>
 				</div>
 				<div class="mb-4">
-					<label>{{__('front.address_to_deliver')}}</label>
+					<label>{{lang('deliverAddress')}}</label>
 					<input class="form-control" type="text" name="order[address_to_deliver]" required>
 				</div>
 			</div>
 			<div class="tab">
-				<h4>2. Информация о компании клиента</h4>
+				<h4>2. {{lang('custCompInfo')}}</h4>
 				<div class="mb-4">
-					<label>{{__('front.cust_comp_gov_reg_num')}}</label>
+					<label>{{lang('cust_comp_gov_reg_num')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]" required>
 				</div>
-				<div class="mb-4">
-					<label>{{__('front.cust_comp_gov_reg_date')}}</label>
+				<!-- <div class="mb-4">
+					<label>{{lang('userCompGovRegDate')}}</label>
 					<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]" required>
 				</div>
 				<div class="mb-4">
-					<label>{{__('front.cust_comp_address')}}</label>
+					<label>{{lang('custCompAddress')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_address]" required>
 				</div>
 				<div class="mb-4">
-					<label>{{__('front.cust_comp_bank_name')}}</label>
+					<label>{{lang('custCompBank')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]" required>
 				</div>
 				<div class="mb-4">
-					<label>{{__('front.cust_comp_bank_acc')}}</label>
+					<label>{{lang('cust_comp_bank_acc')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]" maxlength="20" required>
 				</div>
 				<div class="mb-4">
-					<label>{{__('front.cust_comp_bank_mfo')}}</label>
+					<label>{{lang('custCompBankMfo')}}</label>
 					<input maxlength="5" class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]" required>
 				</div>
 				<div class="mb-4">
-					<label>{{__('front.cust_comp_inn')}}</label>
+					<label>{{lang('custCompInn')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_inn]" maxlength="9" required>
 				</div>
 				<div class="mb-4">
-					<label>{{__('front.cust_comp_oked')}}</label>
+					<label>{{lang('custCompOked')}}</label>
 					<input maxlength="5" class="form-control" type="text" name="cust_info[cust_comp_oked]" required>
 				</div>
 				<div class="mb-4">
-					<label>{{__('front.cust_comp_director_name')}}</label>
+					<label>{{lang('custCompDirector')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_director_name]" required>
 				</div>
 				<div class="mb-4">
-					<label>{{__('front.cust_comp_activity')}}</label>
+					<label>{{lang('custCompActivity')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_activity]" required>
-				</div>
+				</div> -->
 			</div>
 			<div class="tab">
-				<h4>3. Необходимые документы</h4>
+				<h4>3. {{lang('requiredDocs')}}</h4>
 				<div class="file-wrapper mb-4">
 					@php
 					$dom = new DOMDocument('1.0');
@@ -96,7 +96,7 @@
 					$label = $dom->createElement("label", $field->label->uz.":");
 					if($field->type=='file'){
 						$allowed_types=$field->allowed_types;
-						$label=$dom->createElement("label", $field->label->uz." ($allowed_types):");
+						$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
 					}
 					$div->appendChild($label);
 
@@ -136,7 +136,7 @@
 						$inLabel=$dom->createElement('label');
 						
 						$browse=$dom->createAttribute('data-browse');
-						$browse->value=$field->label->uz;
+						$browse->value=lang('upload');
 						$class=$dom->createAttribute('class');
 						$class->value="custom-file-label";
 						$for=$dom->createAttribute('for');
@@ -163,11 +163,11 @@
 			</div>
 			<div style="overflow:auto;">
 				<div style="float:right;">
-					<button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-sm btn-primary">Предыдущий</button>
-					<button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-sm btn-primary">Cледующий</button>
-					<button onclick="no_admin(event)" class="btn btn-sm btn-finish btn-primary" type="submit">Сохранить как черновик</button>
+					<button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-sm btn-primary">{{lang('previous')}}</button>
+					<button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-sm btn-primary" data-html="{{lang('next')}}" data-customer='hidden' data-submit='hello'>{{lang('next')}}</button>
+					<button onclick="no_admin(event)" class="btn btn-sm btn-finish btn-primary" type="submit">{{lang('saveDraft')}}</button>
 					<button class="btn btn-sm btn-finish btn-primary" type="submit" 
-					onclick="admin(event)">Сохранить и отправить</button>
+					onclick="admin(event)">{{lang('saveAndSubmit')}}</button>
 				</div>
 			</div>
 			<!-- Circles which indicates the steps of the form: -->

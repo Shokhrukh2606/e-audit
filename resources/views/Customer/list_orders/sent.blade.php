@@ -5,12 +5,11 @@
     <div class="card-body">
         <table class="table tablesorter">
             <thead>
-                <th>ID</th>
-                <th>{{ __('front.template_num') }}</th>
-                <th>{{ __('front.use_cases') }}</th>
-                <th>Cтатус</th>
-                <th>{{ __('front.date') }}</th>
-                <th>{{ __('custom.show') }}</th>
+                <th>{{ lang('id') }}</th>
+                <th>{{ lang('standartNumber') }}</th>
+                <th>{{ lang('useCases') }}</th>
+                <th>{{ lang('date') }}</th>
+                <th>{{ lang('show') }}</th>
             </thead>
             <tbody>
                 @foreach ($orders as $order)
@@ -21,7 +20,7 @@
                             {{-- many to many retrieval --}}
                             @foreach ($order->cust_info->use_cases as $uc)
                                 <span class="badge badge-info">
-                                    {{ json_decode($uc->title)->ru }}
+                                    {{ lang(json_decode($uc->title)->ru) }}
                                 </span>
                             @endforeach
                         </td>
@@ -36,7 +35,7 @@
                             href="{{ route('customer.order_view', $order->id) }}"
                             class="btn btn-warning btn-sm"
                             >
-                            {{__('custom.show')}}
+                           {{lang('show')}}
 
                         </a>
                         </td>

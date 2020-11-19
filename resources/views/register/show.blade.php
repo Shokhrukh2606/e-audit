@@ -33,7 +33,6 @@
         <div class="row">
           <div class="col-md-3 register-left">
             <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
-
             <h3>{{lang('welcome')}}</h3>
             <p>{{lang('registered')}}</p>
             <a href="{{route("login")}}">{{lang('login')}}</a><br />
@@ -66,6 +65,9 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
+                        <!-- <input type="text" class="form-control" placeholder="{{lang('phoneNumber')}}" value="" name="phone" /> -->
+                        <!-- <span>+998</span>
+                        <input type="text" minlength="9" maxlength="9" class="form-control phone" placeholder="{{__("auth.Phone number")}}" value="" name="phone" /> -->
                         <div class="row">
                           <div class="col-2">
                             <div style="height:100%;display: flex;align-items: center;">
@@ -82,13 +84,15 @@
                       <div class="form-group">
                         <input type="password" class="form-control" placeholder="{{lang('password')}}" value="" name="password" />
                       </div>
+                      <!-- <div class="form-group ver_area" style="display: none;">
+                        <input type="text" placeholder="Please enter verification code" class="form-control" onkeyup="test_code(this)">
+                      </div>
+                      <button type="submit" class="btnRegister">{{lang('register')}}</button> -->
                       <div class="form-group ver_area" style="display: none;" >
                         <input type="text" 
                         placeholder="Please enter verification code" 
                         class="form-control" 
-                        
-                        onkeyup="test_code(this)"
-                        >
+                        onkeyup="test_code(this)">
                       </div>
                       <!-- <input type="submit" class="btnRegister" value="Register" /> -->
 
@@ -155,7 +159,7 @@
                       <div class="form-group">
                         <input type="text" name="address" placeholder="{{lang('address')}}" class="form-control">
                       </div>
-                      
+
                       <div class="form-group">
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="gridCheck">
@@ -181,7 +185,7 @@
                 </form>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -192,7 +196,6 @@
   <script src="{{asset('assets/js/jquery.min.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-
   <script src="{{asset('md5.js')}}"></script>
   <script>
     const verification_url="{{route('verification')}}";
@@ -211,7 +214,6 @@
         phone_input=agent.getElementsByClassName('phone')[0];
       }
 
-      
       if(phone_input.value.length!=9){
         console.log(phone_input);
         alert('Please enter proper phone number');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{lang('htmlLang')}}">
 
 <head>
   <meta charset="utf-8" />
@@ -17,7 +17,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
   <link href="{{asset('assets/css/common.css')}}" rel="stylesheet" />
-  
+
   <link href="{{asset('assets/css/customer.css')}}" rel="stylesheet" />
 </head>
 <style>
@@ -26,16 +26,19 @@
     font-size: 10px;
     font-weight: 600;
   }
-  .sidebar .nav li > a{
+
+  .sidebar .nav li>a {
     display: flex;
     align-items: center;
     justify-content: flex-start;
   }
-  .sidebar .nav li.active > a:not([data-toggle="collapse"])::before{
-    top:45%;
+
+  .sidebar .nav li.active>a:not([data-toggle="collapse"])::before {
+    top: 45%;
   }
-  .sidebar .nav p{
-    white-space: initial ;
+
+  .sidebar .nav p {
+    white-space: initial;
   }
 </style>
 
@@ -45,7 +48,7 @@
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
       -->
-      <div class="sidebar-wrapper" >
+      <div class="sidebar-wrapper">
         <div class="logo">
           <!-- <a href="javascript:void(0)" class="simple-text logo-mini">
             HA
@@ -59,31 +62,31 @@
           <li>
             <a href="{{ route('customer.create_order') }}">
               <i class="tim-icons icon-simple-add"></i>
-              <p>Новый заказ</p>
+              <p>{{lang('newOrder')}}</p>
             </a>
           </li>
           <li>
             <a href="{{route("customer.orders",'sent')}}">
               <i class="tim-icons icon-send"></i>
-              <p>Отправленные заказы</p>
+              <p>{{lang('sentOrder')}}</p>
             </a>
           </li>
           <li>
             <a href="{{route("customer.orders",'draft')}}">
               <i class="tim-icons icon-pencil"></i>
-              <p>Черновики</p>
+              <p>{{lang('draftOrder')}}</p>
             </a>
           </li>
           <li>
             <a href="{{route("customer.orders",'finished')}}">
               <i class="tim-icons icon-attach-87"></i>
-              <p>Полученные заключения</p>
+              <p>{{lang('recievedOrder')}}</p>
             </a>
           </li>
           <li>
             <a href="{{route("aac.checkfunds")}}">
               <i class="tim-icons icon-coins"></i>
-              <p>Счет</p>
+              <p>{{lang('bill')}}</p>
             </a>
           </li>
         </ul>
@@ -101,7 +104,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Панель клиента</a>
+            <a class="navbar-brand" href="javascript:void(0)">{{lang('customerPanel')}}</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -112,7 +115,7 @@
             <ul class="navbar-nav ml-auto">
               <li class="dropdown nav-item">
                 <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                  
+
                   <i class="tim-icons icon-world"></i> O'zbek
                   <p class="d-lg-none">
                     <i class="tim-icons icon-world"></i>
@@ -121,7 +124,7 @@
                 <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
                   <li class="nav-link">
                     <a href="#" class="nav-item dropdown-item">
-                      Uzbek
+                      Ўзбек
                     </a>
                   </li>
                   <li class="nav-link">
@@ -143,16 +146,16 @@
                   </div>
                   <b class="caret d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none" onclick="logout()">
-                    Выйти
+                    {{lang('logout')}}
                   </p>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
-                    <button>Logout</button>
+                    <button>{{lang('logout')}}</button>
                   </form>
 
                 </a>
                 <ul class="dropdown-menu dropdown-navbar">
-                  <li class="nav-link"><a href="javascript:void(0)" onclick="logout()" class="nav-item dropdown-item"> Выйти</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" onclick="logout()" class="nav-item dropdown-item"> {{lang('logout')}}</a></li>
                 </ul>
               </li>
               <li class="separator d-lg-none"></li>
@@ -196,7 +199,7 @@
         <i class="fa fa-cog fa-2x"> </i>
       </a>
       <ul class="dropdown-menu">
-        <li class="header-title"> Sidebar Background</li>
+        <li class="header-title"> {{lang('sidebarBg')}}</li>
         <li class="adjustments-line">
           <a href="javascript:void(0)" class="switch-trigger background-color">
             <div class="badge-colors text-center">
@@ -208,10 +211,10 @@
           </a>
         </li>
         <li class="adjustments-line text-center color-change">
-          <span class="color-label">LIGHT</span>
+          <span class="color-label">{{lang('light')}}</span>
           <span class="badge light-badge mr-2"></span>
           <span class="badge dark-badge ml-2"></span>
-          <span class="color-label">DARK</span>
+          <span class="color-label">{{lang('dark')}}</span>
         </li>
 
 
@@ -348,10 +351,10 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
     window.TrackJS &&
-    TrackJS.install({
-      token: "ee6fab19c5a04ac1a32a645abde4613a",
-      application: "black-dashboard-free"
-    });
+      TrackJS.install({
+        token: "ee6fab19c5a04ac1a32a645abde4613a",
+        application: "black-dashboard-free"
+      });
   </script>
 </body>
 <script>
@@ -364,4 +367,5 @@
     }
   }
 </script>
+
 </html>
