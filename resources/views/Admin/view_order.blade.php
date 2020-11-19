@@ -22,7 +22,7 @@
             </li>
             @foreach ($order->getAttributes() as $key => $value)
             @continue(in_array($key, $not_iterated, TRUE))
-            <li>{{ lang($key) }}:{{ $value }}</li>
+            <li>{{ lang($key)}}:{{ $value }}</li>
             @endforeach
         </ul>
         {{-- Customer info --}}
@@ -34,12 +34,12 @@
             @endforeach
             @php
 
-    // get custom fields array
             $custom_fields=json_decode($order->cust_info->custom_fields??"[]");
             @endphp
             {{-- get custom fields meta and iterate --}}
 
             @foreach (custom_fields($order->cust_info->template_id) as $field)
+
             <li>
                 {{ lang($field->label->ru) }} :
                 @if (!isset($custom_fields->{$field->name}))

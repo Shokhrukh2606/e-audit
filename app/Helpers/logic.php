@@ -11,10 +11,10 @@ if(!function_exists('file_fields_for_validation')){
 		});
 
 		$rules=array_map(function($v){
-			return ["custom.".$v['name']=>"required | mimetypes:".$v['mime_types']];
+			return ["custom.".$v['name']=>"required | mimetypes: ".$v['mime_types']];
 		}, $file_fields);
 
-		return array_merge(...$rules);
+		return $rules;
 	}
 }
 
@@ -167,6 +167,16 @@ function lang($word){
 			'uz'=>'Телефон рақамингиз',
 			'ru'=>'Телефонный номер'
 		],
+		'verificationCode'=>[
+			'oz'=>'Tasdiqlash kodi',
+			'uz'=>'Тасдиқлаш коди',
+			'ru'=>'Ваш проверочный код'
+		],
+		'sendConfirmation'=>[
+			'oz'=>'Tasdiqlash uchun yuborish',
+			'uz'=>'Тасдиқлаш учун юбориш',
+			'ru'=>'Отправить подтверждение'
+		],
 		'anotherPhoneNumber'=>[
 			'oz'=>'Telefon raqami',
 			'uz'=>'Телефон рақами',
@@ -186,6 +196,11 @@ function lang($word){
 			'oz'=>"Ro'yxatdan o'tish",
 			'uz'=>'Рўйхатдан ўтиш',
 			'ru'=>'Регистрация'
+		],
+		'restorePassword'=>[
+			'oz'=>"Parolni tiklash",
+			'uz'=>'Паролни тиклаш',
+			'ru'=>'Восстановить пароль'
 		],
 		'asAgent'=>[
 			'oz'=>"Mijoz sifatida ro'yhatdan o'tish",
@@ -652,6 +667,16 @@ function lang($word){
 			'uz'=>'Янги буюртма',
 			'ru'=>'Новый заказ'
 		],
+		'newPassword'=>[
+			'oz'=>"Yangi parol",
+			'uz'=>'Янги парол',
+			'ru'=>'Новый пароль'
+		],
+		'typeNewPassword'=>[
+			'oz'=>"Yangi parolni kiriting",
+			'uz'=>'Янги паролни киритинг',
+			'ru'=>'Введите новый пароль'
+		],
 		'basicInfo'=>[
 			'oz'=>"Asosiy malumotlar",
 			'uz'=>'Асосий малумотлар',
@@ -812,6 +837,12 @@ function lang($word){
 			'uz'=>'Мижоз корхонаси ҳақида малумот',
 			'ru'=>'Информация о компании клиента'
 		],
+		'profile'=>[
+			'oz'=>"Profil",
+			'uz'=>'Профил',
+			'ru'=>'Профиль'
+		],
+		
 	];
 	return $words[$word][config('global.lang')];
 }

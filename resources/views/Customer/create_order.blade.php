@@ -1,4 +1,6 @@
-<link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet"/>
+@section('createOrderCss')
+<link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
+@endsection
 
 <div class="card">
 	<div class="card-header">
@@ -8,13 +10,13 @@
 		<form action="{{route('customer.create_order')}}" method="POST" enctype="multipart/form-data">
 			@csrf
 			@if ($errors->any())
-				<div class="alert alert-danger">
-					<ul>
-						@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
-						@endforeach
-					</ul>
-				</div>
+			<div class="alert alert-danger">
+				<ul style="padding-left: 0;margin-bottom: 0">
+					@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
 			@endif
 			<div class="tab">
 				<h4>1. {{lang('basicInfo')}}</h4>
@@ -45,7 +47,7 @@
 					<label>{{lang('cust_comp_gov_reg_num')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]" required>
 				</div>
-				<!-- <div class="mb-4">
+				<div class="mb-4">
 					<label>{{lang('userCompGovRegDate')}}</label>
 					<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]" required>
 				</div>
@@ -80,7 +82,7 @@
 				<div class="mb-4">
 					<label>{{lang('custCompActivity')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_activity]" required>
-				</div> -->
+				</div>
 			</div>
 			<div class="tab">
 				<h4>3. {{lang('requiredDocs')}}</h4>
@@ -95,8 +97,8 @@
 
 					$label = $dom->createElement("label", $field->label->uz.":");
 					if($field->type=='file'){
-						$allowed_types=$field->allowed_types;
-						$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
+					$allowed_types=$field->allowed_types;
+					$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
 					}
 					$div->appendChild($label);
 
@@ -116,41 +118,41 @@
 					$input->appendChild($attr);
 
 					if($field->type=='file'){
-						$class=$dom->createAttribute('class');
-						$class->value="custom-file-input";
-						$id=$dom->createAttribute('id');
-						$id->value=$index;
-						$input->appendChild($id);
-						$input->appendChild($class);
-						
-						$allowed_types=$dom->createAttribute('appect');
-						$allowed_types->value=$field->allowed_types;
-						$input->appendChild($allowed_types);
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file-input";
+					$id=$dom->createAttribute('id');
+					$id->value=$index;
+					$input->appendChild($id);
+					$input->appendChild($class);
 
-						$wrapper=$dom->createElement('div');
-						
-						$class=$dom->createAttribute('class');
-						$class->value="custom-file";
-						$wrapper->appendChild($class);
-						
-						$inLabel=$dom->createElement('label');
-						
-						$browse=$dom->createAttribute('data-browse');
-						$browse->value=lang('upload');
-						$class=$dom->createAttribute('class');
-						$class->value="custom-file-label";
-						$for=$dom->createAttribute('for');
-						$for->value=$index;
+					$allowed_types=$dom->createAttribute('appect');
+					$allowed_types->value=$field->allowed_types;
+					$input->appendChild($allowed_types);
 
-						$inLabel->appendChild($for);
-						$inLabel->appendChild($browse);
-						$inLabel->appendChild($class);
+					$wrapper=$dom->createElement('div');
 
-						$wrapper->appendChild($input);
-						$wrapper->appendChild($inLabel);
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file";
+					$wrapper->appendChild($class);
 
-						$div->appendChild($wrapper);
-						continue;
+					$inLabel=$dom->createElement('label');
+
+					$browse=$dom->createAttribute('data-browse');
+					$browse->value=lang('upload');
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file-label";
+					$for=$dom->createAttribute('for');
+					$for->value=$index;
+
+					$inLabel->appendChild($for);
+					$inLabel->appendChild($browse);
+					$inLabel->appendChild($class);
+
+					$wrapper->appendChild($input);
+					$wrapper->appendChild($inLabel);
+
+					$div->appendChild($wrapper);
+					continue;
 					}
 					$div->appendChild($input);
 
@@ -159,15 +161,14 @@
 					<?= $dom->saveHTML() ?>
 				</div>
 				<input type="hidden" name="send_to_admin" id="send_to_admin" value="false">
-				
+
 			</div>
 			<div style="overflow:auto;">
 				<div style="float:right;">
 					<button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-sm btn-primary">{{lang('previous')}}</button>
 					<button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-sm btn-primary" data-html="{{lang('next')}}" data-customer='hidden' data-submit='hello'>{{lang('next')}}</button>
 					<button onclick="no_admin(event)" class="btn btn-sm btn-finish btn-primary" type="submit">{{lang('saveDraft')}}</button>
-					<button class="btn btn-sm btn-finish btn-primary" type="submit" 
-					onclick="admin(event)">{{lang('saveAndSubmit')}}</button>
+					<button class="btn btn-sm btn-finish btn-primary" type="submit" onclick="admin(event)">{{lang('saveAndSubmit')}}</button>
 				</div>
 			</div>
 			<!-- Circles which indicates the steps of the form: -->
@@ -180,12 +181,14 @@
 
 	</div>
 </div>
+@section('createOrderJs')
 <script>
-	function admin(e){
-		document.getElementById("send_to_admin").value="true";
+	function admin(e) {
+		document.getElementById("send_to_admin").value = "true";
 	}
-	function no_admin(e){
-		document.getElementById("send_to_admin").value="false";
+
+	function no_admin(e) {
+		document.getElementById("send_to_admin").value = "false";
 	}
 </script>
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
@@ -195,5 +198,5 @@
 	$(document).on('change', '.custom-file-input', function(event) {
 		$(this).next('.custom-file-label').html(event.target.files[0].name);
 	})
-
 </script>
+@endsection

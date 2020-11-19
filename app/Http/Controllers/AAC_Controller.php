@@ -118,4 +118,9 @@ class AAC_Controller extends Controller
         readfile($file_name);
         unlink($file_name);
     }
+    public function profile()
+    {
+        $data['user']=auth()->user();
+        return $this->view('profile', $data);
+    }
 }

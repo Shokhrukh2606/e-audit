@@ -17,7 +17,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
   <link href="{{asset('assets/css/common.css')}}" rel="stylesheet" />
-
+  @yield('createConclusionCss')
 </head>
 <style>
   .sidebar .nav p,
@@ -44,6 +44,12 @@
 
         </div>
         <ul class="nav mynav">
+          <li>
+            <a href="{{route("aac.profile")}}">
+              <i class="tim-icons icon-single-02"></i>
+              <p>{{lang('profile')}}</p>
+            </a>
+          </li>
           <li>
             <a href="{{route("auditor.orders")}}">
               <i class="tim-icons icon-pin"></i>
@@ -309,11 +315,8 @@
         application: "black-dashboard-free"
       });
   </script>
-  <script>
-    $(document).on('change', '.custom-file-input', function(event) {
-      $(this).next('.custom-file-label').html(event.target.files[0].name);
-    })
-  </script>
+  @yield('createConclusionJs')
+  
 </body>
 <script>
   var menu = document.getElementsByClassName('mynav')[0].children;

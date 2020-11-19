@@ -1,37 +1,26 @@
 <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-<style>
-	.forgot-pswrd{
-		background-color: deepskyblue;
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.inner{
-		display: inline-block;
-		background-color: white;
-		padding:40px 50px;
-		border-radius: 10px;
-	}
-</style>
+<link rel="stylesheet" href="{{asset('assets/css/forgot-password.css')}}">
 
 <div class="forgot-pswrd">
 	<div class="inner">
-		<label>+998</label>
-		<input type="text" id="phone" placeholder="Ваш телефон, пожалуйста">
-
-		<button onclick="send_verification()" class="btn btn-primary">Отправить подтверждение</button>
-		<div class="ver_area" style="display: none">
-			<input type="text" class="form-control" placeholder="Ваш проверочный код, пожалуйста" onkeyup="test_code(this)" >
+		<h3 class="mb-4 text-center">{{lang('restorePassword')}}</h3>
+		<div class="input-wrapper">
+			<label>+998</label>
+			<input type="text" id="phone" placeholder="{{lang('phoneNumber')}}">
 		</div>
 
-		<form action="{{route('forgot_pswrd')}}" id="pswrd_form" method="POST" style="display: none;">
+		<button onclick="send_verification()" class="btn btn-primary">{{lang('sendConfirmation')}}</button>
+		<div class="ver_area mt-3" style="display: none">
+			<input type="text" class="form-control" placeholder="{{lang('verificationCode')}}" onkeyup="test_code(this)">
+		</div>
+
+		<form action="{{route('forgot_pswrd')}}" id="pswrd_form" method="POST" style="display: none;" class="mt-3">
 			@csrf
 			<input type="hidden" name="ver_code" id="ver_code">
 			<input type="hidden" name="phone" id="real_phone">
-			Новый пароль:
-			<input type="password" class="form-control" placeholder="Пожалуйста, введите новый пароль" name="password">
-			<button class="btn btn-primary">Сохранить</button>
+			{{lang('newPassword')}}:
+			<input type="password" class="form-control" placeholder="{{lang('typeNewPassword')}}" name="password">
+			<button class="btn btn-primary mt-3">{{lang('save')}}</button>
 		</form>
 	</div>
 
@@ -42,10 +31,11 @@
 	const verification_url = "{{route('verification')}}";
 	const phone_input = document.getElementById("phone");
 	var verification_hash;
-	var phone="";
-	function send_verification(){
+	var phone = "";
 
-		if(phone_input.value.length!=9){
+	function send_verification() {
+
+		if (phone_input.value.length != 9) {
 			alert('Please enter proper phone number');
 			return 0;
 		}
@@ -62,14 +52,21 @@
 		$(".ver_area").css("display", "block");
 	}
 
-	function test_code(elem){
-		let form=document.getElementById("pswrd_form");
-		
-		if(MD5(elem.value)==verification_hash){
-			form.style.display="block";
-			document.getElementById("real_phone").value=phone;
-			document.getElementById("ver_code").value=verification_hash;
+	function test_code(elem) {
+		let form = document.getElementById("pswrd_form");
+
+		if (MD5(elem.value) == verification_hash) {
+			form.style.display = "block";
+			document.getElementById("real_phone").value = phone;
+			document.getElementById("ver_code").value = verification_hash;
 		}
 	}
 </script>
-
+<script>
+	const inputs = document.querySelectorAll('.forgot-pswrd input');
+	for (i = 0; i < inputs.length; i++) {
+		if (inputs[i].getAttribute('placeholder')) {
+			inputs[i].setAttribute('size', inputs[i].getAttribute('placeholder').length);
+		}
+	}
+</script>
