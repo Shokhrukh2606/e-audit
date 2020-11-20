@@ -301,6 +301,16 @@ function lang($word){
 			'uz'=>'Аудит корхонасининг дирекотори Ф.И.Оси',
 			'ru'=>'Ф.И.О директора аудиторской компании'
 		],
+		'auditCompDirectorLicenseNum'=>[
+			'oz'=>"Audit korxonasi direkotorining sertifikat raqami",
+			'uz'=>'Аудит корхонаси дирекоторининг сертификат рақами',
+			'ru'=>'Номер сертификата директора аудиторской компании'
+		],
+		'auditCompDirectorLicenseDate'=>[
+			'oz'=>"Audit korxonasi direkotorining sertifikat berilgan sanasi",
+			'uz'=>'Аудит корхонаси дирекоторининг сертификат берилган санаси',
+			'ru'=>'Дата сертификата директора аудиторской компании'
+		],
 		'custCompDirector'=>[
 			'oz'=>"Mijoz korxonasining direkotori F.I.Osi",
 			'uz'=>'Мижоз корхонасининг дирекотори Ф.И.Оси',
@@ -580,6 +590,11 @@ function lang($word){
 			'oz'=>"Nima uchun?",
 			'uz'=>'Нима учун?',
 			'ru'=>'Для чего?'
+		],
+		'for'=>[
+			'oz'=>"Nima uchun",
+			'uz'=>'Нима учун',
+			'ru'=>'Для'
 		],
 		'details'=>[
 			'oz'=>"Tafsilotlar",
