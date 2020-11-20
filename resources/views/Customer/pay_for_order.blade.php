@@ -176,7 +176,7 @@
 		<input type="hidden" name="amount" value="{{$invoice->price}}" />
 		<input type="hidden" name="return_url" value={{route('customer.pay', $invoice->id)}} />
 
-		<p class="mt-0">Сумма оплаты: 8400.00 сум</p>
+		<p class="mt-0">Сумма оплаты:{{$invoice->price}} сум</p>
 		<button>Оплатить</button>
 	</form>
 	@else
