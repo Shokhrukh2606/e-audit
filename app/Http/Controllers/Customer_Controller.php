@@ -25,7 +25,7 @@ class Customer_Controller extends Controller
     ];
     private $reverted_states=[
         '1'=>'draft',
-        '2'=>'sent_to_admin',
+        '2'=>'sent',
         '3'=>'in_auditor',
         '4'=>'docs_confirmed',
         '5'=>'error_found_in_document',
@@ -101,7 +101,7 @@ class Customer_Controller extends Controller
                     $cuicm->save();
                 }
                 return redirect()->route('customer.orders', 
-                    $this->reverted_states[$order->status]??"sent"
+                    $this->reverted_states[$order->status]??"draft"
                 );
     			break;
     		default:
@@ -244,14 +244,15 @@ class Customer_Controller extends Controller
         $conclusion=Conclusion::where('id', $req->conclusion_id)->first();
         if($conclusion??false){
             if($conclusion->invoice)
-                return redirect()->route('customer.orders');
+                return redirect()->route('customer.orders',"finished");
             $service=$conclusion->cust_info->template->service;
             $invoice=new Invoice();
             $invoice->conclusion_id=$conclusion->id;
+            $invoice->price=$conclusion->cust_info->template->service->id;
             $invoice->user_id=auth()->user()->id;
             $invoice->service_id=$service->id;
             $invoice->save();
-            return redirect()->route('pay', $invoice->id);
+            return redirect()->route('customer.pay', $invoice->id);
         }else{
            abort(404);
         }

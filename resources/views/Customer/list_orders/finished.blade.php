@@ -30,7 +30,7 @@
                         </td>
                         <td>
                             @if ($order->cust_info->conclusion->id ?? false)
-                                <a href="{{ route('customer.conclusion', $order->cust_info->conclusion->id) }}">
+                                <a href="{{ route('customer.conclusion', $order->cust_info->conclusion->id) }}" target="blank">
                                     {{ __('custom.show_conclusion') }}
                                 </a>
                             @else
@@ -39,7 +39,7 @@
                         </td>
                         <td>
                             @if ($order->cust_info->conclusion->id ?? false)
-                                <a href="{{ route('customer.pay', $order->cust_info->conclusion->id) }}">
+                                <a href="{{ route('customer.create_invoice', $order->cust_info->conclusion->id) }}">
                                     {{ __('custom.accept_pay') }}
                                 </a>
                             @else

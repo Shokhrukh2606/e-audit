@@ -226,6 +226,11 @@ function lang($word){
 			'uz'=>'ИНН',
 			'ru'=>'ИНН'
 		],
+		'cust_comp_name'=>[
+			'oz'=>"Korxona Nome",
+			'uz'=>'Korxona Nome',
+			'ru'=>'Название компании клиента'
+		],
 		'cust_comp_inn'=>[
 			'oz'=>"Korxona INNsi",
 			'uz'=>'Korxona INNsi',
