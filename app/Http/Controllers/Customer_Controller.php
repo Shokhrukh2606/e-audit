@@ -56,11 +56,11 @@ class Customer_Controller extends Controller
     			return $this->select_temp();
     			break;
     		case 'POST':
+                file_validation_rules($req->cust_info['template_id']);
                 $req->validate(
                     file_validation_rules($req->cust_info['template_id'])
                 );
-    			
-                $all=$req->all();
+    			$all=$req->all();
                 
                 $order_fields=$req->input('order');
                 $cust_info_fields=$req->input('cust_info');

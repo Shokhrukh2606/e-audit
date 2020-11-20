@@ -125,7 +125,7 @@
 					$input->appendChild($id);
 					$input->appendChild($class);
 
-					$allowed_types=$dom->createAttribute('appect');
+					$allowed_types=$dom->createAttribute('accept');
 					$allowed_types->value=$field->allowed_types;
 					$input->appendChild($allowed_types);
 

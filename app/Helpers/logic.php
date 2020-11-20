@@ -2,7 +2,7 @@
 use App\Models\Template;
 use App\Models\User;
 
-if(!function_exists('file_fields_for_validation')){
+if(!function_exists('file_validation_rules')){
 	function file_validation_rules($template_id){
 		$template=Template::where('id', $template_id)->first();
 		
@@ -11,10 +11,10 @@ if(!function_exists('file_fields_for_validation')){
 		});
 
 		$rules=array_map(function($v){
-			return ["custom.".$v['name']=>"required | mimetypes: ".$v['mime_types']];
+			return ["custom.".$v['name']=>"required | mimetypes:".$v['mime_types']];
 		}, $file_fields);
 
-		return $rules;
+		return array_merge(...$rules);
 	}
 }
 
@@ -29,7 +29,6 @@ if(!function_exists('file_fields_for_validation_edit')){
 		$rules=array_map(function($v){
 			return ["custom.".$v['name']=>"mimetypes:".$v['mime_types']];
 		}, $file_fields);
-
 		return array_merge(...$rules);
 	}
 }
