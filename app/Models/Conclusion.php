@@ -41,11 +41,11 @@ class Conclusion extends Model
         parent::boot();
 
         self::creating(function($model){
-            $model->qr_hash=md5($model->id);
+            $model->qr_hash=md5(uniqid($model->id, true));
         });
 
         self::updating(function($model){
-            $model->qr_hash=md5($model->id);
+          $model->qr_hash=md5(uniqid($model->id, true));
         });
 
     }

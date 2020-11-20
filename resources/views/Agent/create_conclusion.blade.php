@@ -1,7 +1,7 @@
 <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
 <!-- Scripti pasda -->
 
-<form action="{{route('agent.create_conclusion')}}" method="POST" enctype="multipart/form-data">
+<form id="regForm" action="{{route('agent.create_conclusion')}}" method="POST" enctype="multipart/form-data">
 	@csrf
 	<input class="form-control" type="hidden" name="cust_info[template_id]" value="{{$template_id}}">
 	@foreach($use_cases as $use_case=>$value)
@@ -77,7 +77,14 @@
 	</div>
 	<div class="tab">
 		<h2>{{lang('custInfo')}}</h2>
-
+		<div class='mb-4'>
+			<label>Custom company registered by</label>
+			<input class="form-control" type="text" name="cust_info[cust_comp_registered_by]">
+		</div>
+		<div class='mb-4'>
+			<label>Custom company name</label>
+			<input class="form-control" type="text" name="cust_info[cust_comp_name]">
+		</div>
 		<div class='mb-4'>
 			<label>{{lang('cust_comp_gov_reg_num')}}</label>
 			<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]">
@@ -187,9 +194,13 @@
 	</div>
 </form>
 
-<!-- bu scriptiyam qo'wvoriw kere layout/auditordan o'cirip <script>
+
+@section('createConclusionJs')
+<script script src="{{asset('assets/js/multistep.js')}}">
+</script>
+<script>
 	$(document).on('change', '.custom-file-input', function(event) {
 		$(this).next('.custom-file-label').html(event.target.files[0].name);
 	})
-</script> -->
-<script src="{{asset('assets/js/multistep.js')}}"></script>
+</script>
+@endsection

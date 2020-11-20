@@ -71,7 +71,7 @@ Route::prefix('aac')->group(function () {
 		Route::get('checkfunds', 'AAC_Controller@checkfunds')->name('checkfunds');
 			// route to profile info
 			// view:profile info
-		Route::get('profile', 'AAC_Controller@profile')->name('profile');
+		Route::match(['GET', 'POST'],'/profile', 'AAC_Controller@profile')->name('profile');
 		/*temporarily commented, because payment table was changing*/
 		// Route::match(["GET", "POST"], "/add_funds", "AAC_Controller@add_funds")
 		// ->name('add_funds');

@@ -2,19 +2,19 @@
 use App\Models\Template;
 use App\Models\User;
 
-if(!function_exists('file_fields_for_validation')){
+if(!function_exists('file_validation_rules')){
 	function file_validation_rules($template_id){
-		$template=Template::where('id', $template_id)->first();
-		
-		$file_fields=array_filter(json_decode($template->fields, true),function($v){
-			return $v['type']=='file';
-		});
-
-		$rules=array_map(function($v){
-			return ["custom.".$v['name']=>"required | mimetypes: ".$v['mime_types']];
-		}, $file_fields);
-
-		return $rules;
+	  $template=Template::where('id', $template_id)->first();
+	  
+	  $file_fields=array_filter(json_decode($template->fields, true),function($v){
+		return $v['type']=='file';
+	  });
+  
+	  $rules=array_map(function($v){
+		return ["custom.".$v['name']=>"required | mimetypes:".$v['mime_types']];
+	  }, $file_fields);
+  
+	  return array_merge(...$rules);
 	}
 }
 
@@ -468,8 +468,8 @@ function lang($word){
 			'ru'=>'СУММА ДЕНЕГ'
 		],
 		'show'=>[
-			'oz'=>"ko'rish",
-			'uz'=>'кўриш',
+			'oz'=>"Ko'rish",
+			'uz'=>'Кўриш',
 			'ru'=>'ПОКАЗАТЬ'
 		],
 		'showConclusion'=>[
@@ -842,8 +842,16 @@ function lang($word){
 			'uz'=>'Профил',
 			'ru'=>'Профиль'
 		],
-		
+		'cust_comp_name'=>[
+			'oz'=>"Kompaniya nomi",
+			'uz'=>'Компания номи',
+			'ru'=>'Имя компания'
+		],
+		'cust_comp_registered_by'=>[
+			'oz'=>"Kompaniya (kim, nima) tomonidan ro'yhatga olingan ",
+			'uz'=>'Компания (ким, нима) томонидан рўйхатга олинган',
+			'ru'=>'Зарегистрировано компанией (кто, что)'
+		],		
 	];
 	return $words[$word][config('global.lang')];
 }
-?>
