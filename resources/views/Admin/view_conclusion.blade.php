@@ -58,13 +58,18 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
 			@endforeach
 
 		</ul>
-		@if(in_array($conclusion->status, [2]))
+		@if(in_array($conclusion->status, [2, 1]))
 			<a href="{{route('admin.change_status', ['finished',$conclusion->id])}}" 
 				class="btn btn-success btn-sm btn-simple">
 				Подтвердить правильность документов
 			</a>
 		@endif
-
+		@if(in_array($conclusion->status, [2, 1]))
+		<a href="{{route('admin.change_status', ['rejected',$conclusion->id])}}" 
+			class="btn btn-danger btn-sm btn-simple">
+			Отрицание достоверности данных
+		</a>
+	@endif
 	</div>
 </div>
 <script>

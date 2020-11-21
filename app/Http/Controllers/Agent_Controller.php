@@ -11,6 +11,7 @@ use App\Models\Template;
 use App\Models\Use_Case;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -58,7 +59,10 @@ class Agent_Controller extends Controller
                 $conclusion = new Conclusion();
                 $conclusion->agent_id = auth()->user()->id;
                 foreach ($conclusion_fields ?? [] as $key => $value) {
-                    $conclusion->$key = $value;
+                    if(in_array($key, ['cust_info'])){
+                    }else{
+                        $conclusion->$key = $value;
+                    }
                 }
                 $conclusion->save();
                 $CCI = new Cust_comp_info();
@@ -69,7 +73,7 @@ class Agent_Controller extends Controller
                 foreach ($custom_fields_files ?? [] as $key => $value) {
                     /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
                     $custom_fields[$key] = $value
-                        ->storeAs("cust_info/$conclusion->id", time() . $value->getClientOriginalName());
+                        ->storeAs("agent_info/$conclusion->id", time() . $value->getClientOriginalName());
                 }
 
                 $CCI->custom_fields = json_encode($custom_fields);
@@ -149,6 +153,67 @@ class Agent_Controller extends Controller
             return $this->view('view_conclusion', $data);
         return abort(404);
     }
+    public function edit_conclusion(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+                $data['conclusion']=Conclusion::where(['id'=>$req->id])->first();
+                if($data['conclusion'])
+                    return $this->view('edit_conclusion', $data);
+                return abort(404);
+                break;
+            case 'POST':
+               
+                $all=$req->all();
+                $conclusion=$req->input('conclusion');
+                $cust_info_fields=$req->input('cust_info');
+                $custom_fields_files=$req->file('custom');
+                $custom_fields=$req->input('custom');
+
+                
+                
+                $conclusion=Conclusion::where(['id'=>$req->id])->first();
+                if(!$conclusion)
+                    abort(404);
+                $CCI=$conclusion->cust_info;
+
+                $req->validate(
+                    file_fields_for_validation_edit($CCI->template_id)
+                ); 
+
+
+                foreach ($conclusion??[] as $key => $value) {
+                    $conclusion->$key=$value;
+                }
+                $conclusion->status=2;
+                $conclusion->save();
+
+                
+                foreach ($cust_info_fields??[] as $key => $value) {
+                    $CCI->$key=$value;
+                }
+                $original_custom=json_decode($CCI->custom_fields, true);
+                
+                foreach ($custom_fields_files??[] as $key => $value) {
+                    Storage::delete($original_custom[$key]??null);
+                    /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
+                   $original_custom[$key]=$value
+                   ->storeAs("agent_info/$conclusion->id", time().$value->getClientOriginalName());
+                }
+                foreach ($custom_fields??[] as $key => $value) {
+                   $original_custom[$key]=$value;
+                }
+
+                $CCI->custom_fields=json_encode($original_custom);
+               
+                $CCI->save();
+                return redirect()
+                ->route('agent.list_conclusions');
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
     public function cashback_log()
     {
         return $this->view('cashback_log');
@@ -162,16 +227,5 @@ class Agent_Controller extends Controller
     public function payment_log()
     {
         return $this->view('payment_log');
-    }
-    public function send_with_errors(Request $req){
-        $order=Order::where('id',$req->id)->first();
-        if(!$order||!in_array($order->status,[3,6] , true))
-            return abort(404);
-        $order->status="5";
-        $order->message=$req->input("message");
-        $order->save();
-        $data['message']="Вы успешно отправили заказ клиенту для редактирования.";
-        $data['link']=route('auditor.orders');
-        return $this->view('message',$data);
     }
 }

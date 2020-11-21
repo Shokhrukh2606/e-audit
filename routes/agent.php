@@ -29,7 +29,5 @@ Route::get('/view_conclusion/{id}', 'Agent_Controller@view_conclusion')->name('v
 // change status of conclusion
 // view: conclusions
 Route::get('/change_status/{status}/{id}', 'Agent_Controller@change_status')->name('change_status');
+Route::match(["GET", "POST"],'/edit_conclusion/{id}', 'Agent_Controller@edit_conclusion')->name('edit_conclusion');
 
-// send to agent with error
-// no view
-Route::post("send_with_errors/{id}", "Agent_Controller@send_with_errors")->name("send_with_errors");

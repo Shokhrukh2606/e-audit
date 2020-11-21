@@ -14,9 +14,8 @@
                 <th colspan="2">{{ lang('activity') }}</th>
             </thead>
             <tbody>
-                <tr>
-
-                    @foreach ($conclusions as $conclusion)
+                @foreach ($conclusions as $conclusion)
+                    <tr>
                         <td>{{ $conclusion->id }}</td>
                         <td>
                             {{ $conclusion->cust_info->cust_comp_inn }}
@@ -31,22 +30,32 @@
                                 </a>
                             @else
                                 <span class="badge badge-danger">
-
                                     {{ $conclusion->state }}
                                 </span>
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('agent.view_conclusion', $conclusion->id) }}">{{ lang('show') }}</a>&nbsp
                         </td>
                         <td>
-                            <a
-                                href="{{ route('agent.view_conclusion_open', $conclusion->id) }}">{{ lang('showConclusion') }}</a>
+                            <a href="{{ route('agent.view_conclusion', $conclusion->id) }}">
+                                {{ lang('show') }}
+                            </a>
                         </td>
-                    @endforeach
-                </tr>
+                        <td>
+                            <td>
+                                @if (in_array($conclusion->status, [4]))
+                                    <a
+                                        href="{{ route('agent.edit_conclusion', $conclusion->id) }}">{{ lang('update') }}</a>
+                                @else
+                                    <a href="{{ route('agent.view_conclusion_open', $conclusion->id) }}">{{ lang('showConclusion') }}
+                                @endif
+                            </td>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
-        {{$conclusions->links()}}
+        {{ $conclusions->links() }}
     </div>
 </div>

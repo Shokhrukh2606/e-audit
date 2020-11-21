@@ -45,7 +45,7 @@
             @foreach ($templates as $template)
                 <option {{ request()->input('filter.template_id') == $template->id ? 'selected' : '' }}
                     value="{{ $template->id }}">
-                    {{ $template->id }}
+                    {{ $template->standart_num }}
                 </option>
             @endforeach
         </select>

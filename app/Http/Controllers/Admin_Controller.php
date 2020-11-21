@@ -109,7 +109,7 @@ class Admin_Controller extends Controller
     }
     public function user_conclusions(Request $req)
     {
-        $filtered = ['template_id', 'auditor_id', 'agent_id', 'customer_id', 'audit_comp_name', 'audit_comp_inn'];
+        $filtered = ['template_id', 'cust_comp_inn', 'status'];
         $query = DB::table('conclusions')
             ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id');
         switch ($req->type) {
@@ -123,8 +123,7 @@ class Admin_Controller extends Controller
                 $query->where(['customer_id' => $req->id]);
                 break;
             default:
-                $data['conclusions'] = [];
-                return $this->view('user_conclusions', $data);
+                return redirect()->back()->with('message', 'Bu foydalanuvhida hech qanday xulosa yozilmagan!');
         }
         if ($req->input('filter')) {
             foreach ($req->input('filter') as $key => $value) {
@@ -133,7 +132,9 @@ class Admin_Controller extends Controller
                 }
             }
         }
+        $data['states']=Conclusion::STATES;
         $data['conclusions'] = $query->paginate(20);
+        $data['templates'] = Template::all();
         return $this->view('user_conclusions', $data);
     }
     public function add_funds(Request $req)
