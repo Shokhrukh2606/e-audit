@@ -8,17 +8,17 @@
         <table class="table tablesorter">
 			<thead>
 				<th>{{lang('id')}}</th>
-				<th>{{lang("customer")}}</th>
-				<th>{{lang('auditor')}}</th>
-				<th>{{lang('agent')}}</th>
+				<th>{{lang("inn")}}</th>
 				<th>{{lang("standartNumber")}}</th>
 				<th>{{lang('activity')}}</th>
 			</thead>
 			<tbody>
 				<tr>
+					
 					@foreach($conclusions as $conclusion)
 						<td>{{$conclusion->id}}</td>
-						<td>
+						<td>{{$conclusion->cust_info->id}}</td>
+						{{-- <td>
 							{{$conclusion->customer->name??'No'}}
 							{{$conclusion->customer->surname??'Customer'}}
 						</td>
@@ -29,9 +29,9 @@
 						<td>
 							{{$conclusion->agent->name??'No'}}
 							{{$conclusion->agent->surname??'Agent'}}
-						</td>
-						<td>{{$conclusion->cust_info->template->standart_num}}</td>
-						<td><a href="#">{{lang('show')}}</a></td>
+						</td> --}}
+						{{-- <td>{{$conclusion->cust_info->template->standart_num}}</td> --}}
+						{{-- <td><a href="#">{{lang('show')}}</a></td> --}}
 					@endforeach
 				</tr>
 			</tbody>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,10 @@ class AAC_Controller extends Controller
     }
     private function view($file, $data = [])
     {
-        $data['title']='«HIMOYA-AUDIT» МЧЖ';
-        $data['body']='AAC.'.$file;
-        
-        return view(getUserLayout(Auth::user()->group_id).'_index', $data);
+        $data['title'] = '«HIMOYA-AUDIT» МЧЖ';
+        $data['body'] = 'AAC.' . $file;
+
+        return view(getUserLayout(Auth::user()->group_id) . '_index', $data);
     }
     public function add_funds(Request $req)
     {
@@ -118,9 +119,32 @@ class AAC_Controller extends Controller
         readfile($file_name);
         unlink($file_name);
     }
-    public function profile()
+    public function profile(Request $req)
     {
-        $data['user']=auth()->user();
-        return $this->view('profile', $data);
+        switch ($req->method()) {
+            case 'GET':
+                $data['user'] = auth()->user();
+                return $this->view('profile', $data);
+                break;
+            case 'POST':
+                $user=User::where(['id'=>auth()->user()->id])->first();
+                $params=$req->input('user');
+                if($params['password']==''){
+                    unset($params['password']);
+                }else{
+                    $user->password=Hash::make($params['password']);
+                }
+                foreach($params as $key=>$item){
+                    if($key!='password'){
+                        $user->$key=$item;
+                    }
+                }
+                $user->save();
+                return redirect()->route('aac.profile')->with('message', 'Succefully updated!');
+                break;
+            default:
+                print("not allowed method");
+                break;
+        }
     }
 }

@@ -5,7 +5,8 @@
                 <h5 class="title">Edit Profile</h5>
             </div>
             <div class="card-body">
-                <form>
+                <form action="{{route('aac.profile')}}" method="POST">
+                    @csrf
                     <div class="row">
                         {{-- <div class="col-md-5 pr-md-1">
                             <div class="form-group">
@@ -14,69 +15,86 @@
                                     value="Creative Code Inc.">
                             </div>
                         </div> --}}
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" class="form-control" value="{{$user->name}}">
+                                <label>{{lang('name')}}</label>
+                                <input type="text" class="form-control" name="user[name]" value="{{$user->name}}">
                             </div>
                         </div>
                         <div class="col-md-4 pl-md-1">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" placeholder="mike@email.com">
+                            <label for="exampleInputEmail1">{{lang('surname')}}</label>
+                                <input type="text" class="form-control" name="user[surname]" value="{{$user->surname}}">
                             </div>
                         </div>
                         <div class="col-md-4 pl-md-1">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" placeholder="mike@email.com">
+                                <label for="exampleInputEmail1">{{lang('patronymic')}}</label>
+                                <input type="text" class="form-control" name="user[patronymic]" value="{{$user->patronymic}}">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 pr-md-1">
                             <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" class="form-control" placeholder="Company" value="Mike">
+                                <label>{{lang('phone')}}</label>
+                                <input type="text" class="form-control" name="user[phone]" value="{{$user->phone}}">
                             </div>
                         </div>
                         <div class="col-md-6 pl-md-1">
                             <div class="form-group">
-                                <label>Last Name</label>
-                                <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                                <label>{{lang('phone')}}</label>
+                                <input type="text" class="form-control" name="user[phone]" value="{{$user->phone}}">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Address</label>
-                                <input type="text" class="form-control" placeholder="Home Address"
-                                    value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
+                                <label>{{lang('passportSeries')}}</label>
+                                <input type="text" class="form-control" name="user[passport_number]" value="{{$user->passport_number}}">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 pr-md-1">
                             <div class="form-group">
-                                <label>City</label>
-                                <input type="text" class="form-control" placeholder="City" value="Mike">
+                                <label>{{lang('sertificateNumber')}}</label>
+                                <input type="text" class="form-control" name="user[cert_number]" value="{{$user->cert_number}}">
                             </div>
                         </div>
                         <div class="col-md-4 px-md-1">
                             <div class="form-group">
-                                <label>Country</label>
-                                <input type="text" class="form-control" placeholder="Country" value="Andrew">
+                                <label>{{lang('certificateDate')}}</label>
+                                <input type="date" class="form-control" name="user[cert_date]" value="{{$user->certificate_date}}">
                             </div>
                         </div>
                         <div class="col-md-4 pl-md-1">
                             <div class="form-group">
-                                <label>Postal Code</label>
-                                <input type="number" class="form-control" placeholder="ZIP Code">
+                                <label>{{lang('city')}}</label>
+                                <input type="text" class="form-control" name="user[region]" value="{{$user->region}}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{lang('district')}}</label>
+                                <input type="text" class="form-control" name="user[district]" value="{{$user->district}}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{lang('address')}}</label>
+                                <input type="text" class="form-control" name="user[address]" value="{{$user->address}}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{lang('password')}}</label>
+                                <input type="text" class="form-control" name="user[password]">
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label>About Me</label>
@@ -85,11 +103,9 @@
                                     value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+                    <button type="submit" class="btn btn-fill btn-primary">{{lang('save')}}</button>
                 </form>
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-fill btn-primary">Save</button>
             </div>
         </div>
     </div>
