@@ -48,6 +48,26 @@ class Admin_Controller extends Controller
         $data['orders'] = Order::where('status', '!=', '1')->get();
         return $this->view('list_orders', $data);
     }
+    public function change_status(Request $req){
+        $data['conclusion'] = Conclusion::where('id', $req->id)->first();
+        if ($data['conclusion']) {
+            switch($req->status){
+                case 'finished':
+                    $data['conclusion']->status=3;
+                    $data['conclusion']->save();
+                    return redirect()->back();
+                break;
+                case 'rejected':
+                        $data['conclusion']->status=4;
+                        $data['conclusion']->save();
+                        return redirect()->back();
+                break;
+                default:
+                    abort(404);
+            }    
+        }
+        abort(404);
+    }
     public function order(Request $req)
     {
         $data['auditors'] = User::where('group_id', 2)->get();

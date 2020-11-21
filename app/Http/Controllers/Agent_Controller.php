@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Ciucm;
 use App\Models\Conclusion;
 use App\Models\Cust_comp_info;
+use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Template;
 use App\Models\Use_Case;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Agent_Controller extends Controller
 {
@@ -86,9 +88,28 @@ class Agent_Controller extends Controller
                 break;
         }
     }
-    public function pay_for_conclusion()
-    {
-        return $this->view('pay_for_conclusion');
+    public function create_invoice(Request $req){
+        $conclusion=Conclusion::where('id', $req->conclusion_id)->first();
+        if($conclusion??false){
+            if($conclusion->invoice)
+                return redirect()->route('agent.pay', $conclusion->id);
+            $service=$conclusion->cust_info->template->service;
+            $invoice=new Invoice();
+            $invoice->conclusion_id=$conclusion->id;
+            $invoice->price=$conclusion->cust_info->template->service->id;
+            $invoice->user_id=auth()->user()->id;
+            $invoice->service_id=$service->id;
+            $invoice->save();
+            return redirect()->route('agent.pay', $invoice->id);
+        }else{
+           abort(404);
+        }
+    }
+    public function pay(Request $req){
+        $data['invoice']=Invoice::where('conclusion_id', $req->invoice_id)->first();
+        if($data['invoice'])
+            return $this->view('pay_for_order',$data);
+        return abort(404);
     }
     public function view_conclusion_protected()
     {
@@ -96,10 +117,15 @@ class Agent_Controller extends Controller
     }
     public function view_conclusion_open(Request $req)
     {
-        $data['word']="word";
-        $pdf = PDF::loadView('templates.80.ru', $data);
-        return $pdf->stream('conclusion.pdf');
-        return $this->view('view_conclusion_protected');
+        $data['conclusion'] = Conclusion::where('id', $req->id)->first();
+        if ($data['conclusion']) {
+            $template = $data['conclusion']->cust_info->template->standart_num;
+            $lang = $data['conclusion']->cust_info->lang;
+            $data['qrcode']=base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
+            $pdf = PDF::loadView("templates.$template.$lang", $data);
+            return $pdf->stream('invoice.pdf');
+        }
+        abort(404);
     }
     public function cashback_log()
     {

@@ -18,4 +18,10 @@ Route::get('/transactions_log', 'Agent_Controller@transactions_log')->name('tran
 Route::get('/payment_log', 'Agent_Controller@payment_log')->name('payment_log');
 
 
-?>
+    // create invoice
+    // view: redirects to payment
+Route::get("/create_invoice/{conclusion_id}", "Agent_Controller@create_invoice")->name("create_invoice");
+
+			// pay
+			// view: pay_for_order
+Route::get("/pay/{invoice_id}", "Agent_Controller@pay")->name("pay");

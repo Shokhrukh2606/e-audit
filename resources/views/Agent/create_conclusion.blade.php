@@ -196,7 +196,7 @@
 
 
 @section('createConclusionJs')
-<script script src="{{asset('assets/js/multistep.js')}}">
+<script script src="{{asset('assets/js/againMultistep.js')}}">
 </script>
 <script>
 	$(document).on('change', '.custom-file-input', function(event) {
