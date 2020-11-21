@@ -15,6 +15,7 @@
 			<tbody>
 
 				@foreach($orders as $order)
+				<tr>
 				<td>{{$order->id}}</td>
 				<td>{{$order->customer->name}}</td>
 				<td>{{ $order->cust_info->template->standart_num }}</td>
@@ -33,6 +34,7 @@
 				<td>
 					<a class="btn btn-sm btn-info" href="{{route('auditor.view_order', $order->id)}}">{{lang('show')}}</a>
 				</td>
+				</tr>
 				@endforeach
 			</tbody>
 		</table>

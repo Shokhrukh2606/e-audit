@@ -44,6 +44,10 @@
 			<div class="tab">
 				<h4>2. {{lang('custCompInfo')}}</h4>
 				<div class="mb-4">
+					<label>Название компании клиента</label>
+					<input class="form-control" type="text" name="cust_info[cust_comp_name]" required>
+				</div>
+				<div class="mb-4">
 					<label>{{lang('cust_comp_gov_reg_num')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]" required>
 				</div>
@@ -125,7 +129,7 @@
 					$input->appendChild($id);
 					$input->appendChild($class);
 
-					$allowed_types=$dom->createAttribute('appect');
+					$allowed_types=$dom->createAttribute('accept');
 					$allowed_types->value=$field->allowed_types;
 					$input->appendChild($allowed_types);
 

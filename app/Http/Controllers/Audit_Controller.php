@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
+
 class Audit_Controller extends Controller
 {
     function __construct()
@@ -128,6 +129,7 @@ class Audit_Controller extends Controller
     public function conclusion(Request $req){
         $data['conclusion']=Conclusion::where('id', $req->id)->first();
         if($data['conclusion']){
+            $data['img']="img";
             $template=$data['conclusion']->cust_info->template->standart_num;
             $lang=$data['conclusion']->cust_info->lang;
             $data['qrcode']=base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));

@@ -4,17 +4,17 @@ use App\Models\User;
 
 if(!function_exists('file_validation_rules')){
 	function file_validation_rules($template_id){
-	  $template=Template::where('id', $template_id)->first();
-	  
-	  $file_fields=array_filter(json_decode($template->fields, true),function($v){
-		return $v['type']=='file';
-	  });
-  
-	  $rules=array_map(function($v){
-		return ["custom.".$v['name']=>"required | mimetypes:".$v['mime_types']];
-	  }, $file_fields);
-  
-	  return array_merge(...$rules);
+		$template=Template::where('id', $template_id)->first();
+		
+		$file_fields=array_filter(json_decode($template->fields, true),function($v){
+			return $v['type']=='file';
+		});
+
+		$rules=array_map(function($v){
+			return ["custom.".$v['name']=>"required | mimetypes:".$v['mime_types']];
+		}, $file_fields);
+
+		return array_merge(...$rules);
 	}
 }
 
@@ -29,7 +29,6 @@ if(!function_exists('file_fields_for_validation_edit')){
 		$rules=array_map(function($v){
 			return ["custom.".$v['name']=>"mimetypes:".$v['mime_types']];
 		}, $file_fields);
-
 		return array_merge(...$rules);
 	}
 }
@@ -227,6 +226,11 @@ function lang($word){
 			'uz'=>'ИНН',
 			'ru'=>'ИНН'
 		],
+		'cust_comp_name'=>[
+			'oz'=>"Korxona Nome",
+			'uz'=>'Korxona Nome',
+			'ru'=>'Название компании клиента'
+		],
 		'cust_comp_inn'=>[
 			'oz'=>"Korxona INNsi",
 			'uz'=>'Korxona INNsi',
@@ -296,6 +300,16 @@ function lang($word){
 			'oz'=>"Audit korxonasining direkotori F.I.Osi",
 			'uz'=>'Аудит корхонасининг дирекотори Ф.И.Оси',
 			'ru'=>'Ф.И.О директора аудиторской компании'
+		],
+		'auditCompDirectorLicenseNum'=>[
+			'oz'=>"Audit korxonasi direkotorining sertifikat raqami",
+			'uz'=>'Аудит корхонаси дирекоторининг сертификат рақами',
+			'ru'=>'Номер сертификата директора аудиторской компании'
+		],
+		'auditCompDirectorLicenseDate'=>[
+			'oz'=>"Audit korxonasi direkotorining sertifikat berilgan sanasi",
+			'uz'=>'Аудит корхонаси дирекоторининг сертификат берилган санаси',
+			'ru'=>'Дата сертификата директора аудиторской компании'
 		],
 		'custCompDirector'=>[
 			'oz'=>"Mijoz korxonasining direkotori F.I.Osi",
@@ -576,6 +590,11 @@ function lang($word){
 			'oz'=>"Nima uchun?",
 			'uz'=>'Нима учун?',
 			'ru'=>'Для чего?'
+		],
+		'for'=>[
+			'oz'=>"Nima uchun",
+			'uz'=>'Нима учун',
+			'ru'=>'Для'
 		],
 		'details'=>[
 			'oz'=>"Tafsilotlar",

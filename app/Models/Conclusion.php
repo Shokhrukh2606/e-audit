@@ -30,7 +30,7 @@ class Conclusion extends Model
     }
     public function send_to_customer(){
         $order=$this->cust_info->order;
-        $order->status="sent";
+        $order->status="7";
         $order->save();
     }
     public function invoice(){
