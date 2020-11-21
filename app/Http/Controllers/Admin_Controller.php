@@ -45,7 +45,7 @@ class Admin_Controller extends Controller
     public function list_orders()
     {
         $data['states'] = $this->reverted_states;
-        $data['orders'] = Order::where('status', '!=', '1')->get();
+        $data['orders'] = Order::where('status', '!=', '1')->paginate(20);
         return $this->view('list_orders', $data);
     }
     public function change_status(Request $req)
