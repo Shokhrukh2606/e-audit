@@ -25,12 +25,12 @@
         font-size: 10px;
         font-weight: 600;
     }
-    select option {
+    /* select option {
       color: #000!important;
     }
     .select2-container--default .select2-results__option--selectable{
         color: #000!important;
-    }
+    } */
 </style>
 
 <body class="">
