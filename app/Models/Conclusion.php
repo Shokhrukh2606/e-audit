@@ -52,7 +52,7 @@ class Conclusion extends Model
   }
   public function invoice()
   {
-    return $this->hasOne(Invoice::class, "this_id");
+    return $this->hasOne(Invoice::class, "conclusion_id");
   }
   public function getStateAttribute()
   {
