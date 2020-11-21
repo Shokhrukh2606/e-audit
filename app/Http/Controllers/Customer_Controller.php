@@ -121,7 +121,7 @@ class Customer_Controller extends Controller
             'customer_id', auth()->user()->id
         )->whereIn(
             'status',$states
-        )->get();
+        )->paginate(20);
 
         return $this->view("list_orders.$req->status", $data);
     }
@@ -264,7 +264,7 @@ class Customer_Controller extends Controller
         return abort(404);
     }
     public function transactions_log(){
-        $data['transactions']=Invoice::where(['user_id'=>auth()->user->id, 'status'=>'confirmed'])->get();
+        $data['transactions']=Invoice::where(['user_id'=>auth()->user()->id, 'status'=>'confirmed'])->paginate(20);
         if($data['transactions'])
             return $this->view('transactions_log',$data);
         return abort(404);

@@ -876,6 +876,37 @@ function lang($word){
 			'uz'=>'Танлаш',
 			'ru'=>'Выбрать'
 		],		
+		'long_term_liabilities'=>[
+			'oz'=>'Uzoq muddatli majburiyatlar',
+			'uz'=>'Узоқ муддатли мажбуриятлар',
+			'ru'=>'Долгосрочные обязательства'
+		],
+		'current_actives'=>[
+			'oz'=>'Joriy (aylanma) aktivlar',
+			'uz'=>'Жорий (айланма) активлар',
+			'ru'=>'Текущие (оборотные) активы'
+		],
+		'current_obligation'=>[
+			'oz'=>'Majburiyatlar',
+			'uz'=>'Мажбуриятлар',
+			'ru'=>'Обязательства'
+		],
+		'long_term_actives'=>[
+			'oz'=>'Uzoq muddatli aktivlar',
+			'uz'=>'Узоқ муддатли активлар',
+			'ru'=>'Долгосрочные активы'
+		],
+		'sources_of_own_funds'=>[
+			'oz'=>'O\'z mablag\'lari manbalari',
+			'uz'=>'Ўз маблағлари манбалари',
+			'ru'=>'Источники собственных средств'
+		],
+		'long_term_loans'=>[
+			'oz'=>'Uzoq muddatli kreditlar va kreditlar',
+			'uz'=>'Узоқ муддатли кредитлар ва кредитлар',
+			'ru'=>'Долгосрочные займы и кредиты'
+		]
+
 	];
 	return $words[$word][config('global.lang')]??$word;
 }

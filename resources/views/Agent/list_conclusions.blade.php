@@ -47,5 +47,6 @@
                 </tr>
             </tbody>
         </table>
+        {{$conclusions->links()}}
     </div>
 </div>

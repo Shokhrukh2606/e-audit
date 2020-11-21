@@ -99,6 +99,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $conclusions->links() }}
     </div>
 </div>
 {{-- @foreach ($conclusions as $conclusion)

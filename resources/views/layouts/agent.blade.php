@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('aac.checkfunds') }}">
+                        <a href="{{ route('agent.transactions_log') }}">
                             <i class="tim-icons icon-bank"></i>
                             <p>{{ lang('bill') }}</p>
                         </a>

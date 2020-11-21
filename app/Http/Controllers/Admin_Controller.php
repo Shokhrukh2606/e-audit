@@ -99,7 +99,7 @@ class Admin_Controller extends Controller
                 }
             }
         }
-        $data['conclusions'] = $query->get();
+        $data['conclusions'] = $query->paginate(20);
         $data['auditors'] = User::where(['group_id' => 2])->get();
         $data['agents'] = User::where(['group_id' => 3])->get();
         $data['customers'] = User::where(['group_id' => 4])->get();
@@ -133,7 +133,7 @@ class Admin_Controller extends Controller
                 }
             }
         }
-        $data['conclusions'] = $query->get();
+        $data['conclusions'] = $query->paginate(20);
         return $this->view('user_conclusions', $data);
     }
     public function add_funds(Request $req)
@@ -169,7 +169,7 @@ class Admin_Controller extends Controller
         // if ($came = $request->input("filter.name")) {
         //     $query->where('full_name', 'like', "%${came}");
         // }
-        $data['users'] = $query->get();
+        $data['users'] = $query->paginate(20);
         $data['groups'] = User_group::all();
         return $this->view('list_users', $data);
     }
