@@ -37,7 +37,11 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('agent.view_conclusion_open', $conclusion->id) }}">{{ lang('show') }}</a>
+                            <a href="{{ route('agent.view_conclusion', $conclusion->id) }}">{{ lang('show') }}</a>&nbsp
+                        </td>
+                        <td>
+                            <a
+                                href="{{ route('agent.view_conclusion_open', $conclusion->id) }}">{{ lang('showConclusion') }}</a>
                         </td>
                     @endforeach
                 </tr>

@@ -122,6 +122,31 @@
 					<label>{{lang('basicConclusions')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
 				</div>
+				<div>
+					<label>Текущие (оборотные)  активы </label>
+					<input class="form-control" type="text" name="conclusion[current_actives]">
+				</div>
+				<div>
+					<label>Обязательства  </label>
+					<input class="form-control" type="text" name="conclusion[current_obligation]">
+				</div>
+				<div>
+					<label>Долгосрочные обязательства   </label>
+					<input class="form-control" type="text" name="conclusion[long_term_liabilities]">
+				</div>
+				<div>
+					<label>Долгосрочные активы    </label>
+					<input class="form-control" type="text" name="conclusion[long_term_actives]">
+				</div>
+				<div>
+					<label>Источники собственных средств   </label>
+					<input class="form-control" type="text" name="conclusion[sources_of_own_funds]">
+				</div>
+				<div>
+					<label>Долгосрочные займы и кредиты   </label>
+					<input class="form-control" type="text" name="conclusion[long_term_loans]">
+				</div>
+				
 				<!-- <button class="btn btn-sm btn-success">Save</button> -->
 			</form>
 		</div>

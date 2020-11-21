@@ -18,7 +18,9 @@ class Conclusion extends Model
   ];
   use HasFactory;
   protected $appends = [
-    'state'
+    'state',
+    'scoefficient',
+    'fcoefficient'
   ];
   public function user()
   {
@@ -50,7 +52,7 @@ class Conclusion extends Model
   }
   public function invoice()
   {
-    return $this->hasOne(Invoice::class, "conclusion_id");
+    return $this->hasOne(Invoice::class, "this_id");
   }
   public function getStateAttribute()
   {
@@ -67,5 +69,14 @@ class Conclusion extends Model
     self::updating(function ($model) {
       $model->qr_hash = md5(uniqid($model->id, true));
     });
+  }
+  public function getFcoefficientAttribute(){
+    $c=$this->current_actives/($this->current_obligation-$this->long_term_liabilities);
+    return round($c, 2);
+  }
+  public function getScoefficientAttribute()
+  {
+    $c=(($this->sources_of_own_funds+$this->long_term_loans)-$this->long_term_actives) / $this->current_actives;
+    return round($c, 2);
   }
 }

@@ -33,3 +33,5 @@ Route::match(["GET", "POST"], "/create_user", "Admin_Controller@create_user")
 // ->name('add_funds');
 Route::get("conclusion/{id}", "Admin_Controller@conclusion")->name("conclusion");
 Route::get("user_conclusions/{type}/{id}", "Admin_Controller@user_conclusions")->name("user_conclusions");
+
+Route::get('/view_conclusion/{id}', 'Admin_Controller@view_conclusion')->name('view_conclusion');

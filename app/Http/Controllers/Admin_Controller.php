@@ -18,19 +18,19 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Admin_Controller extends Controller
 {
-    private $states=[
-        'draft'=>[1],
-        'sent'=>[2,3,4,5,6],
-        'finished'=>[7]
+    private $states = [
+        'draft' => [1],
+        'sent' => [2, 3, 4, 5, 6],
+        'finished' => [7]
     ];
-    private $reverted_states=[
-        '1'=>'draft',
-        '2'=>'sent_to_admin',
-        '3'=>'in_auditor',
-        '4'=>'docs_confirmed',
-        '5'=>'error_found_in_document',
-        '6'=>'resent_to_auditor',
-        '7'=>'finished'
+    private $reverted_states = [
+        '1' => 'draft',
+        '2' => 'sent_to_admin',
+        '3' => 'in_auditor',
+        '4' => 'docs_confirmed',
+        '5' => 'error_found_in_document',
+        '6' => 'resent_to_auditor',
+        '7' => 'finished'
     ];
     function __construct()
     {
@@ -38,33 +38,34 @@ class Admin_Controller extends Controller
     }
     private function view($file, $data = [])
     {
-        $data['title']='e-audit admin';
-        $data['body']='Admin.'.$file;
+        $data['title'] = 'e-audit admin';
+        $data['body'] = 'Admin.' . $file;
         return view('admin_index', $data);
     }
     public function list_orders()
     {
-        $data['states']=$this->reverted_states;
+        $data['states'] = $this->reverted_states;
         $data['orders'] = Order::where('status', '!=', '1')->get();
         return $this->view('list_orders', $data);
     }
-    public function change_status(Request $req){
+    public function change_status(Request $req)
+    {
         $data['conclusion'] = Conclusion::where('id', $req->id)->first();
         if ($data['conclusion']) {
-            switch($req->status){
+            switch ($req->status) {
                 case 'finished':
-                    $data['conclusion']->status=3;
+                    $data['conclusion']->status = 3;
                     $data['conclusion']->save();
                     return redirect()->back();
-                break;
+                    break;
                 case 'rejected':
-                        $data['conclusion']->status=4;
-                        $data['conclusion']->save();
-                        return redirect()->back();
-                break;
+                    $data['conclusion']->status = 4;
+                    $data['conclusion']->save();
+                    return redirect()->back();
+                    break;
                 default:
                     abort(404);
-            }    
+            }
         }
         abort(404);
     }
@@ -88,53 +89,52 @@ class Admin_Controller extends Controller
     }
     public function conclusions(Request $req)
     {
-        $filtered = ['template_id', 'auditor_id', 'agent_id','customer_id', 'audit_comp_name', 'audit_comp_inn'];
-            $query = DB::table('conclusions')
-            ->join('cust_comp_info','cust_comp_info.conclusion_id','=','conclusions.id')->
-            join('templates','templates.id','=','cust_comp_info.template_id');
-            if($req->input('filter')){
-                foreach ($req->input('filter') as $key => $value) {
-                    if (in_array($key, $filtered)&&($value!='')) {
-                        $query->where($key, $value);
-                    }
+        $filtered = ['template_id', 'auditor_id', 'agent_id', 'customer_id', 'audit_comp_name', 'audit_comp_inn'];
+        $query = DB::table('conclusions')
+            ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id');
+        if ($req->input('filter')) {
+            foreach ($req->input('filter') as $key => $value) {
+                if (in_array($key, $filtered) && ($value != '')) {
+                    $query->where($key, $value);
                 }
             }
-            $data['conclusions'] = $query->get();
-            $data['auditors']=User::where(['group_id'=>2])->get();
-            $data['agents']=User::where(['group_id'=>3])->get();
-            $data['customers']=User::where(['group_id'=>4])->get();
-            $data['templates']=Template::all();
-            return $this->view('list_conclusions', $data);
+        }
+        $data['conclusions'] = $query->get();
+        $data['auditors'] = User::where(['group_id' => 2])->get();
+        $data['agents'] = User::where(['group_id' => 3])->get();
+        $data['customers'] = User::where(['group_id' => 4])->get();
+        $data['templates'] = Template::all();
+        $data['states']=Conclusion::STATES;
+        return $this->view('list_conclusions', $data);
     }
     public function user_conclusions(Request $req)
     {
-        $filtered = ['template_id', 'auditor_id', 'agent_id','customer_id', 'audit_comp_name', 'audit_comp_inn'];
-            $query = DB::table('conclusions')
-            ->join('cust_comp_info','cust_comp_info.conclusion_id','=','conclusions.id')->
-            join('templates','templates.id','=','cust_comp_info.template_id');
-            switch($req->type){
-                case 'agent':
-                    $query->where(['agent_id'=>$req->id]);
+        $filtered = ['template_id', 'auditor_id', 'agent_id', 'customer_id', 'audit_comp_name', 'audit_comp_inn'];
+        $query = DB::table('conclusions')
+            ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id');
+        switch ($req->type) {
+            case 'agent':
+                $query->where(['agent_id' => $req->id]);
                 break;
-                case 'auditor':
-                    $query->where(['auditor_id'=>$req->id]);
+            case 'auditor':
+                $query->where(['auditor_id' => $req->id]);
                 break;
-                case 'customer':
-                    $query->where(['customer_id'=>$req->id]);
+            case 'customer':
+                $query->where(['customer_id' => $req->id]);
                 break;
-                default:
-                    $data['conclusions'] = [];
-                    return $this->view('user_conclusions', $data);
-            }
-            if($req->input('filter')){
-                foreach ($req->input('filter') as $key => $value) {
-                    if (in_array($key, $filtered)&&($value!='')) {
-                        $query->where($key, $value);
-                    }
+            default:
+                $data['conclusions'] = [];
+                return $this->view('user_conclusions', $data);
+        }
+        if ($req->input('filter')) {
+            foreach ($req->input('filter') as $key => $value) {
+                if (in_array($key, $filtered) && ($value != '')) {
+                    $query->where($key, $value);
                 }
             }
-            $data['conclusions'] = $query->get();
-            return $this->view('user_conclusions', $data);
+        }
+        $data['conclusions'] = $query->get();
+        return $this->view('user_conclusions', $data);
     }
     public function add_funds(Request $req)
     {
@@ -235,10 +235,17 @@ class Admin_Controller extends Controller
         if ($data['conclusion']) {
             $template = $data['conclusion']->cust_info->template->standart_num;
             $lang = $data['conclusion']->cust_info->lang;
-            $data['qrcode']=base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
+            $data['qrcode'] = base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
             $pdf = PDF::loadView("templates.$template.$lang", $data);
             return $pdf->stream('invoice.pdf');
         }
         abort(404);
+    }
+    public function view_conclusion(Request $req)
+    {
+        $data['conclusion']=Conclusion::where(['id'=>$req->id])->first();
+        if($data['conclusion'])
+            return $this->view('view_conclusion', $data);
+        return abort(404);
     }
 }

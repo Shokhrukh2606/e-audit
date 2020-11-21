@@ -877,5 +877,5 @@ function lang($word){
 			'ru'=>'Выбрать'
 		],		
 	];
-	return $words[$word][config('global.lang')];
+	return $words[$word][config('global.lang')]??$word;
 }

@@ -66,7 +66,6 @@ class Agent_Controller extends Controller
                 foreach ($cust_info_fields ?? [] as $key => $value) {
                     $CCI->$key = $value;
                 }
-
                 foreach ($custom_fields_files ?? [] as $key => $value) {
                     /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
                     $custom_fields[$key] = $value
@@ -87,6 +86,22 @@ class Agent_Controller extends Controller
                 # code...
                 break;
         }
+    }
+    public function change_status(Request $req)
+    {
+        $data['conclusion'] = Conclusion::where('id', $req->id)->first();
+        if ($data['conclusion']) {
+            switch ($req->status) {
+                case 'send':
+                    $data['conclusion']->status =2;
+                    $data['conclusion']->save();
+                    return redirect()->back();
+                    break;
+                default:
+                    abort(404);
+            }
+        }
+        abort(404);
     }
     public function create_invoice(Request $req){
         $conclusion=Conclusion::where('id', $req->conclusion_id)->first();
@@ -127,6 +142,13 @@ class Agent_Controller extends Controller
         }
         abort(404);
     }
+    public function view_conclusion(Request $req)
+    {
+        $data['conclusion']=Conclusion::where(['id'=>$req->id, 'agent_id'=>auth()->user()->id])->first();
+        if($data['conclusion'])
+            return $this->view('view_conclusion', $data);
+        return abort(404);
+    }
     public function cashback_log()
     {
         return $this->view('cashback_log');
@@ -138,5 +160,16 @@ class Agent_Controller extends Controller
     public function payment_log()
     {
         return $this->view('payment_log');
+    }
+    public function send_with_errors(Request $req){
+        $order=Order::where('id',$req->id)->first();
+        if(!$order||!in_array($order->status,[3,6] , true))
+            return abort(404);
+        $order->status="5";
+        $order->message=$req->input("message");
+        $order->save();
+        $data['message']="Вы успешно отправили заказ клиенту для редактирования.";
+        $data['link']=route('auditor.orders');
+        return $this->view('message',$data);
     }
 }
