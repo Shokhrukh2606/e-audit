@@ -248,7 +248,7 @@ class Customer_Controller extends Controller
             $service=$conclusion->cust_info->template->service;
             $invoice=new Invoice();
             $invoice->conclusion_id=$conclusion->id;
-            $invoice->price=$conclusion->cust_info->template->service->id;
+            $invoice->price=$conclusion->cust_info->template->service->price;
             $invoice->user_id=auth()->user()->id;
             $invoice->service_id=$service->id;
             $invoice->save();

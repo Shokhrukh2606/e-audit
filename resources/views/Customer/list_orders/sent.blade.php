@@ -20,7 +20,7 @@
                             {{-- many to many retrieval --}}
                             @foreach ($order->cust_info->use_cases as $uc)
                                 <span class="badge badge-info">
-                                    {{ lang(json_decode($uc->title)->ru) }}
+                                    {{json_decode($uc->title)->ru}}
                                 </span>
                             @endforeach
                         </td>
