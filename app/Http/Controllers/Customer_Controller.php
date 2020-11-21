@@ -263,8 +263,8 @@ class Customer_Controller extends Controller
             return $this->view('pay_for_order',$data);
         return abort(404);
     }
-    public function transactions_log(Request $req){
-        $data['transactions']=Invoice::where(['user_id'=>$req->invoice_id, 'status'=>'confirmed'])->get();
+    public function transactions_log(){
+        $data['transactions']=Invoice::where(['user_id'=>auth()->user->id, 'status'=>'confirmed'])->get();
         if($data['transactions'])
             return $this->view('transactions_log',$data);
         return abort(404);

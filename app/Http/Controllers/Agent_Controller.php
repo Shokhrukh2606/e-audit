@@ -153,9 +153,11 @@ class Agent_Controller extends Controller
     {
         return $this->view('cashback_log');
     }
-    public function transactions_log()
-    {
-        return $this->view('transactions_log');
+    public function transactions_log(){
+        $data['transactions']=Invoice::where(['user_id'=>auth()->user->id, 'status'=>'confirmed'])->get();
+        if($data['transactions'])
+            return $this->view('transactions_log',$data);
+        return abort(404);
     }
     public function payment_log()
     {
