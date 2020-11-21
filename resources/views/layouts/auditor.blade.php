@@ -18,6 +18,7 @@
   <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
   <link href="{{asset('assets/css/common.css')}}" rel="stylesheet" />
   @yield('createConclusionCss')
+  @yield('createConcOnOrderCss')
 </head>
 <style>
   .sidebar .nav p,
@@ -316,6 +317,7 @@
       });
   </script>
   @yield('createConclusionJs')
+  @yield('createConcOnOrderJs')
   
 </body>
 <script>
