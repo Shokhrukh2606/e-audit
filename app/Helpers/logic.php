@@ -506,6 +506,16 @@ function lang($word){
 			'uz'=>'ҲОЛАТИ',
 			'ru'=>'СТАТУС'
 		],
+		'active'=>[
+			'oz'=>"Faol",
+			'uz'=>'Фаол',
+			'ru'=>'Активный'
+		],
+		'inactive'=>[
+			'oz'=>"Nofaol",
+			'uz'=>'Нофаол',
+			'ru'=>'Неактивный'
+		],
 		'cust_comp_activity'=>[
 			'oz'=>"Korxona holati",
 			'uz'=>'Корхона ҳолати',
@@ -756,6 +766,11 @@ function lang($word){
 			'uz'=>'Сақлаш',
 			'ru'=>'Сохранить'
 		],
+		'select'=>[
+			'oz'=>"Tanlang",
+			'uz'=>'Танланг',
+			'ru'=>'Выбрать'
+		],
 		'selectTemplate'=>[
 			'oz'=>"Iltimos, Shablonni tanlang",
 			'uz'=>'Илтимос, Шаблонни танланг',
@@ -781,6 +796,11 @@ function lang($word){
 			'uz'=>'Кредит',
 			'ru'=>'Кредит'
 		],
+		'editProfile'=>[
+			'oz'=>"Profilni tahrirlash",
+			'uz'=>'Профилни таҳрирлаш',
+			'ru'=>'Редактировать профиль'
+		],
 		"moliyaviy hisobot bo'yicha fikr"=>[
 			'oz'=>"Moliyaviy hisobot bo'yicha fikr",
 			'uz'=>'Молиявий ҳисобот бўйича фикр',
@@ -790,6 +810,11 @@ function lang($word){
 			'oz'=>"Davom etish",
 			'uz'=>'Давом этиш',
 			'ru'=>'Продолжать'
+		],
+		'mail'=>[
+			'oz'=>"Elektron pochta manzili",
+			'uz'=>'Электрон почта манзили',
+			'ru'=>'Адрес электронной почты'
 		],
 		'uz'=>[
 			'oz'=>"O'zbek",
