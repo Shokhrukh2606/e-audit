@@ -1,9 +1,9 @@
-<form action="{{ route('admin.conclusions') }}" method="GET" class="row mb-3" id="filterer">
+    <form action="{{ route('admin.conclusions') }}" method="GET" class="row mb-3" id="filterer">
     &nbsp;
     <div class="col">
         <label>{{ lang('customer') }}</label>
         <select class="filters form-control" name="filter[customer_id]" style='width: 200px;'>
-            <option value="">Select User</option> 
+            <option value="">{{lang('select')}}</option> 
             @foreach ($customers as $customer)
                 <option {{ request()->input('filter.customer_id')==$customer->id ?'selected':'' }} value="{{$customer->id}}">
                     {{ getUserName($customer->id) }}
@@ -14,7 +14,7 @@
     <div class="col">
         <label>{{ lang('auditor') }}</label>
         <select class="filters form-control" name="filter[auditor_id]" value="{{ request()->input('filter.auditor_id') }}" style='width: 200px;'>
-            <option value="">Select Auditor</option> 
+            <option value="">{{lang('select')}}</option> 
             @foreach ($auditors as $auditor)
                 <option {{ request()->input('filter.auditor_id')==$auditor->id ?'selected':'' }} value="{{$auditor->id}}">
                     {{ getUserName($auditor->id) }}
@@ -25,7 +25,7 @@
     <div class="col">
         <label>{{ lang('agent') }}</label>
         <select class="filters form-control" name="filter[agent_id]" value="{{ request()->input('filter.agent_id') }}" style='width: 200px;'>
-            <option value="">Select Agent</option> 
+            <option value="">{{lang('select')}}</option> 
             @foreach ($agents as $agent)
                 <option {{ request()->input('filter.agent_id')==$agent->id ?'selected':'' }} value="{{$agent->id}}">
                     {{ getUserName($agent->id) }}
@@ -36,7 +36,7 @@
     <div class="col">
         <label>{{ lang('standartNumber') }}</label>
         <select class="filters form-control" name="filter[template_id]" style='width: 200px;'>
-            <option value="">Select Template</option> 
+            <option value="">{{lang('select')}}</option> 
             @foreach ($templates as $template)
                 <option {{ request()->input('filter.template_id')==$template->id ?'selected':'' }} value="{{$template->id}}">
                     {{ $template->id }}

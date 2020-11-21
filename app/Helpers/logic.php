@@ -851,6 +851,11 @@ function lang($word){
 			'oz'=>"Kompaniya (kim, nima) tomonidan ro'yhatga olingan ",
 			'uz'=>'Компания (ким, нима) томонидан рўйхатга олинган',
 			'ru'=>'Зарегистрировано компанией (кто, что)'
+		],
+		'select'=>[
+			'oz'=>"Tanlash ",
+			'uz'=>'Танлаш',
+			'ru'=>'Выбрать'
 		],		
 	];
 	return $words[$word][config('global.lang')];
