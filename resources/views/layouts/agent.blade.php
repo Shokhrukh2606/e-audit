@@ -24,7 +24,6 @@
         font-size: 10px;
         font-weight: 600;
     }
-
 </style>
 
 <body class="">
@@ -58,6 +57,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('agent.create_conclusion') }}">
+                            <i class="tim-icons icon-simple-add"></i>
+                            <p>{{lang('newConclusion')}}</p>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('agent.transactions_log') }}">
                             <i class="tim-icons icon-bank"></i>
                             <p>{{ lang('bill') }}</p>
@@ -80,8 +85,7 @@
                         </div>
                         <a class="navbar-brand" href="javascript:void(0)">{{ lang('agentPanel') }}</a>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -102,16 +106,14 @@
                                     <p class="d-lg-none" onclick="logout()">
                                         {{ lang('logout') }}
                                     </p>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                         <button>{{ lang('logout') }}</button>
                                     </form>
 
                                 </a>
                                 <ul class="dropdown-menu dropdown-navbar">
-                                    <li class="nav-link"><a href="javascript:void(0)" onclick="logout()"
-                                            class="nav-item dropdown-item">{{ lang('logout') }}</a></li>
+                                    <li class="nav-link"><a href="javascript:void(0)" onclick="logout()" class="nav-item dropdown-item">{{ lang('logout') }}</a></li>
                                 </ul>
                             </li>
                             <li class="separator d-lg-none"></li>
@@ -123,23 +125,22 @@
                 function logout() {
                     document.getElementById("logout-form").submit();
                 }
-
             </script>
             <!-- End Navbar -->
             <div class="content">
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul style="padding-left: 0;margin-bottom: 0">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                <div class="alert alert-danger">
+                    <ul style="padding-left: 0;margin-bottom: 0">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
                 @endif
                 @if (session()->has('message'))
-                    <div class="alert alert-success">
-                        {{ session()->get('message') }}
-                    </div>
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
                 @endif
                 @yield('content')
             </div>
@@ -317,7 +318,6 @@
                 });
             });
         });
-
     </script>
 
     @yield('additional_js')
@@ -329,13 +329,11 @@
                 token: "ee6fab19c5a04ac1a32a645abde4613a",
                 application: "black-dashboard-free"
             });
-
     </script>
     <script>
         $(document).on('change', '.custom-file-input', function(event) {
             $(this).next('.custom-file-label').html(event.target.files[0].name);
         })
-
     </script>
     @yield('createConclusionJs')
 </body>
@@ -348,7 +346,6 @@
             menu[i].classList.remove('active');
         }
     }
-
 </script>
 <script>
     var menu = document.getElementsByClassName('mynav')[0].children;
@@ -359,7 +356,6 @@
             menu[i].classList.remove('active');
         }
     }
-
 </script>
 
 </html>

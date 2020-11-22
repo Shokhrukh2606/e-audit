@@ -64,6 +64,12 @@
             </a>
           </li>
           <li>
+            <a href="{{ route('auditor.create_conclusion') }}">
+              <i class="tim-icons icon-simple-add"></i>
+              <p>{{lang('newConclusion')}}</p>
+            </a>
+          </li>
+          <li>
             <a href="{{route("aac.checkfunds")}}">
               <i class="tim-icons icon-bank"></i>
               <p>{{lang('bill')}}</p>
@@ -318,7 +324,7 @@
   </script>
   @yield('createConclusionJs')
   @yield('createConcOnOrderJs')
-  
+
 </body>
 <script>
   var menu = document.getElementsByClassName('mynav')[0].children;

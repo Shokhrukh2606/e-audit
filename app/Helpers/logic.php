@@ -117,14 +117,19 @@ function lang($word){
 			'ru'=>'Черновики'
 		],
 		'rejected'=>[
-			'oz'=>'Отклоненные',
+			'oz'=>'Inkor etilgan',
 			'uz'=>'Инкор этилган',
-			'ru'=>'Inkor etilgan'
+			'ru'=>'Отклоненные'
 		],
 		'sent'=>[
 			'oz'=>'Jo\'natilgan buyurtmalar',
 			'uz'=>'Жўнатилган буюртмалар',
 			'ru'=>'Отправленные'
+		],
+		'sentToAdmin'=>[
+			'oz'=>"adminga jo'natilgan",
+			'uz'=>'админга жўнатилган',
+			'ru'=>'отправлено админу'
 		],
 		'accept_and_pay'=>[
 			'oz'=>'Qabul qilish va to\'lash',
@@ -140,6 +145,11 @@ function lang($word){
 			'oz'=>'Siz allaqachon xulosani qabul qilgansiz',
 			'uz'=>'Сиз аллақачон хулосани қабул қилгансиз',
 			'ru'=>'Вы уже приняли заключение'
+		],
+		'accepted'=>[
+			'oz'=>'qabul qilingan',
+			'uz'=>'қабул қилинган',
+			'ru'=>'принято'
 		],
 		'cancel'=>[
 			'oz'=>'Ortga qaytish',
@@ -195,6 +205,11 @@ function lang($word){
 			'oz'=>'Mijoz sifatida ro\'yhatdan o\'tish',
 			'uz'=>'Мижоз сифатида рўйҳатдан ўтиш',
 			'ru'=>'Зарегистрируйтесь как клиент'
+		],
+		'createUser'=>[
+			'oz'=>'Foydalanuvchi yaratish',
+			'uz'=>'Фойдаланувчи яратиш',
+			'ru'=>'Создать пользователя'
 		],
 		'name'=>[
 			'oz'=>'Ism',
@@ -461,6 +476,11 @@ function lang($word){
 			'uz'=>'Хулосалар',
 			'ru'=>'Заключении'
 		],
+		'newConclusion'=>[
+			'oz'=>"Xulosa yaratish",
+			'uz'=>'Хулоса яратиш',
+			'ru'=>'Создать Заключении'
+		],
 		'conclusion'=>[
 			'oz'=>"Xulosa",
 			'uz'=>'Хулоса',
@@ -580,6 +600,11 @@ function lang($word){
 			'oz'=>"Yaratilgan sanasi",
 			'uz'=>'Яратилган санаси',
 			'ru'=>'ДАТА СОЗДАНИЯ'
+		],
+		'created'=>[
+			'oz'=>"Yaratilgan",
+			'uz'=>'Яратилган',
+			'ru'=>'Создан'
 		],
 		'created_at'=>[
 			'oz'=>"Yaratilgan sanasi",
