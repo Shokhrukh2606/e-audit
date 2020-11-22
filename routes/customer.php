@@ -56,4 +56,6 @@ Route::get("pay/{invoice_id}", "Customer_Controller@pay")->name("pay");
 			// log
 Route::get("transactions_log", "Customer_Controller@transactions_log")->name("transaction_log");
 
+Route::post('reject_conc',"Customer_Controller@reject_conc")->name("reject_conc");
+
 ?>

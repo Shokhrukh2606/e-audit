@@ -1,11 +1,11 @@
 <div class="card">
     <div class="card-header">
-        <h3>{{ __('front.my_orders') }} (Отправленные )</h3>
+        <h3>{{ lang('myOrders') }} ({{ lang('sent') }})</h3>
     </div>
     <div class="card-body">
         <table class="table tablesorter">
             <thead>
-                <th>{{ lang('id') }}</th>
+                
                 <th>{{ lang('standartNumber') }}</th>
                 <th>{{ lang('useCases') }}</th>
                 <th>{{ lang('date') }}</th>
@@ -14,7 +14,7 @@
             <tbody>
                 @foreach ($orders as $order)
                     <tr>
-                        <td>{{ $order->id }}</td>
+                        
                         <td>{{ $order->cust_info->template->standart_num }}</td>
                         <td>
                             {{-- many to many retrieval --}}

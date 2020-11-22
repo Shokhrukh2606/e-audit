@@ -21,4 +21,12 @@ class Invoice extends Model
     {
         return $this->hasMany('App\Models\Transaction', 'invoice_id');
     }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+    public function service()
+    {
+        return $this->belongsTo('App\Models\Service', 'service_id');
+    }
 }

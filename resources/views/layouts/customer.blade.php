@@ -85,6 +85,12 @@
             </a>
           </li>
           <li>
+            <a href="{{route("customer.orders",'rejected')}}">
+              <i class="tim-icons icon-trash-simple"></i>
+              <p>{{lang('rejectedOrders')}}</p>
+            </a>
+          </li>
+          <li>
             <a href="{{route("aac.checkfunds")}}">
               <i class="tim-icons icon-coins"></i>
               <p>{{lang('bill')}}</p>

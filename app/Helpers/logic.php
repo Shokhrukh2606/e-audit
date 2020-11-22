@@ -96,10 +96,65 @@ function getUserLayout($u){
 
 function lang($word){
 	$words=[
-		'smth'=>[
-			'oz'=>'ozsmth',
-			'uz'=>'uzsmth',
-			'ru'=>'rusmth'
+		'reject'=>[
+			'oz'=>'Inkor qilish',
+			'uz'=>'Инкор қилиш',
+			'ru'=>'Отклонить'
+		],
+		'cust_comp_name'=>[
+			'oz'=>'Mijoz kompaniya nomi',
+			'uz'=>'Мижоз компания номи',
+			'ru'=>'Название компании клиента'
+		],
+		'finished'=>[
+			'oz'=>'Bajarilgan buyurtmalar',
+			'uz'=>'Бажарилган буюртмалар',
+			'ru'=>'Законченныe'
+		],
+		'draft'=>[
+			'oz'=>'Qoralamalar',
+			'uz'=>'Қораламалар',
+			'ru'=>'Черновики'
+		],
+		'rejected'=>[
+			'oz'=>'Отклоненные',
+			'uz'=>'Инкор этилган',
+			'ru'=>'Inkor etilgan'
+		],
+		'sent'=>[
+			'oz'=>'Jo\'natilgan buyurtmalar',
+			'uz'=>'Жўнатилган буюртмалар',
+			'ru'=>'Отправленные'
+		],
+		'accept_and_pay'=>[
+			'oz'=>'Qabul qilish va to\'lash',
+			'uz'=>'Қабул қилиш ва тўлаш',
+			'ru'=>'Принять и оплатить'
+		],
+		'pay'=>[
+			'oz'=>'To\'lash',
+			'uz'=>'Тўлаш',
+			'ru'=>'Платить'
+		],
+		'already_accepted'=>[
+			'oz'=>'Siz allaqachon xulosani qabul qilgansiz',
+			'uz'=>'Сиз аллақачон хулосани қабул қилгансиз',
+			'ru'=>'Вы уже приняли заключение'
+		],
+		'cancel'=>[
+			'oz'=>'Ortga qaytish',
+			'uz'=>'Ортга қайтиш',
+			'ru'=>'назад'
+		],
+		'fucking_reason'=>[
+			'oz'=>'Sabab',
+			'uz'=>'Сабаб',
+			'ru'=>'Причина'
+		],
+		'type_fucking_reason'=>[
+			'oz'=>'Iltimos, xulosani rad etish sababini yozing.',
+			'uz'=>'Илтимос, хулосани рад этиш сабабини ёзинг.',
+			'ru'=>'Введите причину, по которой вы отклоняете заключение.'
 		],
 		'anything'=>[
 			'oz'=>'anything',
@@ -717,9 +772,14 @@ function lang($word){
 			'ru'=>'Черновики'
 		],
 		'recievedOrder'=>[
-			'oz'=>"Qabul qlingan buyurtmalar",
-			'uz'=>'Қабул қлинган буюртмалар',
+			'oz'=>"Qabul qlingan xulosalar",
+			'uz'=>'Қабул қлинган хулосалар',
 			'ru'=>'Полученные заключения'
+		],
+		'rejectedOrders'=>[
+			'oz'=>"Inkor qilingan xulosalar",
+			'uz'=>'Инкор қилинган хулосалар',
+			'ru'=>'Отклоненные заключения'
 		],
 		'assign'=>[
 			'oz'=>"Biriktirmoq",

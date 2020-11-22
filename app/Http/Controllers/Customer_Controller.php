@@ -21,7 +21,8 @@ class Customer_Controller extends Controller
     private $states=[
         'draft'=>[1],
         'sent'=>[2,3,4,5,6],
-        'finished'=>[7]
+        'finished'=>[7],
+        'rejected'=>[8]
     ];
     private $reverted_states=[
         '1'=>'draft',
@@ -30,7 +31,8 @@ class Customer_Controller extends Controller
         '4'=>'docs_confirmed',
         '5'=>'error_found_in_document',
         '6'=>'resent_to_auditor',
-        '7'=>'finished'
+        '7'=>'finished',
+        '8'=>'rejected'
     ];
     function __construct()
     {
@@ -268,6 +270,15 @@ class Customer_Controller extends Controller
         if($data['transactions'])
             return $this->view('transactions_log',$data);
         return abort(404);
+    }
+    public function reject_conc(Request $req){
+        $order=Order::where('id', $req->input('id'))->first();
+        if(!$order)
+            return abort(404);
+        $order->status=8;
+        $order->message=$req->input('reason');
+        $order->save();
+        return redirect()->route('customer.orders', 'finished');
     }
 }
 

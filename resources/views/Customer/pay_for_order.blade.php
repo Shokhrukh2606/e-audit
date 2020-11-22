@@ -6,8 +6,11 @@
 <div class="container">
 	<div class="bill mb-30">
 		<div class="title center mb-30">
-			<h3 class="bold mb-5">СЧЕТ НА ОПЛАТУ № 109560 от 27.10.2020</h3>
-			<h3 class="bold mt-0">к Договору № ДХ-663-03/20 от 10.03.2020</h3>
+			<h3 class="bold mb-5">СЧЕТ НА ОПЛАТУ № 
+					{{$invoice->id}} 
+						от 
+					{{date('Y-m-d',strtotime($invoice->created_at))}}
+			</h3>
 		</div>
 		<div class="mb-15 users">
 			<div>
@@ -25,8 +28,15 @@
 				<p><span class="bold">ОКЭД: </span>63110</p>
 			</div>
 			<div>
-				<p class="mb-10"><span class="bold">Заказчик: </span>Abdug'aniyev Abdumalik Atxam o'g'li</p>
-				<p><span class="bold">Адрес: </span>Узбекистан, Ташкентская область, Пискент, ул. Навои, дом-23</p>
+				<p class="mb-10"><span class="bold">Заказчик: 
+					</span>
+						{{$invoice->user->full_name}}
+					</p>
+				<p><span class="bold">Адрес:</span>
+					{{$invoice->user->region}} , 
+					{{$invoice->user->district}} ,
+					{{$invoice->user->address}}
+				</p>
 				<p><span class="bold">Телефон: </span>998978775028</p>
 				<p><span class="bold">Эл.почта: </span>axtrem13@gmail.com</p>
 				<p class="bold">Паспортные данные</p>
@@ -48,12 +58,14 @@
 			</tr>
 			<tr>
 				<td class="center">1</td>
-				<td>Первый SSD в Германии - loctech.uz (10.11.2020 - 09.12.2020)</td>
-				<td class="center">8400.00 сум</td>
+				<td>
+					{{json_decode($invoice->service->service_name)->{config('global.lang')} }}
+				</td>
+				<td class="center">{{$invoice->price}} сум</td>
 			</tr>
 			<tr>
 				<td colspan="2" class="bold">Итого</td>
-				<td class="center">8400.00 сум</td>
+				<td class="center">{{$invoice->price}} сум</td>
 			</tr>
 		</table>
 		<p class="bold mb-60">Итого к оплате: 8400.00 сум (восемь тысяч четыреста сум), без НДС.</p>
@@ -87,6 +99,10 @@
 		<div class="payment-box mb-20">
 			<input type="radio" id="transfer" name="payment">
 			<label for="transfer">Перечисление</label>
+		</div>
+		<div class="payment-box mb-20">
+			<input type="radio" id="transfer" name="payment">
+			<label for="transfer">Займы</label>
 		</div>
 	</div>
 
@@ -177,7 +193,7 @@
 		<input type="hidden" name="return_url" value={{route('customer.pay', $invoice->id)}} />
 
 		<p class="mt-0">Сумма оплаты:{{$invoice->price}} сум</p>
-		<button>Оплатить</button>
+		<button class="btn btn-simple btn-success">Оплатить</button>
 	</form>
 	@else
 	<h3>Already paid</h3>
