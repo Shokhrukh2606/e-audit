@@ -7,19 +7,17 @@
     <div class="col">
         <label>{{lang('role')}}</label>
         <select class="form-control" name="filter[group_id]">
-        <option value="">{{lang('role')}}</option>
+            <option value="">{{lang('role')}}</option>
             @foreach ($groups as $item)
-                <option value="{{ $item->id }}"
-                    {{ request()->input('filter.group_id') == $item->id ? 'selected' : '' }}>
-                    {{ lang($item->name)}}
-                </option>
+            <option value="{{ $item->id }}" {{ request()->input('filter.group_id') == $item->id ? 'selected' : '' }}>
+                {{ lang($item->name)}}
+            </option>
             @endforeach
         </select>
     </div>
     <div class="col">
-    <label>{{lang('anotherPhoneNumber')}}</label>
-        <input class="form-control" type="phone" type="text" name="filter[phone]"
-            value="{{ request()->input('filter.phone') }}">
+        <label>{{lang('anotherPhoneNumber')}}</label>
+        <input class="form-control" type="phone" type="text" name="filter[phone]" value="{{ request()->input('filter.phone') }}">
     </div>
     <div class="col">
         <label>{{lang('inn')}}</label>
@@ -28,57 +26,59 @@
     <div class="col">
         <label>{{__('front.status')}}</label>
         <select class="form-control" name="filter[status]">
-            <option value="">{{__('front.select')}}</option>
-            <option  {{ request()->input('filter.status') == 'active' ? 'selected' : '' }} value="active">
-                {{__('front.active')}}
+            <option value=""> {{lang('select')}}</option>
+            <option {{ request()->input('filter.status') == 'active' ? 'selected' : '' }} value="active">
+                {{lang('active')}}
             </option>
             <option {{ request()->input('filter.status') == 'inactive' ? 'selected' : '' }} value="inactive">
-                {{__('front.inactive')}}
+                {{lang('inactive')}}
             </option>
         </select>
     </div>
-    <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{__('front.search')}}</button>
+    <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{lang('search')}}</button>
 </form>
 
 <div class="card">
     <div class="card-header">
         <h1 class="card-title">
-        {{lang('users')}}
+            {{lang('users')}}
         </h1>
         <a class="btn btn-sm btn-info" href="{{ route('admin.create_user') }}">{{lang('create')}}</a>
     </div>
     <div class="card-body">
         <table class="table tablesorter">
             <thead>
-                <th>ID</th>
-                <th>{{__('front.fio')}}</th>
-                <th>{{__('front.funds')}}</th>
-                <th>{{__('front.role')}}</th>
-                <th>{{__('front.phone')}}</th>
-                <th>{{__('front.inn')}}</th>
-                <th>{{__('front.status')}}</th>
-                <th>{{__('custom.show')}}</th>
+                <th>{{lang('id')}}</th>
+                <th>{{lang('fio')}}</th>
+                <th>{{lang('fund')}}</th>
+                <th>{{lang('role')}}</th>
+                <th>{{lang('phone')}}</th>
+                <th>{{lang('inn')}}</th>
+                <th>{{lang('conclusions')}}</th>
+                <th>{{lang('status')}}</th>
+                <th>{{lang('show')}}</th>
             </thead>
             </tbody>
             @foreach ($users as $user)
-                <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->fullname }}</td>
-                    <td>{{ $user->funds }}</td>
-                    <td>{{ lang($user->group->name) }}</td>
-                    <td>{{ $user->phone }}</td>
-                    <td>{{ $user->inn }}</td>
-                    <td>
-                        <a href="{{ route('admin.user_conclusions', [$user->group->name, $user->id]) }}">Показать заключении</a></td>
-                    <td>{{ __("front.".$user->status) }}</td>
-                    <td>
-                        <a href="{{ route('admin.view_user', $user->id) }}">
-                          {{lang('show')}}
-                        </a>
-                    </td>
-                </tr>
+            <tr>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->fullname }}</td>
+                <td>{{ $user->funds }}</td>
+                <td>{{ lang($user->group->name) }}</td>
+                <td>{{ $user->phone }}</td>
+                <td>{{ $user->inn }}</td>
+                <td>
+                    <a href="{{ route('admin.user_conclusions', [$user->group->name, $user->id]) }}">{{lang('showConclusion')}}</a></td>
+                <td>{{ lang($user->status) }}</td>
+                <td>
+                    <a href="{{ route('admin.view_user', $user->id) }}">
+                        {{lang('show')}}
+                    </a>
+                </td>
+            </tr>
             @endforeach
             </tbody>
         </table>
+        {{ $users->links() }}
     </div>
 </div>

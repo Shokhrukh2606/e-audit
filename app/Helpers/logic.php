@@ -561,6 +561,16 @@ function lang($word){
 			'uz'=>'ҲОЛАТИ',
 			'ru'=>'СТАТУС'
 		],
+		'active'=>[
+			'oz'=>"Faol",
+			'uz'=>'Фаол',
+			'ru'=>'Активный'
+		],
+		'inactive'=>[
+			'oz'=>"Nofaol",
+			'uz'=>'Нофаол',
+			'ru'=>'Неактивный'
+		],
 		'cust_comp_activity'=>[
 			'oz'=>"Korxona holati",
 			'uz'=>'Корхона ҳолати',
@@ -816,6 +826,11 @@ function lang($word){
 			'uz'=>'Сақлаш',
 			'ru'=>'Сохранить'
 		],
+		'select'=>[
+			'oz'=>"Tanlang",
+			'uz'=>'Танланг',
+			'ru'=>'Выбрать'
+		],
 		'selectTemplate'=>[
 			'oz'=>"Iltimos, Shablonni tanlang",
 			'uz'=>'Илтимос, Шаблонни танланг',
@@ -841,6 +856,11 @@ function lang($word){
 			'uz'=>'Кредит',
 			'ru'=>'Кредит'
 		],
+		'editProfile'=>[
+			'oz'=>"Profilni tahrirlash",
+			'uz'=>'Профилни таҳрирлаш',
+			'ru'=>'Редактировать профиль'
+		],
 		"moliyaviy hisobot bo'yicha fikr"=>[
 			'oz'=>"Moliyaviy hisobot bo'yicha fikr",
 			'uz'=>'Молиявий ҳисобот бўйича фикр',
@@ -850,6 +870,11 @@ function lang($word){
 			'oz'=>"Davom etish",
 			'uz'=>'Давом этиш',
 			'ru'=>'Продолжать'
+		],
+		'mail'=>[
+			'oz'=>"Elektron pochta manzili",
+			'uz'=>'Электрон почта манзили',
+			'ru'=>'Адрес электронной почты'
 		],
 		'uz'=>[
 			'oz'=>"O'zbek",
@@ -936,6 +961,37 @@ function lang($word){
 			'uz'=>'Танлаш',
 			'ru'=>'Выбрать'
 		],		
+		'long_term_liabilities'=>[
+			'oz'=>'Uzoq muddatli majburiyatlar',
+			'uz'=>'Узоқ муддатли мажбуриятлар',
+			'ru'=>'Долгосрочные обязательства'
+		],
+		'current_actives'=>[
+			'oz'=>'Joriy (aylanma) aktivlar',
+			'uz'=>'Жорий (айланма) активлар',
+			'ru'=>'Текущие (оборотные) активы'
+		],
+		'current_obligation'=>[
+			'oz'=>'Majburiyatlar',
+			'uz'=>'Мажбуриятлар',
+			'ru'=>'Обязательства'
+		],
+		'long_term_actives'=>[
+			'oz'=>'Uzoq muddatli aktivlar',
+			'uz'=>'Узоқ муддатли активлар',
+			'ru'=>'Долгосрочные активы'
+		],
+		'sources_of_own_funds'=>[
+			'oz'=>'O\'z mablag\'lari manbalari',
+			'uz'=>'Ўз маблағлари манбалари',
+			'ru'=>'Источники собственных средств'
+		],
+		'long_term_loans'=>[
+			'oz'=>'Uzoq muddatli kreditlar va kreditlar',
+			'uz'=>'Узоқ муддатли кредитлар ва кредитлар',
+			'ru'=>'Долгосрочные займы и кредиты'
+		]
+
 	];
-	return $words[$word][config('global.lang')];
+	return $words[$word][config('global.lang')]??$word;
 }

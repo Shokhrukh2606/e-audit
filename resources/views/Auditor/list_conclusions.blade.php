@@ -38,5 +38,6 @@
                 @endforeach
             </tbody>
         </table>
+        {{$conclusions->links()}}
     </div>
 </div>

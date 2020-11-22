@@ -1,33 +1,39 @@
-{{-- <form action="{{ route('admin.conclusions') }}" class="row mb-3" id="filterer">
+<form action="{{ route('admin.user_conclusions', ['agent', request()->id]) }}" class="row mb-3" id="filterer">
     &nbsp;
     <div class="col">
-        <label>{{ lang('customer') }}</label>
-        <input class="form-control" type="text" value="{{ request()->input('filter.customer_id') }}"
-            name="filter[customer_id]">
+        <label>{{ lang('inn') }}</label>
+        <input class="form-control" type="text" value="{{ request()->input('filter.cust_comp_inn') }}"
+            name="filter[cust_comp_inn]">
     </div>
     <div class="col">
-        <label>{{ lang('auditor') }}</label>
-        <input class="form-control" type="text" value="{{ request()->input('filter.auditor_id') }}"
-            name="filter[auditor_id]">
-    </div>
-    <div class="col">
-        <label>{{ lang('agent') }}</label>
-        <select class="form-control" name="filter[agent_id]" id='selUser' value="{{ request()->input('filter.agent_id') }}" style='width: 200px;'>
-            <option value='0'>Select User</option> 
-            @foreach ($auditors as $auditor)
-                <option value="{{$auditor->id}}">
-                    {{ getUserName($auditor->id) }}
-                </option>
-            @endforeach
+        <label>{{ lang('status') }}</label>
+        <select name="filter[status]" id="" class="form-control">
+            <option value="">{{ lang('select') }}</option>
+            <option {{ request()->input('filter.status') ==1 ? 'selected' : '' }} value="1">Initiated</option>
+            <option {{ request()->input('filter.status') ==2 ? 'selected' : '' }} value="2">Sent to admin</option>
+            <option {{ request()->input('filter.status') ==3 ? 'selected' : '' }} value="3">Finished</option>
+            <option {{ request()->input('filter.status') ==4 ? 'selected' : '' }} value="4">Rejected</option>
         </select>
     </div>
     <div class="col">
         <label>{{ lang('standartNumber') }}</label>
+        <select name="filter[template_id]" id="" class="form-control">
+            <option value="">{{ lang('select') }}</option>
+            @foreach ($templates as $template)
+                <option {{ request()->input('filter.template_id') == $template->id ? 'selected' : '' }}
+                    value="{{ $template->id }}">
+                    {{ $template->standart_num }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+    {{-- <div class="col">
+        <label>{{ lang('standartNumber') }}</label>
         <input class="form-control" type="text" value="{{ request()->input('filter.template_id') }}"
             name="filter[template_id]">
-    </div>
+    </div> --}}
     <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{ __('front.search') }}</button>
-</form> --}}
+</form>
 <div class="card">
     <div class="card-header">
         <h1 class="card-title">{{ lang('conclusions') }}</h1>
@@ -36,8 +42,9 @@
         <table class="table tablesorter">
             <thead>
                 <th>{{ lang('id') }}</th>
-                <th>{{ lang('auditor') }}</th>
                 <th>{{ lang('agent') }}</th>
+                <th>{{ lang('auditor') }}</th>
+                <th>{{ lang('inn') }}</th>
                 <th>{{ lang('standartNumber') }}</th>
                 <th>{{ lang('show') }}</th>
             </thead>
@@ -51,19 +58,28 @@
                         <td>
                             {{ getUserName($conclusion->agent_id) }}
                         </td>
-                        <td>{{ $conclusion->template_id }}</td>
-                        <td><a href="{{ route('admin.conclusion', $conclusion->conclusion_id) }}">{{ lang('show') }}</a></td>
+                        <td>{{ $conclusion->cust_comp_inn }}</td>
+                        <td>
+                            <span class="badge badge-danger">
+                                {{ $states[$conclusion->status] }}
+                            </span>
+                        </td>
+                        <td>{{ $conclusion->standart_num }}</td>
+                        <td><a href="{{ route('admin.conclusion', $conclusion->conclusion_id) }}">{{ lang('show') }}</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        {{ $conclusions->links() }}
     </div>
 </div>
 {{-- <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         // Initialize select2
         $("#selUser").select2();
     });
+
 </script> --}}
 {{-- @foreach ($conclusions as $conclusion)
     <tr>

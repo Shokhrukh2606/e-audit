@@ -122,6 +122,31 @@
 					<label>{{lang('basicConclusions')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
 				</div>
+				<div>
+					<label>{{lang('current_actives')}}</label>
+					<input class="form-control" type="text" name="conclusion[current_actives]">
+				</div>
+				<div>
+					<label>{{lang('current_obligation')}}</label>
+					<input class="form-control" type="text" name="conclusion[current_obligation]">
+				</div>
+				<div>
+					<label>{{lang('long_term_liabilities')}}</label>
+					<input class="form-control" type="text" name="conclusion[long_term_liabilities]">
+				</div>
+				<div>
+					<label>{{lang('long_term_actives')}}</label>
+					<input class="form-control" type="text" name="conclusion[long_term_actives]">
+				</div>
+				<div>
+					<label>{{lang('sources_of_own_funds')}}</label>
+					<input class="form-control" type="text" name="conclusion[sources_of_own_funds]">
+				</div>
+				<div>
+					<label>{{lang('long_term_loans')}}</label>
+					<input class="form-control" type="text" name="conclusion[long_term_loans]">
+				</div>
+				
 				<!-- <button class="btn btn-sm btn-success">Save</button> -->
 			</form>
 		</div>

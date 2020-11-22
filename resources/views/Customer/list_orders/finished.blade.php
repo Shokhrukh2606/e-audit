@@ -84,6 +84,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{$orders->links()}}
     </div>
 </div>
 <div class="modal fade modal-black" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

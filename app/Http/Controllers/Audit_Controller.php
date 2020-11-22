@@ -81,11 +81,11 @@ class Audit_Controller extends Controller
         }
     }
     public function conclusions(){
-        $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->get();
+        $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->paginate(20);
         return $this->view("list_conclusions", $data);
     }
     public function orders(){
-        $data['orders']=Order::where('auditor_id', auth()->user()->id)->get();
+        $data['orders']=Order::where('auditor_id', auth()->user()->id)->paginate(20);
         return $this->view("list_orders", $data);
     }
     public function pdf(Request $req){

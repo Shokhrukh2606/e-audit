@@ -25,12 +25,14 @@
         font-size: 10px;
         font-weight: 600;
     }
-    select option {
+
+    /* select option {
       color: #000!important;
     }
     .select2-container--default .select2-results__option--selectable{
         color: #000!important;
-    }
+    } */
+
 </style>
 
 <body class="">
@@ -132,6 +134,23 @@
             </script>
             <!-- End Navbar -->
             <div class="content">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                        @php
+                        Session::forget('message');
+                        @endphp
+                    </div>
+                @endif
                 @yield('content')
             </div>
             <footer class="footer">
@@ -351,7 +370,7 @@
 
         // Initialize select2
         $(".filters").select2();
-        $("select").on("change", function(){
+        $("select").on("change", function() {
             $(this).parents('form:first').submit()
         })
         // Read selected option

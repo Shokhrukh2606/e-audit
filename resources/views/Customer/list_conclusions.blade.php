@@ -53,6 +53,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{$orders->links()}}
     </div>
 </div>
->>>>>>> 50df46c5de8057cef87865909221f3c399c3f4b4
+

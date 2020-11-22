@@ -3,7 +3,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('payment/styles.css') }}">
 <div class="container">
-
     <div class="bill mb-30">
         <div class="title center mb-30">
             <h3 class="bold mb-5">СЧЕТ НА ЗАКЛЮЧЕНИЕ № {{ $invoice->conclusion->id }} от
@@ -187,7 +186,6 @@
     @else
         <h3>Already paid</h3>
     @endif
-
 </div>
 <script>
 	var formGenerator=document.getElementById("generator")
