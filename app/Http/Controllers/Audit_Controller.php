@@ -16,10 +16,21 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Audit_Controller extends Controller
 {
+    private conclusion_validation_rules=[
+        'A1'=>'required | numeric',
+        'A2'=>'required | numeric',
+        'P2'=>'required | numeric',
+        'DO'=>'required | numeric',
+        'P1'=>'required | numeric',
+        'DEK2'=>'required | numeric',
+        'PUDN'=>'required | numeric',
+        'P'=>'required | numeric'
+    ];
     function __construct()
     {
     	$this->middleware('multi_auth:auditor');
     }
+
     private function view($file, $data=[]){
         $data['title']='e-audit auditor';
         $data['body']='Auditor.'.$file;
@@ -40,6 +51,9 @@ class Audit_Controller extends Controller
             return $this->select_temp();
             break;
             case 'POST':
+                $req->validate([
+                    ...$this->conclusion_validation_rules
+                ]);
                 $all=$req->all();
                 $conclusion_fields=$req->input('conclusion');
                 $cust_info_fields=$req->input('cust_info');
@@ -108,18 +122,21 @@ class Audit_Controller extends Controller
             return abort(404);
             break;
             case 'POST':
-            $all=$req->all();
-            $conclusion_fields=$req->input('conclusion');
-            $conclusion=new Conclusion();
-            $conclusion->auditor_id=auth()->user()->id;
-            foreach ($conclusion_fields??[] as $key => $value) {
-                $conclusion->$key=$value;
-            }
-            $conclusion->save();
-            $CCI=Cust_comp_info::where('id', $req->id)->first();
-            $CCI->conclusion_id=$conclusion->id;
-            $CCI->save();
-            return redirect()->route('auditor.conclusions');
+                $req->validate([
+                    ...$this->conclusion_validation_rules
+                ]);
+                $all=$req->all();
+                $conclusion_fields=$req->input('conclusion');
+                $conclusion=new Conclusion();
+                $conclusion->auditor_id=auth()->user()->id;
+                foreach ($conclusion_fields??[] as $key => $value) {
+                    $conclusion->$key=$value;
+                }
+                $conclusion->save();
+                $CCI=Cust_comp_info::where('id', $req->id)->first();
+                $CCI->conclusion_id=$conclusion->id;
+                $CCI->save();
+                return redirect()->route('auditor.conclusions');
             break;
             default:
                 # code...

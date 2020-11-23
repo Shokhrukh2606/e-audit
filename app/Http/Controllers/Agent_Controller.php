@@ -17,6 +17,16 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Agent_Controller extends Controller
 {
+    private conclusion_validation_rules=[
+        'A1'=>'required | numeric',
+        'A2'=>'required | numeric',
+        'P2'=>'required | numeric',
+        'DO'=>'required | numeric',
+        'P1'=>'required | numeric',
+        'DEK2'=>'required | numeric',
+        'PUDN'=>'required | numeric',
+        'P'=>'required | numeric'
+    ];
     function __construct()
     {
         $this->middleware('multi_auth:agent');
@@ -49,6 +59,9 @@ class Agent_Controller extends Controller
                 return $this->select_temp();
                 break;
             case 'POST':
+                $req->validate([
+                    ...$this->conclusion_validation_rules
+                ]);
                 $all = $req->all();
                 $conclusion_fields = $req->input('conclusion');
                 $cust_info_fields = $req->input('cust_info');

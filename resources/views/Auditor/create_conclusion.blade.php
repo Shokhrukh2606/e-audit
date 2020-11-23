@@ -164,7 +164,7 @@
 					@endphp
 					@foreach(custom_fields($template_id) as $field)
 					@php
-					$div= $dom->createElement("div");
+					$div = $dom->createElement("div");
 					$class = $dom->createAttribute('class');
 					$class->value = 'custom-file';
 					$div->appendChild($class);

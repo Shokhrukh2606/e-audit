@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Cust_comp_info;
 use App\Models\Invoice;
 
+
 class Conclusion extends Model
 {
   protected $table = "conclusions";
@@ -70,13 +71,47 @@ class Conclusion extends Model
       $model->qr_hash = md5(uniqid($model->id, true));
     });
   }
-  public function getFcoefficientAttribute(){
-    $c=$this->current_actives/($this->current_obligation-$this->long_term_liabilities);
-    return round($c, 2);
+  /**
+   * @return array
+   */
+  public function kps(){
+    if($this->P2==$this->DO)
+        return [
+          'error'=>-1,
+          'value'=>'Zero devision'
+        ];
+    return [
+          'error'=>0,
+          'value'=>$this->A2/($this->P2-$this->DO)
+        ];
   }
-  public function getScoefficientAttribute()
-  {
-    $c=(($this->sources_of_own_funds+$this->long_term_loans)-$this->long_term_actives) / $this->current_actives;
-    return round($c, 2);
+  /**
+  * @return array
+  */
+  public function koses(){
+    if($this->P1+$this->DEK2==$this->A1 || $this->A2==0)
+        return [
+          'error'=>-1,
+          'value'=>'Zero Division'
+        ];
+    return [
+          'error'=>0,
+          'value'=>(($this->P1+$this->Dek2)-$this->A1)/$this->A2;
+        ];
   }
+  /**
+  * @return array
+  */
+  public function kpp(){
+    if($this->P==0)
+        return [
+          'error'=>-1,
+          'value'=>'Zero Division'
+        ];
+    return [
+          'error'=>0,
+          'value'=>$this->PUDN/$this->P
+        ];
+  }
+
 }
