@@ -146,21 +146,60 @@
 					<label>{{lang('long_term_liabilities')}}</label>
 					<input class="form-control" type="number" name="D0" onkeyup="kps()">
 				</div>
-				<div class="result" style="border-radius: 0.4285rem;padding: 0.5rem 0.7rem;">
-					Result
+				<div class="result-wrapper">
+					<span>коэффициент платежеспособности:</span>
+					<div class="result" id='kps-result'>
+						Result
+					</div>
 				</div>
-				<div>
-					<label>{{lang('long_term_actives')}}</label>
-					<input class="form-control" type="text" name="conclusion[long_term_actives]">
+				<div class="osos">
+					<label>P1</label>
+					<!-- <label>{{lang('long_term_actives')}}</label> -->
+					<input class="form-control" type="number" name="P1" onkeyup="osos()">
 				</div>
-				<div>
+				<div class="osos">
+					<label>Dek2</label>
+					<!-- <label>{{lang('sources_of_own_funds')}}</label> -->
+					<input class="form-control" type="number" name="DEK2" onkeyup="osos()">
+				</div>
+				<div class="osos">
+					<label>A1</label>
+					<!-- <label>{{lang('long_term_loans')}}</label> -->
+					<input class="form-control" type="number" name="A1" onkeyup="osos()">
+				</div>
+				<div class="osos">
+					<label>A2</label>
+					<!-- <label>{{lang('long_term_actives')}}</label> -->
+					<input class="form-control" type="number" name="A2" onkeyup="osos()">
+				</div>
+				<div class="result-wrapper">
+					<span>Коэффициент обеспеченности собственными оборотными средсвами:</span>
+					<div class="result" id='osos-result'>
+						Result
+					</div>
+				</div>
+				<div class="kpp">
+					<label>pudn</label>
+					<input class="form-control" type="number" name="PUDN" onkeyup="kpp()">
+				</div>
+				<div class="kpp">
+					<label>p</label>
+					<input class="form-control" type="number" name="P" onkeyup="kpp()">
+				</div>
+				<div class="result-wrapper">
+					<span>Крр:</span>
+					<div class="result" id='kpp-result'>
+						Result
+					</div>
+				</div>
+				<!-- <div>
 					<label>{{lang('sources_of_own_funds')}}</label>
 					<input class="form-control" type="text" name="conclusion[sources_of_own_funds]">
 				</div>
 				<div>
 					<label>{{lang('long_term_loans')}}</label>
 					<input class="form-control" type="text" name="conclusion[long_term_loans]">
-				</div>
+				</div> -->
 				<div class="files">
 					@php
 					$dom = new DOMDocument('1.0');
