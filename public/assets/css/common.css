@@ -1,6 +1,6 @@
 :root {
   --dark-bg: #1e1e2f;
-  --white-bg:  #f5f6fa;
+  --white-bg: #f5f6fa;
   --dark-text: #1d253b;
 }
 
@@ -16,12 +16,14 @@
   background-color: var(--white-bg);
 } */
 
-select.form-control, select.form-control option {
+select.form-control,
+select.form-control option {
   background-color: var(--dark-bg);
   color: white;
 }
 
-.white-content select.form-control, .white-content select.form-control option {
+.white-content select.form-control,
+.white-content select.form-control option {
   background-color: var(--white-bg);
   color: var(--dark-text);
 }
@@ -30,7 +32,7 @@ input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
   margin-left: 10px;
   background: var(--dark-bg);
-  color:white;
+  color: white;
   border: 1px solid#2b3553;
   border-radius: 0.4285rem;
   padding: 5px 10px;
@@ -51,18 +53,18 @@ input[type="file"]::-webkit-file-upload-button:focus {
   margin-bottom: 10px;
 }
 
-#use_cases div label{
+#use_cases div label {
   margin-bottom: 0;
   margin-left: 5px;
   cursor: pointer;
 }
 
-#use_cases div input{
+#use_cases div input {
   cursor: pointer;
   width: auto;
 }
 
-.file-wrapper div{
+.file-wrapper div {
   margin-bottom: 20px;
 }
 
@@ -73,4 +75,20 @@ input[type="file"]::-webkit-file-upload-button:focus {
 
 .logo {
   height: 150px;
+}
+
+.result-wrapper {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 20px;
+}
+
+.result-wrapper span {
+  margin-bottom: 5px;
+  display: block;
+}
+
+.result-wrapper .result {
+  border: 1px solid #2b3553;
+  border-radius: 0.4285rem;
+  padding: 0.5rem 0.7rem
 }
