@@ -4,8 +4,21 @@
 
 <div class="card">
 	<div class="card-body">
-
-		<form id="regForm" ction="{{route('auditor.create_conclusion')}}" method="POST" enctype="multipart/form-data">
+		@if ($errors->any())
+		<div class="alert alert-danger">
+			<ul style="padding-left: 0;margin-bottom: 0">
+				@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+		@endif
+		<form id="regForm" action="{{route('auditor.create_conclusion')}}" method="POST" enctype="multipart/form-data">
+			@csrf
+			<input type="hidden" name="cust_info[template_id]" value="{{$template_id}}">
+			@foreach($use_cases as $use_case=>$value)
+			<input class="form-control" type="hidden" name="ciucm[{{$use_case}}]" value="{{$use_case}}">
+			@endforeach
 			<!-- One "tab" for each step in the form: -->
 			<div class="tab">
 				<h2>{{lang('conclusion')}}</h2>
@@ -96,6 +109,11 @@
 					<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]">
 				</div>
 				<div class="mb-4">
+					<label>{{lang('cust_comp_registered_by')}}</label>
+					<input class="form-control" type="text" name="cust_info[cust_comp_registered_by]">
+				</div>
+				
+				<div class="mb-4">
 					<label>{{lang('custCompAddress')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_address]">
 				</div>
@@ -132,15 +150,15 @@
 				<h2>{{lang('custInfo')}}</h2>
 				<div class="kps">
 					<label>{{lang('current_actives')}}</label>
-					<input class="form-control" type="number" name="A2" onkeyup="kps()">
+					<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source">
 				</div>
 				<div class="kps">
 					<label>{{lang('current_obligation')}}</label>
-					<input class="form-control" type="number" name="P2" onkeyup="kps()">
+					<input class="form-control" type="number" name="conclusion[P2]" onkeyup="kps()">
 				</div>
 				<div class="kps">
 					<label>{{lang('long_term_liabilities')}}</label>
-					<input class="form-control" type="number" name="D0" onkeyup="kps()">
+					<input class="form-control" type="number" name="conclusion[DO]" onkeyup="kps()">
 				</div>
 				<div class="result-wrapper">
 					<span>коэффициент платежеспособности:</span>
@@ -151,22 +169,22 @@
 				<div class="osos">
 					<label>P1</label>
 					<!-- <label>{{lang('long_term_actives')}}</label> -->
-					<input class="form-control" type="number" name="P1" onkeyup="osos()">
+					<input class="form-control" type="number" name="conclusion[P1]" onkeyup="osos()">
 				</div>
 				<div class="osos">
 					<label>Dek2</label>
 					<!-- <label>{{lang('sources_of_own_funds')}}</label> -->
-					<input class="form-control" type="number" name="DEK2" onkeyup="osos()">
+					<input class="form-control" type="number" name="conclusion[DEK2]" onkeyup="osos()">
 				</div>
 				<div class="osos">
 					<label>A1</label>
 					<!-- <label>{{lang('long_term_loans')}}</label> -->
-					<input class="form-control" type="number" name="A1" onkeyup="osos()">
+					<input class="form-control" type="number" name="conclusion[A1]" onkeyup="osos()">
 				</div>
 				<div class="osos">
 					<label>A2</label>
 					<!-- <label>{{lang('long_term_actives')}}</label> -->
-					<input class="form-control" type="number" name="A2" onkeyup="osos()">
+					<div id="A2"></div>
 				</div>
 				<div class="result-wrapper">
 					<span>Коэффициент обеспеченности собственными оборотными средсвами:</span>
@@ -176,11 +194,11 @@
 				</div>
 				<div class="kpp">
 					<label>pudn</label>
-					<input class="form-control" type="number" name="PUDN" onkeyup="kpp()">
+					<input class="form-control" type="number" name="conclusion[PUDN]" onkeyup="kpp()">
 				</div>
 				<div class="kpp">
 					<label>p</label>
-					<input class="form-control" type="number" name="P" onkeyup="kpp()">
+					<input class="form-control" type="number" name="conclusion[P]" onkeyup="kpp()">
 				</div>
 				<div class="result-wrapper">
 					<span>Крр:</span>
@@ -263,7 +281,7 @@
 </div>
 
 @section('createConclusionJs')
-<script script src="{{asset('assets/js/multistep.js')}}">
+<script script src="{{asset('assets/js/againMultistep.js')}}">
 </script>
 <script>
 	$(document).on('change', '.custom-file-input', function(event) {
