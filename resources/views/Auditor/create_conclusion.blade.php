@@ -16,7 +16,7 @@
 						<option value="ru">{{lang('ru')}}</option>
 					</select>
 				</div>
-				<div class="mb-4">
+				<!-- <div class="mb-4">
 					<label>{{lang('year')}}</label>
 					<input class="form-control" type="number" name="conclusion[year]">
 				</div>
@@ -87,31 +87,7 @@
 				<div class="mb-4">
 					<label>{{lang('basicConclusions')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
-				</div>
-				<div>
-					<label>{{lang('current_actives')}}</label>
-					<input class="form-control" type="text" name="conclusion[current_actives]">
-				</div>
-				<div>
-					<label>{{lang('current_obligation')}}</label>
-					<input class="form-control" type="text" name="conclusion[current_obligation]">
-				</div>
-				<div>
-					<label>{{lang('long_term_liabilities')}}</label>
-					<input class="form-control" type="text" name="conclusion[long_term_liabilities]">
-				</div>
-				<div>
-					<label>{{lang('long_term_actives')}}</label>
-					<input class="form-control" type="text" name="conclusion[long_term_actives]">
-				</div>
-				<div>
-					<label>{{lang('sources_of_own_funds')}}</label>
-					<input class="form-control" type="text" name="conclusion[sources_of_own_funds]">
-				</div>
-				<div>
-					<label>{{lang('long_term_loans')}}</label>
-					<input class="form-control" type="text" name="conclusion[long_term_loans]">
-				</div>
+				</div> -->
 			</div>
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
@@ -119,7 +95,7 @@
 					<label>{{lang('cust_comp_gov_reg_num')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]">
 				</div>
-				<div class="mb-4">
+				<!-- <div class="mb-4">
 					<label>{{lang('userCompGovRegDate')}}</label>
 					<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]">
 				</div>
@@ -154,10 +130,37 @@
 				<div class="mb-4">
 					<label>{{lang('custCompActivity')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_activity]">
-				</div>
+				</div> -->
 			</div>
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
+				<div class="kps">
+					<label>{{lang('current_actives')}}</label>
+					<input class="form-control" type="number" name="A2" onkeyup="kps()">
+				</div>
+				<div class="kps">
+					<label>{{lang('current_obligation')}}</label>
+					<input class="form-control" type="number" name="P2" onkeyup="kps()">
+				</div>
+				<div class="kps">
+					<label>{{lang('long_term_liabilities')}}</label>
+					<input class="form-control" type="number" name="D0" onkeyup="kps()">
+				</div>
+				<div class="result" style="border-radius: 0.4285rem;padding: 0.5rem 0.7rem;">
+					Result
+				</div>
+				<div>
+					<label>{{lang('long_term_actives')}}</label>
+					<input class="form-control" type="text" name="conclusion[long_term_actives]">
+				</div>
+				<div>
+					<label>{{lang('sources_of_own_funds')}}</label>
+					<input class="form-control" type="text" name="conclusion[sources_of_own_funds]">
+				</div>
+				<div>
+					<label>{{lang('long_term_loans')}}</label>
+					<input class="form-control" type="text" name="conclusion[long_term_loans]">
+				</div>
 				<div class="files">
 					@php
 					$dom = new DOMDocument('1.0');
@@ -232,6 +235,7 @@
 		$(this).next('.custom-file-label').html(event.target.files[0].name);
 	})
 </script>
+<script src="{{asset('assets/js/coefficient.js')}}"></script>
 @endsection
 
 <!-- <script>

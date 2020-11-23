@@ -40,7 +40,7 @@
             HA
           </a> -->
           <a href="javascript:void(0)" class="simple-text logo-normal">
-            «HIMOYA-AUDIT» МЧЖ
+            <img src="{{ asset('assets/img/logo-white.png') }}" alt="logo" class="logo">
           </a>
 
         </div>
