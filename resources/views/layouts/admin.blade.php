@@ -48,7 +48,7 @@
           </a> -->
 					<a href="javascript:void(0)" class="simple-text logo-normal">
 						<!-- e-audit -->
-						<img src="{{ asset('assets/img/logo.png') }}" alt="logo" class="logo">
+						<img src="{{ asset('assets/img/logo-white.png') }}" alt="logo" class="logo">
 					</a>
 
 				</div>
