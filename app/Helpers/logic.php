@@ -96,6 +96,21 @@ function getUserLayout($u){
 
 function lang($word){
 	$words=[
+		'year'=>[
+			'oz'=>'Yil',
+			'uz'=>'Йил',
+			'ru'=>'Год'
+		],
+		'quarter_start'=>[
+			'oz'=>'Boshlang\'ich kvartal',
+			'uz'=>'Бошланғич квартал',
+			'ru'=>'Начальный квартал'
+		],
+		'quarter_finish'=>[
+			'oz'=>'Tugallovchi kvartal',
+			'uz'=>'Тугалловчи квартал',
+			'ru'=>'Завершающий квартал'
+		],
 		'reject'=>[
 			'oz'=>'Inkor qilish',
 			'uz'=>'Инкор қилиш',

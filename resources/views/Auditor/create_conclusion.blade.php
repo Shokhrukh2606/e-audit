@@ -16,7 +16,22 @@
 						<option value="ru">{{lang('ru')}}</option>
 					</select>
 				</div>
-
+				<div class="mb-4">
+					<label>{{lang('year')}}</label>
+					<input class="form-control" type="number" name="conclusion[year]">
+				</div>
+				<div class="mb-4">
+					<label>{{lang('quarter_start')}}</label>
+					<input class="form-control" type="text" name="conclusion[quarter_start]">
+				</div>
+				<div class="mb-4">
+					<label>{{lang('quarter_finish')}}</label>
+					<input class="form-control" type="text" name="conclusion[quarter_finish]">
+				</div>
+				<div class="mb-4">
+					<label>{{lang('companyName')}}</label>
+					<input class="form-control" type="text" name="conclusion[audit_comp_name]">
+				</div>
 				<div class="mb-4">
 					<label>{{lang('companyName')}}</label>
 					<input class="form-control" type="text" name="conclusion[audit_comp_name]">
