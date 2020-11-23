@@ -17,7 +17,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Agent_Controller extends Controller
 {
-    private conclusion_validation_rules=[
+    private $conclusion_validation_rules=[
         'A1'=>'required | numeric',
         'A2'=>'required | numeric',
         'P2'=>'required | numeric',

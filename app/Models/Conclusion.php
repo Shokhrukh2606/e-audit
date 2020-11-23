@@ -96,7 +96,7 @@ class Conclusion extends Model
         ];
     return [
           'error'=>0,
-          'value'=>(($this->P1+$this->Dek2)-$this->A1)/$this->A2;
+          'value'=>(($this->P1+$this->Dek2)-$this->A1)/$this->A2
         ];
   }
   /**

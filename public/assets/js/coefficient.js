@@ -16,8 +16,9 @@ function kps() {
   } else if (result < 1.25) {
     kpsResult.style.border = '1px solid red'
     kpsResult.innerHTML = result;
-  }
-  else {
+  }else if(denominator==0){
+    kpsResult.innerHTML = "division_to_zero";
+  }else {
     kpsResult.style.border = '1px solid red'
   }
 }
@@ -42,8 +43,9 @@ function osos() {
   } else if (result < 0.2) {
     ososResult.style.border = '1px solid red'
     ososResult.innerHTML = result;
-  }
-  else {
+  }else if(denominator==0){
+    ososResult.innerHTML = "division_to_zero";
+  }else {
     ososResult.style.border = '1px solid red'
   }
 }
@@ -66,8 +68,9 @@ function kpp() {
   } else if (result < 0.03) {
     kppResult.style.border = '1px solid red'
     kppResult.innerHTML = result;
-  }
-  else {
+  }else if(denominator==0){
+    kppResult.innerHTML = "division_to_zero";
+  } else {
     kppResult.style.border = '1px solid red'
   }
 }
