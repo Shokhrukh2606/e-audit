@@ -9,13 +9,15 @@ function kps() {
   });
   const denominator = kpsParams.P2 - kpsParams.D0;
   const result = Number((kpsParams.A2 / denominator).toFixed(2));
-
+  // console.log(result)
   if (kpsParams.A2 && kpsParams.P2 && kpsParams.D0 && denominator !== 0 && result >= 1.25) {
     kpsResult.style.border = '1px solid #2b3553'
     kpsResult.innerHTML = result;
   } else if (result < 1.25) {
     kpsResult.style.border = '1px solid red'
     kpsResult.innerHTML = result;
+  } else if (denominator === 0) {
+    kpsResult.innerHTML = "denominator should not be zero";
   }
   else {
     kpsResult.style.border = '1px solid red'
@@ -66,6 +68,8 @@ function kpp() {
   } else if (result < 0.03) {
     kppResult.style.border = '1px solid red'
     kppResult.innerHTML = result;
+  } else if (denominator === 0) {
+    kppResult.innerHTML = "denominator should not be zero";
   }
   else {
     kppResult.style.border = '1px solid red'
