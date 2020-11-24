@@ -33,18 +33,18 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             
-            <div>
+            {{-- <div>
                 <x-jet-label for="phone" value="Номер телефона без знака +, например 998978775050" />
                 <x-jet-input id="phone" class="block mt-1 w-full" type="phone" name="phone" required autofocus />
-            </div>
+            </div> --}}
 
-            <!-- <div class="mt-4">
+            <div class="mt-4">
                 <label for="phone">Phone</label>
                 <span class="phone">
                     +
-                    <input id="phone" type="phone" onchange="getValue(this)" name="phone" required autofocus />
+                    <input id="phone" type="phone" name="phone" required autofocus />
                 </span>
-            </div> -->
+            </div>
 
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Пароль') }}" />
@@ -76,15 +76,16 @@
     </x-jet-authentication-card>
 </x-guest-layout>
 
-<!-- <script src="{{asset('assets/js/core/jquery.min.js')}}"></script>
+<script src="{{asset('assets/js/core/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/plugins/jquery.inputmask.min.js')}}"></script>
 <script>
     $("#phone").inputmask({
         "mask": "99999-999-99-99",
-        'autoUnmask': true
+        'autoUnmask': true,
+        "removeMaskOnSubmit":true
     });
 
     function getValue(params) {
         console.log(params.value)
-    }
-</script> -->
+    }   
+</script>
