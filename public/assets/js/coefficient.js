@@ -4,24 +4,33 @@ const kpsResult = document.querySelector('#kps-result');
 
 function kps() {
   kpsInputs.forEach(element => {
-    kpsParams[element.name] = Number(element.value);
-    console.log(kpsParams);
+    kpsParams[element.name.split("[")[1].split("]")[0]] = Number(element.value);
   });
-  const denominator = kpsParams.P2 - kpsParams.D0;
+
+  const denominator = kpsParams.P2 - kpsParams.DO;
+
+  if(denominator===0){
+    kpsResult.innerHTML = "division_to_zero";
+    return 0;
+  }
+
+  if (!kpsParams.A2 || !kpsParams.P2 || !kpsParams.DO){
+    console.log(kpsParams.A2 , !kpsParams.P2 , !kpsParams.DO)
+    kpsResult.innerHTML = "fill_required_fields";
+    return 0;
+  } 
+  
   const result = Number((kpsParams.A2 / denominator).toFixed(2));
-  // console.log(result)
-  if (kpsParams.A2 && kpsParams.P2 && kpsParams.D0 && denominator !== 0 && result >= 1.25) {
-    kpsResult.style.border = '1px solid #2b3553'
+
+  if(result < 1.25){
     kpsResult.innerHTML = result;
-  } else if (result < 1.25) {
     kpsResult.style.border = '1px solid red'
-    kpsResult.innerHTML = result;
-  } else if (denominator === 0) {
-    kpsResult.innerHTML = "denominator should not be zero";
+    return 0;
   }
-  else {
-    kpsResult.style.border = '1px solid red'
-  }
+
+  kpsResult.style.border = '1px solid green'
+  kpsResult.innerHTML = result;
+ 
 }
 
 const ososInputs = document.querySelectorAll('.osos input');
@@ -30,10 +39,9 @@ const ososResult = document.querySelector('#osos-result');
 
 function osos() {
   ososInputs.forEach(element => {
-    ososParams[element.name] = Number(element.value);
-    console.log(ososParams);
+    ososParams[element.name.split("[")[1].split("]")[0]] = Number(element.value);
   });
-  const denominator = ososParams.A2;
+  const denominator = kpsParams.A2;
   const result = Number((((ososParams.P1 + ososParams.DEK2) - ososParams.A1) / denominator).toFixed(2));
 
   console.log(result);
@@ -44,8 +52,9 @@ function osos() {
   } else if (result < 0.2) {
     ososResult.style.border = '1px solid red'
     ososResult.innerHTML = result;
-  }
-  else {
+  }else if(denominator==0){
+    ososResult.innerHTML = "division_to_zero";
+  }else {
     ososResult.style.border = '1px solid red'
   }
 }
@@ -56,7 +65,7 @@ const kppResult = document.querySelector('#kpp-result');
 
 function kpp() {
   kppInputs.forEach(element => {
-    kppParams[element.name] = Number(element.value);
+    kppParams[element.name.split("[")[1].split("]")[0]] = Number(element.value);
     console.log(kppParams);
   });
   const denominator = kppParams.P;
@@ -68,10 +77,14 @@ function kpp() {
   } else if (result < 0.03) {
     kppResult.style.border = '1px solid red'
     kppResult.innerHTML = result;
-  } else if (denominator === 0) {
-    kppResult.innerHTML = "denominator should not be zero";
-  }
-  else {
+  }else if(denominator==0){
+    kppResult.innerHTML = "division_to_zero";
+  } else {
     kppResult.style.border = '1px solid red'
   }
 }
+
+function copy_A2(elem){
+  document.getElementById("A2").innerHTML=elem.value;
+}
+copy_A2(document.getElementById("A2_source"));

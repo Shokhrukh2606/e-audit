@@ -146,7 +146,64 @@
 					<label>{{lang('long_term_loans')}}</label>
 					<input class="form-control" type="text" name="conclusion[long_term_loans]">
 				</div>
-				
+				<div class="kps">
+					<label>{{lang('current_actives')}}</label>
+					<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source">
+				</div>
+				<div class="kps">
+					<label>{{lang('current_obligation')}}</label>
+					<input class="form-control" type="number" name="conclusion[P2]" onkeyup="kps()">
+				</div>
+				<div class="kps">
+					<label>{{lang('long_term_liabilities')}}</label>
+					<input class="form-control" type="number" name="conclusion[DO]" onkeyup="kps()">
+				</div>
+				<div class="result-wrapper">
+					<span>коэффициент платежеспособности:</span>
+					<div class="result" id='kps-result'>
+						Result
+					</div>
+				</div>
+				<div class="osos">
+					<label>P1</label>
+					<!-- <label>{{lang('long_term_actives')}}</label> -->
+					<input class="form-control" type="number" name="conclusion[P1]" onkeyup="osos()">
+				</div>
+				<div class="osos">
+					<label>Dek2</label>
+					<!-- <label>{{lang('sources_of_own_funds')}}</label> -->
+					<input class="form-control" type="number" name="conclusion[DEK2]" onkeyup="osos()">
+				</div>
+				<div class="osos">
+					<label>A1</label>
+					<!-- <label>{{lang('long_term_loans')}}</label> -->
+					<input class="form-control" type="number" name="conclusion[A1]" onkeyup="osos()">
+				</div>
+				<div class="osos">
+					<label>A2</label>
+					<!-- <label>{{lang('long_term_actives')}}</label> -->
+					<div id="A2"></div>
+				</div>
+				<div class="result-wrapper">
+					<span>Коэффициент обеспеченности собственными оборотными средсвами:</span>
+					<div class="result" id='osos-result'>
+						Result
+					</div>
+				</div>
+				<div class="kpp">
+					<label>pudn</label>
+					<input class="form-control" type="number" name="conclusion[PUDN]" onkeyup="kpp()">
+				</div>
+				<div class="kpp">
+					<label>p</label>
+					<input class="form-control" type="number" name="conclusion[P]" onkeyup="kpp()">
+				</div>
+				<div class="result-wrapper">
+					<span>Крр:</span>
+					<div class="result" id='kpp-result'>
+						Result
+					</div>
+				</div>
 				<!-- <button class="btn btn-sm btn-success">Save</button> -->
 			</form>
 		</div>
@@ -172,4 +229,5 @@
 @section('createConcOnOrderJs')
 <script script src="{{asset('assets/js/againMultistep.js')}}">
 </script>
+<script src="{{asset('assets/js/coefficient.js')}}"></script>
 @endsection

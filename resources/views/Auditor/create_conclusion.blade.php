@@ -4,8 +4,21 @@
 
 <div class="card">
 	<div class="card-body">
-
-		<form id="regForm" ction="{{route('auditor.create_conclusion')}}" method="POST" enctype="multipart/form-data">
+		@if ($errors->any())
+		<div class="alert alert-danger">
+			<ul style="padding-left: 0;margin-bottom: 0">
+				@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+		@endif
+		<form id="regForm" action="{{route('auditor.create_conclusion')}}" method="POST" enctype="multipart/form-data">
+			@csrf
+			<input type="hidden" name="cust_info[template_id]" value="{{$template_id}}">
+			@foreach($use_cases as $use_case=>$value)
+			<input class="form-control" type="hidden" name="ciucm[{{$use_case}}]" value="{{$use_case}}">
+			@endforeach
 			<!-- One "tab" for each step in the form: -->
 			<div class="tab">
 				<h2>{{lang('conclusion')}}</h2>
@@ -16,7 +29,7 @@
 						<option value="ru">{{lang('ru')}}</option>
 					</select>
 				</div>
-				<!-- <div class="mb-4">
+				<div class="mb-4">
 					<label>{{lang('year')}}</label>
 					<input class="form-control" type="number" name="conclusion[year]">
 				</div>
@@ -27,10 +40,6 @@
 				<div class="mb-4">
 					<label>{{lang('quarter_finish')}}</label>
 					<input class="form-control" type="text" name="conclusion[quarter_finish]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('companyName')}}</label>
-					<input class="form-control" type="text" name="conclusion[audit_comp_name]">
 				</div>
 				<div class="mb-4">
 					<label>{{lang('companyName')}}</label>
@@ -87,7 +96,7 @@
 				<div class="mb-4">
 					<label>{{lang('basicConclusions')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
-				</div> -->
+				</div> 
 			</div>
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
@@ -95,10 +104,15 @@
 					<label>{{lang('cust_comp_gov_reg_num')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]">
 				</div>
-				<!-- <div class="mb-4">
+				<div class="mb-4">
 					<label>{{lang('userCompGovRegDate')}}</label>
 					<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]">
 				</div>
+				<div class="mb-4">
+					<label>{{lang('cust_comp_registered_by')}}</label>
+					<input class="form-control" type="text" name="cust_info[cust_comp_registered_by]">
+				</div>
+				
 				<div class="mb-4">
 					<label>{{lang('custCompAddress')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_address]">
@@ -130,21 +144,21 @@
 				<div class="mb-4">
 					<label>{{lang('custCompActivity')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_activity]">
-				</div> -->
+				</div>
 			</div>
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
 				<div class="kps">
 					<label>{{lang('current_actives')}}</label>
-					<input class="form-control" type="number" name="A2" onkeyup="kps()">
+					<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source">
 				</div>
 				<div class="kps">
 					<label>{{lang('current_obligation')}}</label>
-					<input class="form-control" type="number" name="P2" onkeyup="kps()">
+					<input class="form-control" type="number" name="conclusion[P2]" onkeyup="kps()">
 				</div>
 				<div class="kps">
 					<label>{{lang('long_term_liabilities')}}</label>
-					<input class="form-control" type="number" name="D0" onkeyup="kps()">
+					<input class="form-control" type="number" name="conclusion[DO]" onkeyup="kps()">
 				</div>
 				<div class="result-wrapper">
 					<span>коэффициент платежеспособности:</span>
@@ -155,22 +169,22 @@
 				<div class="osos">
 					<label>P1</label>
 					<!-- <label>{{lang('long_term_actives')}}</label> -->
-					<input class="form-control" type="number" name="P1" onkeyup="osos()">
+					<input class="form-control" type="number" name="conclusion[P1]" onkeyup="osos()">
 				</div>
 				<div class="osos">
 					<label>Dek2</label>
 					<!-- <label>{{lang('sources_of_own_funds')}}</label> -->
-					<input class="form-control" type="number" name="DEK2" onkeyup="osos()">
+					<input class="form-control" type="number" name="conclusion[DEK2]" onkeyup="osos()">
 				</div>
 				<div class="osos">
 					<label>A1</label>
 					<!-- <label>{{lang('long_term_loans')}}</label> -->
-					<input class="form-control" type="number" name="A1" onkeyup="osos()">
+					<input class="form-control" type="number" name="conclusion[A1]" onkeyup="osos()">
 				</div>
 				<div class="osos">
 					<label>A2</label>
 					<!-- <label>{{lang('long_term_actives')}}</label> -->
-					<input class="form-control" type="number" name="A2" onkeyup="osos()">
+					<div id="A2"></div>
 				</div>
 				<div class="result-wrapper">
 					<span>Коэффициент обеспеченности собственными оборотными средсвами:</span>
@@ -180,11 +194,11 @@
 				</div>
 				<div class="kpp">
 					<label>pudn</label>
-					<input class="form-control" type="number" name="PUDN" onkeyup="kpp()">
+					<input class="form-control" type="number" name="conclusion[PUDN]" onkeyup="kpp()">
 				</div>
 				<div class="kpp">
 					<label>p</label>
-					<input class="form-control" type="number" name="P" onkeyup="kpp()">
+					<input class="form-control" type="number" name="conclusion[P]" onkeyup="kpp()">
 				</div>
 				<div class="result-wrapper">
 					<span>Крр:</span>
@@ -206,7 +220,7 @@
 					@endphp
 					@foreach(custom_fields($template_id) as $field)
 					@php
-					$div= $dom->createElement("div");
+					$div = $dom->createElement("div");
 					$class = $dom->createAttribute('class');
 					$class->value = 'custom-file';
 					$div->appendChild($class);
@@ -267,7 +281,7 @@
 </div>
 
 @section('createConclusionJs')
-<script script src="{{asset('assets/js/multistep.js')}}">
+<script script src="{{asset('assets/js/againMultistep.js')}}">
 </script>
 <script>
 	$(document).on('change', '.custom-file-input', function(event) {
@@ -276,83 +290,3 @@
 </script>
 <script src="{{asset('assets/js/coefficient.js')}}"></script>
 @endsection
-
-<!-- <script>
-	var currentTab = 0; // Current tab is set to be the first tab (0)
-	showTab(currentTab); // Display the current tab
-
-	function showTab(n) {
-		// console.log(document.getElementsByClassName("btn-finish"))
-		// This function will display the specified tab of the form...
-		var x = document.getElementsByClassName("tab");
-		x[n].style.display = "block";
-		//... and fix the Previous/Next buttons:
-		document.getElementsByClassName("btn-finish")[0].style.display = "none";
-		document.getElementsByClassName("btn-finish")[1].style.display = "none";
-		if (n == 0) {
-			document.getElementById("prevBtn").style.display = "none";
-		} else {
-			document.getElementById("prevBtn").style.display = "inline";
-		}
-		if (n == (x.length - 1)) {
-			document.getElementById("nextBtn").style.display = "none";
-			document.getElementsByClassName("btn-finish")[0].style.display = "inline-block";
-			document.getElementsByClassName("btn-finish")[1].style.display = "inline-block";
-		}
-		//... and run a function that will display the correct step indicator:
-		fixStepIndicator(n)
-	}
-
-	function nextPrev(n) {
-		document.querySelector('.main-panel').scrollTo(0, 0);
-		// This function will figure out which tab to display
-		var x = document.getElementsByClassName("tab");
-		// Exit the function if any field in the current tab is invalid:
-		if (n == 1 && !validateForm()) return false;
-		// Hide the current tab:
-		x[currentTab].style.display = "none";
-		// Increase or decrease the current tab by 1:
-		currentTab = currentTab + n;
-		// if you have reached the end of the form...
-		if (currentTab >= x.length) {
-			// ... the form gets submitted:
-
-			// document.getElementById("regForm").submit();
-			return false;
-		}
-		// Otherwise, display the correct tab:
-		showTab(currentTab);
-	}
-
-	function validateForm() {
-		// This function deals with validation of the form fields
-		var x, y, i, valid = true;
-		x = document.getElementsByClassName("tab");
-		y = x[currentTab].getElementsByTagName("input");
-		// A loop that checks every input field in the current tab:
-		for (i = 0; i < y.length; i++) {
-			// If a field is empty...
-			if (y[i].value == "") {
-				// add an "invalid" class to the field:
-				y[i].className += " invalid";
-				// and set the current valid status to false
-				valid = false;
-			}
-		}
-		// If the valid status is true, mark the step as finished and valid:
-		if (valid) {
-			document.getElementsByClassName("step")[currentTab].className += " finish";
-		}
-		return valid; // return the valid status
-	}
-
-	function fixStepIndicator(n) {
-		// This function removes the "active" class of all steps...
-		var i, x = document.getElementsByClassName("step");
-		for (i = 0; i < x.length; i++) {
-			x[i].className = x[i].className.replace(" active", "");
-		}
-		//... and adds the "active" class on the current step:
-		x[n].className += " active";
-	}
-</script> -->
