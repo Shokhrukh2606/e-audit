@@ -166,7 +166,7 @@ class Admin_Controller extends Controller
     {
 
         $query = QueryBuilder::for(User::class)
-            ->allowedFilters(['inn', 'group_id', 'phone', 'name', 'full_name', 'status']);
+            ->allowedFilters(['inn', 'group_id', 'phone', 'name', 'full_name', 'status', 'region', 'district']);
         // if ($came = $request->input("filter.name")) {
         //     $query->where('full_name', 'like', "%${came}");
         // }
