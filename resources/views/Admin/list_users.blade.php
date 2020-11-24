@@ -1,3 +1,18 @@
+<script>
+    function changeDistrict(item){
+        var d = document.getElementById("region").value;
+        var old=document.querySelectorAll('[data-parent]');
+        var index = 0, length = old.length;
+        for ( ; index < length; index++) {
+            old[index].style.display="none"
+        }
+        var needed=document.querySelectorAll('[data-parent="'+d+'"]');
+        var index = 0, length = needed.length;
+        for ( ; index < length; index++) {
+            needed[index].style.display="block"
+        }
+    }
+</script>
 <form action="{{route('admin.list_users')}}" class="row mb-3" id="filterer">
     &nbsp;
     <div class="col">
@@ -33,6 +48,28 @@
             <option {{ request()->input('filter.status') == 'inactive' ? 'selected' : '' }} value="inactive">
                 {{lang('inactive')}}
             </option>
+        </select>
+    </div>
+    <div class="col">
+        <label>{{lang('city')}}</label>
+        <select class="form-control" id="region" name="filter[region]" onchange="changeDistrict(this);">
+            <option value="">{{lang('select')}}</option>
+            @foreach (getRegions() as $item)
+                <option {{ request()->input('filter.region') == $item['id'] ? 'selected' : '' }} value="{{$item['id']}}">
+                    {{json_decode($item['title'], true)[config('global.lang')]}}
+                </option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col">
+        <label>{{lang('district')}}</label>
+        <select class="form-control" name="filter[district]">
+            <option value="">{{lang('select')}}</option>
+            @foreach (getDistricts() as $item)
+                <option {{ request()->input('filter.district') == $item['id'] ? 'selected' : '' }} data-parent="{{$item['city_id']}}" value="{{$item['id']}}" style="display:none;">
+                    {{json_decode($item['title'], true)[config('global.lang')]}}
+                </option>
+            @endforeach
         </select>
     </div>
     <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{lang('search')}}</button>
@@ -82,3 +119,12 @@
         {{ $users->links() }}
     </div>
 </div>
+{{-- @section('additional_js')
+<script>
+    $(".filters").select2();
+		$("select").on("change", function() {
+			$(this).parents('form:first').submit()
+		})
+</script>
+    
+@endsection --}}

@@ -369,10 +369,7 @@
 	$(document).ready(function() {
 
 		// Initialize select2
-		$(".filters").select2();
-		$("select").on("change", function() {
-			$(this).parents('form:first').submit()
-		})
+		
 		// Read selected option
 	});
 </script>
