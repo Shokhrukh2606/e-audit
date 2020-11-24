@@ -68,6 +68,7 @@ class RegisterController extends Controller
         $customer->password=Hash::make($req->input('password'));
        
     	$customer->save();
+        session(['message'=>'Вы успешно зарегистрировались, пожалуйста, введите свой номер телефона и пароль для входа в систему']);
         return redirect()->route('login');
     }
     public function reg_agent(Request $req){

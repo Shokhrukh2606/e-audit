@@ -1411,6 +1411,11 @@ function getUserLayout($u)
 function lang($word)
 {
 	$words = [
+		'region' => [
+			'oz' => 'Viloyat',
+			'uz' => 'Вилоят',
+			'ru' => 'Область'
+		],
 		'year' => [
 			'oz' => 'Yil',
 			'uz' => 'Йил',
@@ -1735,6 +1740,11 @@ function lang($word)
 			'oz' => "Sertifikat raqami",
 			'uz' => 'Сертификат рақами',
 			'ru' => 'Номер сертификата'
+		],
+		'sertificateSerie' => [
+			'oz' => "Sertifikat seriyasi",
+			'uz' => 'Сертификат серияси',
+			'ru' => 'Серия сертификата'
 		],
 		'city' => [
 			'oz' => "Shaxar",
