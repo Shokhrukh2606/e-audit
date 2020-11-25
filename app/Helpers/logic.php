@@ -1931,6 +1931,16 @@ function lang($word)
 			'uz' => 'Нофаол',
 			'ru' => 'Неактивный'
 		],
+		'userAgrement' => [
+			'oz' => "Sistemadan foydalanish shartlari",
+			'uz' => 'Системадан фойдаланиш шартлари',
+			'ru' => 'Условия использования политика конфиденциальности'
+		],
+		'enterCode' => [
+			'oz' => "Iltimos, tasdiqlash kodini kiriting",
+			'uz' => 'Илтимос, тасдиқлаш кодини киритинг',
+			'ru' => 'Пожалуйста, введите проверочный код'
+		],
 		'cust_comp_activity' => [
 			'oz' => "Korxona holati",
 			'uz' => 'Корхона ҳолати',

@@ -64,7 +64,7 @@ class RegisterController extends Controller
                 continue;
     	}
     	$customer->group_id=4;
-        $customer->phone="998".$req->input('phone');
+        $customer->phone=$req->input('phone');
         $customer->password=Hash::make($req->input('password'));
        
     	$customer->save();

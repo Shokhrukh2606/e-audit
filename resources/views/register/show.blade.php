@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="{{lang('htmlLang')}}">
 
 <head>
   <meta charset="UTF-8">
@@ -7,18 +7,6 @@
   <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
   <link href="{{asset('assets/css/register.css')}}" rel="stylesheet" />
   <title>Register</title>
-  <style>
-    .eye {
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      cursor: pointer;
-    }
-
-    .eye img {
-      width: 20px;
-    }
-  </style>
 </head>
 
 <body>
@@ -78,7 +66,7 @@
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <h3 class="register-heading">{{lang('asUser')}}</h3>
-                <form method="POST" action="{{ route('reg_cust') }}" onsubmit="fixValue()">
+                <form method="POST" action="{{ route('reg_cust') }}" onsubmit="fixValue(event)">
                   @csrf
                   <div class="row register-form client">
                     <div class="col-md-6">
@@ -111,7 +99,7 @@
                           <label for="phone">{{ lang('phoneNumber') }}</label> <br>
                           <span class="phone">
                             <span id="defaultNumber">+998</span>
-                            <input id="phone" type="phone" required autofocus title='{{ lang('phoneNumber') }}'/>
+                            <input id="phone" type="phone" required title='{{ lang('phoneNumber') }}'/>
                           </span>
                         </div>
                       </div>
@@ -127,7 +115,7 @@
                       </div>
                       <button type="submit" class="btnRegister">{{lang('register')}}</button> -->
                       <div class="form-group ver_area" style="display: none;">
-                        <input type="text" placeholder="Please enter verification code" class="form-control" onkeyup="test_code(this)">
+                        <input type="text" placeholder="{{lang('enterCode')}}" class="form-control" onkeyup="test_code(this)">
                       </div>
                       <!-- <input type="submit" class="btnRegister" value="Register" /> -->
 
@@ -229,19 +217,19 @@
                       </div>
 
                       <div class="form-group">
+                        <a href="{{route('conditions')}}" target="blank" class="user-agrement">
+                          {{lang('userAgrement')}}
+                        </a>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="gridCheck">
                           <label class="form-check-label" for="gridCheck">
                             {{lang('agree')}}
                           </label>
-                          <a href="{{route('conditions')}}" target="blank">
-                            Условия использования политика конфиденциальности
-                          </a>
                         </div>
                       </div>
 
                       <div class="form-group ver_area" style="display: none;">
-                        <input type="text" placeholder="Please enter verification code" class="form-control" onkeyup="test_code(this)">
+                        <input type="text" placeholder="{{lang('enterCode')}}" class="form-control" onkeyup="test_code(this)">
                       </div>
                       <button type="button" class="btnRegister" onclick="send_verification()">
                         {{lang('register')}}
@@ -297,13 +285,15 @@
     });
     var newPhone;
 
-    function fixValue() {
+    function fixValue(event) {
       if (newPhone)
         newPhone.parentNode.removeChild(newPhone);
+      // event.preventDefault();
       var phone = document.getElementById('phone');
       newPhone = phone.cloneNode(true);
       newPhone.type = 'hidden';
       newPhone.value = '998' + newPhone.value.split("-").join("");
+      // console.log(newPhone.value);
       newPhone.name = "phone";
       phone.parentNode.appendChild(newPhone);
     }
@@ -333,6 +323,8 @@
       phone = "998" + phone_input.value;
       // console.log(phone);
       // phone = phone_input.value;
+      console.log(phone);
+      
       let url = verification_url + "?phone=" + encodeURIComponent(phone);
 
       $.get(url, function(data) {
