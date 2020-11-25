@@ -39,7 +39,7 @@
       @endphp
     </div>
     @endif
-    <div class="register">
+    <div class="register" onclick="close_langs()">
       <div class="container">
         <div class="row">
           <div class="col-md-3 register-left">
@@ -49,14 +49,49 @@
             <a href="{{route("login")}}">{{lang('login')}}</a><br />
           </div>
           <div class="col-md-9 register-right">
-            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{lang('user')}}</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">{{lang('agent')}}</a>
-              </li>
-            </ul>
+          	<div class="parent">
+	          	<div class="lang">
+	          		<span onclick="langs(event)">
+	          			{{ config('global.all_langs')[config('global.lang')] }}
+	          		</span>
+	          		<ul id="langs-drop">
+	          			@foreach(config('global.all_langs') as $key=>$lang)
+	          				@continue($key==config('global.lang'))
+	          				<li onclick="change_lang(event, '{{$key}}')">
+	          					{{$lang}}
+	          				</li>
+	          			@endforeach
+	          		</ul>
+	          	</div>
+	          	<script>
+	          		const langs_drop=document.getElementById("langs-drop");
+	          		function langs(e){
+	          			e.stopPropagation();
+	          			langs_drop.style.display="block";
+	          		}
+	          		function close_langs(){
+	          			langs_drop.style.display="none";
+	          		}
+	          		function change_lang(e,lang){
+	          			e.stopPropagation();
+	          			const base="{{url('/')}}";
+	          			const current="{{url()->current()}}";
+	          			var managed=current.split(base)[1].split('/');
+	          			console.log(managed);
+	          			managed[1]=lang;
+	          			const new_url=base+managed.join('/');
+	          			window.location.href=new_url;
+	          		}
+	          	</script>
+	            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+	              <li class="nav-item">
+	                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{lang('user')}}</a>
+	              </li>
+	              <li class="nav-item">
+	                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">{{lang('agent')}}</a>
+	              </li>
+	            </ul>
+            </div>
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <h3 class="register-heading">{{lang('asUser')}}</h3>
