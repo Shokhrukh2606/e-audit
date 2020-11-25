@@ -15,6 +15,10 @@
   margin-top: 10%;
 }
 
+.register .register-form.client {
+  margin-top: 5%;
+}
+
 @media (max-width: 991px) {
   .register .register-form {
     margin-top: 16%;
@@ -67,7 +71,8 @@
 .register-left {
   text-align: center;
   color: #fff;
-  margin-top: 4%;
+  display: flex;
+  align-items: center;
 }
 
 .register-left a {
@@ -140,7 +145,7 @@
 
 .register-heading {
   text-align: center;
-  margin-top: 8%;
+  margin-top: 30px;
   margin-bottom: -15%;
   color: #495057;
 }
@@ -150,19 +155,22 @@
     font-size: 1.5rem;
   }
 }
-.parent{
+
+.parent {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-.lang{
+
+.lang {
   margin-right: 25px;
   display: flex;
   align-items: center;
   margin-top: 3%;
   position: relative;
 }
-.lang span{
+
+.lang span {
   padding: 4px 25px;
   background-color: #0062cc;
   border-radius: 18px;
@@ -171,7 +179,8 @@
   z-index: 1;
   cursor: pointer;
 }
-.lang ul{
+
+.lang ul {
   position: absolute;
   padding: 0px;
   list-style: none;
@@ -181,13 +190,46 @@
   border: 2px solid #0062cc;
   border-radius: 18px;
   display: none;
-  width:100%;
+  width: 100%;
 }
-.lang ul li{
+
+.lang ul li {
   cursor: pointer;
   text-align: center;
-  padding:4px 0;
+  padding: 4px 0;
 }
-.lang ul li:hover{
-  color:#0062cc;
+
+.lang ul li:hover {
+  color: #0062cc;
+}
+
+.langs-drop {
+  display: none;
+}
+
+.langs-drop.lang-clicked {
+  display: block;
+}
+
+.phone {
+  line-height: 1.5;
+  display: block;
+  border-radius: .25rem;
+  padding: .375rem .75rem;
+  background-color: #ffffff;
+  border: 1px solid #d2d6dc;
+}
+
+.phone input {
+  border: 0px;
+  background-color: #FFF;
+}
+
+.phone input:focus {
+  border: 0px;
+  outline: unset;
+}
+
+.client div:first-child {
+  margin-top: 30px;
 }
