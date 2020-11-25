@@ -43,8 +43,8 @@
             <div class="mt-4">
                 <label for="phone">Phone</label>
                 <span class="phone">
-                    <span id="defaultNumber">+998</span>
-                    <input id="phone" type="phone" name="phone" required autofocus/>
+                    +<span id="defaultNumber">998</span>
+                    <input id="phone" type="phone" name="phone" required autofocus />
                 </span>
             </div>
 

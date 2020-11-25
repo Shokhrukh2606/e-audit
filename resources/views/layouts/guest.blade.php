@@ -30,20 +30,16 @@
   <script>
     $("#phone").inputmask({
       "mask": "99-999-99-99",
-      // 'autoUnmask': true,
-      // "removeMaskOnSubmit": true,
-      // "skipOptionalPartCharacter": true
+      'autoUnmask': true,
+      "removeMaskOnSubmit": true,
+      "skipOptionalPartCharacter": true
     });
 
     function fixValue(event) {
       var phone = document.getElementById('phone');
-      event.preventDefault();
+      // event.preventDefault();
       document.getElementById('defaultNumber').style.display = 'none'
-      $("#phone").inputmask({
-        "mask": "+99999-999-99-99",
-        'autoUnmask': true,
-        "removeMaskOnSubmit": true,
-      });
+      $("#phone").inputmask('remove');
       phone.value = '998' + phone.value;
       console.log(phone.value)
     }
