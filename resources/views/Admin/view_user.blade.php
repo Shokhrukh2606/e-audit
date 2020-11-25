@@ -1,3 +1,18 @@
+<script>
+    function changeDistrict(item){
+        var d = document.getElementById("region").value;
+        var old=document.querySelectorAll('[data-parent]');
+        var index = 0, length = old.length;
+        for ( ; index < length; index++) {
+            old[index].style.display="none"
+        }
+        var needed=document.querySelectorAll('[data-parent="'+d+'"]');
+        var index = 0, length = needed.length;
+        for ( ; index < length; index++) {
+            needed[index].style.display="block"
+        }
+    }
+</script>
 <form action="{{route('admin.view_user', ['id'=>$user->id])}}" method="POST">
     @csrf
 
@@ -23,10 +38,24 @@
     <input class="form-control" type="date" name="user[cert_date]" value="{{$user->cert_date}}"><br>
 
     <label>{{lang('city')}}</label>
-    <input class="form-control" type="text" name="user[region]" value="{{$user->region}}"><br>
-
+    <select class="form-control" id="region" name="user[region]" onchange="changeDistrict(this);">
+        <option>{{lang('select')}}</option>
+        @foreach (getRegions() as $item)
+            <option value="{{$item['id']}}">
+                {{json_decode($item['title'], true)[config('global.lang')]}}
+            </option>
+        @endforeach
+    </select>
+    
     <label>{{lang('district')}}</label>
-    <input class="form-control" type="text" name="user[district]" value="{{$user->district}}"><br>
+    <select class="form-control" name="user[district]">
+        <option>{{lang('select')}}</option>
+        @foreach (getDistricts() as $item)
+            <option  data-parent="{{$item['city_id']}}" value="{{$item['id']}}" style="display:none;">
+                {{json_decode($item['title'], true)[config('global.lang')]}}
+            </option>
+        @endforeach
+    </select>
 
     <label>{{lang('addressLine')}}</label>
     <input class="form-control" type="text" name="user[address]" value="{{$user->address}}"><br>

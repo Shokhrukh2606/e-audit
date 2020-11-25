@@ -5,7 +5,7 @@
 .register {
   padding: 3%;
   overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
 }
@@ -149,4 +149,45 @@
   .register-heading {
     font-size: 1.5rem;
   }
+}
+.parent{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.lang{
+  margin-right: 25px;
+  display: flex;
+  align-items: center;
+  margin-top: 3%;
+  position: relative;
+}
+.lang span{
+  padding: 4px 25px;
+  background-color: #0062cc;
+  border-radius: 18px;
+  color: white;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+.lang ul{
+  position: absolute;
+  padding: 0px;
+  list-style: none;
+  background-color: white;
+  top: 0;
+  padding-top: 36px;
+  border: 2px solid #0062cc;
+  border-radius: 18px;
+  display: none;
+  width:100%;
+}
+.lang ul li{
+  cursor: pointer;
+  text-align: center;
+  padding:4px 0;
+}
+.lang ul li:hover{
+  color:#0062cc;
 }

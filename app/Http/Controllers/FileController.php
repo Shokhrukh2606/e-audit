@@ -13,4 +13,7 @@ class FileController extends Controller
     	}
     	abort(404);
     }
+    public function logintest(Request $req){
+    	dd($req->all());
+    }
 }
