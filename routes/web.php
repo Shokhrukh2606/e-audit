@@ -88,4 +88,3 @@ Route::get('file', "FileController@open")->name('file');
 /**===========Open QR code for conclusion ======================**/
 	// open conclusion without auth
 Route::get('open_conclusion/{id}', "RegisterController@open_conclusion")->name('open_conclusion');
-	
