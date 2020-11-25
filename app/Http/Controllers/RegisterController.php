@@ -11,7 +11,7 @@ use PDF;
 
 class RegisterController extends Controller
 {
-    private $passable=['phone','password', 'passport_copy'];
+    private $passable=['password', 'passport_copy'];
     public function show(){
         return view("register.show");
     }
@@ -64,7 +64,6 @@ class RegisterController extends Controller
                 continue;
     	}
     	$customer->group_id=4;
-        $customer->phone="998".$req->input('phone');
         $customer->password=Hash::make($req->input('password'));
        
     	$customer->save();
@@ -88,7 +87,6 @@ class RegisterController extends Controller
     		$agent->$name=$value;
     	}
     	$agent->group_id=3;
-        $agent->phone="998".$req->input('phone');
         $agent->status="inactive";
         $agent->password=Hash::make($req->input('password'));
     	$agent->passport_copy=$req->file('passport_copy')->store('agents');
