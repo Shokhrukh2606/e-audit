@@ -266,7 +266,7 @@
           var $btn = $(this);
 
           if (white_color == true) {
-
+            
             $('body').addClass('change-background');
             setTimeout(function() {
               $('body').removeClass('change-background');
