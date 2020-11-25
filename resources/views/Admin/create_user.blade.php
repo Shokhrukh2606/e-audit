@@ -48,7 +48,7 @@
             <select class="form-control" id="region" name="user[region]" onchange="changeDistrict(this);">
                 <option>{{lang('select')}}</option>
                 @foreach (getRegions() as $item)
-                    <option {{ $user->region== $item['id'] ? 'selected' : '' }} value="{{$item['id']}}">
+                    <option value="{{$item['id']}}">
                         {{json_decode($item['title'], true)[config('global.lang')]}}
                     </option>
                 @endforeach
@@ -58,7 +58,7 @@
             <select class="form-control" name="user[district]">
                 <option>{{lang('select')}}</option>
                 @foreach (getDistricts() as $item)
-                    <option {{ $user->district== $item['id'] ? 'selected' : '' }} data-parent="{{$item['city_id']}}" value="{{$item['id']}}" style="{{ $user->district== $item['id'] ? 'display:block;' : 'display:none;' }}">
+                    <option data-parent="{{$item['city_id']}}" value="{{$item['id']}}" style="display:none;">
                         {{json_decode($item['title'], true)[config('global.lang')]}}
                     </option>
                 @endforeach

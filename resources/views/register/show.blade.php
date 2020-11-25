@@ -66,7 +66,9 @@
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <h3 class="register-heading">{{lang('asUser')}}</h3>
-                <form method="POST" action="{{ route('reg_cust') }}" onsubmit="fixValue(event)">
+                <form method="POST" action="{{ route('reg_cust') }}" 
+                    onsubmit="fixValue()"
+                  >
                   @csrf
                   <div class="row register-form client">
                     <div class="col-md-6">
@@ -82,26 +84,11 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <!-- <input type="text" class="form-control" placeholder="{{lang('phoneNumber')}}" value="" name="phone" /> -->
-                        <!-- <span>+998</span>
-                          <input type="text" minlength="9" maxlength="9" class="form-control phone" placeholder="{{__("auth.Phone number")}}" value="" name="phone" /> -->
-                        <!-- <div class="row">
-                          <div class="col-2">
-                            <div style="height:100%;display: flex;align-items: center;">
-                              <span>+998</span>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <input type="text" minlength="9" maxlength="9" class="form-control phone" placeholder="{{lang('phoneNumber')}}" value="" name="phone" />
-                          </div>
-                        </div> -->
-                        <div>
-                          <label for="phone">{{ lang('phoneNumber') }}</label> <br>
+                        <label for="phone">{{ lang('phoneNumber') }}</label> <br>
                           <span class="phone">
                             <span id="defaultNumber">+998</span>
-                            <input id="phone" type="phone" required title='{{ lang('phoneNumber') }}'/>
+                            <input id="phone" type="phone" required autofocus title='{{ lang('phoneNumber') }}' class="phone_num"/>
                           </span>
-                        </div>
                       </div>
 
                       <div class="form-group" style="position: relative;">
@@ -110,15 +97,9 @@
                           <img src="{{config('global.eye_img')}}" alt="">
                         </span>
                       </div>
-                      <!-- <div class="form-group ver_area" style="display: none;">
-                        <input type="text" placeholder="Please enter verification code" class="form-control" onkeyup="test_code(this)">
-                      </div>
-                      <button type="submit" class="btnRegister">{{lang('register')}}</button> -->
                       <div class="form-group ver_area" style="display: none;">
                         <input type="text" placeholder="{{lang('enterCode')}}" class="form-control" onkeyup="test_code(this)">
                       </div>
-                      <!-- <input type="submit" class="btnRegister" value="Register" /> -->
-
                       <button type="button" class="btnRegister" onclick="send_verification()">{{lang('register')}}</button>
 
                     </div>
@@ -148,7 +129,7 @@
                             </div>
                           </div>
                           <div class="col">
-                            <input type="text" minlength="9" maxlength="9" class="form-control phone" placeholder="{{lang('phoneNumber')}}" value="" name="phone" />
+                            <input type="text" class="form-control phone_num" placeholder="{{lang('phoneNumber')}}" value="" name="phone"/>
                           </div>
                         </div>
 
@@ -255,7 +236,13 @@
   <script src="{{asset('md5.js')}}"></script>
   <script>
     const langs_drop = document.getElementById("langs-drop");
+    const verification_url = "{{route('verification')}}";
+    const customer = document.getElementById('home');
+    const agent = document.getElementById('profile');
+    var verification_hash = "";
 
+    var phone_input;
+    var phone = "";
     function langs(e) {
       e.stopPropagation();
       langs_drop.classList.toggle('lang-clicked');
@@ -278,41 +265,35 @@
       window.location.href = new_url;
     }
 
-    $("#phone").inputmask({
+    $(".phone_num").inputmask({
       "mask": "99-999-99-99",
       'autoUnmask': true,
       "removeMaskOnSubmit": true,
     });
     var newPhone;
 
-    function fixValue(event) {
+    function fixValue() {
       if (newPhone)
         newPhone.parentNode.removeChild(newPhone);
-      // event.preventDefault();
-      var phone = document.getElementById('phone');
-      newPhone = phone.cloneNode(true);
+      if (customer.classList.contains('show')) {
+        phone_input = customer.getElementsByClassName('phone_num')[0];
+      } else {
+        phone_input = agent.getElementsByClassName('phone_num')[0];
+      }
+      newPhone = phone_input.cloneNode(true);
       newPhone.type = 'hidden';
       newPhone.value = '998' + newPhone.value.split("-").join("");
       // console.log(newPhone.value);
       newPhone.name = "phone";
-      phone.parentNode.appendChild(newPhone);
+      phone_input.parentNode.appendChild(newPhone);
     }
-  </script>
-  <script>
-    const verification_url = "{{route('verification')}}";
-    const customer = document.getElementById('home');
-    const agent = document.getElementById('profile');
-    var verification_hash = "";
-
-    var phone_input;
-    var phone = "";
-
+  
     function send_verification() {
 
       if (customer.classList.contains('show')) {
-        phone_input = document.getElementById('phone');
+        phone_input = customer.getElementsByClassName('phone_num')[0];
       } else {
-        phone_input = agent.getElementById('phone');
+        phone_input = agent.getElementsByClassName('phone_num')[0];
       }
 
       if (phone_input.value.length != 9) {
@@ -355,6 +336,7 @@
         input.value = verification_hash;
         input.name = "ver_code";
         form.appendChild(input);
+        fixValue();
         form.submit();
       }
     }
