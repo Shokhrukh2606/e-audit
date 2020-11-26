@@ -1,5 +1,10 @@
 @section('createOrderCss')
 <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
+<style>
+	.quarters option:disabled {
+		color: #9c9c9c;
+	}
+</style>
 @endsection
 
 <div class="card">
@@ -31,7 +36,29 @@
 						<option value="ru">{{lang('ru')}}</option>
 					</select>
 				</div>
-
+				<div class="mb-4">
+					<label>{{lang('year')}}</label>
+					<select class="form-control" name="cust_info[year]" id="year">
+					</select>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('quarter_start')}}</label>
+					<select class="form-control quarters" name="cust_info[quarter_start]" id="quarterStart" onchange='getInitialQuarter()'>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('quarter_finish')}}</label>
+					<select class="form-control quarters" name="cust_info[quarter_finish]" id="quarterFinish">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
+				</div>
 				<div class="mb-4">
 					<label>{{lang('structuredPhone')}}</label>
 					<input class="form-control" type="text" minlength="12" maxlength="12" name="order[phone]" required>
@@ -202,5 +229,26 @@
 	$(document).on('change', '.custom-file-input', function(event) {
 		$(this).next('.custom-file-label').html(event.target.files[0].name);
 	})
+</script>
+<script>
+	var myselect = document.getElementById("year"),
+		startYear = new Date().getFullYear()
+	count = 10;
+
+	(function(select, val, count) {
+		do {
+			select.add(new Option(val--, count--), null);
+		} while (count);
+	})(myselect, startYear, count);
+
+	function getInitialQuarter() {
+		const quarterStart = document.getElementById('quarterStart');
+		const quarterFinish = document.getElementById('quarterFinish');
+		quarterFinish.value = quarterStart.value;
+		for (let index = 0; index < quarterStart.value - 1; index++) {
+			quarterFinish.children[index].disabled = true;
+		}
+	}
+	getInitialQuarter()
 </script>
 @endsection

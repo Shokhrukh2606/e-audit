@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="{{lang('htmlLang')}}">
 
 <head>
   <meta charset="UTF-8">
@@ -7,18 +7,6 @@
   <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
   <link href="{{asset('assets/css/register.css')}}" rel="stylesheet" />
   <title>Register</title>
-  <style>
-    .eye {
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      cursor: pointer;
-    }
-
-    .eye img {
-      width: 20px;
-    }
-  </style>
 </head>
 
 <body>
@@ -110,7 +98,7 @@
                         </span>
                       </div>
                       <div class="form-group ver_area" style="display: none;">
-                        <input type="text" placeholder="Please enter verification code" class="form-control" onkeyup="test_code(this)">
+                        <input type="text" placeholder="{{lang('enterCode')}}" class="form-control" onkeyup="test_code(this)">
                       </div>
                       <button type="button" class="btnRegister" onclick="send_verification()">{{lang('register')}}</button>
 
@@ -210,19 +198,19 @@
                       </div>
 
                       <div class="form-group">
+                        <a href="{{route('conditions')}}" target="blank" class="user-agrement">
+                          {{lang('userAgrement')}}
+                        </a>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="gridCheck">
                           <label class="form-check-label" for="gridCheck">
                             {{lang('agree')}}
                           </label>
-                          <a href="{{route('conditions')}}" target="blank">
-                            Условия использования политика конфиденциальности
-                          </a>
                         </div>
                       </div>
 
                       <div class="form-group ver_area" style="display: none;">
-                        <input type="text" placeholder="Please enter verification code" class="form-control" onkeyup="test_code(this)">
+                        <input type="text" placeholder="{{lang('enterCode')}}" class="form-control" onkeyup="test_code(this)">
                       </div>
                       <button type="button" class="btnRegister" onclick="send_verification()">
                         {{lang('register')}}
@@ -285,7 +273,6 @@
     var newPhone;
 
     function fixValue() {
-      
       if (newPhone)
         newPhone.parentNode.removeChild(newPhone);
       if (customer.classList.contains('show')) {
@@ -296,13 +283,11 @@
       newPhone = phone_input.cloneNode(true);
       newPhone.type = 'hidden';
       newPhone.value = '998' + newPhone.value.split("-").join("");
+      // console.log(newPhone.value);
       newPhone.name = "phone";
       phone_input.parentNode.appendChild(newPhone);
-
     }
   
-   
-
     function send_verification() {
 
       if (customer.classList.contains('show')) {
@@ -319,6 +304,8 @@
       phone = "998" + phone_input.value;
       // console.log(phone);
       // phone = phone_input.value;
+      console.log(phone);
+      
       let url = verification_url + "?phone=" + encodeURIComponent(phone);
 
       $.get(url, function(data) {
