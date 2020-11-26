@@ -35,3 +35,17 @@ Route::get("conclusion/{id}", "Admin_Controller@conclusion")->name("conclusion")
 Route::get("user_conclusions/{type}/{id}", "Admin_Controller@user_conclusions")->name("user_conclusions");
 
 Route::get('/view_conclusion/{id}', 'Admin_Controller@view_conclusion')->name('view_conclusion');
+
+/**
+ * route to create some blanks
+ * get for showing post for saving
+ */
+Route::match(["GET", "POST"], "/create_blanks", "Admin_Controller@create_blanks")
+	->name("create_blanks");
+
+/**
+ * route to assigning blanks to users
+ * get for showing post for saving
+ */
+Route::match(["GET", "POST"], "/assign_blanks", "Admin_Controller@assign_blanks")
+	->name("assign_blanks");

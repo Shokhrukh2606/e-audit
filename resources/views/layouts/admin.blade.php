@@ -17,6 +17,7 @@
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="{{ asset('assets/demo/demo.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/css/common.css') }}" rel="stylesheet" />
+	
 	<link href="{{ asset('selectable/css/select2.min.css') }}" rel='stylesheet' type='text/css'>
 	@yield('conclusionsCss')
 </head>

@@ -10,6 +10,7 @@ use App\Models\Cust_comp_info;
 use App\Models\Payment;
 use App\Models\Template;
 use App\Models\User_group;
+use App\Models\Blank;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -248,5 +249,45 @@ class Admin_Controller extends Controller
         if($data['conclusion'])
             return $this->view('view_conclusion', $data);
         return abort(404);
+    }
+    public function create_blanks(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+                return $this->view('create_blanks');
+                break;
+            case 'POST':
+                for($i=0;$i<$req->input('quantity');$i++)
+                    Blank::start();
+                $data['message']='You have successfully created '.$i." blanks" ;
+                $data['link']=route('admin.create_blanks');
+                return $this->view('message', $data);
+                break;
+            default:
+                abort(401);
+                break;
+        }
+        
+    }
+    public function assign_blanks(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+                $data['users']=User::whereIn('group_id',['2','3'])->get();
+                $data['blanks']=Blank::where('user_id',null)->get();
+                return $this->view('assign_blanks' ,$data);
+                break;
+            case 'POST':
+                if($req->has('blank')){
+                    foreach ($req->input('blank') as $index => $id) {
+                        Blank::assign($id, $req->input('user_id'));
+                    }
+                }
+                $data['message']='You have assigned blanks';
+                $data['link']=route('admin.assign_blanks');
+                return $this->view('message', $data);
+                break;
+            default:
+                abort(401);
+                break;
+        }        
     }
 }

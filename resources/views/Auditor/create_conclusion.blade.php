@@ -31,15 +31,15 @@
 				</div>
 				<div class="mb-4">
 					<label>{{lang('year')}}</label>
-					<input class="form-control" type="number" name="conclusion[year]">
+					<input class="form-control" type="number" name="cust_info[year]">
 				</div>
 				<div class="mb-4">
 					<label>{{lang('quarter_start')}}</label>
-					<input class="form-control" type="text" name="conclusion[quarter_start]">
+					<input class="form-control" type="text" name="cust_info[quarter_start]">
 				</div>
 				<div class="mb-4">
 					<label>{{lang('quarter_finish')}}</label>
-					<input class="form-control" type="text" name="conclusion[quarter_finish]">
+					<input class="form-control" type="text" name="cust_info[quarter_finish]">
 				</div>
 				<div class="mb-4">
 					<label>{{lang('companyName')}}</label>
