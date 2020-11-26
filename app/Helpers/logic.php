@@ -1607,9 +1607,9 @@ function lang($word)
 			'ru' => 'Восстановить пароль'
 		],
 		'asAgent' => [
-			'oz' => "Mijoz sifatida ro'yhatdan o'tish",
-			'uz' => 'Мижоз сифатида рўйҳатдан ўтиш',
-			'ru' => 'Зарегистрируйтесь как клиент'
+			'oz' => "Agent sifatida ro'yhatdan o'tish",
+			'uz' => 'Агент сифатида рўйҳатдан ўтиш',
+			'ru' => 'Зарегистрируйтесь как агент'
 		],
 		'passportCopy' => [
 			'oz' => "Pasport nusxasi",

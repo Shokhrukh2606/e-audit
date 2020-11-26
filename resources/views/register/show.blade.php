@@ -66,9 +66,7 @@
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <h3 class="register-heading">{{lang('asUser')}}</h3>
-                <form method="POST" action="{{ route('reg_cust') }}" 
-                    onsubmit="fixValue()"
-                  >
+                <form method="POST" action="{{ route('reg_cust') }}" onsubmit="fixValue()">
                   @csrf
                   <div class="row register-form client">
                     <div class="col-md-6">
@@ -85,10 +83,10 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="phone">{{ lang('phoneNumber') }}</label> <br>
-                          <span class="phone">
-                            <span id="defaultNumber">+998</span>
-                            <input id="phone" type="phone" required autofocus title='{{ lang('phoneNumber') }}' class="phone_num"/>
-                          </span>
+                        <span class="phone">
+                          <span id="defaultNumber">+998</span>
+                          <input id="phone" type="phone" required autofocus title='{{ lang('phoneNumber') }}' class="phone_num" />
+                        </span>
                       </div>
 
                       <div class="form-group" style="position: relative;">
@@ -129,7 +127,7 @@
                             </div>
                           </div>
                           <div class="col">
-                            <input type="text" class="form-control phone_num" placeholder="{{lang('phoneNumber')}}" value="" name="phone"/>
+                            <input type="text" class="form-control phone_num" placeholder="{{lang('phoneNumber')}}" value="" name="phone" />
                           </div>
                         </div>
 
@@ -144,20 +142,18 @@
                         <input type="file" name="passport_copy" class="custom-file-input" id="InputFile">
                         <label class="custom-file-label" for="InputFile" data-browse="{{lang('upload')}}">{{lang('passportCopy')}}</label>
                       </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
+                      <div class="form-group mt-3">
                         <input type="text" class="form-control" max-length="9" placeholder="{{lang('inn')}}" value="" />
                       </div>
+                    </div>
+                    
+                    <div class="col-md-6">
                       <div class="form-group">
                         <input type="text" data-name="h_cert_series" placeholder="{{lang('sertificateSerie')}}" class="form-control" id="h_cert_series" onchange="set_cert_number(this)">
                       </div>
                       <div class="form-group">
                         <input type="text" data-name="h_cert_number" placeholder="{{lang('sertificateNumber')}}" class="form-control" id="h_cert_number" onchange="set_cert_number(this)">
                       </div>
-
                       <div class="form-group">
                         <input type="hidden" name="cert_number" id="cert_number">
                       </div>
@@ -243,6 +239,7 @@
 
     var phone_input;
     var phone = "";
+
     function langs(e) {
       e.stopPropagation();
       langs_drop.classList.toggle('lang-clicked');
@@ -287,7 +284,7 @@
       newPhone.name = "phone";
       phone_input.parentNode.appendChild(newPhone);
     }
-  
+
     function send_verification() {
 
       if (customer.classList.contains('show')) {
@@ -305,7 +302,7 @@
       // console.log(phone);
       // phone = phone_input.value;
       console.log(phone);
-      
+
       let url = verification_url + "?phone=" + encodeURIComponent(phone);
 
       $.get(url, function(data) {
