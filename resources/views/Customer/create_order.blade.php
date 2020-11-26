@@ -79,6 +79,10 @@
 					<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]" required>
 				</div>
 				<div class="mb-4">
+					<label>{{lang('cust_comp_registered_by')}}</label>
+					<input class="form-control" type="text" name="cust_info[cust_comp_registered_by]">
+				</div>
+				<div class="mb-4">
 					<label>{{lang('userCompGovRegDate')}}</label>
 					<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]" required>
 				</div>

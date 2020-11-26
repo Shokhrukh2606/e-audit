@@ -140,9 +140,9 @@ class Audit_Controller extends Controller
             return abort(404);
             break;
             case 'POST':
-                $req->validate([
-                    ...$this->conclusion_validation_rules
-                ]);
+                $req->validate(
+                    $this->conclusion_validation_rules
+                );
                 $all=$req->all();
                 $conclusion_fields=$req->input('conclusion');
                 $conclusion=new Conclusion();

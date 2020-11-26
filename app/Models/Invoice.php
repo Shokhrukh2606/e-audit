@@ -29,7 +29,7 @@ class Invoice extends Model
     public function service()
     {
         return $this->belongsTo('App\Models\Service', 'service_id');
-
+    }
     public function conclusion()
     {
         return $this->belongsTo('App\Models\Conclusion');

@@ -254,7 +254,7 @@ class Customer_Controller extends Controller
             $invoice->user_id=auth()->user()->id;
             $invoice->service_id=$service->id;
             $invoice->save();
-            return redirect()->route('customer.pay', $invoice->id);
+            return redirect()->route('customer.pay', $conclusion->id);
         }else{
            abort(404);
         }
