@@ -19,4 +19,7 @@ class Blank extends Model
     	$blank->user_id=$user_id;
     	$blank->save();
     }
+    public static function available($user_id){
+        return self::where(['user_id'=>$user_id, 'conclusion_id'=>null])->get();
+    }
 }

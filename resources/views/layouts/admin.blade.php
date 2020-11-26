@@ -55,6 +55,18 @@
 				</div>
 				<ul class="nav mynav">
 					<li>
+						<a href="{{ route('admin.create_blanks') }}">
+							<i class="tim-icons icon-single-02"></i>
+							<p>Create new Blanks</p>
+						</a>
+					</li>
+					<li>
+						<a href="{{ route('admin.assign_blanks') }}">
+							<i class="tim-icons icon-single-02"></i>
+							<p>Assign Blanks</p>
+						</a>
+					</li>
+					<li>
 						<a href="{{ route('admin.list_users') }}">
 							<i class="tim-icons icon-single-02"></i>
 							<p>{{ lang('users') }}</p>

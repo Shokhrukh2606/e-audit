@@ -236,6 +236,16 @@
 			<label>{{lang('long_term_loans')}}</label>
 			<input class="form-control" type="text" name="conclusion[long_term_loans]">
 		</div>
+		<div class="form-group">
+			<label>Blank Nomer</label>
+			<select name="blank_id" class="form-control" required>
+				@foreach($blanks as $blank)
+				<option value="{{$blank->id}}">
+					Blank {{$blank->id}}
+				</option>
+				@endforeach
+			</select>
+		</div>
 	</div>
 	<div class="tab">
 		<h2>{{lang('custInfo')}}</h2>
@@ -317,7 +327,7 @@
 <script src="{{asset('assets/js/coefficient.js')}}"></script>
 <script>
 	var myselect = document.getElementById("year"),
-		startYear = new Date().getFullYear()
+	startYear = new Date().getFullYear()
 	count = 10;
 
 	(function(select, val, count) {

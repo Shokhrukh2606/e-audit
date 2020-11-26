@@ -204,6 +204,16 @@
 						Result
 					</div>
 				</div>
+				<div class="form-group">
+					<label>Blank Nomer</label>
+					<select name="blank_id" class="form-control" required>
+						@foreach($blanks as $blank)
+							<option value="{{$blank->id}}">
+								Blank {{$blank->id}}
+							</option>
+						@endforeach
+					</select>
+				</div>
 				<!-- <button class="btn btn-sm btn-success">Save</button> -->
 			</form>
 		</div>

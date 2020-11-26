@@ -77,6 +77,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Conclusion', 'agent_id');
     }
+    public function blanks()
+    {
+        return $this->hasMany('App\Models\Blank', 'user_id');
+    }
     public function add_funds($amount)
     {
         $this->funds += $amount;
