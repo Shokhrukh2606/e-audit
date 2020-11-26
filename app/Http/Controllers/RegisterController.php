@@ -70,7 +70,7 @@ class RegisterController extends Controller
         $customer->password = Hash::make($req->input('password'));
 
         $customer->save();
-        session(['message' => 'Вы успешно зарегистрировались, пожалуйста, введите свой номер телефона и пароль для входа в систему']);
+        session(['message' => lang('registerSuccesUser')]);
         return redirect()->route('login');
     }
     public function reg_agent(Request $req)
@@ -96,7 +96,7 @@ class RegisterController extends Controller
         $agent->passport_copy = $req->file('passport_copy')->store('agents');
         $agent->save();
 
-        session(['message' => 'Вы успешно зарегистрировались, вы получите уведомление, когда администратор примет вас.']);
+        session(['message' => lang('registerSucces')]);
         return redirect()->route('show_register');
     }
     public function open_conclusion(Request $req)

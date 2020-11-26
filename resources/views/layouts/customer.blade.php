@@ -55,7 +55,7 @@
             HA
           </a> -->
           <a href="javascript:void(0)" class="simple-text logo-normal">
-            E-AUDIT
+            <img src="{{asset('assets/img/logo-white.png')}}" alt="logo" class="logo">
           </a>
 
         </div>

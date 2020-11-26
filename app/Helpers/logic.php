@@ -1616,6 +1616,16 @@ function lang($word)
 			'uz' => 'Паспорт нусхаси',
 			'ru' => 'Паспорт копия'
 		],
+		'registerSucces' => [
+			'oz' => "Siz muvaffaqiyatli ro'yxatdan o'tdingiz, administrator sizni qabul qilganda sizga xabarnoma keladi.",
+			'uz' => 'Сиз муваффақиятли рўйхатдан ўтдингиз, администратор сизни қабул қилганда сизга хабарнома келади.',
+			'ru' => 'Вы успешно зарегистрировались, вы получите уведомление, когда администратор примет вас.'
+		],
+		'registerSuccesUser' => [
+			'oz' => "Siz muvaffaqiyatli ro'yxatdan o'tdingiz, kirish uchun telefon raqamingizni va parolingizni kiriting",
+			'uz' => 'Сиз муваффақиятли рўйхатдан ўтдингиз, кириш учун телефон рақамингизни ва паролингизни киритинг',
+			'ru' => 'Вы успешно зарегистрировались, пожалуйста, введите свой номер телефона и пароль для входа в систему'
+		],
 		'pay' => [
 			'oz' => "To'lash",
 			'uz' => 'Тўлаш',

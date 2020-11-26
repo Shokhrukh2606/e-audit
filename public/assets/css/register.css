@@ -249,3 +249,12 @@
 .client div:first-child {
   margin-top: 34px;
 }
+
+.alert ul {
+  margin: 0;
+  padding: 0;
+}
+
+.alert ul li{
+  list-style: none;
+}
