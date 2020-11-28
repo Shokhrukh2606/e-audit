@@ -45,22 +45,33 @@
 					</select>
 				</div>
 				<div class="mb-4">
-					<label>{{lang('quarter_start')}}</label>
-					<select class="form-control quarters" name="cust_info[quarter_start]" id="quarterStart" onchange='getInitialQuarter()'>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-					</select>
+					<input type="checkbox" id="yearly" 
+					onchange="_yearly(this)"
+					style="width:initial"
+					>
+					<label for="yearly"
+					style="font-size:18px"
+					>{{lang('yearly')}}</label>
 				</div>
-				<div class="mb-4">
-					<label>{{lang('quarter_finish')}}</label>
-					<select class="form-control quarters" name="cust_info[quarter_finish]" id="quarterFinish">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-					</select>
+				<div id="quarters">
+					<div class="mb-4">
+						<label>{{lang('quarter_start')}}</label>
+						<select class="form-control quarters" name="cust_info[quarter_start]" id="quarterStart" onchange='getInitialQuarter()'>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('quarter_finish')}}</label>
+						<select class="form-control quarters" name="cust_info[quarter_finish]" id="quarterFinish">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</div>
 				</div>
 				<div class="mb-4">
 					<label>{{lang('structuredPhone')}}</label>
@@ -160,118 +171,118 @@
 						class="custom-file-input" 
 						id="cust_comp_director_passport_copy">
 						<label class="custom-file-label" 
-							for="cust_comp_director_passport_copy" data-browse="{{lang('upload')}}">
-							{{lang('cust_comp_director_passport_copy')}}
-						</label>
-					</div>
+						for="cust_comp_director_passport_copy" data-browse="{{lang('upload')}}">
+						{{lang('cust_comp_director_passport_copy')}}
+					</label>
 				</div>
-				<div class="form-group">
-					<p>
+			</div>
+			<div class="form-group">
+				<p>
+					{{lang('cust_comp_gov_registration_copy')}}
+				</p>
+				<div class="custom-file">
+					<input type="file" 
+					name="cust_info[cust_comp_gov_registration_copy]" 
+					class="custom-file-input" id="cust_comp_gov_registration_copy">
+					<label class="custom-file-label" for="cust_comp_gov_registration_copy" data-browse="{{lang('upload')}}">
 						{{lang('cust_comp_gov_registration_copy')}}
-					</p>
-					<div class="custom-file">
-						<input type="file" 
-						name="cust_info[cust_comp_gov_registration_copy]" 
-						class="custom-file-input" id="cust_comp_gov_registration_copy">
-						<label class="custom-file-label" for="cust_comp_gov_registration_copy" data-browse="{{lang('upload')}}">
-							{{lang('cust_comp_gov_registration_copy')}}
-						</label>
-					</div>
-				</div>
-				<div class="file-wrapper mb-4">
-					@php
-					$dom = new DOMDocument('1.0');
-					@endphp
-					@foreach(custom_fields($template_id) as $index=>$field)
-					@php
-					$div= $dom->createElement("div");
-					$dom->appendChild($div);
-
-					$label = $dom->createElement("label", $field->label->uz.":");
-					if($field->type=='file'){
-						$allowed_types=$field->allowed_types;
-						$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
-					}
-					$div->appendChild($label);
-
-					$input = $dom->createElement($field->tag);
-
-					$required=$dom->createAttribute('required');
-					$required->value="true";
-					$input->appendChild($required);
-
-					$attr = $dom->createAttribute('type');
-					$attr->value = $field->type;
-
-					$input->appendChild($attr);
-
-					$attr = $dom->createAttribute('name');
-					$attr->value = "custom[$field->name]";
-					$input->appendChild($attr);
-
-					if($field->type=='file'){
-						$class=$dom->createAttribute('class');
-						$class->value="custom-file-input";
-						$id=$dom->createAttribute('id');
-						$id->value=$index;
-						$input->appendChild($id);
-						$input->appendChild($class);
-
-						$allowed_types=$dom->createAttribute('accept');
-						$allowed_types->value=$field->allowed_types;
-						$input->appendChild($allowed_types);
-
-						$wrapper=$dom->createElement('div');
-
-						$class=$dom->createAttribute('class');
-						$class->value="custom-file";
-						$wrapper->appendChild($class);
-
-						$inLabel=$dom->createElement('label');
-
-						$browse=$dom->createAttribute('data-browse');
-						$browse->value=lang('upload');
-						$class=$dom->createAttribute('class');
-						$class->value="custom-file-label";
-						$for=$dom->createAttribute('for');
-						$for->value=$index;
-
-						$inLabel->appendChild($for);
-						$inLabel->appendChild($browse);
-						$inLabel->appendChild($class);
-
-						$wrapper->appendChild($input);
-						$wrapper->appendChild($inLabel);
-
-						$div->appendChild($wrapper);
-						continue;
-					}
-					$div->appendChild($input);
-
-					@endphp
-					@endforeach
-					<?= $dom->saveHTML() ?>
-				</div>
-				<input type="hidden" name="send_to_admin" id="send_to_admin" value="false">
-
-			</div>
-			<div style="overflow:auto;">
-				<div style="float:right;">
-					<button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-sm btn-primary">{{lang('previous')}}</button>
-					<button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-sm btn-primary" data-html="{{lang('next')}}" data-customer='hidden' data-submit='hello'>{{lang('next')}}</button>
-					<button onclick="no_admin(event)" class="btn btn-sm btn-finish btn-primary" type="submit">{{lang('saveDraft')}}</button>
-					<button class="btn btn-sm btn-finish btn-primary" type="submit" onclick="admin(event)">{{lang('saveAndSubmit')}}</button>
+					</label>
 				</div>
 			</div>
-			<!-- Circles which indicates the steps of the form: -->
-			<div style="text-align:center;margin-top:40px;">
-				<span class="step"></span>
-				<span class="step"></span>
-				<span class="step"></span>
-			</div>
-		</form>
+			<div class="file-wrapper mb-4">
+				@php
+				$dom = new DOMDocument('1.0');
+				@endphp
+				@foreach(custom_fields($template_id) as $index=>$field)
+				@php
+				$div= $dom->createElement("div");
+				$dom->appendChild($div);
 
-	</div>
+				$label = $dom->createElement("label", $field->label->uz.":");
+				if($field->type=='file'){
+					$allowed_types=$field->allowed_types;
+					$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
+				}
+				$div->appendChild($label);
+
+				$input = $dom->createElement($field->tag);
+
+				$required=$dom->createAttribute('required');
+				$required->value="true";
+				$input->appendChild($required);
+
+				$attr = $dom->createAttribute('type');
+				$attr->value = $field->type;
+
+				$input->appendChild($attr);
+
+				$attr = $dom->createAttribute('name');
+				$attr->value = "custom[$field->name]";
+				$input->appendChild($attr);
+
+				if($field->type=='file'){
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file-input";
+					$id=$dom->createAttribute('id');
+					$id->value=$index;
+					$input->appendChild($id);
+					$input->appendChild($class);
+
+					$allowed_types=$dom->createAttribute('accept');
+					$allowed_types->value=$field->allowed_types;
+					$input->appendChild($allowed_types);
+
+					$wrapper=$dom->createElement('div');
+
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file";
+					$wrapper->appendChild($class);
+
+					$inLabel=$dom->createElement('label');
+
+					$browse=$dom->createAttribute('data-browse');
+					$browse->value=lang('upload');
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file-label";
+					$for=$dom->createAttribute('for');
+					$for->value=$index;
+
+					$inLabel->appendChild($for);
+					$inLabel->appendChild($browse);
+					$inLabel->appendChild($class);
+
+					$wrapper->appendChild($input);
+					$wrapper->appendChild($inLabel);
+
+					$div->appendChild($wrapper);
+					continue;
+				}
+				$div->appendChild($input);
+
+				@endphp
+				@endforeach
+				<?= $dom->saveHTML() ?>
+			</div>
+			<input type="hidden" name="send_to_admin" id="send_to_admin" value="false">
+
+		</div>
+		<div style="overflow:auto;">
+			<div style="float:right;">
+				<button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-sm btn-primary">{{lang('previous')}}</button>
+				<button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-sm btn-primary" data-html="{{lang('next')}}" data-customer='hidden' data-submit='hello'>{{lang('next')}}</button>
+				<button onclick="no_admin(event)" class="btn btn-sm btn-finish btn-primary" type="submit">{{lang('saveDraft')}}</button>
+				<button class="btn btn-sm btn-finish btn-primary" type="submit" onclick="admin(event)">{{lang('saveAndSubmit')}}</button>
+			</div>
+		</div>
+		<!-- Circles which indicates the steps of the form: -->
+		<div style="text-align:center;margin-top:40px;">
+			<span class="step"></span>
+			<span class="step"></span>
+			<span class="step"></span>
+		</div>
+	</form>
+
+</div>
 </div>
 @section('createOrderJs')
 <script>
@@ -298,7 +309,25 @@
 
 	var switch_state='off';
 	const switchable=document.getElementById('switchable');
+	const quarters=document.getElementById('quarters');
 	const clone=switchable.innerHTML;
+	
+	/**
+	 * [yearly description]
+	 * @param  {[type]} elem [description]
+	 * @return void
+	 */
+	function _yearly(elem){
+		if(elem.checked){
+			quarters.style.display="none";
+			quarters.getElementsByClassName('quarters')[0].value="1";
+			quarters.getElementsByClassName('quarters')[1].value="4";
+			
+		}else{
+			quarters.style.display="";
+		}
+	}
+	_yearly(document.getElementById('yearly'));
 	/**
 	 * [switchit dom manipulation]
 	 * @param  {[type]} state [description]

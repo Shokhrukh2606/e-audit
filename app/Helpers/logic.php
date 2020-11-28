@@ -1411,6 +1411,11 @@ function getUserLayout($u)
 function lang($word)
 {
 	$words = [
+		'yearly'=>[
+			'oz' => 'Yillik',
+			'uz' => 'Йиллик',
+			'ru' => 'Годовой'
+		],
 		'payment_type' => [
 			'oz' => 'To\'lov turi',
 			'uz' => 'Тўлов тури',
