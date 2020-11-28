@@ -1,6 +1,0 @@
-*
-!orders/*
-!agents/*
-!cust_info/*
-!public/
-!.gitignore
