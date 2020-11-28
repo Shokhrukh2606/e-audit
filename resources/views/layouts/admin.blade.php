@@ -27,7 +27,20 @@
 		font-size: 10px;
 		font-weight: 600;
 	}
+	
+  .sidebar .nav li>a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
 
+  .sidebar .nav li.active>a:not([data-toggle="collapse"])::before {
+    top: 45%;
+  }
+
+  .sidebar .nav p {
+    white-space: initial;
+  }
 	/* select option {
       color: #000!important;
     }
@@ -63,7 +76,7 @@
 					<li>
 						<a href="{{ route('admin.create_blanks') }}">
 							<i class="tim-icons icon-notes"></i>
-							<p>{{lang('create_new_blanks')}}</p>
+							<p>{{lang('create_blanks')}}</p>
 						</a>
 					</li>
 					<li>

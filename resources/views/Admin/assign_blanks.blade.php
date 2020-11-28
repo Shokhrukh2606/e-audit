@@ -1,7 +1,7 @@
 
 <div class="card">
 	<div class="card-header">
-		<h3>Assign blanks</h3>
+		<h3>{{ lang('assign_blanks') }}</h3>
 	</div>
 	<div class="card-body">
 		<input type="checkbox" id="check_all" onchange="check_all(this)"

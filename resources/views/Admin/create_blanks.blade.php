@@ -1,19 +1,24 @@
 <div class="card">
 	<div class="card-header">
-		<h3>Create Blanks</h3>
+		<h3>{{ lang('create_blanks') }}</h3>
 	</div>
 	<div class="card-body">
 		<form action="{{url()->current()}}" method="POST">
 			@csrf
 			<div class="form-group">
-			<input 
-			  type="number" 
-			  placeholder="Quantity" 
-			  class="form-control" 
-			  name="quantity"
-			>
+				<label for="quantity">{{lang('quantity')}}</label>
+				<select name="quantity" class="form-control">
+					@for($i=1;$i<11;$i++)
+						<option value="{{$i}}">
+							{{$i}}
+						</option>
+					@endfor
+				</select>
+			
 			</div>
-			<button class="btn btn-simple btn-success">Create</button>
+			<button class="btn btn-simple btn-success">
+				{{ lang('create') }}
+			</button>
 		</form>
 	</div>
 </div>

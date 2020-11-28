@@ -23,10 +23,14 @@ $columns=Schema::getColumnListing('audit_comp_info');
 		display: inline-block;
 		margin:0 0 0 20px;
 	}
+	.bordered .property{
+		color:white;
+		font-size: 20px;
+	}
 </style>
 <div class="card">
 	<div class="card-header">
-		<h3>{{lang('audit_comp_cards')}}
+		<h3>{{lang('audit_comp_info')}}
 			<a href="{{route('admin.create_a_c_i')}}" 
 			class="btn btn-sm btn-info">
 			+
@@ -41,7 +45,9 @@ $columns=Schema::getColumnListing('audit_comp_info');
 			@foreach($columns as $column)
 			@continue(in_array($column, $passable, true))
 			<div class="col-md-6">
-				<p>{{lang($column)}}: {{$info->$column}}</p>
+				<p>{{lang($column)}}:
+				<div class="property">{{$info->$column}}</div>
+				</p>
 			</div>
 			@endforeach
 		</div>
@@ -105,7 +111,7 @@ $columns=Schema::getColumnListing('audit_comp_info');
 		</form>
 		@endif
 	</div>
-	</div>
+</div>
 </div>
 @endforeach
 

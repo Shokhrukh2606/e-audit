@@ -1411,6 +1411,101 @@ function getUserLayout($u)
 function lang($word)
 {
 	$words = [
+		'check_all' => [
+			'oz' => 'Barchasini belgilash',
+			'uz' => 'Барчасини белгилаш',
+			'ru' => 'Выбрать все'
+		],
+		'quantity' => [
+			'oz' => 'Miqdori',
+			'uz' => 'Миқдори',
+			'ru' => 'Количество'
+		],
+		'audit_comp_name' => [
+			'oz' => 'Auditorlik Kompaniyasi nomi',
+			'uz' => 'Аудиторлик Компанияси номи',
+			'ru' => 'Название аудиторской компании'
+		],
+		'audit_comp_gov_reg_date' => [
+			'oz' => 'Auditorlik Kompaniyasi ro\'yhatdan o\'tgan sanasi',
+			'uz' => 'Аудиторлик Компанияси рўйҳатдан ўтган санаси',
+			'ru' => 'Дата регистрации Аудиторской компании'
+		],
+		'audit_comp_oked' => [
+			'oz' => 'OKED',
+			'uz' => 'ОКEД',
+			'ru' => 'ОКEД'
+		],
+		'audit_comp_lic_date' => [
+			'oz' => 'Sertifikat berilgan sana',
+			'uz' => 'Сертификат берилган сана',
+			'ru' => 'Дата выдачи Сертификатa'
+		],
+		'audit_comp_bank_acc' => [
+			'oz' => 'Bank hisob raqami',
+			'uz' => 'Банк ҳисоб рақами',
+			'ru' => 'Банковский счет'
+		],
+		'audit_comp_director_name' => [
+			'oz' => 'Direktor F.I.O.',
+			'uz' => 'Директор Ф.И.О.',
+			'ru' => 'Ф.И.О Директорa'
+		],
+		'audit_comp_director_cert_date' => [
+			'oz' => 'Direktor sertifikati berilgan sanasi',
+			'uz' => 'Директор сертификати берилган санаси',
+			'ru' => 'Дата выдачи сертификатa директора'
+		],
+		'audit_comp_gov_reg_num' => [
+			'oz' => 'Auditorlik Kompaniyasi ma\'lumotlari',
+			'uz' => 'Аудиторлик Компанияси маъумотлари',
+			'ru' => 'Реквизиты аудиторской компании'
+		],
+		'audit_comp_gov_reg_num' => [
+			'oz' => 'Kompaniya ro\'yhatdan o\'tgan sanasi',
+			'uz' => 'Компания рўйҳатдан ўтган санаси',
+			'ru' => 'Дата регистрации компании'
+		],
+		'audit_comp_inn' => [
+			'oz' => 'Kompaniya INNsi',
+			'uz' => 'Компания ИННси',
+			'ru' => 'ИНН Компании'
+		],
+		'audit_comp_lic' => [
+			'oz' => 'Kompaniya litsenziya raqami',
+			'uz' => 'Компания лицензия рақами',
+			'ru' => 'Номер лицензии компании'
+		],
+		'audit_comp_director_cert_num' => [
+			'oz' => 'Auditorlik Kompaniyasi ma\'lumotlari',
+			'uz' => 'Аудиторлик Компанияси маъумотлари',
+			'ru' => 'Реквизиты аудиторской компании'
+		],
+		'audit_comp_bank_name' => [
+			'oz' => 'Bank nomi',
+			'uz' => 'Банк номи',
+			'ru' => 'Hазвание банка'
+		],
+		'audit_comp_bank_mfo' => [
+			'oz' => 'MFO',
+			'uz' => 'МФО',
+			'ru' => 'МФО'
+		],
+		'audit_comp_info' => [
+			'oz' => 'Auditorlik Kompaniyasi ma\'lumotlari',
+			'uz' => 'Аудиторлик Компанияси маъумотлари',
+			'ru' => 'Реквизиты аудиторской компании'
+		],
+		'create_blanks' => [
+			'oz' => 'Blanka yaratish',
+			'uz' => 'Бланка Яратиш',
+			'ru' => 'Создать бланк'
+		],
+		'assign_blanks' => [
+			'oz' => 'Blankani biriktirirsh',
+			'uz' => 'Бланкани бириктирирш',
+			'ru' => 'Назначить бланк'
+		],
 		'please_try_again' => [
 			'oz' => 'Iltimos yana urinib ko\'ring',
 			'uz' => 'Илтимос яна уриниб кўринг',
