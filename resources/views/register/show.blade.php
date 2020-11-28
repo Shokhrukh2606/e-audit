@@ -173,11 +173,13 @@
                       </div> --}}
                       <div class="form-group">
                         <label>{{lang('region')}}:</label>
-                        <select name="region" class="form-control">
+                        <select name="region" class="form-control"
+                          onchange="change_region(this)"
+                        >
                           @foreach(getRegions() as $region)
                           <option value="{{
                           json_decode($region['title'])->{config('global.lang')}
-                        }}" data-id="{{$region['id']}}" onclick="change_region(this)">
+                        }}" >
                             {{
                           json_decode($region['title'])->{config('global.lang')}
                         }}
@@ -194,7 +196,9 @@
                           value="{{
                           json_decode($district['title'])->{config('global.lang')}
                           }}"
-                          data-cityid="{{$district['city_id']}}" 
+                          data-city="{{
+                            json_decode(getRegions()[$district['city_id']-1]['title'])->{config('global.lang')}
+                          }}" 
                           class="district">
                           {{
                           json_decode($district['title'])->{config('global.lang')}
@@ -388,15 +392,17 @@
     function change_region(elem) {
       var district = document.getElementsByClassName('district');
       document.getElementById("district_select").value = null;
-      let id = elem.dataset.id;
+      let id = elem.value;
       for (let i = 0; i < district.length; i++) {
-        if (district[i].dataset.cityid != id)
+        if (district[i].dataset.city != id){
+          console.log(district[i].dataset.city, id);
           district[i].style.display = "none";
+        }
         else
           district[i].style.display = "";
       }
     }
-
+    window.change_region=change_region;
 
     /**
      * [show_pw description]
