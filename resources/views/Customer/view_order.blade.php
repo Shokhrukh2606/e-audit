@@ -3,6 +3,7 @@
 
 $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields","status","message"];
 
+$files=['cust_comp_gov_registration_copy', 'cust_comp_director_passport_copy'];
 $editable_status=[1, 5];
 @endphp
 
@@ -36,7 +37,18 @@ $editable_status=[1, 5];
 		<ul>
 			@foreach($order->cust_info->getAttributes() as $key=>$value)
 			@continue(in_array($key, $not_iterated, TRUE))
-			<li>{{lang($key)}} :{{$value}}</li>
+			
+			<li>{{lang($key)}} :
+			@if(in_array($key, $files, true))
+				<a href="{{route('file')."?path=".$value}}" target="blank"
+				class="btn btn-primary btn-link"
+				>
+					{{lang('show')}}
+				</a>
+			@else
+				{{$value}}
+			@endif
+			</li>
 			@endforeach
 			@php
 		// get custom fields array

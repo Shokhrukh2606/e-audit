@@ -1318,7 +1318,7 @@ if (!function_exists('file_validation_rules')) {
 		});
 
 		$rules = array_map(function ($v) {
-			return ["custom." . $v['name'] => "required | mimetypes:" . $v['mime_types']];
+			return ["custom." . $v['name'] => "required | mimes:" . $v['mime_types']];
 		}, $file_fields);
 
 		return array_merge(...$rules);
