@@ -23,7 +23,7 @@ class RegisterController extends Controller
                 return view('register.forgot_password');
                 break;
             case 'POST':
-                $phone = "+" . $req->input('phone');
+                $phone = $req->input('phone');
                 $user = User::where('phone', $phone)->first();
                 if ($user && session('ver_code') && session('ver_code') == $req->input('ver_code')) {
 
@@ -31,6 +31,7 @@ class RegisterController extends Controller
                     User::where('phone', $phone)->update($data);
                     return redirect()->route('login');
                 }
+                session(['message'=>'please_try_again']);
                 return redirect()->route('forgot_pswrd');
                 break;
             default:

@@ -1411,6 +1411,16 @@ function getUserLayout($u)
 function lang($word)
 {
 	$words = [
+		'please_try_again' => [
+			'oz' => 'Iltimos yana urinib ko\'ring',
+			'uz' => 'Илтимос яна уриниб кўринг',
+			'ru' => 'Пожалуйста, попробуйте еще раз'
+		],
+		'passport_number' => [
+			'oz' => 'Passport seriyasi va nomeri',
+			'uz' => 'Пасспорт серияси ва номериг',
+			'ru' => 'Серия и номер паспорта'
+		],		
 		'region' => [
 			'oz' => 'Viloyat',
 			'uz' => 'Вилоят',

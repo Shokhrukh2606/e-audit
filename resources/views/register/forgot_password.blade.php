@@ -1,6 +1,13 @@
 <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/forgot-password.css')}}">
-
+@if(session('message'))
+<div class="alert alert-danger">
+	<p>{{lang(session('message'))}}</p>
+	@php
+      Session::forget('message');
+    @endphp	
+</div>
+@endif
 <div class="forgot-pswrd">
 	<div class="inner">
 		<h3 class="mb-4 text-center">{{lang('restorePassword')}}</h3>

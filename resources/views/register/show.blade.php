@@ -140,6 +140,13 @@
                           <img src="{{config('global.eye_img')}}" alt="">
                         </span>
                       </div>
+                      <div class="form-group">
+                        <label for="passport_number">
+                          {{lang('passport_number')}}
+                        </label>
+                        <input type="text" class="form-control" required id="passport_number"/>
+                        <input type="hidden" class="form-control" id="passport_number_real" name="passport_number"/>
+                      </div>
                       <div class="custom-file">
                         <input type="file" name="passport_copy" class="custom-file-input" id="InputFile">
                         <label class="custom-file-label" for="InputFile" data-browse="{{lang('upload')}}">{{lang('passportCopy')}}</label>
@@ -151,7 +158,7 @@
                       <div class="form-group">
                         <input type="text" class="form-control" max-length="9" placeholder="{{lang('inn')}}" value="" />
                       </div>
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                         <input type="text" data-name="h_cert_series" placeholder="{{lang('sertificateSerie')}}" class="form-control" id="h_cert_series" onchange="set_cert_number(this)">
                       </div>
                       <div class="form-group">
@@ -160,10 +167,10 @@
 
                       <div class="form-group">
                         <input type="hidden" name="cert_number" id="cert_number">
-                      </div>
-                      <div class="form-group">
+                      </div> --}}
+                     {{--  <div class="form-group">
                         <input type="date" name="cert_date" class="form-control">
-                      </div>
+                      </div> --}}
                       <div class="form-group">
                         <label>{{lang('region')}}:</label>
                         <select name="region" class="form-control">
@@ -183,14 +190,17 @@
                         <label>{{lang('district')}}:</label>
                         <select name="district" class="form-control" id="district_select">
                           @foreach(getDistricts() as $district)
-                          <option value="{{
-                      json_decode($district['title'])->{config('global.lang')}
-                    }}" data-cityid="{{$district['city_id']}}" class="district">
-                            {{
-                      json_decode($district['title'])->{config('global.lang')}
-                    }}
-                            @endforeach
+                          <option 
+                          value="{{
+                          json_decode($district['title'])->{config('global.lang')}
+                          }}"
+                          data-cityid="{{$district['city_id']}}" 
+                          class="district">
+                          {{
+                          json_decode($district['title'])->{config('global.lang')}
+                          }}
                           </option>
+                          @endforeach
                         </select>
                       </div>
                       <div class="form-group">
@@ -266,10 +276,16 @@
     }
 
     $(".phone_num").inputmask({
-      "mask": "99-999-99-99",
-      'autoUnmask': true,
-      "removeMaskOnSubmit": true,
+      mask: "99-999-99-99",
+      autoUnmask: true,
+      removeMaskOnSubmit: true,
     });
+    $("#passport_number").inputmask(
+      "AA-9999999",
+      {
+        removeMaskOnSubmit: true
+      }
+    );
     var newPhone;
 
     function fixValue() {
@@ -287,7 +303,10 @@
       newPhone.name = "phone";
       phone_input.parentNode.appendChild(newPhone);
     }
-  
+    function fixPassport(){
+      document.getElementById("passport_number_real").value=
+      document.getElementById("passport_number").value.split('-').join('');
+    }
     function send_verification() {
 
       if (customer.classList.contains('show')) {
@@ -337,6 +356,7 @@
         input.name = "ver_code";
         form.appendChild(input);
         fixValue();
+        fixPassport();
         form.submit();
       }
     }
@@ -356,22 +376,20 @@
 
       document.getElementById('cert_number').value = h_cert_series + h_cert_number;
     }
-    set_cert_number(document.getElementById("h_cert_series"));
-    set_cert_number(document.getElementById("h_cert_number"));
+    // set_cert_number(document.getElementById("h_cert_series"));
+    // set_cert_number(document.getElementById("h_cert_number"));
 
 
-    var district = document.getElementsByClassName('district');
     /**
      * change select options of disctricts according to region selected
      * @param  {[type]} elem [description]
      * @return {[type]}      [description]
      */
     function change_region(elem) {
+      var district = document.getElementsByClassName('district');
       document.getElementById("district_select").value = null;
       let id = elem.dataset.id;
       for (let i = 0; i < district.length; i++) {
-        console.log(id);
-        console.log(district[i].dataset.cityid);
         if (district[i].dataset.cityid != id)
           district[i].style.display = "none";
         else
