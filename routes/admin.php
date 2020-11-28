@@ -49,3 +49,33 @@ Route::match(["GET", "POST"], "/create_blanks", "Admin_Controller@create_blanks"
  */
 Route::match(["GET", "POST"], "/assign_blanks", "Admin_Controller@assign_blanks")
 	->name("assign_blanks");
+
+
+/**
+ * Create audit info card
+ */
+Route::match(["GET", "POST"], "/create_a_c_i", "Admin_Controller@create_a_c_i")
+	->name("create_a_c_i");
+
+/**
+ * List audit info card
+ * 
+ */
+
+Route::get('/list_a_c_i',"Admin_Controller@list_a_c_i")->name('list_a_c_i');
+/**
+ * delete aci
+ */
+Route::get('/delete_a_c_i/{id}',"Admin_Controller@delete_a_c_i")->name('delete_a_c_i');
+
+/**
+ * make aci default
+ */
+
+Route::get('/default_a_c_i/{id}', 'Admin_Controller@default_a_c_i')->name('default_a_c_i');
+
+/**
+ * edit aci
+ */
+
+Route::post('/edit_a_c_i/{id}', 'Admin_Controller@edit_a_c_i')->name('edit_a_c_i');

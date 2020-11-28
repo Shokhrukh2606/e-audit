@@ -4,6 +4,9 @@
 	.quarters option:disabled {
 		color: #9c9c9c;
 	}
+	.switch input{
+		width:initial;
+	}
 </style>
 @endsection
 
@@ -75,52 +78,106 @@
 					<input class="form-control" type="text" name="cust_info[cust_comp_name]" required>
 				</div>
 				<div class="mb-4">
-					<label>{{lang('cust_comp_gov_reg_num')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]" required>
-				</div>
-				<div class="mb-4">
-					<label>{{lang('cust_comp_registered_by')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_registered_by]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('userCompGovRegDate')}}</label>
-					<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]" required>
-				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompAddress')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_address]" required>
-				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompBank')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]" required>
-				</div>
-				<div class="mb-4">
-					<label>{{lang('cust_comp_bank_acc')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]" maxlength="20" required>
-				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompBankMfo')}}</label>
-					<input maxlength="5" class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]" required>
-				</div>
-				<div class="mb-4">
 					<label>{{lang('custCompInn')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_inn]" maxlength="9" required>
 				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompOked')}}</label>
-					<input maxlength="5" class="form-control" type="text" name="cust_info[cust_comp_oked]" required>
+				<div class="switch">
+					<p>{{lang('payment_type')}}</p>
+					<div class="form-group">
+						<input type="radio" id="perechislenie" 
+						onclick="switchit('on')"
+						name="switch"
+
+						>
+						<label for="perechislenie">
+							{{lang('perechislenie')}}
+						</label>
+					</div>
+					<div class="form-group">
+						<input type="radio" id="others"
+						onclick="switchit('off')" 
+						name="switch"
+						checked="checked"
+						>
+						<label for="others">
+							{{lang('others')}}
+						</label>
+					</div>
 				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompDirector')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_director_name]" required>
-				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompActivity')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_activity]" required>
+				<div id="switchable">
+					<div class="mb-4">
+						<label>{{lang('cust_comp_gov_reg_num')}}</label>
+						<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]" required>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('cust_comp_registered_by')}}</label>
+						<input class="form-control" type="text" name="cust_info[cust_comp_registered_by]">
+					</div>
+					<div class="mb-4">
+						<label>{{lang('userCompGovRegDate')}}</label>
+						<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]" required>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('custCompAddress')}}</label>
+						<input class="form-control" type="text" name="cust_info[cust_comp_address]" required>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('custCompBank')}}</label>
+						<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]" required>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('cust_comp_bank_acc')}}</label>
+						<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]" maxlength="20" required>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('custCompBankMfo')}}</label>
+						<input maxlength="5" class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]" required>
+					</div>
+
+					<div class="mb-4">
+						<label>{{lang('custCompOked')}}</label>
+						<input maxlength="5" class="form-control" type="text" name="cust_info[cust_comp_oked]" required>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('custCompDirector')}}</label>
+						<input class="form-control" type="text" name="cust_info[cust_comp_director_name]" required>
+					</div>
+					{{-- <div class="mb-4">
+						<label>{{lang('custCompActivity')}}</label>
+						<input class="form-control" type="text" name="cust_info[cust_comp_activity]" required>
+					</div> --}}
 				</div>
 			</div>
 			<div class="tab">
 				<h4>3. {{lang('requiredDocs')}}</h4>
+				<div class="form-group">
+					<p>
+						{{lang('cust_comp_gov_registration_copy')}}
+					</p>
+					<div class="custom-file">
+						<input type="file" 
+						name="cust_info[cust_comp_director_passport_copy]" 
+						class="custom-file-input" 
+						id="cust_comp_director_passport_copy">
+						<label class="custom-file-label" 
+							for="cust_comp_director_passport_copy" data-browse="{{lang('upload')}}">
+							{{lang('cust_comp_director_passport_copy')}}
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<p>
+						{{lang('cust_comp_gov_registration_copy')}}
+					</p>
+					<div class="custom-file">
+						<input type="file" 
+						name="cust_info[cust_comp_gov_registration_copy]" 
+						class="custom-file-input" id="cust_comp_gov_registration_copy">
+						<label class="custom-file-label" for="cust_comp_gov_registration_copy" data-browse="{{lang('upload')}}">
+							{{lang('cust_comp_gov_registration_copy')}}
+						</label>
+					</div>
+				</div>
 				<div class="file-wrapper mb-4">
 					@php
 					$dom = new DOMDocument('1.0');
@@ -132,8 +189,8 @@
 
 					$label = $dom->createElement("label", $field->label->uz.":");
 					if($field->type=='file'){
-					$allowed_types=$field->allowed_types;
-					$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
+						$allowed_types=$field->allowed_types;
+						$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
 					}
 					$div->appendChild($label);
 
@@ -153,41 +210,41 @@
 					$input->appendChild($attr);
 
 					if($field->type=='file'){
-					$class=$dom->createAttribute('class');
-					$class->value="custom-file-input";
-					$id=$dom->createAttribute('id');
-					$id->value=$index;
-					$input->appendChild($id);
-					$input->appendChild($class);
+						$class=$dom->createAttribute('class');
+						$class->value="custom-file-input";
+						$id=$dom->createAttribute('id');
+						$id->value=$index;
+						$input->appendChild($id);
+						$input->appendChild($class);
 
-					$allowed_types=$dom->createAttribute('accept');
-					$allowed_types->value=$field->allowed_types;
-					$input->appendChild($allowed_types);
+						$allowed_types=$dom->createAttribute('accept');
+						$allowed_types->value=$field->allowed_types;
+						$input->appendChild($allowed_types);
 
-					$wrapper=$dom->createElement('div');
+						$wrapper=$dom->createElement('div');
 
-					$class=$dom->createAttribute('class');
-					$class->value="custom-file";
-					$wrapper->appendChild($class);
+						$class=$dom->createAttribute('class');
+						$class->value="custom-file";
+						$wrapper->appendChild($class);
 
-					$inLabel=$dom->createElement('label');
+						$inLabel=$dom->createElement('label');
 
-					$browse=$dom->createAttribute('data-browse');
-					$browse->value=lang('upload');
-					$class=$dom->createAttribute('class');
-					$class->value="custom-file-label";
-					$for=$dom->createAttribute('for');
-					$for->value=$index;
+						$browse=$dom->createAttribute('data-browse');
+						$browse->value=lang('upload');
+						$class=$dom->createAttribute('class');
+						$class->value="custom-file-label";
+						$for=$dom->createAttribute('for');
+						$for->value=$index;
 
-					$inLabel->appendChild($for);
-					$inLabel->appendChild($browse);
-					$inLabel->appendChild($class);
+						$inLabel->appendChild($for);
+						$inLabel->appendChild($browse);
+						$inLabel->appendChild($class);
 
-					$wrapper->appendChild($input);
-					$wrapper->appendChild($inLabel);
+						$wrapper->appendChild($input);
+						$wrapper->appendChild($inLabel);
 
-					$div->appendChild($wrapper);
-					continue;
+						$div->appendChild($wrapper);
+						continue;
 					}
 					$div->appendChild($input);
 
@@ -236,23 +293,46 @@
 </script>
 <script>
 	var myselect = document.getElementById("year"),
-		startYear = new Date().getFullYear()
+	startYear = new Date().getFullYear()
 	count = 10;
 
-	(function(select, val, count) {
-		do {
-			select.add(new Option(val--, count--), null);
-		} while (count);
-	})(myselect, startYear, count);
+	var switch_state='off';
+	const switchable=document.getElementById('switchable');
+	const clone=switchable.innerHTML;
+	/**
+	 * [switchit dom manipulation]
+	 * @param  {[type]} state [description]
+	 * @return void
+	 */
+	 function switchit(state){
+	 	switch_state=state;
 
-	function getInitialQuarter() {
-		const quarterStart = document.getElementById('quarterStart');
-		const quarterFinish = document.getElementById('quarterFinish');
-		quarterFinish.value = quarterStart.value;
-		for (let index = 0; index < quarterStart.value - 1; index++) {
-			quarterFinish.children[index].disabled = true;
-		}
-	}
-	getInitialQuarter()
-</script>
-@endsection
+	 	if(switch_state=='off'){
+	 		switchable.style.display='none';
+	 		switchable.innerHTML="";
+	 	}
+
+	 	if(switch_state=='on'){
+	 		switchable.style.display='block';
+	 		switchable.innerHTML=clone;
+	 	}
+	 }
+	 switchit(switch_state);
+
+	 (function(select, val, count) {
+	 	do {
+	 		select.add(new Option(val--, count--), null);
+	 	} while (count);
+	 })(myselect, startYear, count);
+
+	 function getInitialQuarter() {
+	 	const quarterStart = document.getElementById('quarterStart');
+	 	const quarterFinish = document.getElementById('quarterFinish');
+	 	quarterFinish.value = quarterStart.value;
+	 	for (let index = 0; index < quarterStart.value - 1; index++) {
+	 		quarterFinish.children[index].disabled = true;
+	 	}
+	 }
+	 getInitialQuarter()
+	</script>
+	@endsection

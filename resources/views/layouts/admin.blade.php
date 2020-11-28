@@ -55,15 +55,21 @@
 				</div>
 				<ul class="nav mynav">
 					<li>
+						<a href="{{ route('admin.list_a_c_i') }}">
+							<i class="tim-icons icon-badge"></i>
+							<p>{{lang('audit_comp_info')}}</p>
+						</a>
+					</li>
+					<li>
 						<a href="{{ route('admin.create_blanks') }}">
-							<i class="tim-icons icon-single-02"></i>
-							<p>Create new Blanks</p>
+							<i class="tim-icons icon-notes"></i>
+							<p>{{lang('create_new_blanks')}}</p>
 						</a>
 					</li>
 					<li>
 						<a href="{{ route('admin.assign_blanks') }}">
-							<i class="tim-icons icon-single-02"></i>
-							<p>Assign Blanks</p>
+							<i class="tim-icons icon-check-2"></i>
+							<p>{{lang('assign_blanks')}}</p>
 						</a>
 					</li>
 					<li>
@@ -226,9 +232,7 @@
 	<script src="{{ asset('assets/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
 	<script src="{{ asset('selectable/js/select2.min.js') }}"></script>
 
-	<!--  Google Maps Plugin    -->
-	<!-- Place this tag in your head or just before your close body tag. -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+	
 	<!-- Chart JS -->
 	<script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
 	<!--  Notifications Plugin    -->
