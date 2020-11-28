@@ -1411,10 +1411,35 @@ function getUserLayout($u)
 function lang($word)
 {
 	$words = [
+		'payment_type' => [
+			'oz' => 'To\'lov turi',
+			'uz' => 'Тўлов тури',
+			'ru' => 'Тип платежа'
+		],
+		'perechislenie' => [
+			'oz' => 'Pul o\'tkazish',
+			'uz' => 'Пул ўтказиш',
+			'ru' => 'Банковский перевод'
+		],
+		'others' => [
+			'oz' => 'click, payme yoki naxt',
+			'uz' => 'click, payme ёки нахт',
+			'ru' => 'click, payme или наличными'
+		],
 		'check_all' => [
 			'oz' => 'Barchasini belgilash',
 			'uz' => 'Барчасини белгилаш',
 			'ru' => 'Выбрать все'
+		],
+		'cust_comp_gov_registration_copy' => [
+			'oz' => 'Korxona guvohnomasining nusxasi',
+			'uz' => 'Корхона гувоҳномасининг нусхаси',
+			'ru' => 'Копия свидетельства компании'
+		],
+		'cust_comp_director_passport_copy' => [
+			'oz' => 'Direktor passport nusxasi',
+			'uz' => 'Директор паспорт нусхаси',
+			'ru' => 'Копия паспорта директора'
 		],
 		'quantity' => [
 			'oz' => 'Miqdori',

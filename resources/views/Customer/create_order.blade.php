@@ -152,7 +152,7 @@
 				<h4>3. {{lang('requiredDocs')}}</h4>
 				<div class="form-group">
 					<p>
-						{{lang('cust_comp_gov_registration_copy')}}
+						{{lang('cust_comp_director_passport_copy')}}
 					</p>
 					<div class="custom-file">
 						<input type="file" 
