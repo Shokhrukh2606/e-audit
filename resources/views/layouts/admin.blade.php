@@ -68,6 +68,12 @@
 				</div>
 				<ul class="nav mynav">
 					<li>
+						<a href="{{ route('admin.list_services') }}">
+							<i class="tim-icons icon-sound-wave"></i>
+							<p>{{lang('list_services')}}</p>
+						</a>
+					</li>
+					<li>
 						<a href="{{ route('admin.list_a_c_i') }}">
 							<i class="tim-icons icon-badge"></i>
 							<p>{{lang('audit_comp_info')}}</p>

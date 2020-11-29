@@ -79,3 +79,19 @@ Route::get('/default_a_c_i/{id}', 'Admin_Controller@default_a_c_i')->name('defau
  */
 
 Route::post('/edit_a_c_i/{id}', 'Admin_Controller@edit_a_c_i')->name('edit_a_c_i');
+
+/**
+ *
+ * list services
+ * 
+ */
+
+Route::get('/list_services', 'Admin_Controller@list_services')->name('list_services');
+
+
+/**
+ *
+ * edit_service
+ */
+
+Route::post('/edit_service/{id}', 'Admin_Controller@edit_service')->name('edit_service');

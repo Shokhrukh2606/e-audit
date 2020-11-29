@@ -11,6 +11,7 @@ use App\Models\Payment;
 use App\Models\Template;
 use App\Models\User_group;
 use App\Models\Blank;
+use App\Models\Service;
 use App\Models\Audit_info;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -340,5 +341,15 @@ class Admin_Controller extends Controller
         }
         $audit_info->save();
         return redirect()->route('admin.list_a_c_i');
+    }
+    public function list_services(Request $req){
+        $data['services']=Service::all();
+        return $this->view('list_services', $data);
+    }
+    public function edit_service(Request $req){
+        $service=Service::where('id', $req->id)->first();
+        $service->price=$req->input('price');
+        $service->save();
+        return redirect()->route('admin.list_services');
     }
 }

@@ -1411,6 +1411,21 @@ function getUserLayout($u)
 function lang($word)
 {
 	$words = [
+		'list_services'=>[
+			'oz' => 'Servislar',
+			'uz' => 'Сервислар',
+			'ru' => 'Сервисы'
+		],
+		'title'=>[
+			'oz' => 'Nomi',
+			'uz' => 'Номи',
+			'ru' => 'Hазвание'
+		],
+		'price'=>[
+			'oz' => 'Narxi',
+			'uz' => 'Нархи',
+			'ru' => 'Цена'
+		],
 		'yearly'=>[
 			'oz' => 'Yillik',
 			'uz' => 'Йиллик',
