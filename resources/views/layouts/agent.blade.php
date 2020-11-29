@@ -46,13 +46,6 @@
         </div>
         <ul class="nav mynav">
           <li>
-            <a href="{{ route('aac.profile') }}">
-              <i class="tim-icons icon-single-02"></i>
-              <p>{{ lang('profile') }}</p>
-            </a>
-          </li>
-          <li>
-          <li>
             <a href="{{ route('agent.list_conclusions') }}">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>{{ lang('conclusions') }}</p>
@@ -116,6 +109,11 @@
                 </a>
                 <ul class="dropdown-menu dropdown-navbar">
                   <li class="nav-link"><a href="javascript:void(0)" onclick="logout()" class="nav-item dropdown-item">{{ lang('logout') }}</a></li>
+                  <li class="nav-link">
+                    <a href="{{ route('aac.profile') }}" class="nav-item dropdown-item">
+                      {{ lang('profile') }}
+                    </a>
+                  </li>
                 </ul>
               </li>
               <li class="separator d-lg-none"></li>
@@ -199,9 +197,9 @@
   <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
   <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
   <script src="{{ asset('assets/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
-  <!--  Google Maps Plugin    -->
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <script src="{{ asset('selectable/js/select2.min.js') }}"></script>
+
+  
   <!-- Chart JS -->
   <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
   <!--  Notifications Plugin    -->
@@ -226,8 +224,35 @@
         window_width = $(window).width();
 
         fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+        oldBodyColor=localStorage.getItem("prefered")
+        oldNavColor=localStorage.getItem("navbar")
+        if(oldBodyColor){
+          switch (oldBodyColor) {
+            case 'white':
+              $("body").addClass("white-content")   
+              break;
+          
+            default:
+              break;
+          }
+        }
+        if(oldNavColor){
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data', oldNavColor);
+          }
 
+          if ($main_panel.length != 0) {
+            $main_panel.attr('data', oldNavColor);
+          }
 
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', oldNavColor);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data', oldNavColor);
+          }
+        }
 
         $('.fixed-plugin a').click(function(event) {
           if ($(this).hasClass('switch-trigger')) {
@@ -244,7 +269,7 @@
           $(this).addClass('active');
 
           var new_color = $(this).data('color');
-
+          localStorage.setItem("navbar", new_color)
           if ($sidebar.length != 0) {
             $sidebar.attr('data', new_color);
           }
@@ -290,7 +315,6 @@
           var $btn = $(this);
 
           if (white_color == true) {
-
             $('body').addClass('change-background');
             setTimeout(function() {
               $('body').removeClass('change-background');
@@ -304,7 +328,6 @@
               $('body').removeClass('change-background');
               $('body').addClass('white-content');
             }, 900);
-
             white_color = true;
           }
 
@@ -313,10 +336,12 @@
 
         $('.light-badge').click(function() {
           $('body').addClass('white-content');
+          localStorage.setItem("prefered", "white")
         });
 
         $('.dark-badge').click(function() {
           $('body').removeClass('white-content');
+          localStorage.setItem("prefered", "black")
         });
       });
     });
@@ -332,12 +357,6 @@
         application: "black-dashboard-free"
       });
   </script>
-  <script>
-    $(document).on('change', '.custom-file-input', function(event) {
-      $(this).next('.custom-file-label').html(event.target.files[0].name);
-    })
-  </script>
-  @yield('createConclusionJs')
 </body>
 <script>
   var menu = document.getElementsByClassName('mynav')[0].children;
@@ -358,6 +377,12 @@
       menu[i].classList.remove('active');
     }
   }
+  $(document).ready(function() {
+
+    // Initialize select2
+    
+    // Read selected option
+  });
 </script>
 
 </html>

@@ -8,6 +8,7 @@ use App\Models\Cust_comp_info;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Template;
+use App\Models\Blank;
 use App\Models\Use_Case;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
