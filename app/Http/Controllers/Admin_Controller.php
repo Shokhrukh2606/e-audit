@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\Conclusion;
 use App\Models\Cust_comp_info;
+use App\Models\Invoice;
 use App\Models\Payment;
 use App\Models\Template;
 use App\Models\User_group;
@@ -247,6 +248,12 @@ class Admin_Controller extends Controller
         $data['conclusion']=Conclusion::where(['id'=>$req->id])->first();
         if($data['conclusion'])
             return $this->view('view_conclusion', $data);
+        return abort(404);
+    }
+    public function transactions_log(){
+        $data['transactions']=Invoice::where(['status'=>'confirmed'])->paginate(20);
+        if($data['transactions'])
+            return $this->view('transactions_log',$data);
         return abort(404);
     }
 }

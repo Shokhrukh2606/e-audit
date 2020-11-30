@@ -234,6 +234,9 @@
       </ul>
     </div>
   </div>
+  <script>
+    document.getElementsByTagName("body")[0].style.display="none";
+  </script>
   <!--   Core JS Files   -->
   <script src="{{asset('assets/js/core/jquery.min.js')}}"></script>
   <script src="{{asset('assets/js/core/popper.min.js')}}"></script>
@@ -384,7 +387,8 @@
 				$('.dark-badge').click(function() {
 					$('body').removeClass('white-content');
 					localStorage.setItem("prefered", "black")
-				});
+        });
+        document.getElementsByTagName("body")[0].style.display="block";
       });
     });
   </script>

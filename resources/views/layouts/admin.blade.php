@@ -77,6 +77,12 @@
 							<p>{{ lang('conclusions') }}</p>
 						</a>
 					</li>
+					<li>
+						<a href="{{ route('admin.transactions_log') }}">
+							<i class="tim-icons icon-puzzle-10"></i>
+							<p>{{ lang('transactions') }}</p>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -206,6 +212,9 @@
 			</ul>
 		</div>
 	</div>
+	<script>
+		document.getElementsByTagName("body")[0].style.display="none";
+	</script>
 	<!--   Core JS Files   -->
 	<script src="{{ asset('assets/js/core/jquery.min.js') }}"></script>
 	<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
@@ -269,7 +278,7 @@
 						$sidebar_responsive.attr('data', oldNavColor);
 					}
 				}
-
+				
 				$('.fixed-plugin a').click(function(event) {
 					if ($(this).hasClass('switch-trigger')) {
 						if (event.stopPropagation) {
@@ -359,6 +368,7 @@
 					$('body').removeClass('white-content');
 					localStorage.setItem("prefered", "black")
 				});
+				document.getElementsByTagName("body")[0].style.display="block";
 			});
 		});
 	</script>
