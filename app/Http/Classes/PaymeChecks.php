@@ -86,7 +86,7 @@ class PaymeChecks
 		}
 		
 		if ((round(microtime(true) * 1000) - strtotime($transaction->system_create_time)*1000) > 43200000) {
-			$transaction->state = 'rejected';
+			$transaction->state = 'cancelled';
 			$transaction->error_code = 4;
 			$transaction->save();
 			return [
@@ -361,13 +361,13 @@ class PaymeChecks
 				]
 			];
 		}
-		if ($transaction->transaction_state() != 1 && $transaction->transaction_state() != 2) {
+		if ($transaction->transaction_state() != 1) {
 			return [
 				'error' => [
 					'message' => [
 						'uz' => 'Чек отказано.',
 						'ru' => 'Check bekor qilingan.',
-						'en' => 'Order is rejected.'
+						'en' => 'Order is cancelled.'
 					],
 					'code' => -31008
 				]
@@ -375,7 +375,7 @@ class PaymeChecks
 		}
 
 		if ((round(microtime(true) * 1000) - $params->time) > 43200000) {
-			$transaction->state = 'rejected';
+			$transaction->state = 'cancelled';
 			$transaction->error_code = 4;
 			$transaction->save();
 			return [
