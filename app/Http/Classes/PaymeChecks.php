@@ -7,17 +7,8 @@ use App\Models\Transaction;
 
 class PaymeChecks
 {
-	/*
-	*@name validateCheckParams
-	*@param $params array-like
-	*@return array-like 
-	*/
-	/*
-	*@name validateCheckParams
-	*@param $params array-like
-	*@return array-like 
-	*/
-	public function doFuckPerform(array $params): array
+	
+	public function validatePerform(array $params): array
 	{
 		$params = (object) $params;
 		if (!isset($params->id) || !$params->id) {
@@ -33,6 +24,23 @@ class PaymeChecks
 			];
 		}
 		$transaction = Transaction::where(['system_transaction_id' => $params->id])->first();
+
+		//additional check
+		//check if invoice is not confirmed yet
+		if($transaction->invoice->status=='confirmed'){
+			return [
+				'error' => [
+					'message' => [
+						'uz' => 'Невозможно выполнить данную операцию.',
+						'ru' => 'Bu operatsiyani bajarib bomidi.',
+						'en' => 'This operation can not be done.'
+					],
+					'code' => -31008
+				]
+			];
+		}
+
+		
 		if(!$transaction){
 			return [
 				'error' => [
@@ -47,33 +55,33 @@ class PaymeChecks
 		}
 		switch ($transaction->transaction_state()) {
 			case 1:
-				
-				break;
+
+			break;
 			case 2:
-				return [
-					'result' => [
-						"perform_time" => strtotime($transaction->perform_time) * 1000,
-						"transaction" => "$transaction->id",
-						"state" => 2
-					],
-					'error' => [
-						'message' => 'Successfull',
-						'code' => 0
-					]
-				];
+			return [
+				'result' => [
+					"perform_time" => strtotime($transaction->perform_time) * 1000,
+					"transaction" => "$transaction->id",
+					"state" => 2
+				],
+				'error' => [
+					'message' => 'Successfull',
+					'code' => 0
+				]
+			];
 			break;
 			
 			default:
-				return [
-					'error' => [
-						'message' => [
-							'uz' => 'Невозможно выполнить данную операцию.',
-							'ru' => 'Bu operatsiyani bajarib bomidi.',
-							'en' => 'This operation can not be done.'
-						],
-						'code' => -31008
-					]
-				];
+			return [
+				'error' => [
+					'message' => [
+						'uz' => 'Невозможно выполнить данную операцию.',
+						'ru' => 'Bu operatsiyani bajarib bomidi.',
+						'en' => 'This operation can not be done.'
+					],
+					'code' => -31008
+				]
+			];
 			break;
 		}
 		
@@ -110,6 +118,12 @@ class PaymeChecks
 			]
 		];
 	}
+	/*
+	*@name validateCheckParams
+	*@param $params array-like
+	*@return array-like 
+	*/
+	
 	public function validateCheckParams(array $params): array
 	{
 		// todo: Validate amount, if failed throw error
@@ -157,6 +171,17 @@ class PaymeChecks
 				]
 			];
 		}
+		
+		// for example, order state before payment should be 'waiting pay'
+
+		if ($invoice->status != 'waiting') {
+			return [
+				'error' => [
+					'message' => 'Order state is invalid.',
+					'code' => -31051
+				]
+			];
+		}
 
 		// validate amount
 
@@ -173,16 +198,7 @@ class PaymeChecks
 			];
 		}
 
-		// for example, order state before payment should be 'waiting pay'
-
-		if ($invoice->status == 'confirmed' || $invoice->status == 'rejected') {
-			return [
-				'error' => [
-					'message' => 'Order state is invalid.',
-					'code' => -31051
-				]
-			];
-		}
+		
 		$transaction = Transaction::where([
 			'invoice_id' => $invoice->id,
 			'payment_system' => 'payme'
@@ -311,16 +327,13 @@ class PaymeChecks
 		}
 		// Find transaction by id
 		$transaction = Transaction::where(['system_transaction_id' => $params->id, 'payment_system' => 'payme'])->first();
+
 		if (!$transaction) {
 			$checkPerformTransaction = $this->validateCheckParams((array) $params);
 			if ($checkPerformTransaction['error']['code'] != 0) {
 				return $checkPerformTransaction;
 			}
 
-			$error=$this->validateCheckParams($params);
-			if($error[0]['code']!=0){
-				return $error;
-			}
 			$new_transaction = new Transaction;
 			$new_transaction->payment_system = 'payme';
 			$new_transaction->system_transaction_id = $params->id;
@@ -329,6 +342,12 @@ class PaymeChecks
 			$new_transaction->created_at = date("Y-m-d H:i:s");
 			$new_transaction->system_create_time = date('Y-m-d H:i:s', floor($params->time / 1000));
 			$new_transaction->save();
+
+			// make invoice inprocess
+
+			$invoice=$new_transaction->invoice;
+			$invoice->status='inprocess';
+			$invoice->save();
 
 			return [
 				'error' => [
