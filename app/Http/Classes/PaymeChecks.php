@@ -28,6 +28,19 @@ class PaymeChecks
 		//additional check
 		//check if invoice is not confirmed yet
 		if($transaction->invoice->status=='confirmed'){
+			if($transaction->state=='confirmed'){
+				return [
+					'result' => [
+						"perform_time" => strtotime($transaction->perform_time) * 1000,
+						"transaction" => "$transaction->id",
+						"state" => 2
+					],
+					'error' => [
+						'message' => 'Successfull',
+						'code' => 0
+					]
+				];
+			}
 			return [
 				'error' => [
 					'message' => [
