@@ -66,6 +66,8 @@ class Customer_Controller extends Controller
                 
                 $order_fields=$req->input('order');
                 $cust_info_fields=$req->input('cust_info');
+                $cust_info_fields_files=$req->file('cust_info');
+
                 $custom_fields_files=$req->file('custom');
                 $custom_fields=$req->input('custom');
                 // customer_info-use_case mappings
@@ -84,8 +86,15 @@ class Customer_Controller extends Controller
                 $order->save();
                 $CCI=new Cust_comp_info();
                 $CCI->order_id=$order->id;
+
                 foreach ($cust_info_fields??[] as $key => $value) {
                     $CCI->$key=$value;
+                }
+               
+                foreach ($cust_info_fields_files??[] as $key => $value) {
+
+                   $CCI->$key=$value
+                   ->storeAs("orders/$order->id", time().'cci'.$key.$value->getClientOriginalName());
                 }
                
                 foreach ($custom_fields_files??[] as $key => $value) {
@@ -254,7 +263,7 @@ class Customer_Controller extends Controller
             $invoice->user_id=auth()->user()->id;
             $invoice->service_id=$service->id;
             $invoice->save();
-            return redirect()->route('customer.pay', $invoice->id);
+            return redirect()->route('customer.pay', $conclusion->id);
         }else{
            abort(404);
         }

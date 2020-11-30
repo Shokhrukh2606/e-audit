@@ -17,6 +17,7 @@
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="{{ asset('assets/demo/demo.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/css/common.css') }}" rel="stylesheet" />
+	
 	<link href="{{ asset('selectable/css/select2.min.css') }}" rel='stylesheet' type='text/css'>
 	@yield('conclusionsCss')
 </head>
@@ -26,7 +27,20 @@
 		font-size: 10px;
 		font-weight: 600;
 	}
+	
+  .sidebar .nav li>a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
 
+  .sidebar .nav li.active>a:not([data-toggle="collapse"])::before {
+    top: 45%;
+  }
+
+  .sidebar .nav p {
+    white-space: initial;
+  }
 	/* select option {
       color: #000!important;
     }
@@ -53,6 +67,30 @@
 
 				</div>
 				<ul class="nav mynav">
+					<li>
+						<a href="{{ route('admin.list_services') }}">
+							<i class="tim-icons icon-sound-wave"></i>
+							<p>{{lang('list_services')}}</p>
+						</a>
+					</li>
+					<li>
+						<a href="{{ route('admin.list_a_c_i') }}">
+							<i class="tim-icons icon-badge"></i>
+							<p>{{lang('audit_comp_info')}}</p>
+						</a>
+					</li>
+					<li>
+						<a href="{{ route('admin.create_blanks') }}">
+							<i class="tim-icons icon-notes"></i>
+							<p>{{lang('create_blanks')}}</p>
+						</a>
+					</li>
+					<li>
+						<a href="{{ route('admin.assign_blanks') }}">
+							<i class="tim-icons icon-check-2"></i>
+							<p>{{lang('assign_blanks')}}</p>
+						</a>
+					</li>
 					<li>
 						<a href="{{ route('admin.list_users') }}">
 							<i class="tim-icons icon-single-02"></i>
@@ -222,9 +260,7 @@
 	<script src="{{ asset('assets/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
 	<script src="{{ asset('selectable/js/select2.min.js') }}"></script>
 
-	<!--  Google Maps Plugin    -->
-	<!-- Place this tag in your head or just before your close body tag. -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+	
 	<!-- Chart JS -->
 	<script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
 	<!--  Notifications Plugin    -->

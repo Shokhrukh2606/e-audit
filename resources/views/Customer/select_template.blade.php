@@ -1,3 +1,6 @@
+@php
+use App\Models\Template;
+@endphp
 <style>
 	label {
 		font-size: 14px !important;
@@ -5,24 +8,34 @@
 </style>
 <div class="card">
 	<div class="card-header">
-		<h3>{{lang('selectTemplate')}}</h3>
+		
 	</div>
 	<div class="card-body">
 		<form action="{{route('customer.create_order')}}">
-			<div>
-				<label>{{lang('templateNum')}}</label>
-				<select class="form-control" id='template-type' name="template_id" required onchange="alter_use_cases(this)">
-					@foreach($templates as $template)
-					<option value="{{$template->id}}">{{$template->standart_num}}</option>
-					@endforeach
-				</select>
-			</div>
+			<input type="hidden" name="template_id" id="template_id">
 			<div class="mt-4">
 				<h4>{{lang('forWhat')}}</h4>
 				<div id="use_cases" class="mt-2">
+					@php
+						$old_template_id=-1;
+					@endphp
 					@foreach($use_cases as $use_case)
+					@php
+
+						$template_id=$use_case->template_id;
+						if($template_id!=$old_template_id)
+							echo "<h4>".json_decode(Template::where('id',$template_id)->first()->name)->{config('global.lang')}."</h4>";
+						$old_template_id=$template_id;
+					@endphp
 					<div data-value="{{$use_case->id}}" data-temp_id="{{$use_case->template_id}}">
-						<input type="checkbox" name="use_cases[{{$use_case->id}}]" class="uc" id="use_cases[{{$use_case->id}}]">
+						<input 
+							type="checkbox" 
+							name="use_cases[{{$use_case->id}}]" 
+							class="uc" 
+							id="use_cases[{{$use_case->id}}]"
+							data-template_id="{{$use_case->template_id}}"
+							onclick="change_temp(this)"
+						>
 						<label for="use_cases[{{$use_case->id}}]">{{lang(json_decode($use_case->title)->uz)}}</label>
 					</div>
 					@endforeach
@@ -33,21 +46,19 @@
 			</button>
 		</form>
 		<script>
-			function alter_use_cases() {
-				const elem = document.getElementById("template-type");
-				let value = elem.value;
-				let use_cases = document.getElementById("use_cases").children;
-				for (use_case_cont of use_cases) {
-					use_case_cont.style.display = "";
-					// input is the zero child
-					use_case_cont.children[0].checked = false;
-					if (use_case_cont.dataset.temp_id !== value) {
-						use_case_cont.style.display = "none";
+			var temp_id;
+			const use_cases=document.getElementsByClassName('uc');
+			const template_id_input=document.getElementById('template_id');
+			function change_temp(elem){
+				temp_id=elem.dataset.template_id;
+				for(let i=0;i<use_cases.length;i++){
+					if(use_cases[i].dataset.template_id!=temp_id){
+						use_cases[i].checked=false;
 					}
-				}
-			}
 
-			alter_use_cases()
+				}
+				template_id_input.value=temp_id;
+			}
 		</script>
 	</div>
 </div>

@@ -1318,7 +1318,7 @@ if (!function_exists('file_validation_rules')) {
 		});
 
 		$rules = array_map(function ($v) {
-			return ["custom." . $v['name'] => "required | mimetypes:" . $v['mime_types']];
+			return ["custom." . $v['name'] => "required | mimes:" . $v['mime_types']];
 		}, $file_fields);
 
 		return array_merge(...$rules);
@@ -1411,6 +1411,156 @@ function getUserLayout($u)
 function lang($word)
 {
 	$words = [
+		'list_services'=>[
+			'oz' => 'Servislar',
+			'uz' => 'Сервислар',
+			'ru' => 'Сервисы'
+		],
+		'title'=>[
+			'oz' => 'Nomi',
+			'uz' => 'Номи',
+			'ru' => 'Hазвание'
+		],
+		'price'=>[
+			'oz' => 'Narxi',
+			'uz' => 'Нархи',
+			'ru' => 'Цена'
+		],
+		'yearly'=>[
+			'oz' => 'Yillik',
+			'uz' => 'Йиллик',
+			'ru' => 'Годовой'
+		],
+		'payment_type' => [
+			'oz' => 'To\'lov turi',
+			'uz' => 'Тўлов тури',
+			'ru' => 'Тип платежа'
+		],
+		'perechislenie' => [
+			'oz' => 'Pul o\'tkazish',
+			'uz' => 'Пул ўтказиш',
+			'ru' => 'Банковский перевод'
+		],
+		'others' => [
+			'oz' => 'click, payme yoki naxt',
+			'uz' => 'click, payme ёки нахт',
+			'ru' => 'click, payme или наличными'
+		],
+		'check_all' => [
+			'oz' => 'Barchasini belgilash',
+			'uz' => 'Барчасини белгилаш',
+			'ru' => 'Выбрать все'
+		],
+		'cust_comp_gov_registration_copy' => [
+			'oz' => 'Korxona guvohnomasining nusxasi',
+			'uz' => 'Корхона гувоҳномасининг нусхаси',
+			'ru' => 'Копия свидетельства компании'
+		],
+		'cust_comp_director_passport_copy' => [
+			'oz' => 'Direktor passport nusxasi',
+			'uz' => 'Директор паспорт нусхаси',
+			'ru' => 'Копия паспорта директора'
+		],
+		'quantity' => [
+			'oz' => 'Miqdori',
+			'uz' => 'Миқдори',
+			'ru' => 'Количество'
+		],
+		'audit_comp_name' => [
+			'oz' => 'Auditorlik Kompaniyasi nomi',
+			'uz' => 'Аудиторлик Компанияси номи',
+			'ru' => 'Название аудиторской компании'
+		],
+		'audit_comp_gov_reg_date' => [
+			'oz' => 'Auditorlik Kompaniyasi ro\'yhatdan o\'tgan sanasi',
+			'uz' => 'Аудиторлик Компанияси рўйҳатдан ўтган санаси',
+			'ru' => 'Дата регистрации Аудиторской компании'
+		],
+		'audit_comp_oked' => [
+			'oz' => 'OKED',
+			'uz' => 'ОКEД',
+			'ru' => 'ОКEД'
+		],
+		'audit_comp_lic_date' => [
+			'oz' => 'Sertifikat berilgan sana',
+			'uz' => 'Сертификат берилган сана',
+			'ru' => 'Дата выдачи Сертификатa'
+		],
+		'audit_comp_bank_acc' => [
+			'oz' => 'Bank hisob raqami',
+			'uz' => 'Банк ҳисоб рақами',
+			'ru' => 'Банковский счет'
+		],
+		'audit_comp_director_name' => [
+			'oz' => 'Direktor F.I.O.',
+			'uz' => 'Директор Ф.И.О.',
+			'ru' => 'Ф.И.О Директорa'
+		],
+		'audit_comp_director_cert_date' => [
+			'oz' => 'Direktor sertifikati berilgan sanasi',
+			'uz' => 'Директор сертификати берилган санаси',
+			'ru' => 'Дата выдачи сертификатa директора'
+		],
+		'audit_comp_gov_reg_num' => [
+			'oz' => 'Auditorlik Kompaniyasi ma\'lumotlari',
+			'uz' => 'Аудиторлик Компанияси маъумотлари',
+			'ru' => 'Реквизиты аудиторской компании'
+		],
+		'audit_comp_gov_reg_num' => [
+			'oz' => 'Kompaniya ro\'yhatdan o\'tgan sanasi',
+			'uz' => 'Компания рўйҳатдан ўтган санаси',
+			'ru' => 'Дата регистрации компании'
+		],
+		'audit_comp_inn' => [
+			'oz' => 'Kompaniya INNsi',
+			'uz' => 'Компания ИННси',
+			'ru' => 'ИНН Компании'
+		],
+		'audit_comp_lic' => [
+			'oz' => 'Kompaniya litsenziya raqami',
+			'uz' => 'Компания лицензия рақами',
+			'ru' => 'Номер лицензии компании'
+		],
+		'audit_comp_director_cert_num' => [
+			'oz' => 'Auditorlik Kompaniyasi ma\'lumotlari',
+			'uz' => 'Аудиторлик Компанияси маъумотлари',
+			'ru' => 'Реквизиты аудиторской компании'
+		],
+		'audit_comp_bank_name' => [
+			'oz' => 'Bank nomi',
+			'uz' => 'Банк номи',
+			'ru' => 'Hазвание банка'
+		],
+		'audit_comp_bank_mfo' => [
+			'oz' => 'MFO',
+			'uz' => 'МФО',
+			'ru' => 'МФО'
+		],
+		'audit_comp_info' => [
+			'oz' => 'Auditorlik Kompaniyasi ma\'lumotlari',
+			'uz' => 'Аудиторлик Компанияси маъумотлари',
+			'ru' => 'Реквизиты аудиторской компании'
+		],
+		'create_blanks' => [
+			'oz' => 'Blanka yaratish',
+			'uz' => 'Бланка Яратиш',
+			'ru' => 'Создать бланк'
+		],
+		'assign_blanks' => [
+			'oz' => 'Blankani biriktirirsh',
+			'uz' => 'Бланкани бириктирирш',
+			'ru' => 'Назначить бланк'
+		],
+		'please_try_again' => [
+			'oz' => 'Iltimos yana urinib ko\'ring',
+			'uz' => 'Илтимос яна уриниб кўринг',
+			'ru' => 'Пожалуйста, попробуйте еще раз'
+		],
+		'passport_number' => [
+			'oz' => 'Passport seriyasi va nomeri',
+			'uz' => 'Пасспорт серияси ва номериг',
+			'ru' => 'Серия и номер паспорта'
+		],		
 		'region' => [
 			'oz' => 'Viloyat',
 			'uz' => 'Вилоят',
@@ -1930,6 +2080,16 @@ function lang($word)
 			'oz' => "Nofaol",
 			'uz' => 'Нофаол',
 			'ru' => 'Неактивный'
+		],
+		'userAgrement' => [
+			'oz' => "Sistemadan foydalanish shartlari",
+			'uz' => 'Системадан фойдаланиш шартлари',
+			'ru' => 'Условия использования политика конфиденциальности'
+		],
+		'enterCode' => [
+			'oz' => "Iltimos, tasdiqlash kodini kiriting",
+			'uz' => 'Илтимос, тасдиқлаш кодини киритинг',
+			'ru' => 'Пожалуйста, введите проверочный код'
 		],
 		'cust_comp_activity' => [
 			'oz' => "Korxona holati",

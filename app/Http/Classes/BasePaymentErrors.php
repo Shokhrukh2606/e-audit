@@ -58,7 +58,7 @@ class BasePaymentErrors {
             // return response array-like
             return [
                 'error' => -5,
-                'error_note' => 'User does not exist'
+                'error_note' => 'Invoice does not exist'
             ];
         }
 

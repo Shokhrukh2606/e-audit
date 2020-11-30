@@ -47,7 +47,7 @@ class Payme extends Controller
                 return $this->cancelTransaction($req);
                 break;
             case 'CreateTransaction':
-                return $this->checkCreateTransaction($req);
+                return $this->createTransaction($req);
                 break;
             case 'PerformTransaction':
                 return $this->performTransaction($req);
@@ -143,7 +143,7 @@ class Payme extends Controller
         return $param_check;
     }
 
-    public function checkCreateTransaction(Request $req)
+    public function createTransaction(Request $req)
     {
         $check = new PaymeChecks();
         $answer = $check->validateCreateParams($req->params);
@@ -192,7 +192,7 @@ class Payme extends Controller
     }
     public function performTransaction(Request $req){
         $check = new PaymeChecks();
-        $answer=$check->doFuckPerform($req->params);
+        $answer=$check->validatePerform($req->params);
         if ($answer['error']['code'] == 0) {
             return ['result' => $answer['result']];
         }

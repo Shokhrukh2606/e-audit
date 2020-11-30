@@ -1,5 +1,10 @@
 @section('createConclusionCss')
 <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
+<style>
+	.quarters option:disabled {
+		color: #9c9c9c;
+	}
+</style>
 @endsection
 
 <div class="card">
@@ -31,15 +36,26 @@
 				</div>
 				<div class="mb-4">
 					<label>{{lang('year')}}</label>
-					<input class="form-control" type="number" name="conclusion[year]">
+					<select class="form-control" name="cust_info[year]" id="year">
+					</select>
 				</div>
 				<div class="mb-4">
 					<label>{{lang('quarter_start')}}</label>
-					<input class="form-control" type="text" name="conclusion[quarter_start]">
+					<select class="form-control quarters" name="cust_info[quarter_start]" id="quarterStart" onchange='getInitialQuarter()'>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
 				</div>
 				<div class="mb-4">
 					<label>{{lang('quarter_finish')}}</label>
-					<input class="form-control" type="text" name="conclusion[quarter_finish]">
+					<select class="form-control quarters" name="cust_info[quarter_finish]" id="quarterFinish">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
 				</div>
 				<div class="mb-4">
 					<label>{{lang('companyName')}}</label>
@@ -96,7 +112,7 @@
 				<div class="mb-4">
 					<label>{{lang('basicConclusions')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
-				</div> 
+				</div>
 			</div>
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
@@ -112,7 +128,7 @@
 					<label>{{lang('cust_comp_registered_by')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_registered_by]">
 				</div>
-				
+
 				<div class="mb-4">
 					<label>{{lang('custCompAddress')}}</label>
 					<input class="form-control" type="text" name="cust_info[cust_comp_address]">
@@ -206,6 +222,16 @@
 						Result
 					</div>
 				</div>
+				<div class="form-group">
+					<label>Blank Nomer</label>
+					<select name="blank_id" class="form-control" required>
+						@foreach($blanks as $blank)
+							<option value="{{$blank->id}}">
+								Blank {{$blank->id}}
+							</option>
+						@endforeach
+					</select>
+				</div>
 				<!-- <div>
 					<label>{{lang('sources_of_own_funds')}}</label>
 					<input class="form-control" type="text" name="conclusion[sources_of_own_funds]">
@@ -289,4 +315,25 @@
 	})
 </script>
 <script src="{{asset('assets/js/coefficient.js')}}"></script>
+<script>
+	var myselect = document.getElementById("year"),
+		startYear = new Date().getFullYear()
+	count = 10;
+
+	(function(select, val, count) {
+		do {
+			select.add(new Option(val--, count--), null);
+		} while (count);
+	})(myselect, startYear, count);
+
+	function getInitialQuarter() {
+		const quarterStart = document.getElementById('quarterStart');
+		const quarterFinish = document.getElementById('quarterFinish');
+		quarterFinish.value = quarterStart.value;
+		for (let index = 0; index < quarterStart.value - 1; index++) {
+			quarterFinish.children[index].disabled = true;
+		}
+	}
+	getInitialQuarter()
+</script>
 @endsection

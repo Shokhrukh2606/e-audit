@@ -1,5 +1,11 @@
+@section('createConcCss');
 <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
-<!-- Scripti pasda -->
+<style>
+	.quarters option:disabled {
+		color: #9c9c9c;
+	}
+</style>
+@endsection
 
 <form id="regForm" action="{{route('agent.create_conclusion')}}" method="POST" enctype="multipart/form-data">
 	@csrf
@@ -16,6 +22,29 @@
 			<select class="form-control" name="cust_info[lang]">
 				<option value="uz">{{lang('uz')}}</option>
 				<option value="ru">{{lang('ru')}}</option>
+			</select>
+		</div>
+		<div class="mb-4">
+			<label>{{lang('year')}}</label>
+			<select class="form-control" name="cust_info[year]" id="year">
+			</select>
+		</div>
+		<div class="mb-4">
+			<label>{{lang('quarter_start')}}</label>
+			<select class="form-control quarters" name="cust_info[quarter_start]" id="quarterStart" onchange='getInitialQuarter()'>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+		</div>
+		<div class="mb-4">
+			<label>{{lang('quarter_finish')}}</label>
+			<select class="form-control quarters" name="cust_info[quarter_finish]" id="quarterFinish">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
 			</select>
 		</div>
 		<div class='mb-4'>
@@ -207,6 +236,16 @@
 			<label>{{lang('long_term_loans')}}</label>
 			<input class="form-control" type="text" name="conclusion[long_term_loans]">
 		</div>
+		<div class="form-group">
+			<label>Blank Nomer</label>
+			<select name="blank_id" class="form-control" required>
+				@foreach($blanks as $blank)
+				<option value="{{$blank->id}}">
+					Blank {{$blank->id}}
+				</option>
+				@endforeach
+			</select>
+		</div>
 	</div>
 	<div class="tab">
 		<h2>{{lang('custInfo')}}</h2>
@@ -286,4 +325,25 @@
 	})
 </script>
 <script src="{{asset('assets/js/coefficient.js')}}"></script>
+<script>
+	var myselect = document.getElementById("year"),
+	startYear = new Date().getFullYear()
+	count = 10;
+
+	(function(select, val, count) {
+		do {
+			select.add(new Option(val--, count--), null);
+		} while (count);
+	})(myselect, startYear, count);
+
+	function getInitialQuarter() {
+		const quarterStart = document.getElementById('quarterStart');
+		const quarterFinish = document.getElementById('quarterFinish');
+		quarterFinish.value = quarterStart.value;
+		for (let index = 0; index < quarterStart.value - 1; index++) {
+			quarterFinish.children[index].disabled = true;
+		}
+	}
+	getInitialQuarter()
+</script>
 @endsection

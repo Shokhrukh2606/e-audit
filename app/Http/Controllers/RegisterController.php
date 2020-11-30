@@ -11,25 +11,27 @@ use PDF;
 
 class RegisterController extends Controller
 {
-    private $passable=['password', 'passport_copy'];
-    public function show(){
+    private $passable = ['password', 'passport_copy'];
+    public function show()
+    {
         return view("register.show");
     }
-    public function forgot_pswrd(Request $req){
+    public function forgot_pswrd(Request $req)
+    {
         switch ($req->method()) {
             case 'GET':
                 return view('register.forgot_password');
                 break;
             case 'POST':
-                $phone="+".$req->input('phone');
-                $user=User::where('phone',$phone)->first();
-                if($user&&session('ver_code')&&session('ver_code')==$req->input('ver_code'))
-                {
-                    
-                    $data['password']=Hash::make($req->input('password'));
-                    User::where('phone',$phone)->update($data);
+                $phone = $req->input('phone');
+                $user = User::where('phone', $phone)->first();
+                if ($user && session('ver_code') && session('ver_code') == $req->input('ver_code')) {
+
+                    $data['password'] = Hash::make($req->input('password'));
+                    User::where('phone', $phone)->update($data);
                     return redirect()->route('login');
                 }
+                session(['message'=>'please_try_again']);
                 return redirect()->route('forgot_pswrd');
                 break;
             default:
@@ -37,70 +39,74 @@ class RegisterController extends Controller
                 break;
         }
     }
-    public function verification(Request $req){
-        $phone=$_GET['phone']??false;
-        if(!$phone)
+    public function verification(Request $req)
+    {
+        $phone = $_GET['phone'] ?? false;
+        if (!$phone)
             return 0;
-        $verification=rand(1000, 10000);
-        session(['ver_code'=>md5($verification)]);
+        $verification = rand(1000, 10000);
+        session(['ver_code' => md5($verification)]);
         sms($phone, $verification);
         header("Access-Control-Allow-Origin: *");
         return md5($verification);
     }
-    public function reg_cust(Request $req){
+    public function reg_cust(Request $req)
+    {
         // if(!session('ver_code')||session('ver_code')!=$req->input('ver_code')){
         //     return redirect()->route('show_register');
         // }
-		$req->validate([
-			'phone' => 'required|unique:users'
-		]);
-    	$fields=$req->all();
-    	unset($fields['_token']);
+        $req->validate([
+            'phone' => 'required|unique:users'
+        ]);
+        $fields = $req->all();
+        unset($fields['_token']);
         unset($fields['ver_code']);
-    	$customer=new User();
-    	foreach ($fields as $name => $value) {
-    		$customer->$name=$value;
-            if(in_array($name, $this->passable, TRUE))
+        $customer = new User();
+        foreach ($fields as $name => $value) {
+            $customer->$name = $value;
+            if (in_array($name, $this->passable, TRUE))
                 continue;
-    	}
-    	$customer->group_id=4;
-        $customer->password=Hash::make($req->input('password'));
-       
-    	$customer->save();
-        session(['message'=>'Вы успешно зарегистрировались, пожалуйста, введите свой номер телефона и пароль для входа в систему']);
+        }
+        $customer->group_id = 4;
+        $customer->password = Hash::make($req->input('password'));
+
+        $customer->save();
+        session(['message' => 'Вы успешно зарегистрировались, пожалуйста, введите свой номер телефона и пароль для входа в систему']);
         return redirect()->route('login');
     }
-    public function reg_agent(Request $req){
-        if(!session('ver_code')||session('ver_code')!=$req->input('ver_code')){
+    public function reg_agent(Request $req)
+    {
+        if (!session('ver_code') || session('ver_code') != $req->input('ver_code')) {
             return redirect()->route('show_register');
         }
-		$req->validate([
-			'phone' => 'required|unique:users'
-		]);
-		$fields=$req->all();
+        $req->validate([
+            'phone' => 'required|unique:users'
+        ]);
+        $fields = $req->all();
         unset($fields['ver_code']);
-    	unset($fields['_token']);
-    	$agent=new User();
-    	foreach ($fields as $name => $value) {
-    		if(in_array($name, $this->passable, TRUE))
-    			continue;
-    		$agent->$name=$value;
-    	}
-    	$agent->group_id=3;
-        $agent->status="inactive";
-        $agent->password=Hash::make($req->input('password'));
-    	$agent->passport_copy=$req->file('passport_copy')->store('agents');
-    	$agent->save();
-        
-        session(['message'=>'Вы успешно зарегистрировались, вы получите уведомление, когда администратор примет вас.']);
+        unset($fields['_token']);
+        $agent = new User();
+        foreach ($fields as $name => $value) {
+            if (in_array($name, $this->passable, TRUE))
+                continue;
+            $agent->$name = $value;
+        }
+        $agent->group_id = 3;
+        $agent->status = "inactive";
+        $agent->password = Hash::make($req->input('password'));
+        $agent->passport_copy = $req->file('passport_copy')->store('agents');
+        $agent->save();
+
+        session(['message' => 'Вы успешно зарегистрировались, вы получите уведомление, когда администратор примет вас.']);
         return redirect()->route('show_register');
     }
-    public function open_conclusion(Request $req){
-        $data['conclusion']=Conclusion::where('qr_hash', $req->id)->first();
-        if($data['conclusion']){
-            $template=$data['conclusion']->cust_info->template->standart_num;
-            $lang=$data['conclusion']->cust_info->lang;
-            $data['qrcode']=base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
+    public function open_conclusion(Request $req)
+    {
+        $data['conclusion'] = Conclusion::where('qr_hash', $req->id)->first();
+        if ($data['conclusion']) {
+            $template = $data['conclusion']->cust_info->template->standart_num;
+            $lang = $data['conclusion']->cust_info->lang;
+            $data['qrcode'] = base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
             $pdf = PDF::loadView("templates.$template.$lang", $data);
             return $pdf->stream('invoice.pdf');
         }

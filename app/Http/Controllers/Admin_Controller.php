@@ -11,6 +11,9 @@ use App\Models\Invoice;
 use App\Models\Payment;
 use App\Models\Template;
 use App\Models\User_group;
+use App\Models\Blank;
+use App\Models\Service;
+use App\Models\Audit_info;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -55,17 +58,17 @@ class Admin_Controller extends Controller
         if ($data['conclusion']) {
             switch ($req->status) {
                 case 'finished':
-                    $data['conclusion']->status = 3;
-                    $data['conclusion']->save();
-                    return redirect()->back();
-                    break;
+                $data['conclusion']->status = 3;
+                $data['conclusion']->save();
+                return redirect()->back();
+                break;
                 case 'rejected':
-                    $data['conclusion']->status = 4;
-                    $data['conclusion']->save();
-                    return redirect()->back();
-                    break;
+                $data['conclusion']->status = 4;
+                $data['conclusion']->save();
+                return redirect()->back();
+                break;
                 default:
-                    abort(404);
+                abort(404);
             }
         }
         abort(404);
@@ -92,7 +95,7 @@ class Admin_Controller extends Controller
     {
         $filtered = ['template_id', 'auditor_id', 'agent_id', 'customer_id', 'audit_comp_name', 'audit_comp_inn'];
         $query = DB::table('conclusions')
-            ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id');
+        ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id');
         if ($req->input('filter')) {
             foreach ($req->input('filter') as $key => $value) {
                 if (in_array($key, $filtered) && ($value != '')) {
@@ -112,19 +115,19 @@ class Admin_Controller extends Controller
     {
         $filtered = ['template_id', 'cust_comp_inn', 'status'];
         $query = DB::table('conclusions')
-            ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id');
+        ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id');
         switch ($req->type) {
             case 'agent':
-                $query->where(['agent_id' => $req->id]);
-                break;
+            $query->where(['agent_id' => $req->id]);
+            break;
             case 'auditor':
-                $query->where(['auditor_id' => $req->id]);
-                break;
+            $query->where(['auditor_id' => $req->id]);
+            break;
             case 'customer':
-                $query->where(['customer_id' => $req->id]);
-                break;
+            $query->where(['customer_id' => $req->id]);
+            break;
             default:
-                return redirect()->back()->with('message', 'Bu foydalanuvhida hech qanday xulosa yozilmagan!');
+            return redirect()->back()->with('message', 'Bu foydalanuvhida hech qanday xulosa yozilmagan!');
         }
         if ($req->input('filter')) {
             foreach ($req->input('filter') as $key => $value) {
@@ -142,32 +145,32 @@ class Admin_Controller extends Controller
     {
         switch ($req->method()) {
             case 'GET':
-                $data['users'] = User::where('group_id', '!=', '1')->get();
-                return $this->view('add_funds', $data);
-                break;
+            $data['users'] = User::where('group_id', '!=', '1')->get();
+            return $this->view('add_funds', $data);
+            break;
             case 'POST':
-                $fields = $req->all();
-                unset($fields['_token']);
-                $payment = new Payment;
-                foreach ($fields as $name => $value) {
-                    $payment->$name = $value;
-                }
-                $payment->save();
-                $user = User::where('id', $req->input('user_id'))->first();
-                $user->add_funds($req->input('amount'));
-                $user->save();
-                return redirect()->back()->with("success", "Successfully added");
-                break;
+            $fields = $req->all();
+            unset($fields['_token']);
+            $payment = new Payment;
+            foreach ($fields as $name => $value) {
+                $payment->$name = $value;
+            }
+            $payment->save();
+            $user = User::where('id', $req->input('user_id'))->first();
+            $user->add_funds($req->input('amount'));
+            $user->save();
+            return redirect()->back()->with("success", "Successfully added");
+            break;
             default:
                 # code...
-                break;
+            break;
         }
     }
     public function list_users(Request $request)
     {
 
         $query = QueryBuilder::for(User::class)
-            ->allowedFilters(['inn', 'group_id', 'phone', 'name', 'full_name', 'status', 'region', 'district']);
+        ->allowedFilters(['inn', 'group_id', 'phone', 'name', 'full_name', 'status', 'region', 'district']);
         // if ($came = $request->input("filter.name")) {
         //     $query->where('full_name', 'like', "%${came}");
         // }
@@ -179,56 +182,56 @@ class Admin_Controller extends Controller
     {
         switch ($req->method()) {
             case 'GET':
-                $data['groups'] = User_group::whereIn('id', [1, 2])->get();
-                return $this->view('create_user', $data);
-                break;
+            $data['groups'] = User_group::whereIn('id', [1, 2])->get();
+            return $this->view('create_user', $data);
+            break;
             case 'POST':
-                $fields = $req->input("user");
-                unset($fields['_token']);
-                $user = new User;
-                foreach ($fields as $name => $value) {
-                    $user->$name = $value;
-                }
-                $user->password = Hash::make($req->input('user.password'));
-                $user->save();
-                return redirect()->route('admin.list_users')->with("success", "Successfully added");
-                break;
+            $fields = $req->input("user");
+            unset($fields['_token']);
+            $user = new User;
+            foreach ($fields as $name => $value) {
+                $user->$name = $value;
+            }
+            $user->password = Hash::make($req->input('user.password'));
+            $user->save();
+            return redirect()->route('admin.list_users')->with("success", "Successfully added");
+            break;
             default:
                 # code...
-                break;
+            break;
         }
     }
     public function view_user(Request $req)
     {
         switch ($req->method()) {
             case 'GET':
-                $data['user'] = User::where(['id' => $req->id])->first();
-                $data['groups'] = User_group::all();
-                if ($data['user'])
-                    return $this->view('view_user', $data);
-                return abort(404);
-                break;
+            $data['user'] = User::where(['id' => $req->id])->first();
+            $data['groups'] = User_group::all();
+            if ($data['user'])
+                return $this->view('view_user', $data);
+            return abort(404);
+            break;
             case 'POST':
-                $fields = $req->input("user");
-                $user = User::where(['id' => $req->id])->first();
-                if ($fields['status'] != $user->status && $user->status == 'inactive') {
-                    sms($user->phone, 'Сизни аккаунтингиз фаоллаштирилди!');
-                }
-                if ($fields['password'] != '') {
-                    $fields['password'] = Hash::make($fields['password']);
-                } else {
-                    unset($fields['password']);
-                }
-                foreach ($fields as $name => $value) {
-                    $user->$name = $value;
-                }
-                $user->save();
+            $fields = $req->input("user");
+            $user = User::where(['id' => $req->id])->first();
+            if ($fields['status'] != $user->status && $user->status == 'inactive') {
+                sms($user->phone, 'Сизни аккаунтингиз фаоллаштирилди!');
+            }
+            if ($fields['password'] != '') {
+                $fields['password'] = Hash::make($fields['password']);
+            } else {
+                unset($fields['password']);
+            }
+            foreach ($fields as $name => $value) {
+                $user->$name = $value;
+            }
+            $user->save();
                 // $user->save();
-                return redirect()->route('admin.list_users')->with("success", "Successfully updated");
-                break;
+            return redirect()->route('admin.list_users')->with("success", "Successfully updated");
+            break;
             default:
                 # code...
-                break;
+            break;
         }
     }
     public function conclusion(Request $req)
@@ -250,10 +253,104 @@ class Admin_Controller extends Controller
             return $this->view('view_conclusion', $data);
         return abort(404);
     }
-    public function transactions_log(){
-        $data['transactions']=Invoice::where(['status'=>'confirmed'])->paginate(20);
-        if($data['transactions'])
-            return $this->view('transactions_log',$data);
-        return abort(404);
+    public function create_blanks(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+            return $this->view('create_blanks');
+            break;
+            case 'POST':
+            for($i=0;$i<$req->input('quantity');$i++)
+                Blank::start();
+            $data['message']='You have successfully created '.$i." blanks" ;
+            $data['link']=route('admin.create_blanks');
+            return $this->view('message', $data);
+            break;
+            default:
+            abort(401);
+            break;
+        }
+        
+    }
+    public function assign_blanks(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+            $data['users']=User::whereIn('group_id',['2','3'])->get();
+            $data['blanks']=Blank::where('user_id',null)->get();
+            return $this->view('assign_blanks' ,$data);
+            break;
+            case 'POST':
+            if($req->has('blank')){
+                foreach ($req->input('blank') as $index => $id) {
+                    Blank::assign($id, $req->input('user_id'));
+                }
+            }
+            $data['message']='You have assigned blanks';
+            $data['link']=route('admin.assign_blanks');
+            return $this->view('message', $data);
+            break;
+            default:
+            abort(401);
+            break;
+        }        
+    }
+    /**
+     * [create_a_c_i description]
+     * @param  Request $req [description]
+     * @return View view
+     */
+    public function create_a_c_i(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+            return $this->view('aci.create');
+            break;
+            case 'POST':
+            $fields=$req->all();
+            unset($fields['_token']);
+            $audit_info=new Audit_info();
+            foreach ($fields as $name => $value) {
+                $audit_info->$name=$value;
+            }
+            $audit_info->save();
+            return redirect()->route('admin.list_a_c_i');
+            break;
+            default:
+                # code...
+            break;
+        }
+    }
+    public function list_a_c_i(){
+        $data['audit_infos']=Audit_info::all();
+        return $this->view('aci.list', $data);
+    }
+    public function delete_a_c_i(Request $req){
+        Audit_info::where('id', $req->id)->first()->delete();
+        return redirect()->route('admin.list_a_c_i');
+    }
+    public function default_a_c_i(Request $req){
+        Audit_info::where('id','!=','-1')->update(['active'=>false]);
+        $aci=Audit_info::where('id', $req->id)->first();
+        $aci->active=true;
+        $aci->save();
+        return redirect()->route('admin.list_a_c_i');
+    }   
+    public function edit_a_c_i(Request $req){
+       $fields=$req->all();
+       unset($fields['_token']);
+       $audit_info=Audit_info::where('id', $req->id)->first();
+       foreach ($fields as $name => $value) {
+            $audit_info->$name=$value;
+        }
+        $audit_info->save();
+        return redirect()->route('admin.list_a_c_i');
+    }
+    public function list_services(Request $req){
+        $data['services']=Service::all();
+        return $this->view('list_services', $data);
+    }
+    public function edit_service(Request $req){
+        $service=Service::where('id', $req->id)->first();
+        $service->price=$req->input('price');
+        $service->save();
+        return redirect()->route('admin.list_services');
     }
 }

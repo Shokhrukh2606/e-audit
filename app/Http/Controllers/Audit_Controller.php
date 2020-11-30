@@ -8,6 +8,7 @@ use App\Models\Use_Case;
 use App\Models\Conclusion;
 use App\Models\Cust_comp_info;
 use App\Models\Ciucm;
+use App\Models\Blank;
 use App\Models\Order;
 use Illuminate\Support\Facades\Storage;
 use PDF;
@@ -44,6 +45,12 @@ class Audit_Controller extends Controller
     public function create_conclusion(Request $req){
         switch ($req->method()) {
             case 'GET':
+            if(count(Blank::available(auth()->user()->id))==0){
+                $data['message']='You do not have any blanks left!';
+                $data['link']=route('auditor.conclusions');
+                return $this->view('message', $data);
+            }
+            $data['blanks']=Blank::available(auth()->user()->id);
             $data['template_id']=$_GET['template_id']??false;
             $data['use_cases']=$_GET['use_cases']??false;
             if($data["template_id"]&&$data["use_cases"])
@@ -67,6 +74,11 @@ class Audit_Controller extends Controller
                     $conclusion->$key=$value;
                 }
                 $conclusion->save();
+                
+                $blank=Blank::where('id', $req->input('blank_id'))->first();
+                $blank->conclusion_id=$conclusion->id;
+                $blank->save();
+
                 $CCI=new Cust_comp_info();
                 $CCI->conclusion_id=$conclusion->id;
                 foreach ($cust_info_fields??[] as $key => $value) {
@@ -116,15 +128,21 @@ class Audit_Controller extends Controller
     public function create_conc_on_order(Request $req){
         switch ($req->method()) {
             case 'GET':
+            if(count(Blank::available(auth()->user()->id))==0){
+                $data['message']='You do not have any blanks left!';
+                $data['link']=route('auditor.conclusions');
+                return $this->view('message', $data);
+            }
+            $data['blanks']=Blank::available(auth()->user()->id);
             $data['order']=Order::where(['id'=>$req->id, 'auditor_id'=>auth()->user()->id])->first();
             if($data['order'])
                 return $this->view('create_conc_on_order', $data);
             return abort(404);
             break;
             case 'POST':
-                $req->validate([
-                    ...$this->conclusion_validation_rules
-                ]);
+                $req->validate(
+                    $this->conclusion_validation_rules
+                );
                 $all=$req->all();
                 $conclusion_fields=$req->input('conclusion');
                 $conclusion=new Conclusion();
@@ -133,6 +151,12 @@ class Audit_Controller extends Controller
                     $conclusion->$key=$value;
                 }
                 $conclusion->save();
+
+
+                $blank=Blank::where('id', $req->input('blank_id'))->first();
+                $blank->conclusion_id=$conclusion->id;
+                $blank->save();
+
                 $CCI=Cust_comp_info::where('id', $req->id)->first();
                 $CCI->conclusion_id=$conclusion->id;
                 $CCI->save();

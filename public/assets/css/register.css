@@ -19,6 +19,22 @@
   margin-top: 5%;
 }
 
+.user-agrement {
+  line-height: 18px;
+  display: inline-block;
+}
+
+.eye {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  cursor: pointer;
+}
+
+.eye img {
+  width: 20px;
+}
+
 @media (max-width: 991px) {
   .register .register-form {
     margin-top: 16%;
@@ -231,5 +247,5 @@
 }
 
 .client div:first-child {
-  margin-top: 30px;
+  margin-top: 34px;
 }

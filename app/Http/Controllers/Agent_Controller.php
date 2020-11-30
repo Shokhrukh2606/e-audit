@@ -8,6 +8,7 @@ use App\Models\Cust_comp_info;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Template;
+use App\Models\Blank;
 use App\Models\Use_Case;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,12 @@ class Agent_Controller extends Controller
     {
         switch ($req->method()) {
             case 'GET':
+                if(count(Blank::available(auth()->user()->id))==0){
+                    $data['message']='You do not have any blanks left!';
+                    $data['link']=route('auditor.conclusions');
+                    return $this->view('message', $data);
+                }
+                $data['blanks']=Blank::available(auth()->user()->id);
                 $data['template_id'] = $_GET['template_id'] ?? false;
                 $data['use_cases'] = $_GET['use_cases'] ?? false;
                 if ($data["template_id"] && $data["use_cases"])
@@ -78,6 +85,12 @@ class Agent_Controller extends Controller
                     }
                 }
                 $conclusion->save();
+
+                $blank=Blank::where('id', $req->input('blank_id'))->first();
+                $blank->conclusion_id=$conclusion->id;
+                $blank->save();
+
+
                 $CCI = new Cust_comp_info();
                 $CCI->conclusion_id = $conclusion->id;
                 foreach ($cust_info_fields ?? [] as $key => $value) {

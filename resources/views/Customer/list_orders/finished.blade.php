@@ -29,7 +29,7 @@
                         </td>
                         <td>{{ $order->created_at }}</td>
                         <td>
-                            @if (!$order->cust_info->conclusion->invoice->id)
+                            @if (!$order->cust_info->conclusion->invoice)
                             <button 
                                 class="btn btn-simple btn-danger"  
                                 data-toggle="modal" data-target="#rejectModal" data-id="{{$order->id}}"

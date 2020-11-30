@@ -48,6 +48,7 @@
               </div>
             </div>
           </div>
+          @if(auth()->user()->group_id!=4)
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -56,7 +57,9 @@
               </div>
             </div>
           </div>
+          @endif
           <div class="row">
+          @if(auth()->user()->group_id!=4)
             <div class="col-md-4 pr-md-1">
               <div class="form-group">
                 <label>{{lang('sertificateNumber')}}</label>
@@ -87,6 +90,7 @@
                 <input type="text" class="form-control" name="user[address]" value="{{$user->address}}">
               </div>
             </div>
+            @endif
             <div class="col-md-4">
               <div class="form-group">
                 <label>{{lang('password')}}</label>

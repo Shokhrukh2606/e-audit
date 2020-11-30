@@ -64,7 +64,7 @@
 		<div class="tab">
 			<h2>{{lang('custInfo')}}</h2>
 
-			<form action="{{route('auditor.create_conc_on_order', $order->cust_info->id)}}" method="POST">
+			<form  id="regForm" action="{{route('auditor.create_conc_on_order', $order->cust_info->id)}}" method="POST">
 				@csrf
 				<div>
 					<label>{{lang('auditCompName')}}</label>
@@ -122,30 +122,7 @@
 					<label>{{lang('basicConclusions')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
 				</div>
-				<div>
-					<label>{{lang('current_actives')}}</label>
-					<input class="form-control" type="text" name="conclusion[current_actives]">
-				</div>
-				<div>
-					<label>{{lang('current_obligation')}}</label>
-					<input class="form-control" type="text" name="conclusion[current_obligation]">
-				</div>
-				<div>
-					<label>{{lang('long_term_liabilities')}}</label>
-					<input class="form-control" type="text" name="conclusion[long_term_liabilities]">
-				</div>
-				<div>
-					<label>{{lang('long_term_actives')}}</label>
-					<input class="form-control" type="text" name="conclusion[long_term_actives]">
-				</div>
-				<div>
-					<label>{{lang('sources_of_own_funds')}}</label>
-					<input class="form-control" type="text" name="conclusion[sources_of_own_funds]">
-				</div>
-				<div>
-					<label>{{lang('long_term_loans')}}</label>
-					<input class="form-control" type="text" name="conclusion[long_term_loans]">
-				</div>
+				
 				<div class="kps">
 					<label>{{lang('current_actives')}}</label>
 					<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source">
@@ -204,12 +181,20 @@
 						Result
 					</div>
 				</div>
+				<div class="form-group">
+					<label>Blank Nomer</label>
+					<select name="blank_id" class="form-control" required>
+						@foreach($blanks as $blank)
+							<option value="{{$blank->id}}">
+								Blank {{$blank->id}}
+							</option>
+						@endforeach
+					</select>
+				</div>
 				<!-- <button class="btn btn-sm btn-success">Save</button> -->
 			</form>
 		</div>
-		<div class="tab">
-			<h2>{{lang('custInfo')}}</h2>
-		</div>
+		
 		<div style="overflow:auto;">
 			<div style="float:right;">
 				<button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-sm btn-primary btn-finish">{{lang('previous')}}</button>
