@@ -141,7 +141,7 @@ class PaymeChecks
 		// todo: Validate account, if failed throw error
 		// assume, we should have order_id
 
-		if (!isset($params->account['Test']) || !$params->account['Test']) {
+		if (!isset($params->account['id']) || !$params->account['id']) {
 			return [
 				'error' => [
 					'message' => [
@@ -156,7 +156,7 @@ class PaymeChecks
 
 		// todo: Check is invoice available
 
-		$invoice = Invoice::where('id', $params->account['Test'])->first();
+		$invoice = Invoice::where('id', $params->account['id'])->first();
 
 		// Check, is order found by specified order_id
 		if (!$invoice || !$invoice->id) {
@@ -313,7 +313,7 @@ class PaymeChecks
 		// todo: Validate account, if failed throw error
 		// assume, we should have order_id
 
-		if (!isset($params->account['Test']) || !$params->account['Test']) {
+		if (!isset($params->account['id']) || !$params->account['id']) {
 			return [
 				'error' => [
 					'message' => [
@@ -337,7 +337,7 @@ class PaymeChecks
 			$new_transaction = new Transaction;
 			$new_transaction->payment_system = 'payme';
 			$new_transaction->system_transaction_id = $params->id;
-			$new_transaction->invoice_id = $params->account['Test'];
+			$new_transaction->invoice_id = $params->account['id'];
 			$new_transaction->error_code = 1;
 			$new_transaction->created_at = date("Y-m-d H:i:s");
 			$new_transaction->system_create_time = date('Y-m-d H:i:s', floor($params->time / 1000));
