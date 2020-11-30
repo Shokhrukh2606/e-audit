@@ -38,28 +38,28 @@ class Payme extends Controller
         }
         switch ($req->method) {
             case 'CheckPerformTransaction':
-                return $this->checkPerformTransaction($req);
-                break;
+            return $this->checkPerformTransaction($req);
+            break;
             case 'CheckTransaction':
-                return $this->checkTransaction($req);
-                break;
+            return $this->checkTransaction($req);
+            break;
             case 'CancelTransaction':
-                return $this->cancelTransaction($req);
-                break;
+            return $this->cancelTransaction($req);
+            break;
             case 'CreateTransaction':
-                return $this->createTransaction($req);
-                break;
+            return $this->createTransaction($req);
+            break;
             case 'PerformTransaction':
-                return $this->performTransaction($req);
-                break;
+            return $this->performTransaction($req);
+            break;
             default:
-                return [
-                    'error'=>[
-                        'code'=>-32601,
-                        'message'=>'Method not found'
-                    ]
-                ];
-                break;
+            return [
+                'error'=>[
+                    'code'=>-32601,
+                    'message'=>'Method not found'
+                ]
+            ];
+            break;
         }
     }
     
@@ -68,7 +68,7 @@ class Payme extends Controller
     * @param request object-like
     * @return array-like
     */
-    public function checkPerformTransaction(Request $req){
+     public function checkPerformTransaction(Request $req){
         $check=new PaymeChecks();
         $error=$check->validateCheckParams($req->params);
         if($error['error']['code']==0){
@@ -97,12 +97,12 @@ class Payme extends Controller
             $formatted_transaction=[
                 'create_time'=>strtotime($transaction->created_at)*1000,
                 'perform_time'=>$transaction->perform_time?
-                    strtotime($transaction->perform_time)*1000
-                    :0
+                strtotime($transaction->perform_time)*1000
+                :0
                 ,
                 'cancel_time'=>$transaction->cancel_time?
-                    strtotime($transaction->cancel_time)*1000
-                    :0
+                strtotime($transaction->cancel_time)*1000
+                :0
                 ,
                 'transaction'=>"$transaction->id",
                 'state'=>$transaction->transaction_state(),
@@ -130,6 +130,10 @@ class Payme extends Controller
         if($param_check['error']['code']==0){
             $transaction=$param_check['transaction'];
             $transaction->cancel($req->params['reason']); 
+            $transaction = Transaction::where([
+                'system_transaction_id' => $req->params['id'],
+                'payment_system' => 'payme',
+            ])->first();
             $formatted_transaction=[
                 'transaction'=>"$transaction->id",
                 'cancel_time'=>strtotime($transaction->cancel_time)*1000,

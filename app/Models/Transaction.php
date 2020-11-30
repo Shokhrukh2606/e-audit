@@ -60,7 +60,7 @@ class Transaction extends Model
                 $this->reason=$reason;
                 $this->state='cancelled';
                 $this->cancel_time=date('Y-m-d H:i:s');
-                $this->update();
+                $this->save();
                 break;
             case '2':
                 $invoice=$this->invoice;
@@ -69,7 +69,7 @@ class Transaction extends Model
                 $this->reason=$reason;
                 $this->state='cancelled_after_confirmed';
                 $this->cancel_time=date('Y-m-d H:i:s');
-                $this->update();
+                $this->save();
                 break;
             
             default:
