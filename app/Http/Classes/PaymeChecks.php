@@ -28,6 +28,19 @@ class PaymeChecks
 		//additional check
 		//check if invoice is not confirmed yet
 		if($transaction->invoice->status=='confirmed'){
+			if($transaction->state=='confirmed'){
+				return [
+					'result' => [
+						"perform_time" => strtotime($transaction->perform_time) * 1000,
+						"transaction" => "$transaction->id",
+						"state" => 2
+					],
+					'error' => [
+						'message' => 'Successfull',
+						'code' => 0
+					]
+				];
+			}
 			return [
 				'error' => [
 					'message' => [	
@@ -141,7 +154,7 @@ class PaymeChecks
 		// todo: Validate account, if failed throw error
 		// assume, we should have order_id
 
-		if (!isset($params->account['Test']) || !$params->account['Test']) {
+		if (!isset($params->account['id']) || !$params->account['id']) {
 			return [
 				'error' => [
 					'message' => [
@@ -156,7 +169,7 @@ class PaymeChecks
 
 		// todo: Check is invoice available
 
-		$invoice = Invoice::where('id', $params->account['Test'])->first();
+		$invoice = Invoice::where('id', $params->account['id'])->first();
 
 		// Check, is order found by specified order_id
 		if (!$invoice || !$invoice->id) {
@@ -199,21 +212,7 @@ class PaymeChecks
 		}
 
 		
-		$transaction = Transaction::where([
-			'invoice_id' => $invoice->id,
-			'payment_system' => 'payme'
-		])->first();
-		if (
-			$transaction &&
-			($transaction->state == 'waiting' || $transaction->state == 'confirmed')
-		) {
-			return [
-				'error' => [
-					'message' => 'There is other active/completed transaction for this order.',
-					'code' => -31050
-				]
-			];
-		}
+		
 		return [
 			'error' => [
 				'message' => 'Successfull',
@@ -313,7 +312,7 @@ class PaymeChecks
 		// todo: Validate account, if failed throw error
 		// assume, we should have order_id
 
-		if (!isset($params->account['Test']) || !$params->account['Test']) {
+		if (!isset($params->account['id']) || !$params->account['id']) {
 			return [
 				'error' => [
 					'message' => [
@@ -337,7 +336,7 @@ class PaymeChecks
 			$new_transaction = new Transaction;
 			$new_transaction->payment_system = 'payme';
 			$new_transaction->system_transaction_id = $params->id;
-			$new_transaction->invoice_id = $params->account['Test'];
+			$new_transaction->invoice_id = $params->account['id'];
 			$new_transaction->error_code = 1;
 			$new_transaction->created_at = date("Y-m-d H:i:s");
 			$new_transaction->system_create_time = date('Y-m-d H:i:s', floor($params->time / 1000));
@@ -367,7 +366,7 @@ class PaymeChecks
 					'message' => [
 						'uz' => 'Чек отказано.',
 						'ru' => 'Check bekor qilingan.',
-						'en' => 'Order is rejected.'
+						'en' => 'Order is cancelled.'
 					],
 					'code' => -31008
 				]
