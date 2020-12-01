@@ -63,6 +63,9 @@ class Transaction extends Model
                 $this->save();
                 break;
             case '2':
+                $invoice=$this->invoice;
+                $invoice->state='waiting';
+                $invoice->save();
                 $this->reason=$reason;
                 $this->state='cancelled_after_confirmed';
                 $this->cancel_time=date('Y-m-d H:i:s');
