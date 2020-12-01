@@ -64,7 +64,7 @@ class Transaction extends Model
                 break;
             case '2':
                 $invoice=$this->invoice;
-                $invoice->state='waiting';
+                $invoice->status='waiting';
                 $invoice->save();
                 $this->reason=$reason;
                 $this->state='cancelled_after_confirmed';
