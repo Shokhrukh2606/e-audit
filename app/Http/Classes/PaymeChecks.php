@@ -212,21 +212,7 @@ class PaymeChecks
 		}
 
 		
-		$transaction = Transaction::where([
-			'invoice_id' => $invoice->id,
-			'payment_system' => 'payme'
-		])->first();
-		if (
-			$transaction &&
-			($transaction->state == 'waiting' || $transaction->state == 'confirmed')
-		) {
-			return [
-				'error' => [
-					'message' => 'There is other active/completed transaction for this order.',
-					'code' => -31050
-				]
-			];
-		}
+		
 		return [
 			'error' => [
 				'message' => 'Successfull',
