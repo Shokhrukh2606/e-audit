@@ -144,7 +144,7 @@ class PaymeUserChecks
 
 		// todo: Check is user available
 
-		$user = User::where('id', substr($params->account['id'], 1))->first();
+		$user = User::where(['id', substr($params->account['id'], 1)])->first();
 
 		// Check, is user found by specified user_id
 		if (!$user || !$user->id) {
