@@ -155,7 +155,7 @@ class PaymeUserChecks
 						'ru' => 'Noto\'g\'ri foydalinuvchi kodi.',
 						'en' => 'Incorrect user code.'
 					],
-					'code' => -31051
+					'code' => -31050
 				]
 			];
 		}
