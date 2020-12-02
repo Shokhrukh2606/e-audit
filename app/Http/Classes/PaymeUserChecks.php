@@ -4,8 +4,9 @@ namespace App\Classes;
 
 use App\Models\Invoice;
 use App\Models\Transaction;
+use App\Models\User;
 
-class PaymeChecks
+class PaymeUserChecks
 {
 	
 	public function validatePerform(array $params): array
@@ -24,36 +25,8 @@ class PaymeChecks
 			];
 		}
 		$transaction = Transaction::where(['system_transaction_id' => $params->id])->first();
-
-		//additional check
-		//check if invoice is not confirmed yet
-		if($transaction->invoice->status=='confirmed'){
-			if($transaction->state=='confirmed'){
-				return [
-					'result' => [
-						"perform_time" => strtotime($transaction->perform_time) * 1000,
-						"transaction" => "$transaction->id",
-						"state" => 2
-					],
-					'error' => [
-						'message' => 'Successfull',
-						'code' => 0
-					]
-				];
-			}
-			return [
-				'error' => [
-					'message' => [	
-						'uz' => 'Невозможно выполнить данную операцию.',
-						'ru' => 'Bu operatsiyani bajarib bomidi.',
-						'en' => 'This operation can not be done.'
-					],
-					'code' => -31008
-				]
-			];
-		}
-
 		
+		//check if transaction
 		if(!$transaction){
 			return [
 				'error' => [
@@ -66,6 +39,9 @@ class PaymeChecks
 				]
 			];
 		}
+
+		
+		
 		switch ($transaction->transaction_state()) {
 			case 1:
 
@@ -116,9 +92,8 @@ class PaymeChecks
 		$transaction->state = 'confirmed';
 		$transaction->perform_time=date("Y-m-d H:i:s");
 		$transaction->save();
-		$invoice=Invoice::where(['id'=>$transaction->invoice_id])->first();
-		$invoice->status='confirmed';
-		$invoice->save();
+		$user=User::where(['id'=>$transaction->user_id])->first();
+		$user->add_funds($transaction->amount);
 		return [
 			'result' => [
 				"perform_time" => strtotime($transaction->perform_time) * 1000,
@@ -167,51 +142,52 @@ class PaymeChecks
 			];
 		}
 
-		// todo: Check is invoice available
+		// todo: Check is user available
 
-		$invoice = Invoice::where('id', $params->account['id'])->first();
+		$user = User::where('id', substr($params->account['id'], 1))->first();
 
-		// Check, is order found by specified order_id
-		if (!$invoice || !$invoice->id) {
+		// Check, is user found by specified user_id
+		if (!$user || !$user->id) {
 			return [
 				'error' => [
 					'message' => [
-						'uz' => 'Неверный код заказа.',
-						'ru' => 'Harid kodida xatolik.',
-						'en' => 'Incorrect order code.'
+						'uz' => 'Неверный идентификатор пользователя.',
+						'ru' => 'Noto\'g\'ri foydalinuvchi kodi.',
+						'en' => 'Incorrect user code.'
 					],
 					'code' => -31051
 				]
 			];
 		}
-		
-		// for example, order state before payment should be 'waiting pay'
 
-		if ($invoice->status != 'waiting') {
+		// validate user status
+
+		if ($user->status!='active' ) {
 			return [
 				'error' => [
-					'message' => 'Order state is invalid.',
-					'code' => -31051
+					'message' => [
+						'uz' => 'User status is not activated.',
+						'ru' => 'User status is not activated.',
+						'en' => 'User status is not activated.'
+					],
+					'code' => -31050
 				]
 			];
 		}
 
-		// validate amount
-
-		if ($invoice->price !=  $params->amount) {
+		// check sum is not less than 1000
+		if($params->amount<500){
 			return [
 				'error' => [
 					'message' => [
-						'uz' => 'Incorrect amount.',
-						'ru' => 'Incorrect amount.',
-						'en' => 'Incorrect amount.'
+						'uz' => 'Min amount of money is 500.',
+						'ru' => 'Min amount of money is 500.',
+						'en' => 'Min amount of money is 500.'
 					],
 					'code' => -31001
 				]
 			];
 		}
-
-		
 		
 		return [
 			'error' => [
@@ -294,10 +270,17 @@ class PaymeChecks
                 $transaction->save();
                 break;
             case '2':
-                $invoice=$transaction->invoice;
-                $invoice->status='waiting';
-                $invoice->save();
-                $transaction->reason=$params['reason'];
+                $user=User::where(['id'=>$transaction->user_id])->first();
+                if($user->funds<$transaction->amount){
+					return [
+						'error' => [
+							'message' => 'User does not have enough funds',
+							'code' => -31007
+						]
+					];
+				}
+				$user->remove_funds($transaction->amount);
+				$transaction->reason=$params['reason'];
                 $transaction->state='cancelled_after_confirmed';
                 $transaction->cancel_time=date('Y-m-d H:i:s');
                 $transaction->save();
@@ -335,9 +318,9 @@ class PaymeChecks
 			return [
 				'error' => [
 					'message' => [
-						'uz' => 'Неверный код заказа.',
-						'ru' => 'Harid kodida xatolik.',
-						'en' => 'Incorrect order code.'
+						'uz' => 'Not correct user code.',
+						'ru' => 'Not correct user code.',
+						'en' => 'Not correct user code.'
 					],
 					'code' => -31050
 				]
@@ -355,17 +338,12 @@ class PaymeChecks
 			$new_transaction = new Transaction;
 			$new_transaction->payment_system = 'payme';
 			$new_transaction->system_transaction_id = $params->id;
-			$new_transaction->invoice_id = $params->account['id'];
+			$new_transaction->user_id = substr($params->account['id'], 1);
+			$new_transaction->amount=$params->amount;
 			$new_transaction->error_code = 1;
 			$new_transaction->created_at = date("Y-m-d H:i:s");
 			$new_transaction->system_create_time = date('Y-m-d H:i:s', floor($params->time / 1000));
 			$new_transaction->save();
-
-			// make invoice inprocess
-
-			$invoice=$new_transaction->invoice;
-			$invoice->status='inprocess';
-			$invoice->save();
 
 			return [
 				'error' => [

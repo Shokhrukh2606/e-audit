@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\Conclusion;
 use App\Models\Cust_comp_info;
+use App\Models\Invoice;
 use App\Models\Payment;
 use App\Models\Template;
 use App\Models\User_group;

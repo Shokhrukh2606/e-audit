@@ -9,6 +9,7 @@
                 <th>Invoice id</th>
                 <th>Payment System</th>
                 <th>Perform Time</th>
+                <th>User name</th>
             </thead>
             <tbody>
                 @foreach ($transactions as $item)
@@ -17,7 +18,7 @@
                         <td>{{ $item->invoice_id }}</td>
                         <td>{{ $item->payment_system }}</td>
                         <td>{{ $item->perform_time }}</td>
-                        
+                        <td>{{ $item->invoice->user['full_name'] }}</td>
                     </tr>
                 @endforeach
             </tbody>

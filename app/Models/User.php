@@ -86,6 +86,11 @@ class User extends Authenticatable
         $this->funds += $amount;
         $this->save();
     }
+    public function remove_funds($amount)
+    {
+        $this->funds -= $amount;
+        $this->save();
+    }
     public function hasRole($role)
     {
         return in_array($this->group->name, $role, TRUE);

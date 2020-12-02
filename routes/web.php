@@ -76,6 +76,7 @@ Route::prefix('aac')->group(function () {
 		/*temporarily commented, because payment table was changing*/
 		// Route::match(["GET", "POST"], "/add_funds", "AAC_Controller@add_funds")
 		// ->name('add_funds');
+		Route::get('fill_balance', 'AAC_Controller@fill_balance')->name('fill_balance');
 	});
 });
 
