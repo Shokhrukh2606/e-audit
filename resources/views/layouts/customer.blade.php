@@ -126,7 +126,7 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
           <div class="collapse navbar-collapse" id="navigation">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto br-1">
               <li class="dropdown nav-item">
                 <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
 
@@ -148,9 +148,20 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
+              <li class="nav-item br-1">
                 <a href="#" class="nav-link">
-                  {{auth()->user()->name}}
+                  {{ auth()->user()->name }}
+                </a>
+              </li>
+              <li class="nav-item br-1">
+                {{lang('user_funds')}}<br>
+                <a href="#" class="nav-link">
+                  {{ auth()->user()->funds }} UZS
+                </a>
+              </li>
+              <li class="nav-item br-1">
+                <a href="{{route('aac.fill_balance')}}" class="nav-link">
+                  {{lang('fill_balance')}} <i class="tim-icons icon-simple-add fund"></i>
                 </a>
               </li>
               <li class="dropdown nav-item">

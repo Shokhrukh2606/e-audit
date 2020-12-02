@@ -20445,5 +20445,20 @@ Copyright (c) 2015 Daniel Eden
   padding-left: 0;
   padding-right: 0;
 }
-
+.bl-1{
+  border-left: 1px solid #000;
+  display: flex;
+  align-items: center;
+}
+.br-1{
+  border-right: 1px solid #000;
+  display: flex;
+  align-items: center;
+}
+.icon-simple-add.fund{
+  font-size: 12px;
+  border-radius: 50%;
+  border: .5px solid #000;
+  padding: 3px;
+}
 /*# sourceMappingURL=dashboard-free.css.map */

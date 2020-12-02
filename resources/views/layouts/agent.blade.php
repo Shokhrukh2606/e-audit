@@ -87,9 +87,20 @@
           </button>
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
+              <li class="nav-item br-1">
                 <a href="#" class="nav-link">
                   {{ auth()->user()->name }}
+                </a>
+              </li>
+              <li class="nav-item br-1">
+                {{lang('user_funds')}}<br>
+                <a href="#" class="nav-link">
+                  {{ auth()->user()->funds }} UZS
+                </a>
+              </li>
+              <li class="nav-item br-1">
+                <a href="{{route('aac.fill_balance')}}" class="nav-link">
+                  {{lang('fill_balance')}} <i class="tim-icons icon-simple-add fund"></i>
                 </a>
               </li>
               <li class="dropdown nav-item">

@@ -147,4 +147,7 @@ class AAC_Controller extends Controller
                 break;
         }
     }
+    public function fill_balance(){
+        return $this->view('fill_balance');
+    }
 }

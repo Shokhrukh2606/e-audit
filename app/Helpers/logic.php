@@ -2515,6 +2515,46 @@ function lang($word)
 			'oz' => 'Uzoq muddatli kreditlar va kreditlar',
 			'uz' => 'Узоқ муддатли кредитлар ва кредитлар',
 			'ru' => 'Долгосрочные займы и кредиты'
+		],
+		'user_funds'=>[
+			'oz' => 'Hisobingizda: ',
+			'uz' => 'Ҳисобингизда: ',
+			'ru' => 'На счету: '
+		],
+		'fill_balance'=>[
+			'oz' => 'Hisobingizni to\'ldiring',
+			'uz' => 'Ҳисобингизни тўлдиринг',
+			'ru' => ' Пополнить счет'
+		],
+		'min_sum'=>[
+			'oz' => 'Minimal summa',
+			'uz' => 'Минимал сумма',
+			'ru' => ' Минимальная сумма'
+		],
+		'max_sum'=>[
+			'oz' => 'Maksimal summa',
+			'uz' => 'Максимал сумма',
+			'ru' => 'Максимальная сумма'
+		],
+		'max_balance'=>[
+			'oz' => 'Maksimal balans miqdori',
+			'uz' => 'Максимал баланс миқдори',
+			'ru' => ' Максимальный баланс'
+		],
+		'sum'=>[
+			'oz' => 'so\'m',
+			'uz' => 'сум',
+			'ru' => 'сум'
+		],
+		'available_systems'=>[
+			'oz' => 'Balansni to\'ldirish uchun mavjud bo\'lgan to\'lov tizimlari',
+			'uz' => 'Балансни тўлдириш учун мавжуд бўлган тўлов тизимлари',
+			'ru' => 'Доступные платежные системы для пополнения балансового счета'
+		],
+		'your_id'=>[
+			'oz' => 'Sizning ID',
+			'uz' => 'Сизнинг ИД',
+			'ru' => 'Ваш ID'
 		]
 
 	];
