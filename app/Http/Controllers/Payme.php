@@ -224,9 +224,8 @@ class Payme extends Controller
     public function checkUserFunding($req)
     {
 		$req = (object) $req;
-        if (array_key_exists('id', $req->account) && isset($req->account)) {
+        if (isset($req->account['id']) && isset($req->account)) {
             if ($req->account['id'][0] == 'U') {
-                $req->account['id']=substr($req->account['id'], 1);
                 return true;
             }
         }

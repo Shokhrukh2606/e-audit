@@ -144,7 +144,7 @@ class PaymeUserChecks
 
 		// todo: Check is user available
 
-		$user = User::where('id', $params->account['id'])->first();
+		$user = User::where('id', substr($params->account['id'], 1))->first();
 
 		// Check, is user found by specified user_id
 		if (!$user || !$user->id) {
@@ -338,7 +338,7 @@ class PaymeUserChecks
 			$new_transaction = new Transaction;
 			$new_transaction->payment_system = 'payme';
 			$new_transaction->system_transaction_id = $params->id;
-			$new_transaction->user_id = $params->account['id'];
+			$new_transaction->user_id = substr($params->account['id'], 1);
 			$new_transaction->amount=$params->amount;
 			$new_transaction->error_code = 1;
 			$new_transaction->created_at = date("Y-m-d H:i:s");

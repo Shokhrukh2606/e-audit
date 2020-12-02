@@ -95,3 +95,5 @@ Route::get('/list_services', 'Admin_Controller@list_services')->name('list_servi
  */
 
 Route::post('/edit_service/{id}', 'Admin_Controller@edit_service')->name('edit_service');
+
+Route::get('/transactions_log', 'Admin_Controller@transactions_log')->name('transactions_log');
