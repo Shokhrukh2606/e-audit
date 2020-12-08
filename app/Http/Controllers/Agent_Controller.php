@@ -125,6 +125,10 @@ class Agent_Controller extends Controller
                 case 'send':
                     $data['conclusion']->status =2;
                     $data['conclusion']->save();
+                    sms($data['conclusion']->agent->phone, '','agent_new_conclusion_send',[
+                        '{full_name}'=>$data['conclusion']->agent->full_name,
+                        '{conclusion_id}'=>$data['conclusion']->id
+                    ]);
                     return redirect()->back();
                     break;
                 default:

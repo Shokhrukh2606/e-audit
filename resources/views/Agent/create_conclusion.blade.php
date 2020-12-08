@@ -169,23 +169,19 @@
 			</div>
 		</div>
 		<div class="osos">
-			<label>P1</label>
-			<!-- <label>{{lang('long_term_actives')}}</label> -->
+			<label>{{lang("P1")}}</label>
 			<input class="form-control" type="number" name="conclusion[P1]" onkeyup="osos()">
 		</div>
 		<div class="osos">
-			<label>Dek2</label>
-			<!-- <label>{{lang('sources_of_own_funds')}}</label> -->
+			<label>{{lang("DEK2")}}</label>
 			<input class="form-control" type="number" name="conclusion[DEK2]" onkeyup="osos()">
 		</div>
 		<div class="osos">
-			<label>A1</label>
-			<!-- <label>{{lang('long_term_loans')}}</label> -->
+			<label>{{lang("A1")}}</label>
 			<input class="form-control" type="number" name="conclusion[A1]" onkeyup="osos()">
 		</div>
 		<div class="osos">
-			<label>A2</label>
-			<!-- <label>{{lang('long_term_actives')}}</label> -->
+			<label>{{lang("A2")}}</label>
 			<div id="A2"></div>
 		</div>
 		<div class="result-wrapper">
@@ -195,11 +191,11 @@
 			</div>
 		</div>
 		<div class="kpp">
-			<label>pudn</label>
+			<label>{{lang("PUDN")}}</label>
 			<input class="form-control" type="number" name="conclusion[PUDN]" onkeyup="kpp()">
 		</div>
 		<div class="kpp">
-			<label>p</label>
+			<label>{{lang("P")}}</label>
 			<input class="form-control" type="number" name="conclusion[P]" onkeyup="kpp()">
 		</div>
 		<div class="result-wrapper">

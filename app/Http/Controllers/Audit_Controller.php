@@ -183,6 +183,10 @@ class Audit_Controller extends Controller
         $conclusion=Conclusion::where('id', $req->id)->first();
         if($conclusion){
             $conclusion->send_to_customer();
+            sms($conclusion->cutomer->phone, '','auditor_conclusion_customer_send',[
+                '{full_name}'=>$conclusion->customer->full_name,
+                '{order_id}'=>$conclusion->cust_info->order->id
+            ]);
             return redirect()->route('auditor.conclusions');
         }
         abort(404);
@@ -194,6 +198,11 @@ class Audit_Controller extends Controller
         $order->status="5";
         $order->message=$req->input("message");
         $order->save();
+        sms($order->customer->phone,'','auditor_conclusion_customer_send_errors',[
+            '{full_name}'=>$order->customer->full_name,
+            '{order_id}'=>$order->customer->id,
+            '{message}'=>$req->input("message")
+        ]);
         $data['message']="Вы успешно отправили заказ клиенту для редактирования.";
         $data['link']=route('auditor.orders');
         return $this->view('message',$data);
@@ -204,6 +213,10 @@ class Audit_Controller extends Controller
             return abort(404);
         $order->status="4";
         $order->save();
+        sms($order->customer->phone,'','auditor_conclusion_customer_send_confirmed',[
+            '{full_name}'=>$order->customer->full_name,
+            '{order_id}'=>$order->id
+        ]);
         $data['message']="Вы успешно подтвердили действительность документов и реквизитов заказа.";
         $data['link']=route('auditor.orders');
         return $this->view('message',$data);

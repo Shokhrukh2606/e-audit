@@ -1360,10 +1360,16 @@ if (!function_exists('sms')) {
 	{
 		$messages=[
 			'agent_conclusion_success'=>'Hurmatli {full_name} sizning {conclusion_id} - raqamli xulosangiz muvaffaqiyatli tasdiqlandi. Hurmat bilan e-audit.uz',
+			'agent_new_conclusion_send'=>'Hurmatli {full_name} sizning {conclusion_id} - raqamli xulosangiz administratorga yuborildi. Hurmat bilan e-audit.uz',
 			'agent_conclusion_rejected'=>'Hurmatli {full_name} sizning {conclusion_id} - raqamli xulosangizda kamchiliklar aniqlandi. Hurmat bilan e-audit.uz',
 			'auditor_order_assigned'=>'Hurmatli {full_name} sizga {order_id} - raqamli buyurtma sizga biriktirildi. Hurmat bilan e-audit.uz',
 			'user_payment'=>'Hurmatli {full_name} sizning hisobingizga {sum} - so\'m miqdorida pul to\'landi. Hurmat bilan e-audit.uz',
 			'user_status_activated'=>'Hurmatli {full_name} sizning akkauntingiz faollashtirildi. Hurmat bilan e-audit.uz',
+			'user_blanks_assigned'=>'Hurmatli {full_name} sizga {count} ta blanka berildi',
+			'auditor_conclusion_customer_send'=>'Hurmatli {full_name} sizga {order_id} raqamli buyurtmangizga asosan xulosa yuborildi. Ko\'rib chiqib to\'lovni amalga oshirishingiz mumkin. Hurmat bilan e-audit.uz',
+			'auditor_conclusion_customer_send_errors'=>'Hurmatli {full_name} sizning {order_id} raqamli buyurtmangizda kamchiliklar aniqlandi.  {message} Hurmat bilan e-audit.uz',
+			'auditor_conclusion_customer_send_confirmed'=>'Hurmatli {full_name} sizning {order_id} raqamli buyurtmangiz tasdiqlandi. Hurmat bilan e-audit.uz',
+
 		];
 		$ch = curl_init();
 		$postData = array(

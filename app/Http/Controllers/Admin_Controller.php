@@ -309,6 +309,11 @@ class Admin_Controller extends Controller
                         Blank::assign($id, $req->input('user_id'));
                     }
                 }
+                $user = User::where(['id'=>$req->input('user_id')])->first();
+                sms($user->phone, '','user_blanks_assigned',[
+                    '{full_name}'=>$user->full_name,
+                    '{count}'=>count($req->input('blank'))
+                ]);
                 $data['message'] = 'You have assigned blanks';
                 $data['link'] = route('admin.assign_blanks');
                 return $this->view('message', $data);

@@ -7,6 +7,7 @@
         <table class="table tablesorter">
             <thead>
                 <th>{{lang('id')}}</th>
+                <th>{{lang('alias')}}</th>
                 <th>RU</th>
                 <th>UZ</th>
                 <th>OZ</th>                
@@ -16,6 +17,7 @@
                 @foreach ($settings as $setting)
                     <tr>
                         <td>{{ $setting->id }}</td>
+                        <td>{{ $setting->alias }}</td>                    
                         <td>{{ $setting->ru }}</td>
                         <td>{{ $setting->uz }}</td>
                         <td>{{ $setting->oz }}</td>
