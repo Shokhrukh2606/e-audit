@@ -73,11 +73,17 @@ class BasePaymentErrors {
                 ];
             }
              // check status to transaction cancelled
-            if($transaction['state'] == PaymentsStatus::REJECTED){
+            if($transaction->state == PaymentsStatus::REJECTED){
             // return response array-like
                 return [
                     'error' => -9,
                     'error_note' => 'Transaction cancelled'
+                ];
+            }
+            if($transaction->state=='confirmed'){
+                return [
+                    'error' => -4,
+                    'error_note' => 'Already paid'
                 ];
             }
             
@@ -103,7 +109,7 @@ class BasePaymentErrors {
             ];
         }
 
-       
+
         // check to correct amount
         if(abs((float)$payment->price - (float)$request->amount) > 0.01){
             // return response array-like

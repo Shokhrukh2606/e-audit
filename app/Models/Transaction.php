@@ -12,7 +12,7 @@ class Transaction extends Model
     public $timestamps=false;
     public static function init_click( $req){
     	$transaction=self::where([
-            'invoice_id'=> $req->invoice_id,
+            'invoice_id'=> $req->merchant_trans_id,
             'system_transaction_id'=>$req->click_trans_id,
             'payment_system'=>'click'
         ])->first();
@@ -23,6 +23,23 @@ class Transaction extends Model
         $transaction->payment_system='click';
         $transaction->system_transaction_id=$req->click_trans_id;
         $transaction->invoice_id=$req->merchant_trans_id;
+        $transaction->system_create_time=$req->sign_time;
+        $transaction->save();
+        return $transaction;
+    }
+    public static function init_click_user( $req){
+        $transaction=self::where([
+            'user_id'=> $req->merchant_trans_id,
+            'system_transaction_id'=>$req->click_trans_id,
+            'payment_system'=>'click'
+        ])->first();
+        if($transaction){
+            return $transaction;
+        }
+        $transaction=new self;
+        $transaction->payment_system='click';
+        $transaction->system_transaction_id=$req->click_trans_id;
+        $transaction->user_id=$req->merchant_trans_id;
         $transaction->system_create_time=$req->sign_time;
         $transaction->save();
         return $transaction;
@@ -38,6 +55,7 @@ class Transaction extends Model
         }
         return false;
     }
+    
     public function transaction_state(){
         switch ($this->state) {
             case 'waiting':
@@ -78,5 +96,8 @@ class Transaction extends Model
     }
     public function invoice(){
         return $this->belongsTo(Invoice::class, 'invoice_id');
+    }
+    public function user(){
+        return $this->belongsTo(Invoice::class, 'user_id');
     }
 }

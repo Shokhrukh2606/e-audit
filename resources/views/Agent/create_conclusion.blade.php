@@ -316,7 +316,7 @@
 </form>
 
 
-@section('createConclusionJs')
+@section('additional_js')
 <script script src="{{asset('assets/js/againMultistep.js')}}">
 </script>
 <script>

@@ -13,6 +13,8 @@ class Click extends Controller
     private $click_secret_key="1HzIg1cDboO";
 
 	public function prepare(Request $req){
+        if ($req->merchant_trans_id && $req->merchant_trans_id['0']=='U') 
+            return $this->prepareUser($req);
         // error checking
         $error_check= new BasePaymentErrors();
         $result=$error_check->request_check($req, $this->click_secret_key);
@@ -29,8 +31,30 @@ class Click extends Controller
             return $result;
         }
 	}
+    public function prepareUser(Request $req){
+        // error checking
+        $error_check= new BasePaymentErrors();
+        $result=$error_check->request_check($req, $this->click_secret_key);
+        // if there is no error
+        if($result['error']==0){
+            $merchant_prepare_id=Transaction::init_click_user($req)->id;
+            $result+=[
+                'click_trans_id'=>$req->click_trans_id,
+                'merchant_trans_id'=>$req->merchant_trans_id,
+                'merchant_prepare_id'=>$merchant_prepare_id
+            ];
+            return $result;
+        }else{
+            return $result;
+        }
+    }
 	public function complete(Request $req){
-		// error checking
+        if ($req->merchant_trans_id && $req->merchant_trans_id['0']=='U') 
+            return $this->completeUser($req);
+		
+        // error checking
+        $check = new PaymeUserChecks();
+        
         $error_check= new BasePaymentErrors();
         $result=$error_check->request_check($req, $this->click_secret_key);
         
@@ -67,4 +91,37 @@ class Click extends Controller
             return $result;
         }	
 	}
+    private function completeUser(Request $req){
+        // error checking
+        $check = new PaymeUserChecks();
+        
+        $error_check= new BasePaymentErrors();
+        $result=$error_check->request_check($req, $this->click_secret_key);
+        
+        // if there is no error
+        if($result['error']==0){
+            $transaction=Transaction::where('id', $req->merchant_prepare_id)->first();
+            if($req->error<0){
+                $transaction->state='rejected';
+                $transaction->save();
+                return [
+                    'error' => -9,
+                    'error_note' => 'Transaction cancelled'
+                ];
+            }
+            $transaction->state='confirmed';
+            $transaction->save();
+            
+            $user=$transaction->user;
+
+            $result+=[
+                'click_trans_id'=>$req->click_trans_id,
+                'merchant_trans_id'=>$user->id,
+                'merchant_confirm_id'=>$transaction->id
+            ];
+            return $result;
+        }else{
+            return $result;
+        }   
+    }
 }
