@@ -173,6 +173,7 @@ class Admin_Controller extends Controller
                 $transaction->payment_system='funds';
                 $transaction->system_transaction_id='~';
                 $transaction->state='confirmed';
+                $transaction->amount=$req->input('amount');
                 $transaction->save();
                 $user = User::where('id', $req->input('user_id'))->first();
                 $user->add_funds($req->input('amount'));

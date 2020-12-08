@@ -92,15 +92,9 @@
             </a>
           </li>
           <li>
-            <a href="{{route("aac.checkfunds")}}">
-              <i class="tim-icons icon-coins"></i>
-              <p>{{lang('bill')}}</p>
-            </a>
-          </li>
-          <li>
             <a href="{{route("customer.transaction_log")}}">
               <i class="tim-icons icon-coins"></i>
-              <p>Журнал транзакций</p>
+              <p>{{lang('transactions_log')}}</p>
             </a>
           </li>
         </ul>

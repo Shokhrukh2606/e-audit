@@ -118,9 +118,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.transactions_log') }}">
-                            <i class="tim-icons icon-puzzle-10"></i>
-                            <p>{{ lang('transactions') }}</p>
+                        <a href="{{ route('admin.add_funds') }}">
+                            <i class="tim-icons icon-coins"></i>
+                            <p>{{ lang('add_funds') }}</p>
                         </a>
                     </li>
                     <li>
