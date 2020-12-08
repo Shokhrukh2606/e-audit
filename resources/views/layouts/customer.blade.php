@@ -131,17 +131,17 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
                   <li class="nav-link">
-                    <a href="{{route('localeChange','uz')}}" data-lang="uz" class="nav-item dropdown-item langChanger">
+                    <a href="{{ changeLocaleInRoute(Route::current(), 'uz') }}" data-lang="uz" class="nav-item dropdown-item langChanger">
                       Ўзбек
                     </a>
                   </li>
                   <li class="nav-link">
-                    <a href="{{route('localeChange','oz')}}" data-lang="oz" class="nav-item dropdown-item langChanger">
+                    <a href="{{ changeLocaleInRoute(Route::current(), 'oz') }}" data-lang="oz" class="nav-item dropdown-item langChanger">
                       O'zbek
                     </a>
                   </li>
                   <li class="nav-link">
-                    <a href="{{route('localeChange','ru')}}" data-lang="ru" class="nav-item dropdown-item langChanger">
+                    <a href="{{ changeLocaleInRoute(Route::current(), 'ru') }}" data-lang="ru" class="nav-item dropdown-item langChanger">
                       Russian
                     </a>
                   </li>
