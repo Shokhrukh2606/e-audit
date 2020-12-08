@@ -6,7 +6,7 @@
         <table class="table tablesorter">
             <thead>
                 
-                <th>{{ lang('standartNumber') }}</th>
+                <th>{{ lang('ID') }}</th>
                 <th>{{ lang('useCases') }}</th>
                 <th>{{ lang('date') }}</th>
                 <th>{{ lang('reject')}} </th>
@@ -18,7 +18,7 @@
                 @foreach ($orders as $order)
                     <tr>
                         
-                        <td>{{ $order->cust_info->template->standart_num }}</td>
+                        <td>{{ $order->id }}</td>
                         <td>
                             {{-- many to many retrieval --}}
                             @foreach ($order->cust_info->use_cases as $uc)

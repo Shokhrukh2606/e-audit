@@ -48,7 +48,10 @@
       @endforeach
     </select>
   </div>
-  <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{ lang('search') }}</button>
+  <div class="col-12 mt-4 text-right">
+      <a class="btn btn-sm btn-danger col-1 ml-auto  {{request()->input('filter')?'':'d-none'}}" href="{{route('admin.conclusions')}}"><i class="tim-icons icon-simple-remove"></i></a>
+      <button class="btn btn-sm btn-success col-1 ml-auto " type="submit">{{ lang('search') }}</button>
+  </div>
 </form>
 <div class="card">
   <div class="card-header">

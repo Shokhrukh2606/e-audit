@@ -52,7 +52,7 @@ class Admin_Controller extends Controller
     public function list_orders()
     {
         $data['states'] = $this->reverted_states;
-        $data['orders'] = Order::where('status', '!=', '1')->paginate(20);
+        $data['orders'] = Order::where('status', '!=', '1')->orderBy('id', 'DESC')->paginate(20);
         return $this->view('list_orders', $data);
     }
     public function change_status(Request $req)
@@ -86,7 +86,7 @@ class Admin_Controller extends Controller
     }
     public function order(Request $req)
     {
-        $data['auditors'] = User::where('group_id', 2)->get();
+        $data['auditors'] = User::where('group_id', 2)->orderBy('id', 'DESC')->get();
         $data['order'] = Order::where('id', $req->id)->first();
         if ($data['order'])
             return $this->view('view_order', $data);
@@ -112,7 +112,7 @@ class Admin_Controller extends Controller
     {
         $filtered = ['template_id', 'auditor_id', 'agent_id', 'customer_id', 'audit_comp_name', 'audit_comp_inn'];
         $query = DB::table('conclusions')
-            ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id');
+            ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id')->orderBy('conclusion_id', 'DESC');
         if ($req->input('filter')) {
             foreach ($req->input('filter') as $key => $value) {
                 if (in_array($key, $filtered) && ($value != '')) {
@@ -132,7 +132,7 @@ class Admin_Controller extends Controller
     {
         $filtered = ['template_id', 'cust_comp_inn', 'status'];
         $query = DB::table('conclusions')
-            ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id');
+            ->join('cust_comp_info', 'cust_comp_info.conclusion_id', '=', 'conclusions.id')->join('templates', 'templates.id', '=', 'cust_comp_info.template_id')->orderBy('conclusion_id', 'DESC');
         switch ($req->type) {
             case 'agent':
                 $query->where(['agent_id' => $req->id]);
@@ -196,7 +196,7 @@ class Admin_Controller extends Controller
         // if ($came = $request->input("filter.name")) {
         //     $query->where('full_name', 'like', "%${came}");
         // }
-        $data['users'] = $query->paginate(20);
+        $data['users'] = $query->orderBy('id', 'DESC')->paginate(20);
         $data['groups'] = User_group::all();
         return $this->view('list_users', $data);
     }
@@ -375,7 +375,7 @@ class Admin_Controller extends Controller
     }
     public function list_services(Request $req)
     {
-        $data['services'] = Service::all();
+        $data['services'] = Service::orderBy('id', 'DESC')->get();
         return $this->view('list_services', $data);
     }
     public function edit_service(Request $req)
