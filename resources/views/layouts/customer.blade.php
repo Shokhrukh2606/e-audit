@@ -131,12 +131,17 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
                   <li class="nav-link">
-                    <a href="#" class="nav-item dropdown-item">
+                    <a href="{{route('localeChange','uz')}}" data-lang="uz" class="nav-item dropdown-item langChanger">
                       Ўзбек
                     </a>
                   </li>
                   <li class="nav-link">
-                    <a href="javascript:void(0)" class="nav-item dropdown-item">
+                    <a href="{{route('localeChange','oz')}}" data-lang="oz" class="nav-item dropdown-item langChanger">
+                      O'zbek
+                    </a>
+                  </li>
+                  <li class="nav-link">
+                    <a href="{{route('localeChange','ru')}}" data-lang="ru" class="nav-item dropdown-item langChanger">
                       Russian
                     </a>
                   </li>
@@ -273,11 +278,7 @@
         $sidebar_responsive = $('body > .navbar-collapse');
         sidebar_mini_active = true;
         white_color = false;
-
-        window_width = $(window).width();
-
-        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
-				oldBodyColor=localStorage.getItem("prefered")
+        oldBodyColor=localStorage.getItem("prefered")
 				oldNavColor=localStorage.getItem("navbar")
 				if(oldBodyColor){
 					switch (oldBodyColor) {
@@ -426,6 +427,7 @@
       menu[i].classList.remove('active');
     }
   }
+
 </script>
 
 </html>
