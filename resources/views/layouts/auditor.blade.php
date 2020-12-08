@@ -46,12 +46,6 @@
         </div>
         <ul class="nav mynav">
           <li>
-            <a href="{{route("aac.profile")}}">
-              <i class="tim-icons icon-single-02"></i>
-              <p>{{lang('profile')}}</p>
-            </a>
-          </li>
-          <li>
             <a href="{{route("auditor.orders")}}">
               <i class="tim-icons icon-pin"></i>
               <p>{{lang('orders')}}</p>
@@ -100,7 +94,7 @@
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('aac.profile') }}" class="nav-link">
                   {{auth()->user()->name}}
                 </a>
               </li>

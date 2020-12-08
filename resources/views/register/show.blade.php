@@ -156,7 +156,7 @@
 
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" max-length="9" placeholder="{{lang('inn')}}" value="" />
+                        <input type="text" class="form-control" maxlength="9" placeholder="{{lang('inn')}}" value="" />
                       </div>
                       {{-- <div class="form-group">
                         <input type="text" data-name="h_cert_series" placeholder="{{lang('sertificateSerie')}}" class="form-control" id="h_cert_series" onchange="set_cert_number(this)">
@@ -335,6 +335,8 @@
         verification_hash = data;
       });
       open_verification_area();
+      console.log($(this))
+      $(".btnRegister").hide()
     }
 
     $(document).on('change', '.custom-file-input', function(event) {

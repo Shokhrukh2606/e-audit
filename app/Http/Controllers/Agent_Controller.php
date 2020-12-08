@@ -40,7 +40,7 @@ class Agent_Controller extends Controller
     }
     public function list_conclusions()
     {
-        $data['conclusions'] = Auth::user()->agent_conclusions()->paginate(20);
+        $data['conclusions'] = Auth::user()->agent_conclusions()->orderBy('id', 'DESC')->paginate(20);
         return $this->view('list_conclusions', $data);
     }
     public function select_temp()
@@ -125,6 +125,10 @@ class Agent_Controller extends Controller
                 case 'send':
                     $data['conclusion']->status =2;
                     $data['conclusion']->save();
+                    sms($data['conclusion']->agent->phone, '','agent_new_conclusion_send',[
+                        '{full_name}'=>$data['conclusion']->agent->full_name,
+                        '{conclusion_id}'=>$data['conclusion']->id
+                    ]);
                     return redirect()->back();
                     break;
                 default:
@@ -245,7 +249,7 @@ class Agent_Controller extends Controller
         return $this->view('cashback_log');
     }
     public function transactions_log(){
-        $data['transactions']=Invoice::where(['user_id'=>auth()->user()->id, 'status'=>'confirmed'])->paginate(20);
+        $data['transactions']=Invoice::where(['user_id'=>auth()->user()->id, 'status'=>'confirmed'])->orderBy('id', 'DESC')->paginate(20);
         if($data['transactions'])
             return $this->view('transactions_log',$data);
         return abort(404);

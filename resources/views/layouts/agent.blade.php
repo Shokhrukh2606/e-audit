@@ -88,7 +88,7 @@
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item br-1">
-                <a href="#" class="nav-link">
+                <a href="{{ route('aac.profile') }}" class="nav-link">
                   {{ auth()->user()->name }}
                 </a>
               </li>

@@ -29,8 +29,8 @@ Route::match(["GET", "POST"], "/create_user", "Admin_Controller@create_user")
 // view: admin.add_funds
 
 /*temporarily commented, payment table was renamed*/
-// Route::match(["GET", "POST"], "/add_funds", "Admin_Controller@add_funds")
-// ->name('add_funds');
+Route::match(["GET", "POST"], "/add_funds", "Admin_Controller@add_funds")
+->name('add_funds');
 Route::get("conclusion/{id}", "Admin_Controller@conclusion")->name("conclusion");
 Route::get("user_conclusions/{type}/{id}", "Admin_Controller@user_conclusions")->name("user_conclusions");
 
@@ -62,11 +62,11 @@ Route::match(["GET", "POST"], "/create_a_c_i", "Admin_Controller@create_a_c_i")
  * 
  */
 
-Route::get('/list_a_c_i',"Admin_Controller@list_a_c_i")->name('list_a_c_i');
+Route::get('/list_a_c_i', "Admin_Controller@list_a_c_i")->name('list_a_c_i');
 /**
  * delete aci
  */
-Route::get('/delete_a_c_i/{id}',"Admin_Controller@delete_a_c_i")->name('delete_a_c_i');
+Route::get('/delete_a_c_i/{id}', "Admin_Controller@delete_a_c_i")->name('delete_a_c_i');
 
 /**
  * make aci default
@@ -97,3 +97,21 @@ Route::get('/list_services', 'Admin_Controller@list_services')->name('list_servi
 Route::post('/edit_service/{id}', 'Admin_Controller@edit_service')->name('edit_service');
 
 Route::get('/transactions_log', 'Admin_Controller@transactions_log')->name('transactions_log');
+
+/**
+ *
+ * list_settings
+ */
+Route::get('/list_settings', 'Admin_Controller@list_settings')->name('list_settings');
+/**
+ *
+ * view_setting
+ */
+Route::match(["GET", "POST"], "/view_setting/{id}", "Admin_Controller@view_setting")
+	->name("view_setting");
+/**
+ *
+ * view_setting
+ */
+Route::match(["GET", "POST"], "/create_setting", "Admin_Controller@create_setting")
+	->name("create_setting");

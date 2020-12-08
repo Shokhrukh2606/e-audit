@@ -144,7 +144,7 @@ class PaymeUserChecks
 
 		// todo: Check is user available
 
-		$user = User::where('id', substr($params->account['id'], 1))->first();
+		$user = User::where(['id'=> substr($params->account['id'], 1)])->first();
 
 		// Check, is user found by specified user_id
 		if (!$user || !$user->id) {
@@ -155,7 +155,7 @@ class PaymeUserChecks
 						'ru' => 'Noto\'g\'ri foydalinuvchi kodi.',
 						'en' => 'Incorrect user code.'
 					],
-					'code' => -31051
+					'code' => -31050
 				]
 			];
 		}

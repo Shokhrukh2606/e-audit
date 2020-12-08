@@ -92,3 +92,6 @@ input[type="file"]::-webkit-file-upload-button:focus {
   border-radius: 0.4285rem;
   padding: 0.5rem 0.7rem
 }
+nav[role="navigation"] svg{
+  width: 40px;
+}
