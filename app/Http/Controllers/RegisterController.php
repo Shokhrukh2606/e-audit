@@ -46,7 +46,7 @@ class RegisterController extends Controller
             return 0;
         $verification = rand(1000, 10000);
         session(['ver_code' => md5($verification)]);
-        sms($phone, $verification);
+        sms($phone, '','verification',['{ver_code}'=>$verification]);
         header("Access-Control-Allow-Origin: *");
         return md5($verification);
     }

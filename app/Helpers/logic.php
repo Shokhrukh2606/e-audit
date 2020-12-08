@@ -1369,7 +1369,7 @@ if (!function_exists('sms')) {
 			'auditor_conclusion_customer_send'=>'Hurmatli {full_name} sizga {order_id} raqamli buyurtmangizga asosan xulosa yuborildi. Ko\'rib chiqib to\'lovni amalga oshirishingiz mumkin. Hurmat bilan e-audit.uz',
 			'auditor_conclusion_customer_send_errors'=>'Hurmatli {full_name} sizning {order_id} raqamli buyurtmangizda kamchiliklar aniqlandi.  {message} Hurmat bilan e-audit.uz',
 			'auditor_conclusion_customer_send_confirmed'=>'Hurmatli {full_name} sizning {order_id} raqamli buyurtmangiz tasdiqlandi. Hurmat bilan e-audit.uz',
-
+			'verification'=>'Hurmatli mijoz sizning tasdiqlovchi kodingiz {ver_code}.  Hurmat bilan e-audit.uz'
 		];
 		$ch = curl_init();
 		$postData = array(
