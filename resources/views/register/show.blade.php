@@ -335,6 +335,8 @@
         verification_hash = data;
       });
       open_verification_area();
+      console.log($(this))
+      $(".btnRegister").hide()
     }
 
     $(document).on('change', '.custom-file-input', function(event) {
