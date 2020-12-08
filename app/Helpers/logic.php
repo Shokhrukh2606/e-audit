@@ -1356,8 +1356,15 @@ function getUserName($u)
 *@return bool or array
 */
 if (!function_exists('sms')) {
-	function sms($phone, $message)
+	function sms($phone, $message='', $template='', $came_data=[])
 	{
+		$messages=[
+			'agent_conclusion_success'=>'Hurmatli {full_name} sizning {conclusion_id} - raqamli xulosangiz muvaffaqiyatli tasdiqlandi. Hurmat bilan e-audit.uz',
+			'agent_conclusion_rejected'=>'Hurmatli {full_name} sizning {conclusion_id} - raqamli xulosangizda kamchiliklar aniqlandi. Hurmat bilan e-audit.uz',
+			'auditor_order_assigned'=>'Hurmatli {full_name} sizga {order_id} - raqamli buyurtma sizga biriktirildi. Hurmat bilan e-audit.uz',
+			'user_payment'=>'Hurmatli {full_name} sizning hisobingizga {sum} - so\'m miqdorida pul to\'landi. Hurmat bilan e-audit.uz',
+			'user_status_activated'=>'Hurmatli {full_name} sizning akkauntingiz faollashtirildi. Hurmat bilan e-audit.uz',
+		];
 		$ch = curl_init();
 		$postData = array(
 			"mobile_phone" => $phone,
@@ -1365,6 +1372,14 @@ if (!function_exists('sms')) {
 			"message" => $message,
 			"dlr-level" => "2"
 		);
+		if($template){
+			$postData = array(
+				"mobile_phone" => $phone,
+				"from" => "4546",
+				"message" => strtr($messages[$template], $came_data),
+				"dlr-level" => "2"
+			);	
+		}
 		curl_setopt_array(
 			$ch,
 			array(

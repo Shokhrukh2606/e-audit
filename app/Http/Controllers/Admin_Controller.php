@@ -15,6 +15,7 @@ use App\Models\Blank;
 use App\Models\Service;
 use App\Models\Audit_info;
 use App\Models\Setting;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -60,11 +61,19 @@ class Admin_Controller extends Controller
         if ($data['conclusion']) {
             switch ($req->status) {
                 case 'finished':
+                    sms($data['conclusion']->agent->phone, '','agent_conclusion_success',[
+                        '{full_name}'=>$data['conclusion']->agent->full_name,
+                        '{conclusion_id}'=>$data['conclusion']->id
+                    ]);
                     $data['conclusion']->status = 3;
                     $data['conclusion']->save();
                     return redirect()->back();
                     break;
                 case 'rejected':
+                    sms($data['conclusion']->agent->phone, '','agent_conclusion_rejected',[
+                        '{full_name}'=>$data['conclusion']->agent->full_name,
+                        '{conclusion_id}'=>$data['conclusion']->id
+                    ]);
                     $data['conclusion']->status = 4;
                     $data['conclusion']->save();
                     return redirect()->back();
@@ -88,9 +97,15 @@ class Admin_Controller extends Controller
         $order = Order::where('id', $req->id)->first();
         if (!$order)
             abort(404);
+        
         $order->auditor_id = $req->input('auditor_id');
         $order->status = '3';
         $order->save();
+        $auditor=User::where(['id'=>$req->input('auditor_id')])->first();
+        sms($auditor->full_name, '','auditor_order_assigned',[
+            '{full_name}'=>$auditor->full_name,
+            '{order_id}'=>$order->id
+        ]);
         return redirect()->route('admin.list_orders');
     }
     public function conclusions(Request $req)
@@ -153,14 +168,19 @@ class Admin_Controller extends Controller
             case 'POST':
                 $fields = $req->all();
                 unset($fields['_token']);
-                $payment = new Payment;
-                foreach ($fields as $name => $value) {
-                    $payment->$name = $value;
-                }
-                $payment->save();
+                $transaction=new Transaction;
+                $transaction->user_id=$req->input('user_id');
+                $transaction->payment_system='funds';
+                $transaction->system_transaction_id='~';
+                $transaction->state='confirmed';
+                $transaction->save();
                 $user = User::where('id', $req->input('user_id'))->first();
                 $user->add_funds($req->input('amount'));
                 $user->save();
+                sms($user->full_name, '','user_payment',[
+                    '{full_name}'=>$user->full_name,
+                    '{sum}'=>$req->input('amount')
+                ]);   
                 return redirect()->back()->with("success", "Successfully added");
                 break;
             default:
@@ -217,7 +237,9 @@ class Admin_Controller extends Controller
                 $fields = $req->input("user");
                 $user = User::where(['id' => $req->id])->first();
                 if ($fields['status'] != $user->status && $user->status == 'inactive') {
-                    sms($user->phone, 'Сизни аккаунтингиз фаоллаштирилди!');
+                    sms($user->phone, '','user_status_activated',[
+                        '{full_name}'=>$user->full_name
+                    ]);
                 }
                 if ($fields['password'] != '') {
                     $fields['password'] = Hash::make($fields['password']);

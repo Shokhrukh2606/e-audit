@@ -126,7 +126,7 @@
                     <li>
                         <a href="{{ route('admin.list_settings') }}">
                             <i class="tim-icons icon-puzzle-10"></i>
-                            <p>{{ lang('Settings') }}</p>
+                            <p>Settings</p>
                         </a>
                     </li>
                 </ul>
@@ -155,7 +155,7 @@
                     <div class="collapse navbar-collapse" id="navigation">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('aac.profile')}}" class="nav-link">
                                     {{ auth()->user()->name }}
                                 </a>
                             </li>

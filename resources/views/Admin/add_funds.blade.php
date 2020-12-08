@@ -14,17 +14,22 @@
                     @foreach ($users as $user)
                         <option
                             value="{{ $user->id }}">
-                            {{ getUserName($user->id) }}
+                            {{ $user->phone }}
                         </option>
                     @endforeach
                 </select>
             </div>
-            <select class="form-control" name="payment_sys">
-                <option value="bank_transfer">Bank Transfer</option>
-                <option value="cash">Cash</option>
-            </select>
-            <input type="number" step="0.01" placeholder="amount" name="amount">
-            <button class="btn btn-warning btn-sm">Save</button>
+			<div class="col">
+				<label>{{ lang('user') }}</label>
+				<select class="form-control" name="payment_sys">
+					<option value="bank_transfer">Bank Transfer</option>
+					<option value="cash">Cash</option>
+				</select>
+			</div>
+			<div class="col">
+				<input class="form-control" type="number" step="0.01" placeholder="amount" name="amount">
+			</div>
+            <button class="btn btn-warning btn-sm pull-right">Save</button>
         </form>
     </div>
 </div>

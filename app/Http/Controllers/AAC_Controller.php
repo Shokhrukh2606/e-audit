@@ -13,7 +13,7 @@ class AAC_Controller extends Controller
 {
     function __construct()
     {
-        $this->middleware('multi_auth:agent,auditor,customer');
+        $this->middleware('multi_auth:agent,auditor,customer,admin');
     }
     private function view($file, $data = [])
     {

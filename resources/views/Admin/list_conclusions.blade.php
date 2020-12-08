@@ -68,7 +68,7 @@
       <tbody>
         @foreach ($conclusions as $conclusion)
         <tr>
-          <td>{{ $conclusion->id }}</td>
+          <td>{{ $conclusion->conclusion_id }}</td>
           <td>
             {{ getUserName($conclusion->customer_id) }}
           </td>
