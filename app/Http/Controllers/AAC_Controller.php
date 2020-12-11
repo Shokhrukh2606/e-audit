@@ -17,7 +17,7 @@ class AAC_Controller extends Controller
     }
     private function view($file, $data = [])
     {
-        $data['title'] = '«HIMOYA-AUDIT» МЧЖ';
+        $data['title'] = 'e-audit';
         $data['body'] = 'AAC.' . $file;
 
         return view(getUserLayout(Auth::user()->group_id) . '_index', $data);

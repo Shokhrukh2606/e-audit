@@ -47,7 +47,7 @@
         <ul class="nav mynav">
           <li>
             <a href="{{ route('agent.list_conclusions') }}">
-              <i class="tim-icons icon-puzzle-10"></i>
+              <i class="tim-icons icon-attach-87"></i>
               <p>{{ lang('conclusions') }}</p>
             </a>
           </li>
@@ -160,7 +160,7 @@
           <ul class="nav">
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link">
-                «HIMOYA-AUDIT» {{ lang('mchj') }}
+               e-audit
               </a>
             </li>
 

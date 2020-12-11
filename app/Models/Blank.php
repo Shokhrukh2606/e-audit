@@ -9,7 +9,7 @@ class Blank extends Model
 {
     use HasFactory;
     protected $table="blanks";
-
+    public $timestamps=false;
     public static function start(){
     	$new=new self();
     	$new->save();

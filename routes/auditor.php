@@ -15,7 +15,7 @@ Route::get("conclusions", "Audit_Controller@conclusions")->name("conclusions");
 
 			// one conclusion view protected
 			// view: auditor.view_conclusion;
-Route::get("conclusion/{id}", "Audit_Controller@conclusion")->name("conclusion");
+Route::get("conclusion/{id}/{blank_id?}", "Audit_Controller@conclusion")->name("conclusion");
 
 			// send to customer
 			// view: no view
@@ -45,5 +45,10 @@ Route::post("send_with_errors/{id}", "Audit_Controller@send_with_errors")->name(
 // no view
 Route::get("confirm/{id}", "Audit_Controller@confirm")->name("confirm");
 
+Route::post('assign_blank', "Audit_Controller@assign_blank")->name('assign_blank');
+
+		// list conclusions of auditor
+		// view: auditor.list_conclusions;
+Route::match(['GET', 'POST'],"breaking", "Audit_Controller@breaking")->name("breaking");
 
 ?>

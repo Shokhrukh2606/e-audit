@@ -26,6 +26,20 @@
     font-size: 10px;
     font-weight: 600;
   }
+
+  .sidebar .nav li>a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .sidebar .nav li.active>a:not([data-toggle="collapse"])::before {
+    top: 45%;
+  }
+
+  .sidebar .nav p {
+    white-space: initial;
+  }
 </style>
 
 <body class="">
@@ -58,17 +72,24 @@
             </a>
           </li>
           <li>
+            <a href="{{route("auditor.conclusions")}}?order=true">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('conclusions_on_order')}}</p>
+            </a>
+          </li>
+          <li>
             <a href="{{ route('auditor.create_conclusion') }}">
               <i class="tim-icons icon-simple-add"></i>
               <p>{{lang('newConclusion')}}</p>
             </a>
           </li>
           <li>
-            <a href="{{route("aac.checkfunds")}}">
-              <i class="tim-icons icon-bank"></i>
-              <p>{{lang('bill')}}</p>
+            <a href="{{ route('auditor.breaking') }}">
+              <i class="tim-icons icon-bold"></i>
+              <p>{{lang('breaking_blank')}}</p>
             </a>
           </li>
+          
         </ul>
       </div>
     </div>
@@ -136,7 +157,7 @@
           <ul class="nav">
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link">
-                «HIMOYA-AUDIT» МЧЖ
+                e-audit
               </a>
             </li>
 

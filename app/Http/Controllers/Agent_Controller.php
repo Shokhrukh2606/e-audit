@@ -34,7 +34,7 @@ class Agent_Controller extends Controller
     }
     private function view($file, $data = [])
     {
-        $data['title']='«HIMOYA-AUDIT» МЧЖ';
+        $data['title']='e-audit';
         $data['body']='Agent.'.$file;
         return view('agent_index', $data);
     }

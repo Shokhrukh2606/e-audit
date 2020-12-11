@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Cust_comp_info;
 use App\Models\Invoice;
+use App\Models\Blank;
 
 
 class Conclusion extends Model
@@ -26,6 +27,16 @@ class Conclusion extends Model
   public function user()
   {
     $this->belongsTo('App\Models\User');
+  }
+  public function blanks(){
+    return $this->hasMany(Blank::class);
+  }
+  public function is_printable(){
+    date_default_timezone_set("Asia/Tashkent");
+    if(count($this->blanks)>0){
+      return strtotime('now')-strtotime($this->blanks[0]->assigned_date)<3600*24*config('global.printable_days');
+    }
+    return true;
   }
   public $timestamps = false;
 

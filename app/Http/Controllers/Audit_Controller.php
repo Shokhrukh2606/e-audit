@@ -10,6 +10,7 @@ use App\Models\Cust_comp_info;
 use App\Models\Ciucm;
 use App\Models\Blank;
 use App\Models\Order;
+use App\Models\Audit_info;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -45,12 +46,6 @@ class Audit_Controller extends Controller
     public function create_conclusion(Request $req){
         switch ($req->method()) {
             case 'GET':
-            if(count(Blank::available(auth()->user()->id))==0){
-                $data['message']='You do not have any blanks left!';
-                $data['link']=route('auditor.conclusions');
-                return $this->view('message', $data);
-            }
-            $data['blanks']=Blank::available(auth()->user()->id);
             $data['template_id']=$_GET['template_id']??false;
             $data['use_cases']=$_GET['use_cases']??false;
             if($data["template_id"]&&$data["use_cases"])
@@ -58,55 +53,79 @@ class Audit_Controller extends Controller
             return $this->select_temp();
             break;
             case 'POST':
-                $req->validate(
-                    $this->conclusion_validation_rules
-                );
-                $all=$req->all();
-                $conclusion_fields=$req->input('conclusion');
-                $cust_info_fields=$req->input('cust_info');
-                $custom_fields_files=$req->file('custom');
-                $custom_fields=$req->input('custom');
+            $req->validate(
+                $this->conclusion_validation_rules
+            );
+            $all=$req->all();
+            $conclusion_fields=$req->input('conclusion');
+            $cust_info_fields=$req->input('cust_info');
+            $custom_fields_files=$req->file('custom');
+            $cust_info_fields_files = $req->file('cust_info');
+
+            $custom_fields=$req->input('custom');
+
                     // customer_info-use_case mappings
-                $ciucm_fields=$req->input('ciucm');
-                $conclusion=new Conclusion();
-                $conclusion->auditor_id=auth()->user()->id;
-                foreach ($conclusion_fields??[] as $key => $value) {
-                    $conclusion->$key=$value;
-                }
-                $conclusion->save();
-                
-                $blank=Blank::where('id', $req->input('blank_id'))->first();
-                $blank->conclusion_id=$conclusion->id;
-                $blank->save();
+            $ciucm_fields=$req->input('ciucm');
+            $conclusion=new Conclusion();
+            $conclusion->auditor_id=auth()->user()->id;
 
-                $CCI=new Cust_comp_info();
-                $CCI->conclusion_id=$conclusion->id;
-                foreach ($cust_info_fields??[] as $key => $value) {
-                    $CCI->$key=$value;
-                }
+            foreach ($conclusion_fields??[] as $key => $value) {
+                $conclusion->$key=$value;
+            }
 
-                foreach ($custom_fields_files??[] as $key => $value) {
-                    /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
-                    $custom_fields[$key]=$value
-                    ->storeAs("cust_info/$conclusion->id", time().$value->getClientOriginalName());
-                }
+                //get snapshot of default audit company info
+            $default_company=Audit_info::where('active', 1)->first();
 
-                $CCI->custom_fields=json_encode($custom_fields);
-                $CCI->save();
-                foreach ($ciucm_fields as $key => $value) {
-                    $cuicm=new Ciucm();
-                    $cuicm->cust_info_id=$CCI->id;
-                    $cuicm->use_case_id=$value;
-                    $cuicm->save();
-                }
-                return redirect()->route('auditor.conclusions');
-                break;
+            unset($default_company->id);
+            unset($default_company->active);
+
+            foreach ($default_company->getAttributes() as $key => $value) {
+                $conclusion->$key=$value;
+            }
+
+
+            $conclusion->save();    
+
+
+            $CCI=new Cust_comp_info();
+            $CCI->conclusion_id=$conclusion->id;
+            foreach ($cust_info_fields??[] as $key => $value) {
+                $CCI->$key=$value;
+            }
+
+            foreach ($cust_info_fields_files ?? [] as $key => $value) {
+
+                $CCI->$key = $value
+                ->storeAs("cust_info/$CCI->id", time() . 'cci' . $key . $value->getClientOriginalName());
+            }
+
+            foreach ($custom_fields_files??[] as $key => $value) {
+                /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
+                $custom_fields[$key]=$value
+                ->storeAs("cust_info/$conclusion->id", time().$value->getClientOriginalName());
+            }
+
+            $CCI->custom_fields=json_encode($custom_fields);
+            $CCI->save();
+            foreach ($ciucm_fields as $key => $value) {
+                $cuicm=new Ciucm();
+                $cuicm->cust_info_id=$CCI->id;
+                $cuicm->use_case_id=$value;
+                $cuicm->save();
+            }
+            return redirect()->route('auditor.conclusions');
+            break;
             default:
     			# code...
             break;
         }
     }
     public function conclusions(){
+        $data['blanks']=Blank::available(auth()->user()->id);
+
+        $data['on_order']=false;
+        if($_GET['order']??false)
+            $data['on_order']=true;
         $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(20);
         return $this->view("list_conclusions", $data);
     }
@@ -115,6 +134,7 @@ class Audit_Controller extends Controller
         return $this->view("list_orders", $data);
     }
     public function pdf(Request $req){
+
         $data['word']="word";
         $pdf = PDF::loadView('templates.80.ru', $data);
         return $pdf->stream('conclusion.pdf');
@@ -140,27 +160,27 @@ class Audit_Controller extends Controller
             return abort(404);
             break;
             case 'POST':
-                $req->validate(
-                    $this->conclusion_validation_rules
-                );
-                $all=$req->all();
-                $conclusion_fields=$req->input('conclusion');
-                $conclusion=new Conclusion();
-                $conclusion->auditor_id=auth()->user()->id;
-                foreach ($conclusion_fields??[] as $key => $value) {
-                    $conclusion->$key=$value;
-                }
-                $conclusion->save();
+            $req->validate(
+                $this->conclusion_validation_rules
+            );
+            $all=$req->all();
+            $conclusion_fields=$req->input('conclusion');
+            $conclusion=new Conclusion();
+            $conclusion->auditor_id=auth()->user()->id;
+            foreach ($conclusion_fields??[] as $key => $value) {
+                $conclusion->$key=$value;
+            }
+            $conclusion->save();
 
 
-                $blank=Blank::where('id', $req->input('blank_id'))->first();
-                $blank->conclusion_id=$conclusion->id;
-                $blank->save();
+            $blank=Blank::where('id', $req->input('blank_id'))->first();
+            $blank->conclusion_id=$conclusion->id;
+            $blank->save();
 
-                $CCI=Cust_comp_info::where('id', $req->id)->first();
-                $CCI->conclusion_id=$conclusion->id;
-                $CCI->save();
-                return redirect()->route('auditor.conclusions');
+            $CCI=Cust_comp_info::where('id', $req->id)->first();
+            $CCI->conclusion_id=$conclusion->id;
+            $CCI->save();
+            return redirect()->route('auditor.conclusions');
             break;
             default:
                 # code...
@@ -168,6 +188,14 @@ class Audit_Controller extends Controller
         }
     }
     public function conclusion(Request $req){
+        $data['protected']=true;
+        if($req->blank_id){
+            $blank=Blank::where('id', $req->blank_id)->first();
+            if($blank->conclusion_id==$req->id){
+                $data['protected']=false;
+                $data['blank']=$blank;
+            }
+        }
         $data['conclusion']=Conclusion::where('id', $req->id)->first();
         if($data['conclusion']){
             $data['img']="img";
@@ -175,7 +203,7 @@ class Audit_Controller extends Controller
             $lang=$data['conclusion']->cust_info->lang;
             $data['qrcode']=base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
             $pdf = PDF::loadView("templates.$template.$lang", $data);
-            return $pdf->stream('invoice.pdf');
+            return $pdf->stream('conclusion.pdf');
         }
         abort(404);
     }
@@ -220,5 +248,37 @@ class Audit_Controller extends Controller
         $data['message']="Вы успешно подтвердили действительность документов и реквизитов заказа.";
         $data['link']=route('auditor.orders');
         return $this->view('message',$data);
+    }
+
+    public function assign_blank(Request $req){
+        date_default_timezone_set("Asia/Tashkent");
+        $blank=Blank::where('id', $req->input('blank_id'))->first();
+        $blank->conclusion_id=$req->input('conclusion_id');
+        $blank->assigned_date=date('Y-m-d H:i:s');
+        $blank->save();
+        return redirect()->route('auditor.conclusions');
+    }
+    public function breaking(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+                $data['blanks']=Blank::where([
+                    'user_id'=>auth()->user()->id,
+                    'is_brak'=>false
+                ])->where('conclusion_id','!=','null')->get();
+                return $this->view('blanks', $data);
+            break;
+            case 'POST':
+                $blank=Blank::where('id', $req->input('blank_id'))->first();
+                $reason=$req->file('reason')->store('breaking');
+                $blank->brak_upload=$reason;
+                $blank->is_brak=true;
+                $blank->save();
+                return redirect()->route('auditor.breaking');
+            break;
+            default:
+               abort(401);
+            break;
+        }
+        
     }
 }

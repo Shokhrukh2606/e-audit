@@ -40,127 +40,50 @@
 					</select>
 				</div>
 				<div class="mb-4">
-					<label>{{lang('quarter_start')}}</label>
-					<select class="form-control quarters" name="cust_info[quarter_start]" id="quarterStart" onchange='getInitialQuarter()'>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-					</select>
+					<input type="checkbox" id="yearly" 
+					onchange="_yearly(this)"
+					style="width:initial"
+					>
+					<label for="yearly"
+					style="font-size:18px"
+					>{{lang('yearly')}}</label>
+				</div>
+				<div id="quarters">
+					<div class="mb-4">
+						<label>{{lang('quarter_start')}}</label>
+						<select class="form-control quarters" name="cust_info[quarter_start]" id="quarterStart" onchange='getInitialQuarter()'>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('quarter_finish')}}</label>
+						<select class="form-control quarters" name="cust_info[quarter_finish]" id="quarterFinish">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</div>
 				</div>
 				<div class="mb-4">
-					<label>{{lang('quarter_finish')}}</label>
-					<select class="form-control quarters" name="cust_info[quarter_finish]" id="quarterFinish">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-					</select>
-				</div>
-				<div class="mb-4">
-					<label>{{lang('companyName')}}</label>
-					<input class="form-control" type="text" name="conclusion[audit_comp_name]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('cust_comp_gov_reg_num')}}</label>
-					<input class="form-control" type="text" name="conclusion[audit_comp_gov_reg_num]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('govRegDate')}}</label>
-					<input class="form-control" type="date" name="conclusion[audit_comp_gov_reg_date]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('auditCompInn')}}</label>
-					<input class="form-control" type="text" maxlength="9" name="conclusion[audit_comp_inn]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('auditCompOked')}}</label>
-					<input class="form-control" type="text" maxlength="5" name="conclusion[audit_comp_oked]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('auditCompLicense')}}</label>
-					<input class="form-control" type="text" name="conclusion[audit_comp_lic]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('auditCompLicenseDate')}}</label>
-					<input class="form-control" type="date" name="conclusion[audit_comp_lic_date]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('auditCompBank')}}</label>
-					<input class="form-control" type="text" name="conclusion[audit_comp_bank_name]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('auditCompBankAccount')}}</label>
-					<input class="form-control" type="text" maxlength="20" name="conclusion[audit_comp_bank_acc]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('auditCompBankMfo')}}</label>
-					<input class="form-control" type="text" maxlength="5" name="conclusion[audit_comp_bank_mfo]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('auditCompDirector')}}</label>
-					<input class="form-control" type="text" name="conclusion[audit_comp_director_name]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('auditCompGovNumber')}}</label>
-					<input class="form-control" type="text" name="conclusion[audit_comp_director_cert_num]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('govRegDate')}}</label>
-					<input class="form-control" type="date" name="conclusion[audit_comp_director_cert_date]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('basicConclusions')}}</label>
+					<label>{{lang('conclusion_base')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
 				</div>
 			</div>
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
 				<div class="mb-4">
-					<label>{{lang('cust_comp_gov_reg_num')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('userCompGovRegDate')}}</label>
-					<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('cust_comp_registered_by')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_registered_by]">
-				</div>
-
-				<div class="mb-4">
-					<label>{{lang('custCompAddress')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_address]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompBank')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('cust_comp_bank_acc')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompBankMfo')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]">
+					<label>{{ lang('cust_comp_name') }}</label>
+					<input class="form-control" type="text" name="cust_info[cust_comp_name]" required>
 				</div>
 				<div class="mb-4">
 					<label>{{lang('custCompInn')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_inn]">
+					<input class="form-control" type="text" name="cust_info[cust_comp_inn]" maxlength="9" required>
 				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompOked')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_oked]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompDirector')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_director_name]">
-				</div>
-				<div class="mb-4">
-					<label>{{lang('custCompActivity')}}</label>
-					<input class="form-control" type="text" name="cust_info[cust_comp_activity]">
-				</div>
+				
 			</div>
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
@@ -218,72 +141,111 @@
 						Result
 					</div>
 				</div>
+				
+				<h4>3. {{lang('requiredDocs')}}</h4>
 				<div class="form-group">
-					<label>Blank Nomer</label>
-					<select name="blank_id" class="form-control" required>
-						@foreach($blanks as $blank)
-							<option value="{{$blank->id}}">
-								Blank {{$blank->id}}
-							</option>
-						@endforeach
-					</select>
+					<p>
+						{{lang('cust_comp_director_passport_copy')}}
+					</p>
+					<div class="custom-file">
+						<input type="file" 
+						name="cust_info[cust_comp_director_passport_copy]" 
+						class="custom-file-input" 
+						id="cust_comp_director_passport_copy">
+						<label class="custom-file-label" 
+						for="cust_comp_director_passport_copy" data-browse="{{lang('upload')}}">
+						{{lang('cust_comp_director_passport_copy')}}
+					</label>
 				</div>
-				<!-- <div>
-					<label>{{lang('sources_of_own_funds')}}</label>
-					<input class="form-control" type="text" name="conclusion[sources_of_own_funds]">
+			</div>
+			<div class="form-group">
+				<p>
+					{{lang('cust_comp_gov_registration_copy')}}
+				</p>
+				<div class="custom-file">
+					<input type="file" 
+					name="cust_info[cust_comp_gov_registration_copy]" 
+					class="custom-file-input" id="cust_comp_gov_registration_copy">
+					<label class="custom-file-label" for="cust_comp_gov_registration_copy" data-browse="{{lang('upload')}}">
+						{{lang('cust_comp_gov_registration_copy')}}
+					</label>
 				</div>
-				<div>
-					<label>{{lang('long_term_loans')}}</label>
-					<input class="form-control" type="text" name="conclusion[long_term_loans]">
-				</div> -->
-				<div class="files">
-					@php
-					$dom = new DOMDocument('1.0');
-					@endphp
-					@foreach(custom_fields($template_id) as $field)
-					@php
-					$div = $dom->createElement("div");
-					$class = $dom->createAttribute('class');
-					$class->value = 'custom-file';
-					$div->appendChild($class);
-					$dom->appendChild($div);
+			</div>
+				<div class="file-wrapper mb-4">
+				@php
+				$dom = new DOMDocument('1.0');
+				@endphp
+				@foreach(custom_fields($template_id) as $index=>$field)
+				@php
+				$div= $dom->createElement("div");
+				$dom->appendChild($div);
 
-					$input = $dom->createElement($field->tag);
+				$label = $dom->createElement("label", $field->label->uz.":");
+				if($field->type=='file'){
+					$allowed_types=$field->allowed_types;
+					$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
+				}
+				$div->appendChild($label);
 
-					$attr = $dom->createAttribute('type');
-					$attr->value = $field->type;
-					$input->appendChild($attr);
+				$input = $dom->createElement($field->tag);
 
-					$inputClass = $dom->createAttribute('class');
-					$inputClass->value = 'custom-file-input';
-					$input->appendChild($inputClass);
+				$required=$dom->createAttribute('required');
+				$required->value="true";
+				$input->appendChild($required);
 
-					$inputId = $dom->createAttribute('id');
-					$inputId->value = 'inputFile';
-					$input->appendChild($inputId);
+				$attr = $dom->createAttribute('type');
+				$attr->value = $field->type;
 
-					$attr = $dom->createAttribute('name');
-					$attr->value = "custom[$field->name]";
-					$input->appendChild($attr);
+				$input->appendChild($attr);
 
-					$div->appendChild($input);
+				$attr = $dom->createAttribute('name');
+				$attr->value = "custom[$field->name]";
+				$input->appendChild($attr);
 
-					$label = $dom->createElement("label", lang($field->label->uz).":");
-					$labelClass = $dom->createAttribute('class');
-					$labelClass->value = 'custom-file-label';
-					$label->appendChild($labelClass);
-					$for = $dom->createAttribute('for');
-					$for->value = 'inputFile';
-					$label->appendChild($for);
-					$dataBrowse = $dom->createAttribute('data-browse');
-					$dataBrowse->value = lang('upload');
-					$label->appendChild($dataBrowse);
-					$div->appendChild($label);
-					@endphp
-					@endforeach
-					<?= $dom->saveHTML() ?>
-				</div>
-				<!-- <button class="btn btn-sm btn-success" type="submit">Submit</button> -->
+				if($field->type=='file'){
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file-input";
+					$id=$dom->createAttribute('id');
+					$id->value=$index;
+					$input->appendChild($id);
+					$input->appendChild($class);
+
+					$allowed_types=$dom->createAttribute('accept');
+					$allowed_types->value=$field->allowed_types;
+					$input->appendChild($allowed_types);
+
+					$wrapper=$dom->createElement('div');
+
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file";
+					$wrapper->appendChild($class);
+
+					$inLabel=$dom->createElement('label');
+
+					$browse=$dom->createAttribute('data-browse');
+					$browse->value=lang('upload');
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file-label";
+					$for=$dom->createAttribute('for');
+					$for->value=$index;
+
+					$inLabel->appendChild($for);
+					$inLabel->appendChild($browse);
+					$inLabel->appendChild($class);
+
+					$wrapper->appendChild($input);
+					$wrapper->appendChild($inLabel);
+
+					$div->appendChild($wrapper);
+					continue;
+				}
+				$div->appendChild($input);
+
+				@endphp
+				@endforeach
+				<?= $dom->saveHTML() ?>
+			</div>
+			
 			</div>
 			<div style="overflow:auto;">
 				<div style="float:right;">
@@ -313,23 +275,43 @@
 <script src="{{asset('assets/js/coefficient.js')}}"></script>
 <script>
 	var myselect = document.getElementById("year"),
-		startYear = new Date().getFullYear()
+	startYear = new Date().getFullYear()
 	count = 10;
 
-	(function(select, val, count) {
-		do {
-			select.add(new Option(val--, count--), null);
-		} while (count);
-	})(myselect, startYear, count);
-
-	function getInitialQuarter() {
-		const quarterStart = document.getElementById('quarterStart');
-		const quarterFinish = document.getElementById('quarterFinish');
-		quarterFinish.value = quarterStart.value;
-		for (let index = 0; index < quarterStart.value - 1; index++) {
-			quarterFinish.children[index].disabled = true;
+	
+	const quarters=document.getElementById('quarters');
+	
+	/**
+	 * [yearly description]
+	 * @param  {[type]} elem [description]
+	 * @return void
+	 */
+	function _yearly(elem){
+		if(elem.checked){
+			quarters.style.display="none";
+			quarters.getElementsByClassName('quarters')[0].value="1";
+			quarters.getElementsByClassName('quarters')[1].value="4";
+			
+		}else{
+			quarters.style.display="";
 		}
 	}
-	getInitialQuarter()
-</script>
+	_yearly(document.getElementById('yearly'));
+	
+	 (function(select, val, count) {
+	 	do {
+	 		select.add(new Option(val--, count--), null);
+	 	} while (count);
+	 })(myselect, startYear, count);
+
+	 function getInitialQuarter() {
+	 	const quarterStart = document.getElementById('quarterStart');
+	 	const quarterFinish = document.getElementById('quarterFinish');
+	 	quarterFinish.value = quarterStart.value;
+	 	for (let index = 0; index < quarterStart.value - 1; index++) {
+	 		quarterFinish.children[index].disabled = true;
+	 	}
+	 }
+	 getInitialQuarter()
+	</script>
 @endsection

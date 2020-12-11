@@ -37,7 +37,7 @@
             HA
           </a>
           <a href="javascript:void(0)" class="simple-text logo-normal">
-            «HIMOYA-AUDIT» {{lang('mchj')}}
+            e-audit
           </a>
 
         </div>
@@ -127,7 +127,7 @@
           <ul class="nav">
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link">
-                «HIMOYA-AUDIT» МЧЖ
+                e-audit
               </a>
             </li>
 

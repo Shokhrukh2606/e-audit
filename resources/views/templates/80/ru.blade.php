@@ -7,9 +7,11 @@
     font-family: DejaVu Sans, sans-serif;
 	text-align: justify;
   }
+  @if($protected)
   body{
     background-image: url("{{asset('shutterstock.png')}}");
   }
+  @endif
   .qr-code{
     position: absolute;
     bottom: 0;
