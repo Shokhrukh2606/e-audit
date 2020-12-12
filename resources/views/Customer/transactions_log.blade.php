@@ -5,14 +5,16 @@
             @csrf
             <select class="form-control" name="type">
                 <option value="">{{ lang('select') }}</option>
-                <option value="bank_cash">{{ lang('Bank transfer or cash') }}</option>
-                <option value="click_payme">{{ lang('Click or Payme') }}</option>
+                <option {{request()->input('type')=='to_order'?'selected':''}} value="to_order">{{ lang('To Order') }}</option>
+                <option {{request()->input('type')=='to_funds'?'selected':''}} value="to_funds">{{ lang('To funds') }}</option>
             </select>
             <button class="btn btn-success btn-sm pull-right" type="submit">{{ lang('search') }}</button>
+            <a class="btn btn-danger btn-sm col-1 pull-right {{request()->input('type')?'':'d-none'}}" href="{{route('customer.transaction_log')}}"><i class="tim-icons icon-simple-remove"></i></a>
+
         </form>
     </div>
     <div class="card-body">
-        @if (request()->input('type')=='payme'||request()->input('type')=='click' || !request()->input('type'))
+        @if (request()->input('type')=='to_funds' || !request()->input('type'))
             <table class="table tablesorter">
                 <thead>
                     <th>ID</th>

@@ -95,23 +95,39 @@
                 <th>{{lang('phone')}}</th>
                 <th>{{lang('inn')}}</th>
                 <th>{{lang('conclusions')}}</th>
-                <th>{{lang('status')}}</th>
+                <th>{{lang('transactions_log')}}</th>            
                 <th>{{lang('show')}}</th>
             </thead>
             </tbody>
             @foreach ($users as $user)
             <tr>
-                <td>{{ $user->id }}</td>
+                <td>
+                    @if ($user->status=='active')
+                        <span class="badge badge-success">
+                            {{ $user->id }}
+                        </span>
+                    @else
+                        <span class="badge badge-danger">
+                            {{ $user->id }}
+                        </span>
+                    @endif
+                </td>
                 <td>{{ $user->fullname }}</td>
                 <td>{{ $user->funds }}</td>
-                <td>{{ lang($user->group->name) }}</td>
+                <td>
+                    <span class="badge badge-info">
+                        {{ lang($user->group->name) }}    
+                    </span>
+                </td>
                 <td>{{ $user->phone }}</td>
                 <td>{{ $user->inn }}</td>
                 <td>
-                    <a href="{{ route('admin.user_conclusions', [$user->group->name, $user->id]) }}">{{lang('showConclusion')}}</a></td>
-                <td>{{ lang($user->status) }}</td>
+                    <a class="btn btn-info btn-sm" href="{{ route('admin.user_conclusions', [$user->group->name, $user->id]) }}">{{lang('show_user_c')}}</a></td>
                 <td>
-                    <a href="{{ route('admin.view_user', $user->id) }}">
+                    <a class="btn btn-warning btn-sm" href="{{ route('admin.transactions_log', [$user->id]) }}">{{lang('show_user_t')}}</a>
+                </td>
+                <td>
+                    <a class="btn btn-success btn-sm" href="{{ route('admin.view_user', $user->id) }}">
                         {{lang('show')}}
                     </a>
                 </td>

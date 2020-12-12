@@ -291,12 +291,12 @@ class Customer_Controller extends Controller
     public function transactions_log(Request $req)
     {
         switch ($req->input('type')) {
-            case 'click_payme':
+            case 'to_order':
                 $data['transactions'] = Invoice::where(['user_id' => auth()->user()->id, 'status' => 'confirmed'])->orderBy('id', 'DESC')->paginate(20);
                 if ($data['transactions'])
                     return $this->view('transactions_log', $data);
                 return abort(404);
-            case 'bank_cash':
+            case 'to_funds':
                 $data['transactions'] = Transaction::where(['user_id' => auth()->user()->id, 'state' => 'confirmed'])->orderBy('id', 'DESC')->paginate(20);
                 if ($data['transactions'])
                     return $this->view('transactions_log', $data);

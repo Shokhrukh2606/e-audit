@@ -96,7 +96,7 @@ Route::get('/list_services', 'Admin_Controller@list_services')->name('list_servi
 
 Route::post('/edit_service/{id}', 'Admin_Controller@edit_service')->name('edit_service');
 
-Route::get('/transactions_log', 'Admin_Controller@transactions_log')->name('transactions_log');
+Route::get('/transactions_log/{id}', 'Admin_Controller@transactions_log')->name('transactions_log');
 
 /**
  *
@@ -115,3 +115,8 @@ Route::match(["GET", "POST"], "/view_setting/{id}", "Admin_Controller@view_setti
  */
 Route::match(["GET", "POST"], "/create_setting", "Admin_Controller@create_setting")
 	->name("create_setting");
+/**
+ *
+ * list_blanks
+*/
+Route::get('/list_blanks', 'Admin_Controller@list_blanks')->name('list_blanks');
