@@ -24,14 +24,6 @@
 				</select>
 			</div>
 			<div class='mb-4'>
-				<label>{{__('front.phone')}}</label>
-				<input class="form-control"  type="text" maxlength="13" name="order[phone]" value="{{$conclusion->phone}}">
-			</div>
-			<div class='mb-4'>
-				<label>{{__('front.address_to_deliver')}}</label>
-				<input class="form-control"  type="text" name="order[address_to_deliver]" value="{{$conclusion->address_to_deliver}}">
-			</div>
-			<div class='mb-4'>
 				<label>{{__('front.cust_comp_gov_reg_num')}}</label>
 				<input class="form-control"  type="text" 
 				name="cust_info[cust_comp_gov_reg_num]"

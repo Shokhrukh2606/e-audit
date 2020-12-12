@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Audit_info;
 use App\Models\Ciucm;
 use App\Models\Conclusion;
 use App\Models\Cust_comp_info;
@@ -18,15 +19,15 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Agent_Controller extends Controller
 {
-    private $conclusion_validation_rules=[
-        'conclusion.A1'=>'required | numeric',
-        'conclusion.A2'=>'required | numeric',
-        'conclusion.P2'=>'required | numeric',
-        'conclusion.DO'=>'required | numeric',
-        'conclusion.P1'=>'required | numeric',
-        'conclusion.DEK2'=>'required | numeric',
-        'conclusion.PUDN'=>'required | numeric',
-        'conclusion.P'=>'required | numeric'
+    private $conclusion_validation_rules = [
+        'conclusion.A1' => 'required | numeric',
+        'conclusion.A2' => 'required | numeric',
+        'conclusion.P2' => 'required | numeric',
+        'conclusion.DO' => 'required | numeric',
+        'conclusion.P1' => 'required | numeric',
+        'conclusion.DEK2' => 'required | numeric',
+        'conclusion.PUDN' => 'required | numeric',
+        'conclusion.P' => 'required | numeric'
     ];
     function __construct()
     {
@@ -34,12 +35,13 @@ class Agent_Controller extends Controller
     }
     private function view($file, $data = [])
     {
-        $data['title']='e-audit';
-        $data['body']='Agent.'.$file;
+        $data['title'] = 'e-audit';
+        $data['body'] = 'Agent.' . $file;
         return view('agent_index', $data);
     }
     public function list_conclusions()
     {
+        $data['blanks'] = Blank::available(auth()->user()->id);
         $data['conclusions'] = Auth::user()->agent_conclusions()->orderBy('id', 'DESC')->paginate(20);
         return $this->view('list_conclusions', $data);
     }
@@ -53,12 +55,6 @@ class Agent_Controller extends Controller
     {
         switch ($req->method()) {
             case 'GET':
-                if(count(Blank::available(auth()->user()->id))==0){
-                    $data['message']='You do not have any blanks left!';
-                    $data['link']=route('auditor.conclusions');
-                    return $this->view('message', $data);
-                }
-                $data['blanks']=Blank::available(auth()->user()->id);
                 $data['template_id'] = $_GET['template_id'] ?? false;
                 $data['use_cases'] = $_GET['use_cases'] ?? false;
                 if ($data["template_id"] && $data["use_cases"])
@@ -73,22 +69,31 @@ class Agent_Controller extends Controller
                 $conclusion_fields = $req->input('conclusion');
                 $cust_info_fields = $req->input('cust_info');
                 $custom_fields_files = $req->file('custom');
+                $cust_info_fields_files = $req->file('cust_info');
+
                 $custom_fields = $req->input('custom');
+
                 // customer_info-use_case mappings
                 $ciucm_fields = $req->input('ciucm');
                 $conclusion = new Conclusion();
                 $conclusion->agent_id = auth()->user()->id;
-                foreach ($conclusion_fields ?? [] as $key => $value) {
-                    if(in_array($key, ['cust_info'])){
-                    }else{
-                        $conclusion->$key = $value;
-                    }
-                }
-                $conclusion->save();
 
-                $blank=Blank::where('id', $req->input('blank_id'))->first();
-                $blank->conclusion_id=$conclusion->id;
-                $blank->save();
+                foreach ($conclusion_fields ?? [] as $key => $value) {
+                    $conclusion->$key = $value;
+                }
+
+                //get snapshot of default audit company info
+                $default_company = Audit_info::where('active', 1)->first();
+
+                unset($default_company->id);
+                unset($default_company->active);
+
+                foreach ($default_company->getAttributes() as $key => $value) {
+                    $conclusion->$key = $value;
+                }
+
+
+                $conclusion->save();
 
 
                 $CCI = new Cust_comp_info();
@@ -96,10 +101,17 @@ class Agent_Controller extends Controller
                 foreach ($cust_info_fields ?? [] as $key => $value) {
                     $CCI->$key = $value;
                 }
+
+                foreach ($cust_info_fields_files ?? [] as $key => $value) {
+
+                    $CCI->$key = $value
+                        ->storeAs("cust_info/$CCI->id", time() . 'cci' . $key . $value->getClientOriginalName());
+                }
+
                 foreach ($custom_fields_files ?? [] as $key => $value) {
                     /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
                     $custom_fields[$key] = $value
-                        ->storeAs("agent_info/$conclusion->id", time() . $value->getClientOriginalName());
+                        ->storeAs("cust_info/$conclusion->id", time() . $value->getClientOriginalName());
                 }
 
                 $CCI->custom_fields = json_encode($custom_fields);
@@ -123,11 +135,11 @@ class Agent_Controller extends Controller
         if ($data['conclusion']) {
             switch ($req->status) {
                 case 'send':
-                    $data['conclusion']->status =2;
+                    $data['conclusion']->status = 2;
                     $data['conclusion']->save();
-                    sms($data['conclusion']->agent->phone, '','agent_new_conclusion_send',[
-                        '{full_name}'=>$data['conclusion']->agent->full_name,
-                        '{conclusion_id}'=>$data['conclusion']->id
+                    sms($data['conclusion']->agent->phone, '', 'agent_new_conclusion_send', [
+                        '{full_name}' => $data['conclusion']->agent->full_name,
+                        '{conclusion_id}' => $data['conclusion']->id
                     ]);
                     return redirect()->back();
                     break;
@@ -137,27 +149,29 @@ class Agent_Controller extends Controller
         }
         abort(404);
     }
-    public function create_invoice(Request $req){
-        $conclusion=Conclusion::where('id', $req->conclusion_id)->first();
-        if($conclusion??false){
-            if($conclusion->invoice)
+    public function create_invoice(Request $req)
+    {
+        $conclusion = Conclusion::where('id', $req->conclusion_id)->first();
+        if ($conclusion ?? false) {
+            if ($conclusion->invoice)
                 return redirect()->route('agent.pay', $conclusion->id);
-            $service=$conclusion->cust_info->template->service;
-            $invoice=new Invoice();
-            $invoice->conclusion_id=$conclusion->id;
-            $invoice->price=$conclusion->cust_info->template->service->id;
-            $invoice->user_id=auth()->user()->id;
-            $invoice->service_id=$service->id;
+            $service = $conclusion->cust_info->template->service;
+            $invoice = new Invoice();
+            $invoice->conclusion_id = $conclusion->id;
+            $invoice->price = $conclusion->cust_info->template->service->id;
+            $invoice->user_id = auth()->user()->id;
+            $invoice->service_id = $service->id;
             $invoice->save();
             return redirect()->route('agent.pay', $invoice->id);
-        }else{
-           abort(404);
+        } else {
+            abort(404);
         }
     }
-    public function pay(Request $req){
-        $data['invoice']=Invoice::where('conclusion_id', $req->invoice_id)->first();
-        if($data['invoice'])
-            return $this->view('pay_for_order',$data);
+    public function pay(Request $req)
+    {
+        $data['invoice'] = Invoice::where('conclusion_id', $req->invoice_id)->first();
+        if ($data['invoice'])
+            return $this->view('pay_for_order', $data);
         return abort(404);
     }
     public function view_conclusion_protected()
@@ -167,10 +181,14 @@ class Agent_Controller extends Controller
     public function view_conclusion_open(Request $req)
     {
         $data['conclusion'] = Conclusion::where('id', $req->id)->first();
+        $data['protected'] = true;
+        if ($data['conclusion']->invoice&&$data['conclusion']->invoice->status == 'confirmed') {
+            $data['protected'] = false;
+        }
         if ($data['conclusion']) {
             $template = $data['conclusion']->cust_info->template->standart_num;
             $lang = $data['conclusion']->cust_info->lang;
-            $data['qrcode']=base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
+            $data['qrcode'] = base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
             $pdf = PDF::loadView("templates.$template.$lang", $data);
             return $pdf->stream('invoice.pdf');
         }
@@ -178,66 +196,67 @@ class Agent_Controller extends Controller
     }
     public function view_conclusion(Request $req)
     {
-        $data['conclusion']=Conclusion::where(['id'=>$req->id, 'agent_id'=>auth()->user()->id])->first();
-        if($data['conclusion'])
+        $data['conclusion'] = Conclusion::where(['id' => $req->id, 'agent_id' => auth()->user()->id])->first();
+        if ($data['conclusion'])
             return $this->view('view_conclusion', $data);
         return abort(404);
     }
-    public function edit_conclusion(Request $req){
+    public function edit_conclusion(Request $req)
+    {
         switch ($req->method()) {
             case 'GET':
-                $data['conclusion']=Conclusion::where(['id'=>$req->id])->first();
-                if($data['conclusion'])
+                $data['conclusion'] = Conclusion::where(['id' => $req->id])->first();
+                if ($data['conclusion'])
                     return $this->view('edit_conclusion', $data);
                 return abort(404);
                 break;
             case 'POST':
-               
-                $all=$req->all();
-                $conclusion=$req->input('conclusion');
-                $cust_info_fields=$req->input('cust_info');
-                $custom_fields_files=$req->file('custom');
-                $custom_fields=$req->input('custom');
 
-                
-                
-                $conclusion=Conclusion::where(['id'=>$req->id])->first();
-                if(!$conclusion)
+                $all = $req->all();
+                $conclusion = $req->input('conclusion');
+                $cust_info_fields = $req->input('cust_info');
+                $custom_fields_files = $req->file('custom');
+                $custom_fields = $req->input('custom');
+
+
+
+                $conclusion = Conclusion::where(['id' => $req->id])->first();
+                if (!$conclusion)
                     abort(404);
-                $CCI=$conclusion->cust_info;
+                $CCI = $conclusion->cust_info;
 
                 $req->validate(
                     file_fields_for_validation_edit($CCI->template_id)
-                ); 
+                );
 
 
-                foreach ($conclusion??[] as $key => $value) {
-                    $conclusion->$key=$value;
+                foreach ($conclusion ?? [] as $key => $value) {
+                    $conclusion->$key = $value;
                 }
-                $conclusion->status=2;
+                $conclusion->status = 2;
                 $conclusion->save();
 
-                
-                foreach ($cust_info_fields??[] as $key => $value) {
-                    $CCI->$key=$value;
+
+                foreach ($cust_info_fields ?? [] as $key => $value) {
+                    $CCI->$key = $value;
                 }
-                $original_custom=json_decode($CCI->custom_fields, true);
-                
-                foreach ($custom_fields_files??[] as $key => $value) {
-                    Storage::delete($original_custom[$key]??null);
+                $original_custom = json_decode($CCI->custom_fields, true);
+
+                foreach ($custom_fields_files ?? [] as $key => $value) {
+                    Storage::delete($original_custom[$key] ?? null);
                     /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
-                   $original_custom[$key]=$value
-                   ->storeAs("agent_info/$conclusion->id", time().$value->getClientOriginalName());
+                    $original_custom[$key] = $value
+                        ->storeAs("agent_info/$conclusion->id", time() . $value->getClientOriginalName());
                 }
-                foreach ($custom_fields??[] as $key => $value) {
-                   $original_custom[$key]=$value;
+                foreach ($custom_fields ?? [] as $key => $value) {
+                    $original_custom[$key] = $value;
                 }
 
-                $CCI->custom_fields=json_encode($original_custom);
-               
+                $CCI->custom_fields = json_encode($original_custom);
+
                 $CCI->save();
                 return redirect()
-                ->route('agent.list_conclusions');
+                    ->route('agent.list_conclusions');
                 break;
             default:
                 # code...
@@ -248,14 +267,35 @@ class Agent_Controller extends Controller
     {
         return $this->view('cashback_log');
     }
-    public function transactions_log(){
-        $data['transactions']=Invoice::where(['user_id'=>auth()->user()->id, 'status'=>'confirmed'])->orderBy('id', 'DESC')->paginate(20);
-        if($data['transactions'])
-            return $this->view('transactions_log',$data);
+    public function transactions_log()
+    {
+        $data['transactions'] = Invoice::where(['user_id' => auth()->user()->id, 'status' => 'confirmed'])->orderBy('id', 'DESC')->paginate(20);
+        if ($data['transactions'])
+            return $this->view('transactions_log', $data);
         return abort(404);
     }
     public function payment_log()
     {
         return $this->view('payment_log');
+    }
+    public function assign_blank(Request $req)
+    {
+        date_default_timezone_set("Asia/Tashkent");
+        $blank = Blank::where('id', $req->input('blank_id'))->first();
+        $blank->conclusion_id = $req->input('conclusion_id');
+        $blank->assigned_date = date('Y-m-d H:i:s');
+        $blank->save();
+        return redirect()->route('agent.list_conclusions');
+    }
+    public function break_all(Request $req)
+    {
+        $conclusion = Conclusion::where('id', $req->input('break_conclusion_id'))->first();
+        foreach ($conclusion->blanks as $key => $blank) {
+            $reason = $req->file('reason')->store('breaking');
+            $blank->brak_upload = $reason;
+            $blank->is_brak = true;
+            $blank->save();
+        }
+        return redirect()->route('auditor.conclusions');
     }
 }
