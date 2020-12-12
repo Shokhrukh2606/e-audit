@@ -87,6 +87,32 @@
           </button>
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
+              <li class="dropdown nav-item">
+                <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
+
+                  <i class="tim-icons icon-world"></i> O'zbek
+                  <p class="d-lg-none">
+                    <i class="tim-icons icon-world"></i>
+                  </p>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
+                  <li class="nav-link">
+                    <a href="#" data-lang="uz" class="nav-item dropdown-item langChanger">
+                      Ўзбек
+                    </a>
+                  </li>
+                  <li class="nav-link">
+                    <a href="#" data-lang="oz" class="nav-item dropdown-item langChanger">
+                      O'zbek
+                    </a>
+                  </li>
+                  <li class="nav-link">
+                    <a href="#" data-lang="ru" class="nav-item dropdown-item langChanger">
+                      Russian
+                    </a>
+                  </li>
+                </ul>
+              </li>
               <li class="nav-item br-1">
                 <a href="{{ route('aac.profile') }}" class="nav-link">
                   {{ auth()->user()->name }}
@@ -354,6 +380,14 @@
           $('body').removeClass('white-content');
           localStorage.setItem("prefered", "black")
         });
+        $(".langChanger").click(function(e){
+          e.preventDefault()
+          var needed=$(this).data("lang")
+          let currentUrl=window.location.href
+          let modified=currentUrl.split('/')
+          modified[3]=needed
+          window.location=modified.join('/')
+        })
       });
     });
   </script>

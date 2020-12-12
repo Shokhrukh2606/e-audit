@@ -448,4 +448,32 @@ class Admin_Controller extends Controller
                 break;
         }
     }
+    public function transactions_log(Request $req)
+    {
+        switch ($req->input('type')) {
+            case 'to_order':
+                $data['transactions'] = Invoice::where(['user_id' =>$req->id, 'status' => 'confirmed'])->orderBy('id', 'DESC')->paginate(20);
+                if ($data['transactions'])
+                    return $this->view('transactions_log', $data);
+                return abort(404);
+            case 'to_funds':
+                $data['transactions'] = Transaction::where(['user_id' => $req->id, 'state' => 'confirmed', 'payment_system'=>'funds'])->orderBy('id', 'DESC')->paginate(20);
+                if ($data['transactions'])
+                    return $this->view('transactions_log', $data);
+                return abort(404);
+            default:
+                $data['transactions'] = Transaction::where(['user_id' => $req->id, 'state' => 'confirmed', 'payment_system'=>'funds'])->orderBy('id', 'DESC')->paginate(20);
+                if ($data['transactions'])
+                    return $this->view('transactions_log', $data);
+                return abort(404);
+        }
+    }
+    public function list_blanks(Request $req)
+    {
+        
+        $query = QueryBuilder::for(User::class)
+            ->allowedFilters(['id']);
+        $data['users'] = $query->where(['group_id' =>[2,3]])->orderBy('id', 'DESC')->paginate(20);
+        return $this->view('list_blanks', $data);
+    }
 }

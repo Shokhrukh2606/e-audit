@@ -1440,13 +1440,3 @@ function lang($word)
 		return $word;
 	}
 }
-function changeLocaleInRoute(Illuminate\Routing\Route $route, $newLocale)
-{
-	$route->setParameter('l', $newLocale);
-	$parameters = $route->parameters();
-	// $parameters['l'] = $newLocale;
-	$name = $route->getName();
-	return route($name,$parameters);
-
-
-}

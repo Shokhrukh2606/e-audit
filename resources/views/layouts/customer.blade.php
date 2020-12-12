@@ -131,17 +131,17 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
                   <li class="nav-link">
-                    <a href="{{ changeLocaleInRoute(Route::current(), 'uz') }}" data-lang="uz" class="nav-item dropdown-item langChanger">
+                    <a href="#" data-lang="uz" class="nav-item dropdown-item langChanger">
                       Ўзбек
                     </a>
                   </li>
                   <li class="nav-link">
-                    <a href="{{ changeLocaleInRoute(Route::current(), 'oz') }}" data-lang="oz" class="nav-item dropdown-item langChanger">
+                    <a href="#" data-lang="oz" class="nav-item dropdown-item langChanger">
                       O'zbek
                     </a>
                   </li>
                   <li class="nav-link">
-                    <a href="{{ changeLocaleInRoute(Route::current(), 'ru') }}" data-lang="ru" class="nav-item dropdown-item langChanger">
+                    <a href="#" data-lang="ru" class="nav-item dropdown-item langChanger">
                       Russian
                     </a>
                   </li>
@@ -401,6 +401,14 @@
 					localStorage.setItem("prefered", "black")
         });
         document.getElementsByTagName("body")[0].style.display="block";
+        $(".langChanger").click(function(e){
+          e.preventDefault()
+          var needed=$(this).data("lang")
+          let currentUrl=window.location.href
+          let modified=currentUrl.split('/')
+          modified[3]=needed
+          window.location=modified.join('/')
+        })
       });
     });
   </script>
