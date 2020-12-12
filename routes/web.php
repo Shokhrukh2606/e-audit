@@ -21,7 +21,7 @@ Route::get('/dispatcher', function () {
 			return redirect()->route('admin.list_orders');
 		break;
 		case 'auditor':
-			return redirect()->route('auditor.conclusions');
+			return redirect()->route('auditor.orders');
 		break;
 		case 'agent':
 			return redirect()->route('agent.list_conclusions');

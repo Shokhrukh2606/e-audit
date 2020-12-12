@@ -11,7 +11,14 @@ Route::match(["GET", "POST"], "/create_conclusion", "Audit_Controller@create_con
 
 			// list conclusions of auditor
 			// view: auditor.list_conclusions;
-Route::get("conclusions", "Audit_Controller@conclusions")->name("conclusions");
+Route::get("init_conclusions", "Audit_Controller@init_conclusions")->name("init_conclusions");
+
+Route::get("sent_conclusions", "Audit_Controller@sent_conclusions")->name("sent_conclusions");
+
+Route::get("received_conclusions", "Audit_Controller@received_conclusions")->name("received_conclusions");
+
+Route::get("received_admin_conclusions", "Audit_Controller@received_admin_conclusions")->name("received_admin_conclusions");
+
 
 			// one conclusion view protected
 			// view: auditor.view_conclusion;
@@ -53,5 +60,6 @@ Route::match(['GET', 'POST'],"breaking", "Audit_Controller@breaking")->name("bre
 
 
 Route::post('break_all', "Audit_Controller@break_all")->name('break_all');
-Route::get('edit_conclusion/{id}', "Audit_Controller@edit_conclusion")->name('edit_conclusion');
+
+Route::match(['GET', 'POST'],'edit_conclusion/{id}', "Audit_Controller@edit_conclusion")->name('edit_conclusion');
 ?>

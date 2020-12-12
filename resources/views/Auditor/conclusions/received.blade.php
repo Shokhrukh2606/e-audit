@@ -84,11 +84,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">{{ lang('myConclusions') }}</h3>
-        @if (!$on_order)
-            <a class="btn btn-sm btn-success" href="{{ route('auditor.create_conclusion') }}">
-                {{ lang('create') }}
-            </a>
-        @endif
+       
     </div>
     <div class="card-body">
         <table class="table tablesorter">
@@ -97,31 +93,15 @@
                 <th>{{lang('id')}}</th>
                 <th>{{lang('standartNumber')}}</th>
                 <th>{{lang('useCases')}}</th>
-                <th>{{lang('date')}}</th>
-                @if(!$on_order)
+                <th>{{lang('comment')}}</th>
                 <th>{{lang('assign_blank')}}</th>
-                @endif
                 <th>{{lang('show')}}</th>
-                 <th>{{lang('activity')}}</th>
-
-                <th>{{lang('activity')}}</th>
-
-                <th>
-                    {{ lang('activity') }}
-                </th>
-
+                <th>{{lang('resent')}}</th>
+  
             </thead>
             <tbody>
                 @foreach ($conclusions as $conclusion)
 
-
-                @if($on_order)
-                    @continue(!$conclusion->cust_info->order??false)
-                @endif
-                @if(!$on_order)
-                    @continue($conclusion->cust_info->order??false)
-                @endif
-                
                 <tr>
                     <td>{{ $conclusion->id }}</td>
                     <td>{{ $conclusion->cust_info->template->standart_num }}</td>
@@ -131,9 +111,12 @@
                         <span>{{ json_decode($uc->title)->ru }}</span> |
                         @endforeach
                     </td>
-                    <td>{{ $conclusion->created_at }}</td>
-                    @if(count($conclusion->blanks)==0)
+                    <td>{{ $conclusion->cust_info->order->message }}</td>
                     <td>
+                        @if($conclusion->status=='5')
+                        @if(count($conclusion->blanks)!=0)
+                        {{lang('done')}}
+                        @else
                         <button 
                             type="button" 
                             href="#" 
@@ -143,81 +126,28 @@
                         >
                             {{lang('assign_blank')}}
                         </button>
-                    </td>
-                    @else
-                        @if($conclusion->is_printable())
-                        <td>
-                         <button 
-                            type="button" 
-                            href="#" 
-                            class="btn btn-simple btn-danger btn-sm"
-                            data-toggle="modal" data-target="#assign_modal"
-                            onclick="change_conclusion_id({{$conclusion->id}})"
-                        >
-                            {{lang('print_again')}}
-                        </button>
-                        </td>
                         @endif
-                    @endif
-                    
+                        @else
+                        <a href="{{ route('auditor.edit_conclusion', $conclusion->id) }}" class="btn btn-warning btn-simple btn-sm">
+                                        {{ lang('edit') }}
+                         </a>
+                         @endif
+                     </td>
                     <td>
                         <a class="btn btn-sm btn-simple btn-success"
                             href="{{ route('auditor.conclusion', $conclusion->id) }}">
                             {{lang('show')}}
                         </a>
-                        @foreach($conclusion->blanks as $blank)
-                        @continue($blank->is_brak)
-                         <br> <br>
-                            <a class="btn btn-sm btn-simple btn-success"
-                                href="{{ route('auditor.conclusion', $conclusion->id) }}">
-                                {{ lang('show') }}
-                            </a>
-                        @endforeach
-                        </td>
-                        <td>
-                            @if ($conclusion->state != 7)
-                                @if (count($conclusion->valid_blanks()) == 0)
-                                    @if($conclusion->getStateAttribute()=='initiated' || $conclusion->getStateAttribute()=='finished')
-                                    <a href="{{ route('auditor.edit_conclusion', $conclusion->id) }}"
-                                        class="btn btn-warning btn-simple btn-sm">
-                                        {{ lang('edit') }}
-                                    </a>
-                                    @endif
-                                @else
-                                    <button class="btn btn-sm btn-danger" onclick="break_all({{ $conclusion->id }})"
-                                        data-toggle="modal" data-target="#break_all">
-                                        {{ lang('break_all') }}
-                                    </button>
-                                @endif
-                            @endif
-                        </td>
-                        @if ($on_order)
-                            <td>
-                                @if($conclusion->is_coefficent=='no_coef')
-                                    @if($conclusion->getStateAttribute()=='initiated')
-                                    <a class='btn btn-simple btn-sm btn-warning'
-                                        href="{{ route('auditor.send', $conclusion->id) }}"> {{ lang('send_to_admin') }}
-                                    </a>
-                                    @endif
-                                    @if($conclusion->getStateAttribute()=='sent')
-                                        sent to admin
-                                    @endif
-
-                                    @if($conclusion->getStateAttribute()=='finished'
-                                        ||
-                                    $conclusion->getStateAttribute()=='rejected'
-                                    )
-                                    <a class='btn btn-simple btn-sm btn-warning'
-                                        href="{{ route('auditor.send', $conclusion->id) }}"> {{ lang('send_to_customer') }}
-                                    </a>
-                                    @endif
-                                @else
-                                    <a class='btn btn-simple btn-sm btn-warning'
-                                        href="{{ route('auditor.send', $conclusion->id) }}"> {{ lang('send_to_customer') }}
-                                    </a>
-                                @endif
-                            </td>
+                    </td>
+                    <td>
+                        @if($conclusion->status=='5')
+                        {{lang('confirmed')}}
+                        @else
+                        <a href="{{ route('auditor.send', $conclusion->id) }}" class="btn btn-simple btn-info">
+                            {{lang('resent')}}
+                        </a>
                         @endif
+                    </td>  
                     </tr>
                 @endforeach
             </tbody>

@@ -89,10 +89,11 @@
           </td>
           <td>
             @if (in_array($conclusion->status, [2]))
-            <a href="{{ route('admin.change_status', ['finished', $conclusion->conclusion_id]) }}">Finish</a>
+            <a class="btn btn-simple btn-info btn-sm" href="{{ route('admin.change_status', ['finished', $conclusion->conclusion_id]) }}">{{lang('finish')}}</a>
+            <a class="btn btn-simple btn-danger btn-sm" href="{{ route('admin.change_status', ['rejected', $conclusion->conclusion_id]) }}">{{lang('reject')}}</a>
             @endif
           </td>
-          <td><a href="{{ route('admin.view_conclusion', $conclusion->conclusion_id) }}">{{ lang('show') }}</a>
+          <td><a class="btn btn-simple btn-success btn-sm" href="{{ route('admin.view_conclusion', $conclusion->conclusion_id) }}">{{ lang('show') }}</a>
           </td>
         </tr>
         @endforeach

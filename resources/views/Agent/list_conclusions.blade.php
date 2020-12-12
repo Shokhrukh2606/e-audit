@@ -116,6 +116,7 @@
                         <td>
                         </td>
                         <td>
+                            @if($conclusion->status=='3')
                             @if (count($conclusion->blanks) == 0)
                                 <button type="button" href="#" class="btn btn-simple btn-danger btn-sm"
                                     data-toggle="modal" data-target="#assign_modal"
@@ -131,6 +132,10 @@
                                     </button>
                                 @endif
                             @endif
+                            @else
+                            {{lang('waiting_admin_accept')}}
+                            @endif
+                        </td>
                         <td>
                             @if (!in_array($conclusion->status, [3]))
                                 <a class="btn btn-sm btn-simple btn-success" href="{{ route('agent.edit_conclusion', $conclusion->id) }}">{{ lang('update') }}</a>

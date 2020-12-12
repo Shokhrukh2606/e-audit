@@ -1,7 +1,11 @@
 @section('createConcOnOrderCss')
 <link href="{{asset('assets/css/multistep.css')}}" rel="stylesheet" />
 @endsection
-
+<style>
+	#coef{
+		display: none;
+	}
+</style>
 <div class="card">
 	<div class="card-body">
 		<div class="tab">
@@ -63,7 +67,10 @@
 		</div>
 		<div class="tab">
 			<h2>{{lang('custInfo')}}</h2>
-
+			<input type="radio" name="conclusion[is_coefficent]" value="no_coef" onclick="change_coef('off')" id="no_coef" style="width:10px">
+			<label for="#">{{lang('no_coef')}}</label><br>
+			<input type="radio" name="conclusion[is_coefficent]" value="with_coef" onclick="change_coef('on')" id="with_coef" style="width:10px">
+			<label for="#">{{lang('with_coef')}}</label>
 			<form  id="regForm" action="{{route('auditor.create_conc_on_order', $order->cust_info->id)}}" method="POST">
 				@csrf
 				
@@ -71,7 +78,8 @@
 					<label>{{lang('conclusion_base')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
 				</div>
-				
+			<div id="wrapper">
+				<div id="coefs">
 				<div class="kps">
 					<label>{{lang('A2')}}</label>
 					<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source">
@@ -126,16 +134,8 @@
 						Result
 					</div>
 				</div>
-				<div class="form-group">
-					<label>Blank Nomer</label>
-					<select name="blank_id" class="form-control" required>
-						@foreach($blanks as $blank)
-							<option value="{{$blank->id}}">
-								Blank {{$blank->id}}
-							</option>
-						@endforeach
-					</select>
 				</div>
+			</div>
 				<!-- <button class="btn btn-sm btn-success">Save</button> -->
 			</form>
 		</div>
@@ -161,3 +161,17 @@
 </script>
 <script src="{{asset('assets/js/coefficient.js')}}"></script>
 @endsection
+<script>
+	const wrap=document.getElementById('wrapper');
+	const coef=document.getElementById('coefs');
+	const clone=coef.cloneNode(true);
+	wrapper.innerHTML="";
+	function change_coef(state){
+		if(state=='on'){
+			wrapper.appendChild(clone);
+			init_coef()
+		}else{
+			wrapper.innerHTML="";
+		}
+	}
+</script>

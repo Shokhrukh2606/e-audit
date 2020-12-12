@@ -63,22 +63,18 @@
                         </td>
                         <td>
                             @if ($order->cust_info->conclusion->id ?? false)
-                                @if(count($order->cust_info->conclusion->blanks)!=0)
+                                @if($order->cust_info->conclusion->invoice)
                                 <a href="{{ route('customer.create_invoice', $order->cust_info->conclusion->id) }}"
                                    class="btn btn-danger btn-simple btn-sm"
                                 >
                                     {{ lang('pay') }}
                                 </a>
                                 @else
-                                    @if($order->cust_info->conclusion->status=='5')
-                                    {{lang('in_progress')}}
-                                    @else
-                                   <a href="{{ route('customer.accept', $order->cust_info->conclusion->id) }}"
+                                   <a href="{{ route('customer.create_invoice', $order->cust_info->conclusion->id) }}"
                                    class="btn btn-danger btn-simple btn-sm"
                                     >
-                                    {{ lang('accept') }}
-                                    </a>
-                                    @endif
+                                    {{ lang('accept_and_pay') }}
+                                </a>
                                 @endif
                             @else
                                 {{ __('custom.conclusion_not_written') }}

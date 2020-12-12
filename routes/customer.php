@@ -60,4 +60,7 @@ Route::post('reject_conc',"Customer_Controller@reject_conc")->name("reject_conc"
 
 
 Route::get('contracts', 'Customer_Controller@contracts')->name('contracts');
+
+
+Route::get('accept/{conclusion_id}', 'Customer_Controller@accept')->name('accept');
 ?>

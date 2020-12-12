@@ -1,7 +1,30 @@
-const kpsInputs = document.querySelectorAll('.kps input');
-const kpsParams = {};
-const kpsResult = document.querySelector('#kps-result');
+var kpsInputs 
+var kpsParams 
+var kpsResult 
 
+var ososInputs
+var ososParams
+var ososResult 
+
+var kppInputs
+var kppParams 
+var kppResult 
+
+function init_coef(){
+ kpsInputs = document.querySelectorAll('.kps input');
+ kpsParams = {};
+ kpsResult = document.querySelector('#kps-result');
+
+ ososInputs = document.querySelectorAll('.osos input');
+ ososParams = {};
+ ososResult = document.querySelector('#osos-result');
+
+
+ kppInputs = document.querySelectorAll('.kpp input');
+ kppParams = {};
+ kppResult = document.querySelector('#kpp-result');
+copy_A2(document.getElementById("A2_source"));
+}
 function kps() {
   kpsInputs.forEach(element => {
     kpsParams[element.name.split("[")[1].split("]")[0]] = Number(element.value);
@@ -33,10 +56,6 @@ function kps() {
  
 }
 
-const ososInputs = document.querySelectorAll('.osos input');
-const ososParams = {};
-const ososResult = document.querySelector('#osos-result');
-
 function osos() {
   ososInputs.forEach(element => {
     ososParams[element.name.split("[")[1].split("]")[0]] = Number(element.value);
@@ -59,9 +78,6 @@ function osos() {
   }
 }
 
-const kppInputs = document.querySelectorAll('.kpp input');
-const kppParams = {};
-const kppResult = document.querySelector('#kpp-result');
 
 function kpp() {
   kppInputs.forEach(element => {
@@ -87,4 +103,3 @@ function kpp() {
 function copy_A2(elem){
   document.getElementById("A2").innerHTML=elem.value;
 }
-copy_A2(document.getElementById("A2_source"));

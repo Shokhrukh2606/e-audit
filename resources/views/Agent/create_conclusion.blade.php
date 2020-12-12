@@ -87,16 +87,28 @@
 			</div>
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
+				<input type="radio" name="conclusion[is_coefficent]" value="no_coef" onclick="change_coef('off')" id="no_coef" style="width:10px">
+			<label for="#">{{lang('no_coef')}}</label><br>
+			<input type="radio" name="conclusion[is_coefficent]" value="with_coef" onclick="change_coef('on')" id="with_coef" style="width:10px">
+			<label for="#">{{lang('with_coef')}}</label>
+		
+				
+				<div>
+					<label>{{lang('conclusion_base')}}</label>
+					<input class="form-control" type="text" name="conclusion[conclusion_base]">
+				</div>
+			<div id="wrapper">
+				<div id="coefs">
 				<div class="kps">
-					<label>{{lang('current_actives')}}</label>
+					<label>{{lang('A2')}}</label>
 					<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source">
 				</div>
 				<div class="kps">
-					<label>{{lang('current_obligation')}}</label>
+					<label>{{lang('P2')}}</label>
 					<input class="form-control" type="number" name="conclusion[P2]" onkeyup="kps()">
 				</div>
 				<div class="kps">
-					<label>{{lang('long_term_liabilities')}}</label>
+					<label>{{lang('DO')}}</label>
 					<input class="form-control" type="number" name="conclusion[DO]" onkeyup="kps()">
 				</div>
 				<div class="result-wrapper">
@@ -128,11 +140,11 @@
 					</div>
 				</div>
 				<div class="kpp">
-					<label>{{lang("PUDN")}}</label>
+					<label>{{lang('PUDN')}}</label>
 					<input class="form-control" type="number" name="conclusion[PUDN]" onkeyup="kpp()">
 				</div>
 				<div class="kpp">
-					<label>{{lang("P")}}</label>
+					<label>{{lang('P')}}</label>
 					<input class="form-control" type="number" name="conclusion[P]" onkeyup="kpp()">
 				</div>
 				<div class="result-wrapper">
@@ -141,6 +153,8 @@
 						Result
 					</div>
 				</div>
+				</div>
+			</div>
 				
 				<h4>3. {{lang('requiredDocs')}}</h4>
 				<div class="form-group">
@@ -171,7 +185,7 @@
 					</label>
 				</div>
 			</div>
-				<div class="file-wrapper mb-4">
+			<div class="file-wrapper mb-4">
 				@php
 				$dom = new DOMDocument('1.0');
 				@endphp
@@ -246,22 +260,22 @@
 				<?= $dom->saveHTML() ?>
 			</div>
 			
+		</div>
+		<div style="overflow:auto;">
+			<div style="float:right;">
+				<button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-sm btn-primary btn-finish">{{lang('previous')}}</button>
+				<button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-sm btn-primary btn-finish" data-html="{{lang('next')}}" data-submit="{{lang('submit')}}">{{lang('next')}}</button>
 			</div>
-			<div style="overflow:auto;">
-				<div style="float:right;">
-					<button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-sm btn-primary btn-finish">{{lang('previous')}}</button>
-					<button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-sm btn-primary btn-finish" data-html="{{lang('next')}}" data-submit="{{lang('submit')}}">{{lang('next')}}</button>
-				</div>
 
-			</div>
-			<!-- Circles which indicates the steps of the form: -->
-			<div style="text-align:center;margin-top:40px;">
-				<span class="step"></span>
-				<span class="step"></span>
-				<span class="step"></span>
-			</div>
-		</form>
-	</div>
+		</div>
+		<!-- Circles which indicates the steps of the form: -->
+		<div style="text-align:center;margin-top:40px;">
+			<span class="step"></span>
+			<span class="step"></span>
+			<span class="step"></span>
+		</div>
+	</form>
+</div>
 </div>
 
 @section('createConclusionJs')
@@ -286,18 +300,18 @@
 	 * @param  {[type]} elem [description]
 	 * @return void
 	 */
-	function _yearly(elem){
-		if(elem.checked){
-			quarters.style.display="none";
-			quarters.getElementsByClassName('quarters')[0].value="1";
-			quarters.getElementsByClassName('quarters')[1].value="4";
-			
-		}else{
-			quarters.style.display="";
-		}
-	}
-	_yearly(document.getElementById('yearly'));
-	
+	 function _yearly(elem){
+	 	if(elem.checked){
+	 		quarters.style.display="none";
+	 		quarters.getElementsByClassName('quarters')[0].value="1";
+	 		quarters.getElementsByClassName('quarters')[1].value="4";
+
+	 	}else{
+	 		quarters.style.display="";
+	 	}
+	 }
+	 _yearly(document.getElementById('yearly'));
+
 	 (function(select, val, count) {
 	 	do {
 	 		select.add(new Option(val--, count--), null);
@@ -314,4 +328,18 @@
 	 }
 	 getInitialQuarter()
 	</script>
-@endsection
+	<script>
+	const wrap=document.getElementById('wrapper');
+	const coef=document.getElementById('coefs');
+	const clone=coef.cloneNode(true);
+	wrapper.innerHTML="";
+	function change_coef(state){
+		if(state=='on'){
+			wrapper.appendChild(clone);
+			init_coef()
+		}else{
+			wrapper.innerHTML="";
+		}
+	}
+</script>
+	@endsection

@@ -67,7 +67,7 @@ class Customer_Controller extends Controller
                     file_validation_rules($req->cust_info['template_id'])
                 );
                 $all = $req->all();
-
+                
                 $order_fields = $req->input('order');
                 $cust_info_fields = $req->input('cust_info');
                 $cust_info_fields_files = $req->file('cust_info');
@@ -168,9 +168,10 @@ class Customer_Controller extends Controller
                 $all = $req->all();
                 $order_fields = $req->input('order');
                 $cust_info_fields = $req->input('cust_info');
+                $cust_info_fields_files = $req->file('cust_info');
+                
                 $custom_fields_files = $req->file('custom');
                 $custom_fields = $req->input('custom');
-
                 // customer_info-use_case mappings
 
                 $order = Order::where(['id' => $req->id, 'customer_id' => auth()->user()->id])->first();
@@ -202,11 +203,22 @@ class Customer_Controller extends Controller
                     $original_custom[$key] = $value
                         ->storeAs("orders/$order->id", time() . $value->getClientOriginalName());
                 }
+                $original_custom = json_decode($CCI->custom_fields, true);
                 foreach ($custom_fields ?? [] as $key => $value) {
+                    Storage::delete($original_custom[$key] ?? null);
+                    /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
                     $original_custom[$key] = $value;
                 }
 
                 $CCI->custom_fields = json_encode($original_custom);
+
+                foreach ($cust_info_fields_files ?? [] as $key => $value) {
+                    Storage::delete($CCI[$key] ?? null);
+                    /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
+                    $CCI->$key = $value
+                        ->storeAs("orders/$order->id", time() . 'cci' . $key . $value->getClientOriginalName());
+
+                }
 
                 $CCI->save();
                 return redirect()
@@ -317,10 +329,21 @@ class Customer_Controller extends Controller
         $order->status = 8;
         $order->message = $req->input('reason');
         $order->save();
+
+        $conclusion=$order->cust_info->conclusion;
+        $conclusion->status=4;
+        $conclusion->save();
+
         return redirect()->route('customer.orders', 'finished');
     }
     public function contracts(){
         $data['contracts']=Contract::where('user_id', auth()->user()->id)->get();
         return $this->view('contracts', $data);
+    }
+    public function accept(Request $req){
+        $conclusion=Conclusion::where('id', $req->conclusion_id)->first();
+        $conclusion->status=5;
+        $conclusion->save();
+        return redirect()->back();
     }
 }

@@ -41,10 +41,17 @@
                         @endif
                     </td>
                     <td>
+
                         @if ($order->cust_info->conclusion->id ?? false)
+                        @if ($order->cust_info->conclusion->blank)
                         <a href="{{ route('customer.pay', $order->cust_info->conclusion->id) }}">
                             {{ __('custom.accept_pay') }}
                         </a>
+                        @else
+                        <a href="{{ route('customer.accept', $order->cust_info->conclusion->id) }}">
+                            {{ lang('accept') }}
+                        </a>
+                        @endif
                         @else
                         {{ __('custom.conclusion_not_written') }}
                         @endif

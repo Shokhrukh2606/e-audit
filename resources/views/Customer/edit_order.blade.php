@@ -8,13 +8,13 @@
 		<form action="{{route('customer.edit_order', $order->id)}}" method="POST" enctype="multipart/form-data">
 			@csrf
 			@if ($errors->any())
-				<div class="alert alert-danger">
-					<ul>
-						@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
-						@endforeach
-					</ul>
-				</div>
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
 			@endif
 			<div class='mb-4'>
 				<label>{{__('front.lang')}}</label>
@@ -31,68 +31,155 @@
 				<label>{{__('front.address_to_deliver')}}</label>
 				<input class="form-control"  type="text" name="order[address_to_deliver]" value="{{$order->address_to_deliver}}">
 			</div>
-			<div class='mb-4'>
+			{{-- <div class='mb-4'>
 				<label>{{__('front.cust_comp_gov_reg_num')}}</label>
 				<input class="form-control"  type="text" 
 				name="cust_info[cust_comp_gov_reg_num]"
 				value="{{$order->cust_info->cust_comp_gov_reg_num}}"
 				>
-			</div>
-			<div class='mb-4'>
+			</div> --}}
+			{{-- <div class='mb-4'>
 				<label>{{__('front.cust_comp_gov_reg_date')}}</label>
 				<input class="form-control"  type="date" name="cust_info[cust_comp_gov_reg_date]"
 				value="{{date("Y-m-d",strtotime($order->cust_info->cust_comp_gov_reg_date))}}"
 				>
-			</div>
+			</div> --}}
 			<div class='mb-4'>
-				<label>{{__('front.cust_comp_address')}}</label>
-				<input class="form-control"  type="text" name="cust_info[cust_comp_address]"
-				value="{{$order->cust_info->cust_comp_address}}"
+				<label>{{lang('cust_comp_name')}}</label>
+				<input class="form-control"  type="text" name="cust_info[cust_comp_inn]"
+				value="{{$order->cust_info->cust_comp_name}}"
 				>
 			</div>
 			<div class='mb-4'>
-				<label>{{__('front.cust_comp_bank_name')}}</label>
-				<input class="form-control"  type="text" name="cust_info[cust_comp_bank_name]"
-				value="{{$order->cust_info->cust_comp_bank_name}}"
-				>
-			</div>
-			<div class='mb-4'>
-				<label>{{__('front.cust_comp_bank_acc')}}</label>
-				<input class="form-control"  type="text" name="cust_info[cust_comp_bank_acc]"
-				value="{{$order->cust_info->cust_comp_bank_acc}}"
-				>
-			</div>
-			<div class='mb-4'>
-				<label>{{__('front.cust_comp_bank_mfo')}}</label>
-				<input class="form-control"  type="text" name="cust_info[cust_comp_bank_mfo]"
-				value="{{$order->cust_info->cust_comp_bank_mfo}}"
-				>
-			</div>
-			<div class='mb-4'>
-				<label>{{__('front.cust_comp_inn')}}</label>
+				<label>{{lang('cust_comp_inn')}}</label>
 				<input class="form-control"  type="text" name="cust_info[cust_comp_inn]"
 				value="{{$order->cust_info->cust_comp_inn}}"
 				>
 			</div>
-			<div class='mb-4'>
-				<label>{{__('front.cust_comp_oked')}}</label>
-				<input class="form-control"  type="text" name="cust_info[cust_comp_oked]"
-				value="{{$order->cust_info->cust_comp_oked}}"
-				>
+			@if($order->cust_info->contract_type=='yur')
+			<div id="switchable">
+				<div class="mb-4">
+					<label>{{lang('contract_company_name')}}</label>
+					<input class="form-control" type="text" name="cust_info[contract_company_name]" required
+					value="{{$order->cust_info->contract_company_name}}"
+					>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('contract_company_inn')}}</label>
+					<input class="form-control" type="text" name="cust_info[contract_company_inn]" required
+					value="{{$order->cust_info->contract_company_inn}}"
+					>
+				</div>
+
+				<div class="mb-4">
+					<label>{{lang('custCompAddress')}}</label>
+					<input class="form-control" type="text" name="cust_info[cust_comp_address]" required
+					value="{{$order->cust_info->cust_comp_address}}"
+					>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('custCompBank')}}</label>
+					<input class="form-control" type="text" name="cust_info[cust_comp_bank_name]" required
+					value="{{$order->cust_info->cust_comp_bank_name}}"
+					>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('cust_comp_bank_acc')}}</label>
+					<input class="form-control" type="text" name="cust_info[cust_comp_bank_acc]" maxlength="20" required
+					value="{{$order->cust_info->cust_comp_bank_acc}}"
+					>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('custCompBankMfo')}}</label>
+					<input maxlength="5" class="form-control" type="text" name="cust_info[cust_comp_bank_mfo]" required
+					value="{{$order->cust_info->cust_comp_bank_mfo}}"
+					>
+				</div>
+
+				<div class="mb-4">
+					<label>{{lang('custCompOked')}}</label>
+					<input maxlength="5" class="form-control" type="text" name="cust_info[cust_comp_oked]" required
+					value="{{$order->cust_info->cust_comp_oked}}"
+					>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('custCompDirector')}}</label>
+					<input class="form-control" type="text" name="cust_info[cust_comp_director_name]" required
+					value="{{$order->cust_info->cust_comp_director_name}}"
+					>
+				</div>
 			</div>
-			<div class='mb-4'>
-				<label>{{__('front.cust_comp_director_name')}}</label>
-				<input class="form-control"  type="text" name="cust_info[cust_comp_director_name]"
-				value="{{$order->cust_info->cust_comp_director_name}}"
-				>
+			@else
+			<div id="fiz">
+				<div class="mb-4">
+					<label>{{lang('name')}}</label>
+					<input class="form-control" type="text" name="cust_info[contract_name]" required
+					value="{{$order->cust_info->contract_name}}"
+					>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('passport_serie')}}</label>
+					<input class="form-control" type="text" name="cust_info[contract_passport_serie]" required
+					value="{{$order->cust_info->contract_passport_serie}}"
+					>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('where_given')}}</label>
+					<input class="form-control" type="text" name="cust_info[contract_where_given]" required
+					value="{{$order->cust_info->contract_where_given}}"
+					>
+				</div>
+				<div class="mb-4">
+					<label>{{lang('address')}}</label>
+					<input class="form-control" type="text" name="cust_info[contract_address]" required
+					value="{{$order->cust_info->contract_address}}"
+					>
+				</div>
 			</div>
-			<div class='mb-4'>
-				<label>{{__('front.cust_comp_activity')}}</label>
-				<input class="form-control"  type="text" name="cust_info[cust_comp_activity]"
-				value="{{$order->cust_info->cust_comp_activity}}"
-				>
-			</div>
+			@endif
 			<div class='file-wrapper mb-4'>
+				<div class="form-group">
+					<p>
+						{{lang('cust_comp_director_passport_copy')}}
+						<a href="{{route('file')."?path=".$order->cust_info->cust_comp_gov_registration_copy}}"
+							class="btn btn-link btn-danger"
+						>
+							
+							{{lang('show')}}
+
+						</a>
+					</p>
+					<div class="custom-file">
+						<input type="file" 
+						name="cust_info[cust_comp_director_passport_copy]" 
+						class="custom-file-input" 
+						id="cust_comp_director_passport_copy">
+						<label class="custom-file-label" 
+						for="cust_comp_director_passport_copy" data-browse="{{lang('upload')}}">
+						{{lang('cust_comp_director_passport_copy')}}
+					</label>
+				</div>
+				<div class="form-group">
+					<p>
+						{{lang('cust_comp_gov_registration_copy')}}
+
+						<a href="{{route('file')."?path=".$order->cust_info->cust_comp_gov_registration_copy}}"
+							class="btn btn-link btn-danger"
+						>
+							
+							{{lang('show')}}
+
+						</a>
+					</p>
+					<div class="custom-file">
+						<input type="file" 
+						name="cust_info[cust_comp_gov_registration_copy]" 
+						class="custom-file-input" id="cust_comp_gov_registration_copy">
+						<label class="custom-file-label" for="cust_comp_gov_registration_copy" data-browse="{{lang('upload')}}">
+							{{lang('cust_comp_gov_registration_copy')}}
+						</label>
+					</div>
+				</div>
 				@php
 				$dom = new DOMDocument('1.0');
 				$custom_fields=json_decode($order->cust_info->custom_fields);
@@ -105,8 +192,8 @@
 
 				$label = $dom->createElement("label", $field->label->uz.":");
 				if($field->type=='file'){
-						$allowed_types=$field->allowed_types;
-						$label=$dom->createElement("label", $field->label->uz." ($allowed_types):");
+					$allowed_types=$field->allowed_types;
+					$label=$dom->createElement("label", $field->label->uz." ($allowed_types):");
 				}
 				$input = $dom->createElement($field->tag);
 				
@@ -117,7 +204,7 @@
 				if($field->type=='file'){
 					$text=$dom->createElement("p","Пожалуйста, выберите новый файл, чтобы заменить этот файл ");
 					if(isset($custom_fields->{$field->name})){
-						$link=$dom->createElement("a","просмотреть файл");
+						$link=$dom->createElement("a",lang('show'));
 						
 						$class=$dom->createAttribute('class');
 						$class->value="btn btn-primary btn-link";
@@ -150,42 +237,42 @@
 				$div->appendChild($label);
 
 				if($field->type=='file'){
-						$class=$dom->createAttribute('class');
-						$class->value="custom-file-input";
-						$id=$dom->createAttribute('id');
-						$id->value=$index;
-						$input->appendChild($id);
-						$input->appendChild($class);
-						
-						$allowed_types=$dom->createAttribute('appect');
-						$allowed_types->value=$field->allowed_types;
-						$input->appendChild($allowed_types);
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file-input";
+					$id=$dom->createAttribute('id');
+					$id->value=$index;
+					$input->appendChild($id);
+					$input->appendChild($class);
 
-						$wrapper=$dom->createElement('div');
-						
-						$class=$dom->createAttribute('class');
-						$class->value="custom-file";
-						$wrapper->appendChild($class);
-						
-						$inLabel=$dom->createElement('label');
-						
-						$browse=$dom->createAttribute('data-browse');
-						$browse->value=$field->label->uz;
-						$class=$dom->createAttribute('class');
-						$class->value="custom-file-label";
-						$for=$dom->createAttribute('for');
-						$for->value=$index;
+					$allowed_types=$dom->createAttribute('appect');
+					$allowed_types->value=$field->allowed_types;
+					$input->appendChild($allowed_types);
 
-						$inLabel->appendChild($for);
-						$inLabel->appendChild($browse);
-						$inLabel->appendChild($class);
+					$wrapper=$dom->createElement('div');
 
-						$wrapper->appendChild($input);
-						$wrapper->appendChild($inLabel);
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file";
+					$wrapper->appendChild($class);
 
-						$div->appendChild($wrapper);
-						continue;
-					}
+					$inLabel=$dom->createElement('label');
+
+					$browse=$dom->createAttribute('data-browse');
+					$browse->value=$field->label->uz;
+					$class=$dom->createAttribute('class');
+					$class->value="custom-file-label";
+					$for=$dom->createAttribute('for');
+					$for->value=$index;
+
+					$inLabel->appendChild($for);
+					$inLabel->appendChild($browse);
+					$inLabel->appendChild($class);
+
+					$wrapper->appendChild($input);
+					$wrapper->appendChild($inLabel);
+
+					$div->appendChild($wrapper);
+					continue;
+				}
 				$div->appendChild($input);
 
 				@endphp

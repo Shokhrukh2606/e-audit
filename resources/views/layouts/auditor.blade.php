@@ -65,22 +65,28 @@
               <p>{{lang('orders')}}</p>
             </a>
           </li>
-          {{-- <li>
-            <a href="{{route("auditor.conclusions")}}">
-              <i class="tim-icons icon-puzzle-10"></i>
-              <p>{{lang('conclusions')}}</p>
-            </a>
-          </li> --}}
           <li>
-            <a href="{{route("auditor.conclusions")}}?order=true">
+            <a href="{{route("auditor.init_conclusions")}}">
               <i class="tim-icons icon-attach-87"></i>
-              <p>{{lang('conclusions_on_order')}}</p>
+              <p>{{lang('initialized_conclusions')}}</p>
             </a>
           </li>
           <li>
-            <a href="{{ route('auditor.create_conclusion') }}">
-              <i class="tim-icons icon-simple-add"></i>
-              <p>{{lang('newConclusion')}}</p>
+            <a href="{{route("auditor.sent_conclusions")}}">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('sent_conclusions')}}</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{route("auditor.received_conclusions")}}">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('received_conclusions')}}</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{route("auditor.received_admin_conclusions")}}">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('received_admin_conclusions')}}</p>
             </a>
           </li>
           <li>

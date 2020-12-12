@@ -20,14 +20,14 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class Audit_Controller extends Controller
 {
     private $conclusion_validation_rules = [
-        'conclusion.A1' => 'required | numeric',
-        'conclusion.A2' => 'required | numeric',
-        'conclusion.P2' => 'required | numeric',
-        'conclusion.DO' => 'required | numeric',
-        'conclusion.P1' => 'required | numeric',
-        'conclusion.DEK2' => 'required | numeric',
-        'conclusion.PUDN' => 'required | numeric',
-        'conclusion.P' => 'required | numeric'
+        'conclusion.A1' => 'numeric',
+        'conclusion.A2' => 'numeric',
+        'conclusion.P2' => 'numeric',
+        'conclusion.DO' => 'numeric',
+        'conclusion.P1' => 'numeric',
+        'conclusion.DEK2' => 'numeric',
+        'conclusion.PUDN' => 'numeric',
+        'conclusion.P' => 'numeric'
     ];
     function __construct()
     {
@@ -117,24 +117,44 @@ class Audit_Controller extends Controller
                     $cuicm->use_case_id = $value;
                     $cuicm->save();
                 }
-                return redirect()->route('auditor.conclusions');
+                return redirect()->route('auditor.init_conclusions');
                 break;
             default:
                 # code...
                 break;
         }
     }
-    public function conclusions()
+    public function init_conclusions()
     {
-        $data['blanks'] = Blank::available(auth()->user()->id);
+      
+        $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->where('status', '1')->orderBy('id', 'DESC')->paginate(20) ;
 
-
+        return $this->view("conclusions.initiated", $data);
+    }
+    public function sent_conclusions()
+    {
+        
         $data['on_order']=true;
         if($_GET['order']??false)
             $data['on_order']=true;
         $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(20);
 
-        return $this->view("list_conclusions", $data);
+        return $this->view("conclusions.sent", $data);
+    }
+    public function received_conclusions()
+    {
+        $data['blanks'] = Blank::available(auth()->user()->id);
+        
+        $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->whereIn('status',['6','5'])->orderBy('id', 'DESC')->paginate(20);
+
+        return $this->view("conclusions.received", $data);
+    }
+    public function received_admin_conclusions()
+    {
+        
+        $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->where('is_coefficent', 'no_coef')->where('status','4')->orderBy('id', 'DESC')->paginate(20);
+
+        return $this->view("conclusions.received_admin", $data);
     }
     public function orders()
     {
@@ -194,10 +214,7 @@ class Audit_Controller extends Controller
                 $conclusion->save();
 
 
-                $blank = Blank::where('id', $req->input('blank_id'))->first();
-                $blank->conclusion_id = $conclusion->id;
-                $blank->save();
-
+               
 
             $CCI=Cust_comp_info::where('id', $req->id)->first();
             $CCI->conclusion_id=$conclusion->id;
@@ -208,7 +225,7 @@ class Audit_Controller extends Controller
             $contract->user_id=$conclusion->cust_info->order->customer_id;
             $contract->save();
             
-            return redirect(route('auditor.conclusions')."?order=true");
+            return redirect(route('auditor.init_conclusions')."?order=true");
             break;
 
             default:
@@ -241,17 +258,22 @@ class Audit_Controller extends Controller
     {
         $conclusion = Conclusion::where('id', $req->id)->first();
         if ($conclusion) {
-            $conclusion->send_to_customer();
+            if($conclusion->is_coefficent=='with_coef'){
+                $conclusion->send_to_customer();
 
-            sms($conclusion->cust_info->order->customer->phone, '','auditor_conclusion_customer_send',[
-                '{full_name}'=>$conclusion->cust_info->order->customer->full_name,
-                '{order_id}'=>$conclusion->cust_info->order->id
+                sms($conclusion->cust_info->order->customer->phone, '','auditor_conclusion_customer_send',[
+                    '{full_name}'=>$conclusion->cust_info->order->customer->full_name,
+                    '{order_id}'=>$conclusion->cust_info->order->id
 
-            ]);
-            return redirect()->route('auditor.conclusions');
+                ]); 
+            }else{
+                $conclusion->send_to_admin();            
+            }
+            return redirect()->route('auditor.sent_conclusions');
         }
         abort(404);
     }
+    
     public function send_with_errors(Request $req)
     {
         $order = Order::where('id', $req->id)->first();
@@ -292,7 +314,7 @@ class Audit_Controller extends Controller
         $blank->conclusion_id = $req->input('conclusion_id');
         $blank->assigned_date = date('Y-m-d H:i:s');
         $blank->save();
-        return redirect()->route('auditor.conclusions');
+        return redirect()->route('auditor.received_conclusions');
     }
     public function breaking(Request $req)
     {
@@ -336,7 +358,21 @@ class Audit_Controller extends Controller
                 return $this->view('edit_conclusion', $data);
                 break;
             case 'POST':
-                print('post');
+                $req->validate(
+                    $this->conclusion_validation_rules
+                );
+                $all = $req->all();
+                $conclusion=Conclusion::where('id', $req->id)->first();
+                $conclusion_fields = $req->input('conclusion');
+                
+                foreach ($conclusion_fields ?? [] as $key => $value) {
+                    $conclusion->$key = $value;
+                }
+
+                
+                $conclusion->save();
+
+                return redirect()->route('auditor.edit_conclusion', $conclusion->id);
                 break;
             default:
                 return abort(401);

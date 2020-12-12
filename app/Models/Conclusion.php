@@ -16,8 +16,9 @@ class Conclusion extends Model
     '1' => 'initiated',
     '2' => 'sent',
     '3' => 'finished',
-    '4' => 'rejected'
-    
+    '4' => 'rejected',
+    '5' => 'accepted',
+    '6'=>'rejected_customer'
   ];
   use HasFactory;
   protected $appends = [
@@ -72,6 +73,10 @@ class Conclusion extends Model
     $order = $this->cust_info->order;
     $order->status = "7";
     $order->save();
+  }
+  public function send_to_admin(){
+    $this->status='2';
+    $this->save();
   }
   public function invoice()
   {

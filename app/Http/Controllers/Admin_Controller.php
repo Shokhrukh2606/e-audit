@@ -62,19 +62,22 @@ class Admin_Controller extends Controller
         if ($data['conclusion']) {
             switch ($req->status) {
                 case 'finished':
-                    sms($data['conclusion']->agent->phone, '','agent_conclusion_success',[
-                        '{full_name}'=>$data['conclusion']->agent->full_name,
-                        '{conclusion_id}'=>$data['conclusion']->id
-                    ]);
+                    // sms($data['conclusion']->agent->phone, '','agent_conclusion_success',[
+                    //     '{full_name}'=>$data['conclusion']->agent->full_name,
+                    //     '{conclusion_id}'=>$data['conclusion']->id
+                    // ]);
+                    if($data['conclusion']->cust_info->order){
+                        $data['conclusion']->send_to_customer();
+                    }
                     $data['conclusion']->status = 3;
                     $data['conclusion']->save();
                     return redirect()->back();
                     break;
                 case 'rejected':
-                    sms($data['conclusion']->agent->phone, '','agent_conclusion_rejected',[
-                        '{full_name}'=>$data['conclusion']->agent->full_name,
-                        '{conclusion_id}'=>$data['conclusion']->id
-                    ]);
+                    // sms($data['conclusion']->agent->phone, '','agent_conclusion_rejected',[
+                    //     '{full_name}'=>$data['conclusion']->agent->full_name,
+                    //     '{conclusion_id}'=>$data['conclusion']->id
+                    // ]);
                     $data['conclusion']->status = 4;
                     $data['conclusion']->save();
                     return redirect()->back();

@@ -96,7 +96,7 @@ $editable_status=[1, 5];
 			редактировать
 		</a>
 		@endif
-		@if($order->status==3)
+		@if($order->status==1)
 		<a href="{{route('customer.send', $order->id)}}" class="btn btn-fill btn-info  btn-sm">
 			{{__('front.send_to_auditor')}}
 		</a>
