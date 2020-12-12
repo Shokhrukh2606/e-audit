@@ -122,6 +122,7 @@ Route::match(["GET", "POST"], "/create_setting", "Admin_Controller@create_settin
 Route::get('/list_blanks', 'Admin_Controller@list_blanks')->name('list_blanks');
 
 Route::get('/contracts', 'Admin_Controller@contracts')->name('contracts');
+Route::get('/contracts_view/{id}', 'Admin_Controller@contracts_view')->name('contracts_view');
 
 Route::get('/invoices', 'Admin_Controller@invoices')->name('invoices');
 

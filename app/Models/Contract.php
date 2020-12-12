@@ -14,4 +14,7 @@ class Contract extends Model
     public function user(){
     	return $this->belongsTo('App\Models\User');
     }
+    public function conclusion(){
+    	return $this->belongsTo('App\Models\Conclusion');
+    }
 }
