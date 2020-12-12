@@ -479,6 +479,11 @@ class Admin_Controller extends Controller
         $data['users'] = $query->where(['group_id' =>[2,3]])->orderBy('id', 'DESC')->paginate(20);
         return $this->view('list_blanks', $data);
     }
+    public function rejected_blanks(Request $request)
+    {
+        $data['blanks']=Blank::where(['is_brak'=>1])->paginate(20);
+        return $this->view('rejected_blanks', $data);
+    }
     public function contracts(Request $req){
         $data['contracts']=Contract::paginate(20);
         return $this->view('contracts', $data);

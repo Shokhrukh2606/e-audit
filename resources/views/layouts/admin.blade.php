@@ -153,6 +153,12 @@
                             <p>{{lang('certificates')}}</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.rejected_blanks') }}">
+                            <i class="tim-icons icon-puzzle-10"></i>
+                            <p>{{lang('rejected_blanks')}}</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

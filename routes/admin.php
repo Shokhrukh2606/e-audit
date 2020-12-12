@@ -134,3 +134,4 @@ Route::match(["GET", "POST"], "/certificates_create", "Admin_Controller@certific
 	->name("certificates_create");
 Route::match(["GET", "POST"], "/certificates_view/{id}", "Admin_Controller@certificates_view")
 	->name("certificates_view");
+Route::get('/rejected_blanks', 'Admin_Controller@rejected_blanks')->name('rejected_blanks');
