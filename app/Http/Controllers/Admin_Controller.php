@@ -478,8 +478,19 @@ class Admin_Controller extends Controller
         return $this->view('list_blanks', $data);
     }
     public function contracts(Request $req){
-        $data['contracts']=Contract::all();
+        $data['contracts']=Contract::paginate(20);
         return $this->view('contracts', $data);
+    }
+    public function contracts_view(Request $req){
+        $data['contract']=Contract::where(['id'=>$req->id])->first();
+        if (!$data['contract'])
+            return  abort(404);
+        if($data['contract']->contract_type=='yur'){
+            return $this->view('juridic_contracts_view', $data);
+        }
+        if($data['contract']->contract_type=='fiz'){
+            return $this->view('contracts_view', $data);
+        }
     }
     public function invoices(Request $req){
         $data['invoices']=Invoice::where('status', 'waiting')->get();

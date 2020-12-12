@@ -21,7 +21,7 @@
                         )
                      }}</td>
                      <td>
-                     	<a href="#" class="btn btn-link btn-danger">
+                     	<a href="{{route('admin.contracts_view', $contract->id)}}" class="btn btn-link btn-danger">
                      		{{lang('show')}}
                      	</a>
                      </td>

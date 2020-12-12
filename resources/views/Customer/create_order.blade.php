@@ -178,7 +178,7 @@
 					</div>
 					<div class="mb-4">
 						<label>{{lang('where_given')}}</label>
-						<input class="form-control" type="text" name="cust_info[ 	contract_where_given]" required>
+						<input class="form-control" type="text" name="cust_info[contract_where_given]" required>
 					</div>
 					<div class="mb-4">
 						<label>{{lang('address')}}</label>
