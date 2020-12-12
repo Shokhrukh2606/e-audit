@@ -89,7 +89,12 @@
               <p>{{lang('breaking_blank')}}</p>
             </a>
           </li>
-          
+          <li>
+            <a href="{{ route('aac.certificates_list') }}">
+              <i class="tim-icons icon-bank"></i>
+              <p>{{ lang('certificates_list') }}</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

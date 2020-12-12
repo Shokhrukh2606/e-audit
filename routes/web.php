@@ -77,6 +77,7 @@ Route::prefix('aac')->group(function () {
 		// Route::match(["GET", "POST"], "/add_funds", "AAC_Controller@add_funds")
 		// ->name('add_funds');
 		Route::get('fill_balance', 'AAC_Controller@fill_balance')->name('fill_balance');
+		Route::get('certificates_list', 'AAC_Controller@certificates_list')->name('certificates_list');
 	});
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Certificate;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -149,5 +150,10 @@ class AAC_Controller extends Controller
     }
     public function fill_balance(){
         return $this->view('fill_balance');
+    }
+    public function certificates_list(Request $request)
+    {
+        $data['certificates']=Certificate::all();
+        return $this->view('certificates_list', $data);
     }
 }

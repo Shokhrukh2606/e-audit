@@ -147,6 +147,12 @@
                             <p>{{lang('invoices')}}</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.certificates_list') }}">
+                            <i class="tim-icons icon-puzzle-10"></i>
+                            <p>{{lang('certificates')}}</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

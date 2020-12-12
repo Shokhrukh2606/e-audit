@@ -14,11 +14,13 @@ use App\Models\User_group;
 use App\Models\Blank;
 use App\Models\Service;
 use App\Models\Audit_info;
+use App\Models\Certificate;
 use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\Contract;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Spatie\QueryBuilder\QueryBuilder;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -502,5 +504,59 @@ class Admin_Controller extends Controller
         $invoice->save();
         
         return redirect()->route('admin.invoices');
+    }
+    public function certificates_list(Request $request)
+    {
+        $data['certificates']=Certificate::all();
+        return $this->view('certificates_list', $data);
+    }
+    public function certificates_create(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+            return $this->view('certificates_create');
+                break;
+            case 'POST':
+                $fields = $req->input('certificate');
+                unset($fields['_token']);
+                $certificate = new Certificate;
+                foreach ($fields as $name => $value) {
+                    $certificate->$name = $value;
+                }
+                $certificate->save();
+                $certificate = Certificate::where(['id'=>$certificate->id])->first();
+                if($req->file('certificate_file'))
+                    $certificate->file_path=$req->file('certificate_file')->storeAs("certificates/$certificate->id", time() . $req->file('certificate_file')->getClientOriginalName());
+                $certificate->save();
+                return redirect()->route('admin.certificates_list');
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+    public function certificates_view(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+                if($data['certificate']=Certificate::where(['id'=>$req->id])->first()){
+                    return $this->view('certificates_view', $data);
+                }
+                break;
+            case 'POST':
+                $fields = $req->input('certificate');
+                unset($fields['_token']);
+                $certificate = Certificate::where(['id'=>$req->id])->first();
+                $certificate->file_path=$req->file('certificate_file')->storeAs("certificates/$certificate->id", time() . $req->file('certificate_file')->getClientOriginalName());
+                unset($fields['file']);
+                foreach ($fields as $name => $value) {
+                    if($name!='file_path')
+                        $certificate->$name = $value;
+                }
+                $certificate->save();
+                return redirect()->route('admin.certificates_list');
+                break;
+            default:
+                # code...
+                break;
+        }
     }
 }
