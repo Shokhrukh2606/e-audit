@@ -104,9 +104,11 @@
                         </td>
                         <td>
                             @if ($conclusion->state == 'finished')
+                            
                                 <a class="btn btn-info btn-sm" href="{{ route('agent.create_invoice', $conclusion->id) }}">
-                                    {{ lang('accept_and_pay') }}
+                                    {{ lang('pay') }}
                                 </a>
+                            
                             @else
                                 <span class="badge badge-danger">
                                     {{ $conclusion->state }}
@@ -117,6 +119,8 @@
                         </td>
                         <td>
                             @if($conclusion->status=='3')
+                            @if($conclusion->invoice&&$conclusion->invoice->status=='confirmed')
+
                             @if (count($conclusion->blanks) == 0)
                                 <button type="button" href="#" class="btn btn-simple btn-danger btn-sm"
                                     data-toggle="modal" data-target="#assign_modal"
@@ -132,12 +136,14 @@
                                     </button>
                                 @endif
                             @endif
+                            
+                            @endif
                             @else
                             {{lang('waiting_admin_accept')}}
                             @endif
                         </td>
                         <td>
-                            @if (!in_array($conclusion->status, [3]))
+                            @if (!in_array($conclusion->status, [3,2]))
                                 <a class="btn btn-sm btn-simple btn-success" href="{{ route('agent.edit_conclusion', $conclusion->id) }}">{{ lang('update') }}</a>
                             @endif
                             <a class="btn btn-sm btn-simple btn-success"
@@ -152,7 +158,28 @@
                                     {{ lang('show') }} - blank {{ $blank->id }}
                                 </a>
                             @endforeach
+
                         </td>
+                         @if(count($conclusion->blanks)!=0&&count($conclusion->valid_blanks())!=0)
+                            <td>
+                                <button type="submit" class="btn btn-danger btn-simple" 
+                                 data-toggle="modal" data-target="#break_all"
+                                        onclick="break_all({{ $conclusion->id }})"
+                                >
+                                    {{ lang('break_all') }}
+                                </button>
+                            </td>
+                        @endif
+                        @if($conclusion->status==4)
+                        <td>
+                            <a class="btn btn-sm btn-simple btn-success" href="{{ route('agent.resend', $conclusion->id) }}" >{{ lang('resend') }}</a>
+                        </td>
+                        @endif
+                         @if($conclusion->is_coefficent=='with_coef'&&count($conclusion->valid_blanks())==0)
+                        <td>
+                            <a class="btn btn-sm btn-simple btn-success" href="{{ route('agent.edit_conclusion', $conclusion->id) }}">{{ lang('update') }}</a>
+                        </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

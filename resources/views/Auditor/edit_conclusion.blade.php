@@ -19,7 +19,7 @@
 					<label>{{lang('conclusion_base')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]" value="{{$conclusion->conclusion_base}}">
 				</div>
-
+				
 			<div id="wrapper">
 				@if($conclusion->is_coefficent=='with_coef')
 				<div id="coefs">

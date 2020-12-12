@@ -90,6 +90,7 @@
           <td>
             @if (in_array($conclusion->status, [2]))
             <a class="btn btn-simple btn-info btn-sm" href="{{ route('admin.change_status', ['finished', $conclusion->conclusion_id]) }}">{{lang('finish')}}</a>
+            <br><br>
             <a class="btn btn-simple btn-danger btn-sm" href="{{ route('admin.change_status', ['rejected', $conclusion->conclusion_id]) }}">{{lang('reject')}}</a>
             @endif
           </td>

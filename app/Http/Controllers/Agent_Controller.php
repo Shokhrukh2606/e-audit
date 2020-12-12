@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\Template;
 use App\Models\Blank;
 use App\Models\Use_Case;
+use App\Models\Contract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -81,7 +82,11 @@ class Agent_Controller extends Controller
                 foreach ($conclusion_fields ?? [] as $key => $value) {
                     $conclusion->$key = $value;
                 }
-
+                if($conclusion->is_coefficent){
+                    $conclusion->status='2';
+                }else{
+                    $conclusion->status='3';
+                }
                 //get snapshot of default audit company info
                 $default_company = Audit_info::where('active', 1)->first();
 
@@ -116,6 +121,12 @@ class Agent_Controller extends Controller
 
                 $CCI->custom_fields = json_encode($custom_fields);
                 $CCI->save();
+
+                $contract=new Contract();
+                $contract->conclusion_id=$conclusion->id;
+                $contract->user_id=auth()->user()->id;
+                $contract->save();
+
                 foreach ($ciucm_fields as $key => $value) {
                     $cuicm = new Ciucm();
                     $cuicm->cust_info_id = $CCI->id;
@@ -162,7 +173,7 @@ class Agent_Controller extends Controller
             $invoice->user_id = auth()->user()->id;
             $invoice->service_id = $service->id;
             $invoice->save();
-            return redirect()->route('agent.pay', $invoice->id);
+            return redirect()->route('agent.pay', $conclusion->id);
         } else {
             abort(404);
         }
@@ -174,6 +185,17 @@ class Agent_Controller extends Controller
             return $this->view('pay_for_order', $data);
         return abort(404);
     }
+    public function download_invoice(Request $req)
+    {
+        $data['invoice'] = Invoice::where('conclusion_id', $req->conclusion_id)->first();
+
+        if ($data['invoice'])
+            $pdf = PDF::loadView("Agent.pay_for_order_download", $data);
+            
+            return $pdf->download('invoice.pdf');
+        return abort(404);
+    }
+
     public function view_conclusion_protected()
     {
         return $this->view('view_conclusion_protected');
@@ -217,7 +239,7 @@ class Agent_Controller extends Controller
                 $cust_info_fields = $req->input('cust_info');
                 $custom_fields_files = $req->file('custom');
                 $custom_fields = $req->input('custom');
-
+                
 
 
                 $conclusion = Conclusion::where(['id' => $req->id])->first();
@@ -225,9 +247,7 @@ class Agent_Controller extends Controller
                     abort(404);
                 $CCI = $conclusion->cust_info;
 
-                $req->validate(
-                    file_fields_for_validation_edit($CCI->template_id)
-                );
+                
 
 
                 foreach ($conclusion ?? [] as $key => $value) {
@@ -248,6 +268,7 @@ class Agent_Controller extends Controller
                     $original_custom[$key] = $value
                         ->storeAs("agent_info/$conclusion->id", time() . $value->getClientOriginalName());
                 }
+
                 foreach ($custom_fields ?? [] as $key => $value) {
                     $original_custom[$key] = $value;
                 }
@@ -296,6 +317,12 @@ class Agent_Controller extends Controller
             $blank->is_brak = true;
             $blank->save();
         }
-        return redirect()->route('auditor.conclusions');
+        return redirect()->route('agent.list_conclusions');
+    }
+    public function resend(Request $req){
+        $conclusion=Conclusion::where('id', $req->id)->first();
+        $conclusion->status=2;
+        $conclusion->save();
+        return redirect()->back();
     }
 }

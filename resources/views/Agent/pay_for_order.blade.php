@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('payment/styles.css') }}">
+
 <div class="container">
     <div class="bill mb-30">
         <div class="title center mb-30">
@@ -158,7 +159,8 @@
             <input type="hidden" name="return_url" value={{ route('customer.pay', $invoice->id) }} />
 		</form>
 		<p class="mt-0">Сумма оплаты: {{ $invoice->price }} сум</p>
-		<button class="btn btn-info" id="generator">Оплатить</button>
+		<button class="btn btn-info" id="generator">{{lang('pay')}}</button>
+        <a class="btn btn-primary" href="{{route('agent.download_invoice', $invoice->conclusion->id)}}">{{lang('download')}}</a>
     @else
         <h3>Already paid</h3>
     @endif
@@ -183,4 +185,6 @@
 		}
 		}
 	});
+
 </script>
+

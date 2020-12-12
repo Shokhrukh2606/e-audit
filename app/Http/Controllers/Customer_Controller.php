@@ -266,6 +266,7 @@ class Customer_Controller extends Controller
     }
     public function conclusion(Request $req)
     {
+        $data['protected']=true;
         $data['conclusion'] = Conclusion::where('id', $req->id)->first();
         if ($data['conclusion']) {
             $template = $data['conclusion']->cust_info->template->standart_num;

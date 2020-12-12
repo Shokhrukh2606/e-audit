@@ -10,6 +10,7 @@
   @if($protected)
   body{
     background-image: url("{{asset('shutterstock.png')}}");
+     background-size: 100px 100px;
   }
   @endif
   .qr-code{

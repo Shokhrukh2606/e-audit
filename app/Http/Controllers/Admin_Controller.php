@@ -38,7 +38,8 @@ class Admin_Controller extends Controller
         '4' => 'docs_confirmed',
         '5' => 'error_found_in_document',
         '6' => 'resent_to_auditor',
-        '7' => 'finished'
+        '7' => 'finished',
+        '8'=>'rejected'
     ];
     function __construct()
     {

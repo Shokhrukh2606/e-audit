@@ -34,3 +34,7 @@ Route::match(["GET", "POST"],'/edit_conclusion/{id}', 'Agent_Controller@edit_con
 
 Route::post('assign_blank', "Agent_Controller@assign_blank")->name('assign_blank');
 Route::post('break_all', "Agent_Controller@break_all")->name('break_all');
+
+Route::get('resend/{id}', "Agent_Controller@resend")->name("resend");
+
+Route::get('download_invoice/{conclusion_id}', "Agent_Controller@download_invoice")->name("download_invoice");
