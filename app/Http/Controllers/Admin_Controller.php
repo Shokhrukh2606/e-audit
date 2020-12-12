@@ -14,11 +14,13 @@ use App\Models\User_group;
 use App\Models\Blank;
 use App\Models\Service;
 use App\Models\Audit_info;
+use App\Models\Certificate;
 use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\Contract;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Spatie\QueryBuilder\QueryBuilder;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -481,6 +483,11 @@ class Admin_Controller extends Controller
         $data['users'] = $query->where(['group_id' =>[2,3]])->orderBy('id', 'DESC')->paginate(20);
         return $this->view('list_blanks', $data);
     }
+    public function rejected_blanks(Request $request)
+    {
+        $data['blanks']=Blank::where(['is_brak'=>1])->paginate(20);
+        return $this->view('rejected_blanks', $data);
+    }
     public function contracts(Request $req){
         $data['contracts']=Contract::paginate(20);
         return $this->view('contracts', $data);
@@ -489,10 +496,10 @@ class Admin_Controller extends Controller
         $data['contract']=Contract::where(['id'=>$req->id])->first();
         if (!$data['contract'])
             return  abort(404);
-        if($data['contract']->contract_type=='yur'){
+        if($data['contract']->conclusion->cust_info->contract_type=='yur'){
             return $this->view('juridic_contracts_view', $data);
         }
-        if($data['contract']->contract_type=='fiz'){
+        if($data['contract']->conclusion->cust_info->contract_type=='fiz'){
             return $this->view('contracts_view', $data);
         }
     }
@@ -506,5 +513,59 @@ class Admin_Controller extends Controller
         $invoice->save();
         
         return redirect()->route('admin.invoices');
+    }
+    public function certificates_list(Request $request)
+    {
+        $data['certificates']=Certificate::all();
+        return $this->view('certificates_list', $data);
+    }
+    public function certificates_create(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+            return $this->view('certificates_create');
+                break;
+            case 'POST':
+                $fields = $req->input('certificate');
+                unset($fields['_token']);
+                $certificate = new Certificate;
+                foreach ($fields as $name => $value) {
+                    $certificate->$name = $value;
+                }
+                $certificate->save();
+                $certificate = Certificate::where(['id'=>$certificate->id])->first();
+                if($req->file('certificate_file'))
+                    $certificate->file_path=$req->file('certificate_file')->storeAs("certificates/$certificate->id", time() . $req->file('certificate_file')->getClientOriginalName());
+                $certificate->save();
+                return redirect()->route('admin.certificates_list');
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+    public function certificates_view(Request $req){
+        switch ($req->method()) {
+            case 'GET':
+                if($data['certificate']=Certificate::where(['id'=>$req->id])->first()){
+                    return $this->view('certificates_view', $data);
+                }
+                break;
+            case 'POST':
+                $fields = $req->input('certificate');
+                unset($fields['_token']);
+                $certificate = Certificate::where(['id'=>$req->id])->first();
+                $certificate->file_path=$req->file('certificate_file')->storeAs("certificates/$certificate->id", time() . $req->file('certificate_file')->getClientOriginalName());
+                unset($fields['file']);
+                foreach ($fields as $name => $value) {
+                    if($name!='file_path')
+                        $certificate->$name = $value;
+                }
+                $certificate->save();
+                return redirect()->route('admin.certificates_list');
+                break;
+            default:
+                # code...
+                break;
+        }
     }
 }

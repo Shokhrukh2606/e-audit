@@ -26,23 +26,25 @@
 
     <p class=MsoNormal style='text-align:justify'><span lang=UZ-CYR
             style='font-size:13.0pt;mso-bidi-font-size:12.0pt;mso-ansi-language:UZ-CYR'><span
-                style='mso-spacerun:yes'>         </span>__________ шаҳри<span style='mso-tab-count:1'>   </span> <span
+                style='mso-spacerun:yes'>         </span> Тошкент шаҳри<span style='mso-tab-count:1'>   </span> <span
                 style='mso-tab-count:2'>                       </span><span style='mso-spacerun:yes'>     </span><span
                 style='mso-spacerun:yes'>  </span><b>№
-                ___</b><span style='mso-tab-count:1'>     </span><span style='mso-spacerun:yes'>                     
-            </span>“___” ________ 2020 йил<span style='mso-spacerun:yes'>                            </span><span
+                {{$contract->id}}</b><span style='mso-tab-count:1'>     </span><span style='mso-spacerun:yes'>                     
+            </span>
+ {{date('d-m-Y',strtotime($contract->created_at))}} 
+            
+            <span style='mso-spacerun:yes'>                            </span><span
                 style='mso-tab-count:1'>            </span><span style='mso-spacerun:yes'>        </span>
             <o:p></o:p>
         </span></p>
 
     <p class=MsoNormal style='text-align:justify;text-indent:35.4pt'><span lang=UZ-CYR
-            style='mso-ansi-language:UZ-CYR'>Маъсулияти чекланган жамияти “HIMOYA-AUDIT”
-            аудиторлик ташкилоти Сурхондарё филиалининг расмий хамкори МЧЖ “StartUp-Invest”
+            style='mso-ansi-language:UZ-CYR'>Маъсулияти чекланган жамияти {{$contract->conclusion->cust_info->audit_comp_name}} расмий хамкори МЧЖ “StartUp-Invest”
             <span style='mso-spacerun:yes'> </span>(кейинги ўринларда “Иш бажарувчи” деб
             юритилади) номидан “Низом” асосида фаолият юритувчи раҳбари <span
-                style='mso-bidi-font-weight:bold'>Д.Э.Бобоқулов </span>ва ______________________________________
-            (кейинги ўринларда “Буюртмачи” деб юритилади) номидан “Низом” асосида фаолият юритувчи
-            раҳбари ___________________лар томонидан мазкур шартнома аудиторлик профессинал
+                style='mso-bidi-font-weight:bold'>{{$contract->conclusion->audit_comp_director_name}} </span>ва {{$contract->conclusion->cust_info->cust_comp_director_name}} 
+            (кейинги ўринларда “Буюртмачи” деб юритилади) номидан “Низом” асосида фаолият юритувчи {{$contract->conclusion->cust_info->contract_name}} 
+            раҳбари лар томонидан мазкур шартнома аудиторлик профессинал
             хизматлар кўрсатиш тўғрисида тузилди.</span><span lang=UZ-CYR style='font-size:
     13.0pt;mso-bidi-font-size:12.0pt;mso-ansi-language:UZ-CYR'>
             <o:p></o:p>
@@ -395,30 +397,28 @@
       normal'>
                         <o:p>&nbsp;</o:p>
                     </b></p>
-                <p class=MsoNormal style='tab-stops:243.0pt'>_____________________________________</p>
-                <p class=MsoNormal style='tab-stops:243.0pt'>_____________________________________</p>
+                <p class=MsoNormal style='tab-stops:243.0pt'>{{$contract->conclusion->cust_info->contract_company_name}} </p>
+                <p class=MsoNormal style='tab-stops:243.0pt'>{{$contract->conclusion->cust_info->contract_address}}</p>
                 <p class=MsoNormal style='text-align:justify'><span lang=UZ-CYR
-                        style='mso-ansi-language:UZ-CYR'>_____________________________________<o:p></o:p></span></p>
-                <p class=MsoNormal><span lang=UZ-CYR style='mso-ansi-language:UZ-CYR'>Манзили:
-                        ____________________________<o:p></o:p></span></p>
-                <p class=MsoNormal>Банк: - ______________________________ </p>
+                        style='mso-ansi-language:UZ-CYR'><o:p></o:p></span></p>
+                <p class=MsoNormal>Банк: - {{$contract->conclusion->cust_info->cust_comp_bank_name}} </p>
                 <p class=MsoNormal style='text-align:justify'>Х/<span class=GramE>р.:-</span>
-                    _______________________________<span lang=UZ-CYR style='mso-ansi-language:
+                    {{$contract->conclusion->cust_info->cust_comp_bank_acc}}<span lang=UZ-CYR style='mso-ansi-language:
       UZ-CYR'>
                         <o:p></o:p>
                     </span></p>
                 <p class=MsoNormal style='tab-stops:290.25pt'><span class=GramE>МФО:-</span>
-                    _______________<span
+                    {{$contract->conclusion->cust_info->cust_comp_bank_mfo}}<span
                         style='mso-spacerun:yes'>                                                                 
-                    </span><span style='mso-spacerun:yes'> </span>ИФУТ: - ______________<span
+                    </span><span style='mso-spacerun:yes'> </span>ИФУТ: - {{$contract->conclusion->cust_info->cust_comp_oked}}<span
                         style='mso-spacerun:yes'>                </span></p>
-                <p class=MsoNormal style='text-align:justify'>СТИР: - _______________<span
+                <p class=MsoNormal style='text-align:justify'>СТИР: - {{$contract->conclusion->cust_info->cust_comp_inn}}<span
                         style='mso-spacerun:yes'>                    </span></p>
                 <p class=MsoNormal style='text-align:justify'><span
                         style='mso-spacerun:yes'>                                         </span><span
                         style='mso-tab-count:2'>                  </span><span style='mso-spacerun:yes'> </span></p>
                 <p class=MsoNormal style='text-align:justify'><b style='mso-bidi-font-weight:
-      normal'><span lang=UZ-CYR style='mso-ansi-language:UZ-CYR'>_______________</span><span style='mso-spacerun:yes'> 
+      normal'><span lang=UZ-CYR style='mso-ansi-language:UZ-CYR'>{{$contract->conclusion->cust_info->cust_comp_director_name}}</span><span style='mso-spacerun:yes'> 
                         </span>_____________<o:p></o:p></b></p>
                 <p class=MsoNormal style='text-align:justify'><b style='mso-bidi-font-weight:
       normal'><span style='font-size:13.0pt;mso-bidi-font-size:12.0pt;color:red'>
