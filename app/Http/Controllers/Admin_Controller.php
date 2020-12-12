@@ -492,10 +492,10 @@ class Admin_Controller extends Controller
         $data['contract']=Contract::where(['id'=>$req->id])->first();
         if (!$data['contract'])
             return  abort(404);
-        if($data['contract']->contract_type=='yur'){
+        if($data['contract']->conclusion->cust_info->contract_type=='yur'){
             return $this->view('juridic_contracts_view', $data);
         }
-        if($data['contract']->contract_type=='fiz'){
+        if($data['contract']->conclusion->cust_info->contract_type=='fiz'){
             return $this->view('contracts_view', $data);
         }
     }
