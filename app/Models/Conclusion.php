@@ -31,6 +31,16 @@ class Conclusion extends Model
   public function blanks(){
     return $this->hasMany(Blank::class);
   }
+  public function valid_blanks(){
+    $blanks=$this->blanks;
+    $valids=array();
+    foreach ($blanks as $key => $blank) {
+      if(!$blank->is_brak){
+        array_push($valids, $blank);
+      }
+    }
+    return $valids;
+  }
   public function is_printable(){
     date_default_timezone_set("Asia/Tashkent");
     if(count($this->blanks)>0){

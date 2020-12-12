@@ -170,6 +170,16 @@ class Audit_Controller extends Controller
             foreach ($conclusion_fields??[] as $key => $value) {
                 $conclusion->$key=$value;
             }
+            
+                //get snapshot of default audit company info
+            $default_company=Audit_info::where('active', 1)->first();
+
+            unset($default_company->id);
+            unset($default_company->active);
+
+            foreach ($default_company->getAttributes() as $key => $value) {
+                $conclusion->$key=$value;
+            }
             $conclusion->save();
 
 
@@ -261,24 +271,49 @@ class Audit_Controller extends Controller
     public function breaking(Request $req){
         switch ($req->method()) {
             case 'GET':
-                $data['blanks']=Blank::where([
-                    'user_id'=>auth()->user()->id,
-                    'is_brak'=>false
-                ])->where('conclusion_id','!=','null')->get();
-                return $this->view('blanks', $data);
+            $data['blanks']=Blank::where([
+                'user_id'=>auth()->user()->id,
+                'is_brak'=>false
+            ])->where('conclusion_id','!=','null')->get();
+            return $this->view('blanks', $data);
             break;
             case 'POST':
-                $blank=Blank::where('id', $req->input('blank_id'))->first();
-                $reason=$req->file('reason')->store('breaking');
-                $blank->brak_upload=$reason;
-                $blank->is_brak=true;
-                $blank->save();
-                return redirect()->route('auditor.breaking');
+            $blank=Blank::where('id', $req->input('blank_id'))->first();
+            $reason=$req->file('reason')->store('breaking');
+            $blank->brak_upload=$reason;
+            $blank->is_brak=true;
+            $blank->save();
+            return redirect()->route('auditor.breaking');
             break;
             default:
-               abort(401);
+            abort(401);
             break;
         }
         
     }
+    public function break_all(Request $req){
+        $conclusion=Conclusion::where('id', $req->input('break_conclusion_id'))->first();
+        foreach ($conclusion->blanks as $key => $blank) {
+         $reason=$req->file('reason')->store('breaking');
+         $blank->brak_upload=$reason;
+         $blank->is_brak=true;
+         $blank->save();
+     }
+     return redirect()->route('auditor.conclusions');
+ }
+ public function edit_conclusion(Request $req){
+    switch ($req->method()) {
+        case 'GET':
+            $data['conclusion']=Conclusion::where('id', $req->id)->first();
+            return $this->view('edit_conclusion', $data);
+        break;
+        case 'POST':
+            print('post');
+        break;
+        default:
+           return abort(401);
+        break;
+    }
+    
+}
 }

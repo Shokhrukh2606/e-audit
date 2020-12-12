@@ -1,5 +1,5 @@
 @php
-$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields", "message", "status"];
+$iterated=['cust_comp_name', 'cust_comp_inn'];
 @endphp
 <div class="card">
 	<div class="card-header">
@@ -20,7 +20,7 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
 				@endforeach
 			</li>
 			@foreach($order->getAttributes() as $key=>$value)
-			@continue(in_array($key, $not_iterated, TRUE))
+			@continue(!in_array($key, $iterated, TRUE))
 				<li>{{lang($key)}}: {{$value}}</li>
 			@endforeach
 		</ul>
@@ -28,7 +28,7 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
 		<h3>{{lang('clientInfo')}}</h3>
 		<ul>
 			@foreach($order->cust_info->getAttributes() as $key=>$value)
-			@continue(in_array($key, $not_iterated, TRUE))
+			@continue(!in_array($key, $iterated, TRUE))
 			<li>{{lang($key)}}: {{$value}}</li>
 			@endforeach
 			@php

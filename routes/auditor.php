@@ -51,4 +51,7 @@ Route::post('assign_blank', "Audit_Controller@assign_blank")->name('assign_blank
 		// view: auditor.list_conclusions;
 Route::match(['GET', 'POST'],"breaking", "Audit_Controller@breaking")->name("breaking");
 
+
+Route::post('break_all', "Audit_Controller@break_all")->name('break_all');
+Route::get('edit_conclusion/{id}', "Audit_Controller@edit_conclusion")->name('edit_conclusion');
 ?>
