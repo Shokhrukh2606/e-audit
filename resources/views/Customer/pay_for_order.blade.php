@@ -114,10 +114,11 @@
             <input type="hidden" name="merchant" value="5fa30924740f35d3638b7d41" />
 
             <!-- Сумма платежа в тийинах -->
-            <input type="hidden" name="amount" value="{{ $invoice->price }}" />
+            <input type="hidden" name="amount" value="{{ $invoice->price*100 }}" />
 
             <!-- Поля Объекта Account -->
-            <input type="hidden" name="account[merchant_user_id]" value="18124" />
+            <input type="hidden" name="account[id]" value="{{$invoice->id}}" />
+        
 
             <!-- ==================== НЕОБЯЗАТЕЛЬНЫЕ ПОЛЯ ====================== -->
             <!-- Язык. Доступные значения: ru|uz|en 
@@ -157,22 +158,7 @@
    Если указать id определённого платежного инструмента - 
    пользователь перенаправляется на указанный платежный инструмент. -->
             {{-- <input type="hidden" name="payment" value="{payment_id}" />
-            --}}
-
-            <!-- Описание платежа
-   Для описания платежа доступны 3 языка: узбекский, русский, английский. 
-   Для описания платежа на нескольких языках следует использовать 
-   несколько полей с атрибутом  name="description[{lang}]"
-   lang может принимать значения ru|en|uz -->
-            <input type="hidden" name="description" value="Test" />
-
-            <!-- Объект детализации платежа
-   Поле для детального описания платежа, например, перечисления 
-   купленных товаров, стоимости доставки, скидки. 
-   Значение поля (value) — JSON-строка закодированная в BASE64 -->
-            <input type="hidden" name="detail" value="" />
-            <!-- ================================================================== -->
-            
+            --}}    
         </form>
         <form action="https://my.click.uz/services/pay" method="get" target="_blank" id="click" name="click">
             <input type="hidden" name="merchant_id" value="12244" />

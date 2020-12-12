@@ -18,6 +18,7 @@
   <link href="{{ asset('assets/demo/demo.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/css/common.css') }}" rel="stylesheet" />
   @yield('createConcCss')
+  @yield('createConclusionCss')
   <style>
     .sidebar .nav p,
     .off-canvas-sidebar .nav p {
@@ -393,6 +394,7 @@
   </script>
 
   @yield('additional_js')
+  @yield('createConclusionJs')
 
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>

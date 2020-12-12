@@ -17,6 +17,7 @@ class Conclusion extends Model
     '2' => 'sent',
     '3' => 'finished',
     '4' => 'rejected'
+    
   ];
   use HasFactory;
   protected $appends = [

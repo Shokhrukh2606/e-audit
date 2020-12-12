@@ -30,4 +30,7 @@ Route::get('/view_conclusion/{id}', 'Agent_Controller@view_conclusion')->name('v
 // view: conclusions
 Route::get('/change_status/{status}/{id}', 'Agent_Controller@change_status')->name('change_status');
 Route::match(["GET", "POST"],'/edit_conclusion/{id}', 'Agent_Controller@edit_conclusion')->name('edit_conclusion');
+Route::match(["GET", "POST"],'/edit_conclusion/{id}', 'Agent_Controller@edit_conclusion')->name('edit_conclusion');
 
+Route::post('assign_blank', "Agent_Controller@assign_blank")->name('assign_blank');
+Route::post('break_all', "Agent_Controller@break_all")->name('break_all');
