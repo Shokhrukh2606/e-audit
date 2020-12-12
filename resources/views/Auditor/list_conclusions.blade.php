@@ -97,7 +97,9 @@
                 <th>{{lang('standartNumber')}}</th>
                 <th>{{lang('useCases')}}</th>
                 <th>{{lang('date')}}</th>
+                @if(!$on_order)
                 <th>{{lang('assign_blank')}}</th>
+                @endif
                 <th>{{lang('show')}}</th>
                 @if($on_order)
                     <th>{{lang('activity')}}</th>
@@ -126,8 +128,8 @@
                         @endforeach
                     </td>
                     <td>{{ $conclusion->created_at }}</td>
-                    <td>
                     @if(count($conclusion->blanks)==0)
+                    <td>
                         <button 
                             type="button" 
                             href="#" 
@@ -137,8 +139,10 @@
                         >
                             {{lang('assign_blank')}}
                         </button>
+                    </td>
                     @else
                         @if($conclusion->is_printable())
+                        <td>
                          <button 
                             type="button" 
                             href="#" 
@@ -148,9 +152,10 @@
                         >
                             {{lang('print_again')}}
                         </button>
+                        </td>
                         @endif
                     @endif
-                    </td>
+                    
                     <td>
                         <a class="btn btn-sm btn-simple btn-success"
                             href="{{ route('auditor.conclusion', $conclusion->id) }}">

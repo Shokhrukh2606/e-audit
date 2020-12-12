@@ -135,6 +135,18 @@
                             <p>Settings</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.contracts') }}">
+                            <i class="tim-icons icon-puzzle-10"></i>
+                            <p>{{lang('contracts')}}</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.invoices') }}">
+                            <i class="tim-icons icon-puzzle-10"></i>
+                            <p>{{lang('invoices')}}</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

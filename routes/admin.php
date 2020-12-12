@@ -120,3 +120,10 @@ Route::match(["GET", "POST"], "/create_setting", "Admin_Controller@create_settin
  * list_blanks
 */
 Route::get('/list_blanks', 'Admin_Controller@list_blanks')->name('list_blanks');
+
+Route::get('/contracts', 'Admin_Controller@contracts')->name('contracts');
+
+Route::get('/invoices', 'Admin_Controller@invoices')->name('invoices');
+
+
+Route::post('/invoice_edit/{id}', 'Admin_Controller@invoice_edit')->name('invoice_edit');

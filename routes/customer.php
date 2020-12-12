@@ -58,4 +58,6 @@ Route::get("transactions_log", "Customer_Controller@transactions_log")->name("tr
 
 Route::post('reject_conc',"Customer_Controller@reject_conc")->name("reject_conc");
 
+
+Route::get('contracts', 'Customer_Controller@contracts')->name('contracts');
 ?>

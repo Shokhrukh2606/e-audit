@@ -65,12 +65,12 @@
               <p>{{lang('orders')}}</p>
             </a>
           </li>
-          <li>
+          {{-- <li>
             <a href="{{route("auditor.conclusions")}}">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>{{lang('conclusions')}}</p>
             </a>
-          </li>
+          </li> --}}
           <li>
             <a href="{{route("auditor.conclusions")}}?order=true">
               <i class="tim-icons icon-attach-87"></i>

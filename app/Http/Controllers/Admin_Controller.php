@@ -16,6 +16,7 @@ use App\Models\Service;
 use App\Models\Audit_info;
 use App\Models\Setting;
 use App\Models\Transaction;
+use App\Models\Contract;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -475,5 +476,20 @@ class Admin_Controller extends Controller
             ->allowedFilters(['id']);
         $data['users'] = $query->where(['group_id' =>[2,3]])->orderBy('id', 'DESC')->paginate(20);
         return $this->view('list_blanks', $data);
+    }
+    public function contracts(Request $req){
+        $data['contracts']=Contract::all();
+        return $this->view('contracts', $data);
+    }
+    public function invoices(Request $req){
+        $data['invoices']=Invoice::where('status', 'waiting')->get();
+        return $this->view('invoices', $data);
+    }
+    public function invoice_edit(Request $req){
+        $invoice=Invoice::where('id', $req->id)->first();
+        $invoice->price=$req->input('price');
+        $invoice->save();
+        
+        return redirect()->route('admin.invoices');
     }
 }

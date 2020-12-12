@@ -11,6 +11,7 @@ use App\Models\Ciucm;
 use App\Models\Blank;
 use App\Models\Order;
 use App\Models\Audit_info;
+use App\Models\Contract;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -123,7 +124,7 @@ class Audit_Controller extends Controller
     public function conclusions(){
         $data['blanks']=Blank::available(auth()->user()->id);
 
-        $data['on_order']=false;
+        $data['on_order']=true;
         if($_GET['order']??false)
             $data['on_order']=true;
         $data['conclusions']=Conclusion::where('auditor_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(20);
@@ -190,7 +191,13 @@ class Audit_Controller extends Controller
             $CCI=Cust_comp_info::where('id', $req->id)->first();
             $CCI->conclusion_id=$conclusion->id;
             $CCI->save();
-            return redirect()->route('auditor.conclusions');
+
+            $contract=new Contract();
+            $contract->conclusion_id=$conclusion->id;
+            $contract->user_id=$conclusion->cust_info->order->customer_id;
+            $contract->save();
+            
+            return redirect(route('auditor.conclusions')."?order=true");
             break;
             default:
                 # code...
@@ -221,8 +228,8 @@ class Audit_Controller extends Controller
         $conclusion=Conclusion::where('id', $req->id)->first();
         if($conclusion){
             $conclusion->send_to_customer();
-            sms($conclusion->cutomer->phone, '','auditor_conclusion_customer_send',[
-                '{full_name}'=>$conclusion->customer->full_name,
+            sms($conclusion->cust_info->order->customer->phone, '','auditor_conclusion_customer_send',[
+                '{full_name}'=>$conclusion->cust_info->order->customer->full_name,
                 '{order_id}'=>$conclusion->cust_info->order->id
             ]);
             return redirect()->route('auditor.conclusions');

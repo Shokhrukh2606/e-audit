@@ -21,6 +21,9 @@ class Order extends Model
    		Storage::deleteDirectory("orders/".$this->id);
    		$this->delete();
    	}
+    public function customer_id(){
+      return $this->belongsTo(User::class,"customer_id");
+    }
     public function customer(){
       return $this->belongsTo(User::class,"customer_id");
     }

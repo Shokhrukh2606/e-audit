@@ -93,41 +93,50 @@
 					<input class="form-control" type="text" name="cust_info[cust_comp_inn]" maxlength="9" required>
 				</div>
 				<div class="switch">
-					<p>{{lang('payment_type')}}</p>
+					<p>{{lang('zakazchik')}}</p>
 					<div class="form-group">
 						<input type="radio" id="perechislenie" 
 						onclick="switchit('on')"
-						name="switch"
-
+						name="cust_info[contract_type]"
+						value="yur"
 						>
 						<label for="perechislenie">
-							{{lang('perechislenie')}}
+							{{lang('yurlitso')}}
 						</label>
 					</div>
 					<div class="form-group">
 						<input type="radio" id="others"
 						onclick="switchit('off')" 
-						name="switch"
+						name="cust_info[contract_type]"
 						checked="checked"
+						value="fiz"
 						>
 						<label for="others">
-							{{lang('others')}}
+							{{lang('fizlitso')}}
 						</label>
 					</div>
 				</div>
 				<div id="switchable">
 					<div class="mb-4">
-						<label>{{lang('cust_comp_gov_reg_num')}}</label>
-						<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]" required>
+						<label>{{lang('contract_company_name')}}</label>
+						<input class="form-control" type="text" name="cust_info[contract_company_name]" required>
 					</div>
 					<div class="mb-4">
+						<label>{{lang('contract_company_inn')}}</label>
+						<input class="form-control" type="text" name="cust_info[contract_company_inn]" required>
+					</div>
+					{{-- <div class="mb-4">
+						<label>{{lang('cust_comp_gov_reg_num')}}</label>
+						<input class="form-control" type="text" name="cust_info[cust_comp_gov_reg_num]" required>
+					</div> --}}
+					{{-- <div class="mb-4">
 						<label>{{lang('cust_comp_registered_by')}}</label>
 						<input class="form-control" type="text" name="cust_info[cust_comp_registered_by]">
 					</div>
 					<div class="mb-4">
 						<label>{{lang('userCompGovRegDate')}}</label>
 						<input class="form-control" type="date" name="cust_info[cust_comp_gov_reg_date]" required>
-					</div>
+					</div> --}}
 					<div class="mb-4">
 						<label>{{lang('custCompAddress')}}</label>
 						<input class="form-control" type="text" name="cust_info[cust_comp_address]" required>
@@ -157,6 +166,24 @@
 						<label>{{lang('custCompActivity')}}</label>
 						<input class="form-control" type="text" name="cust_info[cust_comp_activity]" required>
 					</div> --}}
+				</div>
+				<div id="fiz">
+					<div class="mb-4">
+						<label>{{lang('name')}}</label>
+						<input class="form-control" type="text" name="cust_info[contract_name]" required>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('passport_serie')}}</label>
+						<input class="form-control" type="text" name="cust_info[contract_passport_serie]" required>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('where_given')}}</label>
+						<input class="form-control" type="text" name="cust_info[ 	contract_where_given]" required>
+					</div>
+					<div class="mb-4">
+						<label>{{lang('address')}}</label>
+						<input class="form-control" type="text" name="cust_info[contract_address]" required>
+					</div>
 				</div>
 			</div>
 			<div class="tab">
@@ -307,11 +334,12 @@
 	startYear = new Date().getFullYear()
 	count = 10;
 
-	var switch_state='off';
+	var switch_state='on';
 	const switchable=document.getElementById('switchable');
+	const fiz=document.getElementById('fiz');
 	const quarters=document.getElementById('quarters');
 	const clone=switchable.innerHTML;
-	
+	const fizClone=fiz.innerHTML;
 	/**
 	 * [yearly description]
 	 * @param  {[type]} elem [description]
@@ -338,12 +366,16 @@
 
 	 	if(switch_state=='off'){
 	 		switchable.style.display='none';
+	 		fiz.style.display="block";
+	 		fiz.innerHTML=fizClone;
 	 		switchable.innerHTML="";
 	 	}
 
 	 	if(switch_state=='on'){
 	 		switchable.style.display='block';
+	 		fiz.style.display="none";
 	 		switchable.innerHTML=clone;
+	 		fiz.innerHTML="";
 	 	}
 	 }
 	 switchit(switch_state);

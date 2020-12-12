@@ -106,10 +106,14 @@ $iterated=['cust_comp_name', 'cust_comp_inn'];
 			</button>
 		@endif
 		@if($order->status==4)
+			@if($order->cust_info->conclusion??false)
+			
+			@else
 			<a class="btn btn-sm btn-success btn-simple" 
 				href="{{route('auditor.create_conc_on_order', $order->id)}}">
 				{{lang('write_conc_for_this')}}
 			</a>
+			@endif
 		@endif
 
 	</div>

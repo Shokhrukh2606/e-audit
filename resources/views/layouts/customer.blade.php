@@ -92,6 +92,12 @@
             </a>
           </li>
           <li>
+            <a href="{{route("customer.contracts")}}">
+              <i class="tim-icons icon-trash-simple"></i>
+              <p>{{lang('contracts')}}</p>
+            </a>
+          </li>
+          <li>
             <a href="{{route("customer.transaction_log")}}">
               <i class="tim-icons icon-coins"></i>
               <p>{{lang('transactions_log')}}</p>
@@ -124,7 +130,8 @@
               <li class="dropdown nav-item">
                 <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
 
-                  <i class="tim-icons icon-world"></i> O'zbek
+                  <i class="tim-icons icon-world"></i>
+                  {{config('global.all_langs')[config('global.lang')]}}
                   <p class="d-lg-none">
                     <i class="tim-icons icon-world"></i>
                   </p>
@@ -180,11 +187,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-navbar">
                   <li class="nav-link"><a href="javascript:void(0)" onclick="logout()" class="nav-item dropdown-item"> {{lang('logout')}}</a></li>
-                  <li class="nav-link">
-                    <a href="{{ route('aac.profile') }}" class="nav-item dropdown-item">
-                      {{ lang('profile') }}
-                    </a>
-                  </li>
+                  
                 </ul>
               </li>
               <li class="separator d-lg-none"></li>

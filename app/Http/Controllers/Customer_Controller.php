@@ -11,6 +11,7 @@ use App\Models\Ciucm;
 use App\Models\Conclusion;
 use App\Models\Invoice;
 use App\Models\Transaction;
+use App\Models\Contract;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -87,7 +88,7 @@ class Customer_Controller extends Controller
                     $order->$key = $value;
                 }
                 $order->save();
-                $CCI = new Cust_comp_info();
+                $CCI = new Cust_comp_info;
                 $CCI->order_id = $order->id;
 
                 foreach ($cust_info_fields ?? [] as $key => $value) {
@@ -317,5 +318,9 @@ class Customer_Controller extends Controller
         $order->message = $req->input('reason');
         $order->save();
         return redirect()->route('customer.orders', 'finished');
+    }
+    public function contracts(){
+        $data['contracts']=Contract::where('user_id', auth()->user()->id)->get();
+        return $this->view('contracts', $data);
     }
 }
