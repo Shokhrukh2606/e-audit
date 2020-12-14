@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 namespace App\Http\Controllers;
 
@@ -438,7 +438,7 @@ class Admin_Controller extends Controller
     {
         switch ($req->method()) {
             case 'GET':
-                return View::make('admin.create_setting')->render();
+                return View::make('Admin.create_setting')->render();
                 break;
             case 'POST':
                 $fields = $req->input('setting');
