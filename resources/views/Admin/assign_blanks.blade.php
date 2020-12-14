@@ -19,7 +19,7 @@
 				@endforeach
 			</select>
 			<br>
-			<h4>Available Blanks</h4>
+			<h4>{{lang("Available Blanks")}}</h4>
 			@foreach($blanks as $blank)
 			    <div class="form-group">
 	                <input 
@@ -28,7 +28,7 @@
 	                name="blank[{{$blank->id}}]"
 	                class="blank_check"
 	                >
-	                <label>Blank Nomer {{$blank->id}}</label>
+	                <label>{{lang("Blank Nomer")}} {{$blank->id}}</label>
 	                <br>
                 </div>
 			@endforeach
