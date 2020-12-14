@@ -32,7 +32,7 @@
 	                <br>
                 </div>
 			@endforeach
-			<button class="btn btn-info btn-simple">Assign</button>
+			<button class="btn btn-info btn-simple">{{lang("Assign")}}</button>
 		</form>
 	</div>
 </div>
