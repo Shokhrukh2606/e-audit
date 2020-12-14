@@ -157,14 +157,14 @@
 
                     <td>
                         <a class="btn btn-sm btn-simple btn-success"
-                            href="{{ route('auditor.conclusion', $conclusion->id) }}">
+                            href="{{ route('auditor.view_conclusion_open', $conclusion->id) }}">
                             {{ lang('show') }}
                         </a>
                         @foreach ($conclusion->blanks as $blank)
                             @continue($blank->is_brak)
                             <br> <br>
                             <a class="btn btn-sm btn-simple btn-success"
-                                href="{{ route('auditor.conclusion', $conclusion->id) }}">
+                                href="{{ route('auditor.view_conclusion_open', $conclusion->id) }}">
                                 {{ lang('show') }}
                             </a>
 

@@ -19,7 +19,8 @@
                         </td>
                         <td>{{ $blank->conclusion_id }}</td>
                         <td>
-                            <a href="{{ '/public/storage/'.$blank->brak_upload}}"
+                            <a href="{{ route('file')."?path=".$blank->brak_upload}}"
+                                target="blank"
                                class="btn btn-danger btn-sm"
                             >
                                 {{lang('show')}}

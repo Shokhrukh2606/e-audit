@@ -147,7 +147,7 @@
                                 <a class="btn btn-sm btn-simple btn-success" href="{{ route('agent.edit_conclusion', $conclusion->id) }}">{{ lang('update') }}</a>
                             @endif
                             <a class="btn btn-sm btn-simple btn-success"
-                                href="{{ route('agent.view_conclusion', $conclusion->id) }}">
+                                href="{{ route('agent.view_conclusion_open', $conclusion->id) }}">
                                 {{ lang('show') }}
                             </a>
                             @foreach ($conclusion->blanks as $blank)

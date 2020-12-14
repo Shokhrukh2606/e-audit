@@ -202,10 +202,11 @@ class Agent_Controller extends Controller
     }
     public function view_conclusion_open(Request $req)
     {
+
         $data['conclusion'] = Conclusion::where('id', $req->id)->first();
         $data['protected'] = true;
         if ($data['conclusion']->invoice&&$data['conclusion']->invoice->status == 'confirmed') {
-            $data['protected'] = false;
+            $data['protected'] = true;
         }
         if ($data['conclusion']) {
             $template = $data['conclusion']->cust_info->template->standart_num;
