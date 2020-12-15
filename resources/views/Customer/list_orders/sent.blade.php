@@ -26,7 +26,7 @@
                         </td>
                         <td>
                             <span class="badge badge-danger">
-                            {{$states[$order->status]}}
+                            {{lang($states[$order->status])}}
                             </span>
                         </td>
                         <td>{{ $order->created_at }}</td>
