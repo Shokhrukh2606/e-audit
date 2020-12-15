@@ -483,6 +483,7 @@
                 });
                 document.getElementsByTagName("body")[0].style.display = "block";
                 $("#nowInLanguage").text(function(){
+                    let currentUrl=window.location.href
                     let modified=currentUrl.split('/')
                     return modified[3]
                 })
