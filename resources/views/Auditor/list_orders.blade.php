@@ -9,7 +9,7 @@
 				<th>{{lang('customer')}}</th>
 				<th>{{lang('template')}}</th>
 				<th>{{lang('useCases')}}</th>
-				<th>Cтатус</th>
+				<th>{{lang('status')}}</th>
 				<th>{{lang('activity')}}</th>
 			</thead>
 			<tbody>
