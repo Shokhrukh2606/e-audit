@@ -24,12 +24,12 @@
                                 </span>
                             @endforeach
                         </td>
+                        <td>{{ $order->created_at }}</td>
                         <td>
                             <span class="badge badge-danger">
                             {{lang($states[$order->status])}}
                             </span>
                         </td>
-                        <td>{{ $order->created_at }}</td>
                         <td>
                         <a 
                             href="{{ route('customer.order_view', $order->id) }}"
