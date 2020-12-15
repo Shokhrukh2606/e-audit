@@ -111,7 +111,7 @@
                             
                             @else
                                 <span class="badge badge-danger">
-                                    {{ $conclusion->state }}
+                                    {{ lang($conclusion->state) }}
                                 </span>
                             @endif
                         </td>
