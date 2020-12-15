@@ -6,9 +6,9 @@
         <table class="table tablesorter">
             <thead>
                 <th>ID</th>
-                <th>Invoice id</th>
-                <th>Payment System</th>
-                <th>Perform Time</th>
+                <th>{{lang("Invoice id")}}</th>
+                <th>{{lang("Payment System")}}</th>
+                <th>{{lang("Perform Time")}}</th>
             </thead>
             <tbody>
                 @foreach ($transactions as $item)
