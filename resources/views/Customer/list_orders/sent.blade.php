@@ -9,6 +9,7 @@
                 <th>{{ lang('ID') }}</th>
                 <th>{{ lang('useCases') }}</th>
                 <th>{{ lang('date') }}</th>
+                <th>{{ lang('status') }}</th>
                 <th>{{ lang('show') }}</th>
             </thead>
             <tbody>
