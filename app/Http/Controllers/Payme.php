@@ -191,8 +191,7 @@ class Payme extends Controller
             }
         }
         if (isset($req->id)) {
-            $transaction = Transaction::whereNotNull('user_id')->orWhere(['system_transaction_id' => $req->id, 'payment_system' => 'payme'])->first();
-            if ($transaction) {
+            if ($transaction = Transaction::where(['system_transaction_id' => $req->id, 'payment_system' => 'payme'])->whereNotNull('user_id')->first()) {
                 return true;
             }
         }
