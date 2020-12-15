@@ -97,7 +97,7 @@
                     <tr>
                         <td>{{ $conclusion->id }}</td>
                         <td>
-                            {{ $conclusion->cust_info->cust_comp_inn }}
+                            {{-- {{ $conclusion->cust_info->cust_comp_inn }} --}}
                         </td>
                         <td>
                             {{ $conclusion->cust_info->template['standart_num'] }}
