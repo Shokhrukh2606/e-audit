@@ -8,7 +8,7 @@ return [
 		'4'=>'docs_confirmed',
 		'5'=>'error_found_in_document',
 		'6'=>'resent_to_auditor',
-		'7'=>lang('finished'),
+		'7'=>'finished',
 		'8'=>'rejected'
 	],
 	'all_langs'=>[
