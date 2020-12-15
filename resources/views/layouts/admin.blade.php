@@ -132,7 +132,7 @@
                     <li>
                         <a href="{{ route('admin.list_settings') }}">
                             <i class="tim-icons icon-puzzle-10"></i>
-                            <p>Settings</p>
+                            <p>{{lang('list_settings')}}</p>
                         </a>
                     </li>
                     <li>
