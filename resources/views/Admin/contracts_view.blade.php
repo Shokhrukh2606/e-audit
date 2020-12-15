@@ -1,5 +1,8 @@
 <style>
     /* Font Definitions */
+    .content * {
+        color: #000;
+    }
     @font-face {
         font-family: Wingdings;
         panose-1: 5 0 0 0 0 0 0 0 0 0;
