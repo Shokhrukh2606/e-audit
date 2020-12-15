@@ -1,7 +1,9 @@
 <div class="card">
     <div class="card-header">
         <h1 class="card-title">{{lang('certificates_list')}}</h1>
-        {{auth()->user()->hasRole('admin')&&<a class="btn btn-sm btn-info" href="{{ route('admin.certificates_create') }}">{{lang('create')}}</a>}}
+        @if (auth()->user()->hasRole('admin'))
+            <a class="btn btn-sm btn-info" href="{{ route('admin.certificates_create') }}">{{lang('create')}}</a>            
+        @endif
     </div>
     <div class="card-body">
         <div class="row">
