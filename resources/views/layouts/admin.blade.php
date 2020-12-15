@@ -485,7 +485,12 @@
                 $("#nowInLanguage").text(function(){
                     let currentUrl=window.location.href
                     let modified=currentUrl.split('/')
-                    return modified[3]
+                    langWords={
+                        'uz':'Uzbek',
+                        'ru':'Русский',
+                        'oz':'O\'zbek'
+                    }
+                    return langWords[modified[3]]
                 })
                 $(".langChanger").click(function(e){
                     e.preventDefault()
