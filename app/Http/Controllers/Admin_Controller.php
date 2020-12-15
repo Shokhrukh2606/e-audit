@@ -416,7 +416,7 @@ class Admin_Controller extends Controller
             case 'GET':
                 $data['setting'] = Setting::where(['id' => $req->id])->first();
                 if ($data['setting'])
-                    return View::make('admin.view_setting')->with($data)->render();
+                    return View::make('Admin.view_setting')->with($data)->render();
                 return abort(404);
                 break;
             case 'POST':
