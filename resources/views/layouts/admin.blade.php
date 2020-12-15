@@ -187,7 +187,7 @@
                             <li class="dropdown nav-item">
                                 <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
                 
-                                    <i class="tim-icons icon-world"></i><span id="nowInLanguage"> O'zbek</span>
+                                    <i class="tim-icons icon-world"></i>&nbsp;<span id="nowInLanguage"> O'zbek</span>
                                     <p class="d-lg-none">
                                     <i class="tim-icons icon-world"></i>
                                     </p>
