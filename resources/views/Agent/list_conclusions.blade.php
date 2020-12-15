@@ -100,7 +100,7 @@
                             {{-- {{ $conclusion->cust_info->cust_comp_inn }} --}}
                         </td>
                         <td>
-                            {{ $conclusion->cust_info->template['standart_num'] }}
+                            {{-- {{ $conclusion->cust_info->template['standart_num'] }} --}}
                         </td>
                         <td>
                             @if ($conclusion->state == 'finished')
