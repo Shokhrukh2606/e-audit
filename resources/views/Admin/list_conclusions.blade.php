@@ -84,7 +84,7 @@
           <td>{{ $conclusion->template_id }}</td>
           <td>
             <span class="badge badge-danger">
-              {{ $states[$conclusion->status] }}
+              {{ lang($states[$conclusion->status]) }}
             </span>
           </td>
           <td>
