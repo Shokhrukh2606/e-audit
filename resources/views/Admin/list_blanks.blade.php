@@ -37,7 +37,7 @@
                 <th>{{ lang('id') }}</th>
                 <th>{{ lang('Agent, Auditor') }}</th>
                 <th>{{ lang('User type') }}</th>
-                <th>{{ lang('Available') }}</th>
+                <th>{{ lang('Available Blanks') }}</th>
                 <th>{{ lang('Rejected') }}</th>
                 <th>{{ lang('Not printed') }}</th>
                 <th>{{ lang('Done Successfully') }}</th>

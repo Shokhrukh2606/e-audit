@@ -108,7 +108,7 @@
             }
 
         </style>
-        <form method="POST" action="https://checkout.paycom.uz" id="payme" name="payme" target="_blank">
+        <form method="POST" action="https://test.paycom.uz/" id="payme" name="payme" target="_blank">
 
             <!-- Идентификатор WEB Кассы -->
             <input type="hidden" name="merchant" value="5fa30924740f35d3638b7d41" />
