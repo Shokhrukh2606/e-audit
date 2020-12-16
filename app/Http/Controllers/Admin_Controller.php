@@ -400,7 +400,10 @@ class Admin_Controller extends Controller
     }
     public function list_settings()
     {
-        $data['settings'] = Setting::orderBy('id', 'DESC')->paginate(30);
+        $query = QueryBuilder::for(Setting::class)
+            ->allowedFilters(['alias']);
+        $data['settings'] = $query->orderBy('id', 'DESC')->paginate(20);
+        // $data['settings'] = Setting::orderBy('id', 'DESC')->paginate(30);
         return $this->view('list_settings', $data);
     }
 
