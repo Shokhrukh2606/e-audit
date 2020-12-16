@@ -398,7 +398,7 @@ class Admin_Controller extends Controller
         $service->save();
         return redirect()->route('admin.list_services');
     }
-    public function list_settings()
+    public function list_settings(Request $request)
     {
         $query = QueryBuilder::for(Setting::class)
             ->allowedFilters(['alias']);
