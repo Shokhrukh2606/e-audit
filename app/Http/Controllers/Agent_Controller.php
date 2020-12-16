@@ -40,10 +40,14 @@ class Agent_Controller extends Controller
         $data['body'] = 'Agent.' . $file;
         return view('agent_index', $data);
     }
-    public function list_conclusions()
+    public function list_conclusions(Request $req)
     {
+        if($status_order=$req->input('status')){
+            $data['conclusions'] = Auth::user()->agent_conclusions()->where(['status'=>$status_order])->orderBy('id', 'DESC')->paginate(20);
+        }else{
+            $data['conclusions'] = Auth::user()->agent_conclusions()->orderBy('id', 'DESC')->paginate(20);
+        }
         $data['blanks'] = Blank::available(auth()->user()->id);
-        $data['conclusions'] = Auth::user()->agent_conclusions()->orderBy('id', 'DESC')->paginate(20);
         return $this->view('list_conclusions', $data);
     }
     public function select_temp()
