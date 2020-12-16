@@ -90,7 +90,7 @@
                 <th>{{ lang('inn') }}</th>
                 <th>{{ lang('standartNumber') }}</th>
                 <th>{{ lang('status') }}</th>
-                <th colspan="3">{{ lang('activity') }}</th>
+                <th colspan="4">{{ lang('activity') }}</th>
             </thead>
             <tbody>
                 @foreach ($conclusions as $conclusion)
