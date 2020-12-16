@@ -53,31 +53,31 @@
             </a>
           </li> --}}
           <li>
-            <a href="{{route("auditor.list_conclusions", ['status'=>1])}}">
+            <a href="{{route("agent.list_conclusions", ['status'=>1])}}">
               <i class="tim-icons icon-attach-87"></i>
               <p>{{lang('initialized_conclusions')}}</p>
             </a>
           </li>
           <li>
-            <a href="{{route("auditor.list_conclusions", ['status'=>5])}}">
+            <a href="{{route("agent.list_conclusions", ['status'=>5])}}">
               <i class="tim-icons icon-attach-87"></i>
               <p>{{lang('received_admin_conclusions')}}</p>
             </a>
           </li>
           <li>
-            <a href="{{route("auditor.list_conclusions", ['status'=>2])}}">
+            <a href="{{route("agent.list_conclusions", ['status'=>2])}}">
               <i class="tim-icons icon-attach-87"></i>
               <p>{{lang('sent_conclusions')}}</p>
             </a>
           </li>
           <li>
-            <a href="{{route("auditor.list_conclusions", ['status'=>4])}}">
+            <a href="{{route("agent.list_conclusions", ['status'=>4])}}">
               <i class="tim-icons icon-attach-87"></i>
               <p>{{lang('rejected_conclusions')}}</p>
             </a>
           </li>
           <li>
-            <a href="{{route("auditor.list_conclusions", ['status'=>3])}}">
+            <a href="{{route("agent.list_conclusions", ['status'=>3])}}">
               <i class="tim-icons icon-attach-87"></i>
               <p>{{lang('finished_conclusions')}}</p>
             </a>
