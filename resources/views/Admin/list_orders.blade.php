@@ -27,7 +27,7 @@
                         </td>
                         <td>{{ $order->cust_info->template->standart_num }}</td>
                         <td>
-                            {{$states[$order->status]}}
+                            {{lang($states[$order->status])}}
                         </td>
                         <td>{{ $order->created_at }}</td>
                         <td>

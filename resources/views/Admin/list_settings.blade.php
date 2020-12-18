@@ -1,6 +1,16 @@
+
 <div class="card">
     <div class="card-header">
         <h1 class="card-title">{{lang('Settings')}}</h1>
+        <form action="{{ route('admin.list_settings') }}" method="GET" class="row mb-3" id="filterer">
+            &nbsp;
+            <div class="col">
+                <label>{{lang('alias')}}</label>
+                <input class="form-control" type="text" value="{{ request()->input('filter.alias') }}" name="filter[alias]">
+            </div>
+            <a class="btn btn-sm btn-danger col-1 mt-auto {{request()->input('filter')?'':'d-none'}}" href="{{route('admin.list_settings')}}"><i class="tim-icons icon-simple-remove"></i></a>
+            <button class="btn btn-sm btn-success col-1 mt-auto" type="submit">{{lang('search')}}</button>
+        </form>
         <a class="btn btn-sm btn-info setting_shower" href="{{ route('admin.create_setting') }}">{{lang('create')}}</a>
     </div>
     <div class="card-body">

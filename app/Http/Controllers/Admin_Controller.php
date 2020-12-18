@@ -398,9 +398,12 @@ class Admin_Controller extends Controller
         $service->save();
         return redirect()->route('admin.list_services');
     }
-    public function list_settings()
+    public function list_settings(Request $request)
     {
-        $data['settings'] = Setting::orderBy('id', 'DESC')->paginate(30);
+        $query = QueryBuilder::for(Setting::class)
+            ->allowedFilters(['alias']);
+        $data['settings'] = $query->orderBy('id', 'DESC')->paginate(20);
+        // $data['settings'] = Setting::orderBy('id', 'DESC')->paginate(30);
         return $this->view('list_settings', $data);
     }
 
@@ -416,7 +419,7 @@ class Admin_Controller extends Controller
             case 'GET':
                 $data['setting'] = Setting::where(['id' => $req->id])->first();
                 if ($data['setting'])
-                    return View::make('admin.view_setting')->with($data)->render();
+                    return View::make('Admin.view_setting')->with($data)->render();
                 return abort(404);
                 break;
             case 'POST':

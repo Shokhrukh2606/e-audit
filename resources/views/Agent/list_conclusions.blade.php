@@ -90,17 +90,17 @@
                 <th>{{ lang('inn') }}</th>
                 <th>{{ lang('standartNumber') }}</th>
                 <th>{{ lang('status') }}</th>
-                <th colspan="3">{{ lang('activity') }}</th>
+                <th colspan="4">{{ lang('activity') }}</th>
             </thead>
             <tbody>
                 @foreach ($conclusions as $conclusion)
                     <tr>
                         <td>{{ $conclusion->id }}</td>
                         <td>
-                            {{ $conclusion->cust_info->cust_comp_inn }}
+                            {{-- {{ $conclusion->cust_info->cust_comp_inn }} --}}
                         </td>
                         <td>
-                            {{ $conclusion->cust_info->template['standart_num'] }}
+                            {{-- {{ $conclusion->cust_info->template['standart_num'] }} --}}
                         </td>
                         <td>
                             @if ($conclusion->state == 'finished')
@@ -111,7 +111,7 @@
                             
                             @else
                                 <span class="badge badge-danger">
-                                    {{ $conclusion->state }}
+                                    {{ lang($conclusion->state) }}
                                 </span>
                             @endif
                         </td>

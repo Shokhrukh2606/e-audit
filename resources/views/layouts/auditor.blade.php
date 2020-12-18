@@ -128,7 +128,7 @@
               <li class="dropdown nav-item">
                 <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
 
-                  <i class="tim-icons icon-world"></i> O'zbek
+                  <i class="tim-icons icon-world"></i>&nbsp;<span id="nowInLanguage"> O'zbek</span>
                   <p class="d-lg-none">
                     <i class="tim-icons icon-world"></i>
                   </p>
@@ -394,6 +394,16 @@
 					localStorage.setItem("prefered", "black")
         });
         document.getElementsByTagName("body")[0].style.display="block";
+        $("#nowInLanguage").text(function(){
+            let currentUrl=window.location.href
+            let modified=currentUrl.split('/')
+            langWords={
+                'uz':'Uzbek',
+                'ru':'Русский',
+                'oz':'O\'zbek'
+            }
+            return langWords[modified[3]]
+        })
         $(".langChanger").click(function(e){
           e.preventDefault()
           var needed=$(this).data("lang")

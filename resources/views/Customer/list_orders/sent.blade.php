@@ -9,6 +9,7 @@
                 <th>{{ lang('ID') }}</th>
                 <th>{{ lang('useCases') }}</th>
                 <th>{{ lang('date') }}</th>
+                <th>{{ lang('status') }}</th>
                 <th>{{ lang('show') }}</th>
             </thead>
             <tbody>
@@ -24,12 +25,12 @@
                                 </span>
                             @endforeach
                         </td>
+                        <td>{{ $order->created_at }}</td>
                         <td>
                             <span class="badge badge-danger">
-                            {{$states[$order->status]}}
+                            {{lang($states[$order->status])}}
                             </span>
                         </td>
-                        <td>{{ $order->created_at }}</td>
                         <td>
                         <a 
                             href="{{ route('customer.order_view', $order->id) }}"

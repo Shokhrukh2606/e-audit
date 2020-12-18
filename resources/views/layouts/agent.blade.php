@@ -46,10 +46,40 @@
 
         </div>
         <ul class="nav mynav">
-          <li>
+          {{-- <li>
             <a href="{{ route('agent.list_conclusions') }}">
               <i class="tim-icons icon-attach-87"></i>
               <p>{{ lang('conclusions') }}</p>
+            </a>
+          </li> --}}
+          <li>
+            <a href="{{route("agent.list_conclusions", ['status'=>1])}}">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('initialized_conclusions')}}</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{route("agent.list_conclusions", ['status'=>5])}}">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('received_admin_conclusions')}}</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{route("agent.list_conclusions", ['status'=>2])}}">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('sent_conclusions')}}</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{route("agent.list_conclusions", ['status'=>4])}}">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('rejected_conclusions')}}</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{route("agent.list_conclusions", ['status'=>3])}}">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('finished_conclusions')}}</p>
             </a>
           </li>
           <li>
@@ -97,7 +127,7 @@
               <li class="dropdown nav-item">
                 <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
 
-                  <i class="tim-icons icon-world"></i> O'zbek
+                  <i class="tim-icons icon-world"></i>&nbsp;<span id="nowInLanguage"> O'zbek</span>
                   <p class="d-lg-none">
                     <i class="tim-icons icon-world"></i>
                   </p>
@@ -383,6 +413,16 @@
           $('body').removeClass('white-content');
           localStorage.setItem("prefered", "black")
         });
+        $("#nowInLanguage").text(function(){
+            let currentUrl=window.location.href
+            let modified=currentUrl.split('/')
+            langWords={
+                'uz':'Uzbek',
+                'ru':'Русский',
+                'oz':'O\'zbek'
+            }
+            return langWords[modified[3]]
+        })
         $(".langChanger").click(function(e){
           e.preventDefault()
           var needed=$(this).data("lang")
