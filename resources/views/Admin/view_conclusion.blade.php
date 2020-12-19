@@ -1,5 +1,6 @@
 @php
-$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields", "message", "status"];
+$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields", "message", "status","qr_hash","A2","P2","DO","A1","P1","DEK2","PUDN","P","is_coefficent","conclusion_base","contract_name","contract_passport_serie","contract_where_given","contract_address","contract_company_name","contract_company_inn","contract_type","cust_comp_director_name","cust_comp_oked","cust_comp_bank_mfo","cust_comp_bank_name","cust_comp_address"," cust_comp_activity"];
+$files=['cust_comp_gov_registration_copy', 'cust_comp_director_passport_copy']
 @endphp
 <div class="card">
 	<div class="card-header">
@@ -9,6 +10,7 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
             </span>
 		</h2>
 	</div>
+	
 	<div class="card-body">
 		{{-- Order info --}}
 		<h3>{{lang('orderDetails')}}</h3>
@@ -29,7 +31,17 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
 		<ul>
 			@foreach($conclusion->cust_info->getAttributes() as $key=>$value)
 			@continue(in_array($key, $not_iterated, TRUE))
-			<li>{{lang($key)}}: {{$value}}</li>
+			<li>{{lang($key)}}: @if(in_array($key, $files, true))
+                        <a href="{{route('file')."?path=".$value}}" target="blank"
+                        class="btn btn-primary btn-link"
+                        >
+                    {{lang('show')}}
+                    </a>
+                    @else
+                        {{$value}}
+
+                    @endif
+             </li>
 			@endforeach
 			@php
 	// get custom fields array
@@ -40,6 +52,7 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
 			@foreach(custom_fields($conclusion->cust_info->template_id) as $field)
 
 			<li>
+
 				{{$field->label->ru}} :
 				@if(!isset($custom_fields->{$field->name}))
 				{{__('front.nothing_yet')}}
@@ -53,23 +66,15 @@ $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "te
 				</a>
 				@else
 				{{$custom_fields->{$field->name} }}
+
 				@endif
 			</li>
 			@endforeach
-
+			<li>
+				<a href="{{route('admin.view_conclusion_open',$conclusion->id)}}" class="btn btn-success">{{lang('view_conclusion')}}</a>
+			</li>
 		</ul>
-		@if(in_array($conclusion->status, [2, 1]))
-			<a href="{{route('admin.change_status', ['finished',$conclusion->id])}}" 
-				class="btn btn-success btn-sm btn-simple">
-				Подтвердить правильность документов
-			</a>
-		@endif
-		@if(in_array($conclusion->status, [2, 1]))
-		<a href="{{route('admin.change_status', ['rejected',$conclusion->id])}}" 
-			class="btn btn-danger btn-sm btn-simple">
-			Отрицание достоверности данных
-		</a>
-	@endif
+		
 	</div>
 </div>
 <script>

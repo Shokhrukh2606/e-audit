@@ -13,6 +13,7 @@ use App\Models\Invoice;
 use App\Models\Transaction;
 use App\Models\Contract;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Blank;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -203,7 +204,7 @@ class Customer_Controller extends Controller
                     $original_custom[$key] = $value
                         ->storeAs("orders/$order->id", time() . $value->getClientOriginalName());
                 }
-                $original_custom = json_decode($CCI->custom_fields, true);
+                
                 foreach ($custom_fields ?? [] as $key => $value) {
                     
                     $original_custom[$key] = $value;
@@ -265,20 +266,27 @@ class Customer_Controller extends Controller
     }
     public function conclusion(Request $req)
     {
-        $data['protected']=true;
+        $data['protected'] = true;
+        if ($req->blank_id) {
+            $blank = Blank::where('id', $req->blank_id)->first();
+            if ($blank->conclusion_id == $req->id) {
+                $data['protected'] = false;
+                $data['blank'] = $blank;
+            }
+            
+        }
         $data['conclusion'] = Conclusion::where('id', $req->id)->first();
         if ($data['conclusion']) {
+            $data['img'] = "img";
             $template = $data['conclusion']->cust_info->template->standart_num;
             $lang = $data['conclusion']->cust_info->lang;
-            $data['qrcode'] = base64_encode(QrCode::size(70)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
-           
+            $data['qrcode'] = base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
             if($data['conclusion']->is_coefficent=='no_coef'){
                 $pdf = PDF::loadView("templates.$template.$lang", $data);
             }else{
                 $pdf = PDF::loadView("templates.$template.$lang"."_percent", $data);
             }
-
-            return $pdf->stream('invoice.pdf');
+            return $pdf->stream('conclusion.pdf');
         }
         abort(404);
     }
@@ -351,6 +359,17 @@ class Customer_Controller extends Controller
         $conclusion->status=5;
         $conclusion->save();
         return redirect()->back();
+    }
+    public function contracts_view(Request $req){
+        $data['contract']=Contract::where(['id'=>$req->id])->first();
+        if (!$data['contract'])
+            return  abort(404);
+        if($data['contract']->conclusion->cust_info->contract_type=='yur'){
+            return $this->view('juridic_contracts_view', $data);
+        }
+        if($data['contract']->conclusion->cust_info->contract_type=='fiz'){
+            return $this->view('contracts_view', $data);
+        }
     }
 
 }

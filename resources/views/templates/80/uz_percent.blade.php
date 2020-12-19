@@ -107,7 +107,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
             </div>
             </p>Сертификат
             №{{ $conclusion->auditor ? $conclusion->auditor->cert_number : $conclusion->agent->cert_number }}.
-            {{ date('d-m-Y', strtotime($conclusion->cert_date)) }} да УзР Молия Вазирлиги томонидан берилган.)
+            {{ date('d-m-Y', strtotime($conclusion->cert_date)) }} да УзР Молия Вазирлиги томонидан берилган.
         </div>
     </div>
 </body>

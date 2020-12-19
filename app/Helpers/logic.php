@@ -1336,7 +1336,7 @@ if (!function_exists('file_fields_for_validation_edit')) {
 		});
 
 		$rules = array_map(function ($v) {
-			return ["custom." . $v['name'] => "mimetypes:" . $v['mime_types']];
+			return ["custom." . $v['name'] => "mimes:" . $v['mime_types']];
 		}, $file_fields);
 		return array_merge(...$rules);
 	}
@@ -1402,11 +1402,12 @@ if (!function_exists('sms')) {
 			CURLOPT_HTTPHEADER,
 			array(
 				'Content-Type: application/json',
-				'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9ub3RpZnkuZXNraXoudXpcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MDU0NzE4OTIsImV4cCI6MTYwODA2Mzg5MiwibmJmIjoxNjA1NDcxODkyLCJqdGkiOiJFeDV5QmRHMzAyVHJmdm1WIiwic3ViIjoyOTIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.xHIXsJfive_SbDG_wdI-N-RDUp2KjjGtOcJV3zsqNvM'
+				'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9ub3RpZnkuZXNraXoudXpcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MDgzOTE3MTIsImV4cCI6MTYxMDk4MzcxMiwibmJmIjoxNjA4MzkxNzEyLCJqdGkiOiJOakpyeGNSYlgzQ2F6aVNhIiwic3ViIjoyOTIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.LsU-cPWuYCwwbeflTIWZRSsxXqvE8NFCiIBHmeUOrP0'
 			)
 		);
 		// execute
 		$output = curl_exec($ch);
+		dd($output);
 		curl_close($ch);
 		return $output;
 	}

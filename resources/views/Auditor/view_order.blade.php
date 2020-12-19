@@ -1,5 +1,6 @@
 @php
-$iterated=['cust_comp_name', 'cust_comp_inn'];
+$iterated=['cust_comp_name', 'cust_comp_inn',"cust_comp_gov_registration_copy","cust_comp_director_passport_copy"];
+$files=['cust_comp_gov_registration_copy', 'cust_comp_director_passport_copy']
 @endphp
 <div class="card">
 	<div class="card-header">
@@ -29,7 +30,16 @@ $iterated=['cust_comp_name', 'cust_comp_inn'];
 		<ul>
 			@foreach($order->cust_info->getAttributes() as $key=>$value)
 			@continue(!in_array($key, $iterated, TRUE))
-			<li>{{lang($key)}}: {{$value}}</li>
+			<li>{{lang($key)}}:  @if(in_array($key, $files, true))
+                        <a href="{{route('file')."?path=".$value}}" target="blank"
+                        class="btn btn-primary btn-link"
+                        >
+                    {{lang('show')}}
+                    </a>
+                    @else
+                        {{$value}}
+                    @endif
+             </li>
 			@endforeach
 			@php
 	// get custom fields array

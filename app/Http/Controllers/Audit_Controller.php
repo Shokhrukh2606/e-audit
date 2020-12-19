@@ -179,12 +179,12 @@ class Audit_Controller extends Controller
     {
         switch ($req->method()) {
             case 'GET':
-                if (count(Blank::available(auth()->user()->id)) == 0) {
-                    $data['message'] = 'You do not have any blanks left!';
-                    $data['link'] = route('auditor.init_conclusions');
-                    return $this->view('message', $data);
-                }
-                $data['blanks'] = Blank::available(auth()->user()->id);
+                // if (count(Blank::available(auth()->user()->id)) == 0) {
+                //     $data['message'] = 'You do not have any blanks left!';
+                //     $data['link'] = route('auditor.init_conclusions');
+                //     return $this->view('message', $data);
+                // }
+                // $data['blanks'] = Blank::available(auth()->user()->id);
                 $data['order'] = Order::where(['id' => $req->id, 'auditor_id' => auth()->user()->id])->first();
                 if ($data['order'])
                     return $this->view('create_conc_on_order', $data);
@@ -235,7 +235,7 @@ class Audit_Controller extends Controller
     }
     public function conclusion(Request $req)
     {
-        $data['protected'] = false;
+        $data['protected'] = true;
         if ($req->blank_id) {
             $blank = Blank::where('id', $req->blank_id)->first();
             if ($blank->conclusion_id == $req->id) {

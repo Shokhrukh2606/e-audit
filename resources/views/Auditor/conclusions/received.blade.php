@@ -93,7 +93,7 @@
                 <th>{{lang('id')}}</th>
                 <th>{{lang('standartNumber')}}</th>
                 <th>{{lang('useCases')}}</th>
-                <th>{{lang('comment')}}</th>
+                <
                 <th>{{lang('assign_blank')}}</th>
                 <th>{{lang('show')}}</th>
                 <th>{{lang('resent')}}</th>
@@ -111,12 +111,13 @@
                         <span>{{ json_decode($uc->title)->ru }}</span> |
                         @endforeach
                     </td>
-                    <td>{{ $conclusion->cust_info->order->message }}</td>
+                    
                     <td>
                         @if($conclusion->status=='5')
                         @if(count($conclusion->blanks)!=0)
                         {{lang('done')}}
                         @else
+                        @if($conclusion->invoice&&$conclusion->invoice->status=='confirmed')
                         <button 
                             type="button" 
                             href="#" 
@@ -126,6 +127,9 @@
                         >
                             {{lang('assign_blank')}}
                         </button>
+                        @else
+                            {{lang('waiting payment')}}
+                        @endif
                         @endif
                         @else
                         <a href="{{ route('auditor.edit_conclusion', $conclusion->id) }}" class="btn btn-warning btn-simple btn-sm">
@@ -138,6 +142,22 @@
                             href="{{ route('auditor.conclusion', $conclusion->id) }}">
                             {{lang('show')}}
                         </a>
+                        @foreach ($conclusion->blanks as $blank)
+                                @continue($blank->is_brak)
+                                <br> <br>
+                                <a class="btn btn-sm btn-simple btn-success"
+                                    href="{{ route('auditor.conclusion',
+                                        [
+                                        'id'=>$conclusion->id, 
+                                        'blank_id'=>$blank->id
+                                        ]
+                                    ) 
+
+                                    }}">
+                                    {{ lang('show') }} - blank {{ $blank->id }}
+                                </a>
+                            @endforeach
+
                     </td>
                     <td>
                         @if($conclusion->status=='5')
