@@ -62,6 +62,7 @@
 	function test_code(elem) {
 		let form = document.getElementById("pswrd_form");
 
+		
 		if (MD5(elem.value) == verification_hash) {
 			form.style.display = "block";
 			document.getElementById("real_phone").value = phone;

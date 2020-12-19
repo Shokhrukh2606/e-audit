@@ -1407,7 +1407,7 @@ if (!function_exists('sms')) {
 		);
 		// execute
 		$output = curl_exec($ch);
-		dd($output);
+		
 		curl_close($ch);
 		return $output;
 	}
