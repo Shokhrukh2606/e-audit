@@ -68,10 +68,10 @@
 						</select>
 					</div>
 				</div>
-				<div class="mb-4">
+				{{-- <div class="mb-4">
 					<label>{{lang('conclusion_base')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
-				</div>
+				</div> --}}
 			</div>
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
@@ -93,10 +93,10 @@
 			<label for="#">{{lang('with_coef')}}</label>
 		
 				
-				<div>
+				{{-- <div>
 					<label>{{lang('conclusion_base')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
-				</div>
+				</div> --}}
 			<div id="wrapper">
 				<div id="coefs">
 				<div class="kps">

@@ -17,7 +17,7 @@ class Payme extends Controller
      * @return array-like
      */
     private $login = 'Paycom';
-    private $password = 'JcOfY9B%8#R48it&xuC6vM8oOxYsIot?456N';
+    private $password = 'QUFIQVS9&qaEaIAb?T%oyXKXRpN6cRuren?8';
 
     public function dispatcher(Request $req)
     {

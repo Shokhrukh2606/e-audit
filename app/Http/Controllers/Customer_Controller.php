@@ -205,8 +205,7 @@ class Customer_Controller extends Controller
                 }
                 $original_custom = json_decode($CCI->custom_fields, true);
                 foreach ($custom_fields ?? [] as $key => $value) {
-                    Storage::delete($original_custom[$key] ?? null);
-                    /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
+                    
                     $original_custom[$key] = $value;
                 }
 

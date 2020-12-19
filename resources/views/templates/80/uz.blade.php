@@ -19,7 +19,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
         }
 
         @if ($protected)body {
-            /* background-image: url("{{ asset('shutterstock.png') }}"); */
+             background-image: url("{{ asset('shutterstock.png') }}"); 
             background-size: 100px 100px;
         }
 
@@ -114,6 +114,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
             </p>
             <p class="text-right">Такдим этилган сана : {{ date('d-m-Y', strtotime($conclusion->created_at)) }} й</p>
             <p class="text-left">
+            @if($blank??false)
+            BLANK: {{$blank->id}}
+            @endif
             <div class="qr-code">
                 <img src="data:application/octet-stream;base64, {{ $qrcode }}" alt="">
             </div>

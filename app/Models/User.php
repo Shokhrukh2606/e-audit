@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Invoice;
 
 class User extends Authenticatable
 {
@@ -110,5 +111,14 @@ class User extends Authenticatable
     }
     public function invoices(){
         return $this->hasMany('App\Models\Invoice', 'user_id');
+    }
+    public function bills(){
+        return count(Invoice::where([
+            'user_id'=>auth()->user()->id,
+            'closed_with'=>'bill',
+            'status'=>'waiting'
+            ]
+        )->get()
+    );
     }
 }

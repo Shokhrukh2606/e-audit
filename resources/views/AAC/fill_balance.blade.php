@@ -54,7 +54,7 @@
             </p>
             <p>&nbsp;</p>
         </li>
-        <li>
+       {{--  <li>
             <p><strong>Платежная система <a href="http://click.uz" target="_blank">CLICK</a>.</strong></p>
             <p>Вы можете оплатить через сайт <a href="https://click.uz/payment/" target="_blank">click.uz</a> или с помощью
                 мобильного приложения, которое доступно для скачивания с официального сайта <a href="https://click.uz/"
@@ -65,7 +65,7 @@
                     target="_blank">здесь</a>.</p>
             <p style="font-size:11px;">Также у вас должна быть платежная карточка UZCARD с положительным балансом.</p>
             <p>&nbsp;</p>
-        </li>
+        </li> --}}
     </ol>
     <p style="color:green">1. Выше перечисленные платежные системы являются доверительными партнерами нашей компанией,
         имеющие прямой договор с нами на прием оплаты.</p>
@@ -75,8 +75,8 @@
     <ol>
         <li>
             <p><strong><a href="https://payme.uz" target="_blank">PAYME</a> тўлов тизими.</strong></p>
-            <p>Тўловни<a href="https://payme.uz/home/payment" target="_blank">payme.uz</a> сайти орқали ёки Payme
-                тизимининг сайтида кўрсатилган mobil илова орқали амалга оширишингиз мумкин<a href="https://payme.uz"
+            <p>Тўловни <a href="https://payme.uz/home/payment" target="_blank">payme.uz</a> сайти орқали ёки Payme
+                тизимининг сайтида кўрсатилган mobil илова орқали амалга оширишингиз мумкин <a href="https://payme.uz"
                     target="_blank">payme.uz</a></p>
             <p>Хисобингизни тўлдириш учун ушбу ИД кодни киритасиз:<strong>U{{auth()->user()->id}}</strong> ва суммасини.</p>
             <p style="font-size:11px;">Ушбу тизимдан фойдаланиш учун сизда СМС-хизмати фаоллаштирилган бўлиши керак.
@@ -85,7 +85,7 @@
             </p>
             <p>&nbsp;</p>
         </li>
-        <li>
+        {{-- <li>
             <p><strong><a href="http://click.uz" target="_blank">CLICK</a> тўлов тизими.</strong> </p>
             <p>Тўловни ушбу <a href="https://click.uz/payment/" target="_blank">click.uz</a> сайт орқали ёки сайтда
                 кўрсатилган mobil-илова орқали амалга оширишингиз мумкин. <a href="https://click.uz/"
@@ -96,7 +96,7 @@
                 бўлиши керак.
             </p>
             <p>&nbsp;</p>
-        </li>
+        </li> --}}
     </ol>
     <hr>
     @break
