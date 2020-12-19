@@ -49,8 +49,6 @@ class Click extends Controller
         }
     }
 	public function complete(Request $req){
-        if ($req->merchant_trans_id && $req->merchant_trans_id['0']=='U') 
-            return $this->completeUser($req);
 		
         // error checking
         $check = new PaymeUserChecks();
