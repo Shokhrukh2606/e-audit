@@ -14,7 +14,7 @@
         @if ($protected)
         body {
             background-image: url("{{ asset('shutterstock.png') }}"); 
-            background-size: 100px 100px;
+            background-size: 200px;
         }
 
         @endif
@@ -67,7 +67,7 @@
             доказательств. Выбор аудиторских процедур является предметом нашего суждения.
             Мы полагаем, что полученные в ходе аудиторской услуги аудиторские доказательства дают достаточные основания
             для выражения мнения о достоверности финансовой отчетности.
-            Аудит финансовой отчетности ЧП {{ $conclusion->cust_info->cust_comp_name }}. за период {{getQuarter('quarter_start', $conclusion->cust_info->quarter_start).$conclusion->cust_info->year}} года выявлено ниже следующие:
+            Аудит финансовой отчетности ЧП {{ $conclusion->cust_info->cust_comp_name }}. за период {{getQuarter('quarter_start', $conclusion->cust_info->quarter_start).$conclusion->cust_info->year}} года выявлено ниже следующие:<br>
             1. Коэффициент платежеспособности составляет {{ $conclusion->kps()['value'] }} %<br>
             2. Коэффициент обеспеченности собственными оборотными средствами составляет{{ $conclusion->koses()['value'] }} %<br>
             3. Коэффициент рентабельности расходов {{ $conclusion->kpp()['value'] }}% <br>
