@@ -48,9 +48,7 @@ class Click extends Controller
         }
     }
 	public function complete(Request $req){
-        
         // error checking
-        $check = new PaymeUserChecks();
         
         $error_check= new BasePaymentErrors();
         $result=$error_check->request_check($req, $this->click_secret_key);

@@ -180,6 +180,7 @@
 
 </div>
 <script>
+
     var formGenerator=document.getElementById("generator")
     formGenerator.addEventListener("click", function(e){
         e.preventDefault()      
@@ -213,4 +214,3 @@
     });
 
 </script>
-
