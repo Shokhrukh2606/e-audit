@@ -9,10 +9,10 @@
                 <th>{{ lang('ID') }}</th>
                 <th>{{ lang('useCases') }}</th>
                 <th>{{ lang('date') }}</th>
-                <th>{{ lang('reject')}} </th>
-                <th>{{ lang('showOrder') }}</th>
                 <th>{{ lang('showConclusion') }}</th>
+                <th>{{ lang('showOrder') }}</th>
                 <th>{{ lang('pay') }}</th>
+                <th>{{ lang('reject')}} </th>
             </thead>
             <tbody>
                 @foreach ($orders as $order)
@@ -28,27 +28,6 @@
                             @endforeach
                         </td>
                         <td>{{ $order->created_at }}</td>
-                        <td>
-                            @if($order->cust_info->conclusion->status!='5')
-                            <button 
-                                class="btn btn-simple btn-danger"  
-                                data-toggle="modal" data-target="#rejectModal" data-id="{{$order->id}}"
-                                onclick="init_reject_form(this)"
-                            >
-                                {{ lang('reject') }}
-                            </button>
-                            @else
-                            {{ lang('already_accepted') }}
-                            @endif
-                        </td>
-                        <td>
-                        <a 
-                            href="{{ route('customer.order_view', $order->id) }}"
-                            class="btn btn-danger btn-sm"
-                        >
-                            {{ lang('showOrder') }}
-                        </a>
-                        </td>
                         <td>
                             @if ($order->cust_info->conclusion->id ?? false)
                                 <a href="{{ route('customer.conclusion', $order->cust_info->conclusion->id) }}" 
@@ -77,6 +56,15 @@
                             @endif
                         </td>
                         <td>
+                        <a 
+                            href="{{ route('customer.order_view', $order->id) }}"
+                            class="btn btn-danger btn-sm"
+                        >
+                            {{ lang('showOrder') }}
+                        </a>
+                        </td>
+                        
+                        <td>
                             @if ($order->cust_info->conclusion->id ?? false)
                             
                                     @if($order->cust_info->conclusion->status=='5')
@@ -95,6 +83,19 @@
                                 
                             @else
                                 {{ __('custom.conclusion_not_written') }}
+                            @endif
+                        </td>
+                        <td>
+                            @if($order->cust_info->conclusion->status!='5')
+                            <button 
+                                class="btn btn-simple btn-danger"  
+                                data-toggle="modal" data-target="#rejectModal" data-id="{{$order->id}}"
+                                onclick="init_reject_form(this)"
+                            >
+                                {{ lang('reject') }}
+                            </button>
+                            @else
+                            {{ lang('already_accepted') }}
                             @endif
                         </td>
                     </tr>

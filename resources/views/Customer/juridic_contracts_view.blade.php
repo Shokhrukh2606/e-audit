@@ -43,8 +43,8 @@
             <span style='mso-spacerun:yes'> </span>(кейинги ўринларда “Иш бажарувчи” деб
             юритилади) номидан “Низом” асосида фаолият юритувчи раҳбари <span
                 style='mso-bidi-font-weight:bold'>{{$contract->conclusion->audit_comp_director_name}} </span>ва {{$contract->conclusion->cust_info->cust_comp_director_name}} 
-            (кейинги ўринларда “Буюртмачи” деб юритилади) номидан “Низом” асосида фаолият юритувчи {{$contract->conclusion->cust_info->contract_name}} 
-            раҳбари лар томонидан мазкур шартнома аудиторлик профессинал
+            (кейинги ўринларда “Буюртмачи” деб юритилади) {{$contract->conclusion->cust_info->contract_company_name}} номидан “Низом” асосида фаолият юритувчи 
+            раҳбари {{$contract->conclusion->cust_info->cust_comp_director_name}}лар томонидан мазкур шартнома аудиторлик профессинал
             хизматлар кўрсатиш тўғрисида тузилди.</span><span lang=UZ-CYR style='font-size:
     13.0pt;mso-bidi-font-size:12.0pt;mso-ansi-language:UZ-CYR'>
             <o:p></o:p>

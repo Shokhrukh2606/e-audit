@@ -98,7 +98,8 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
             <p class="bold center">Ижобий фикр</p>
             <p>
                 <span class="bold underline">Шунингдек {{ $conclusion->cust_info->cust_comp_name }}</span>
-                корхонасининг 01.05.2020 йил холати буйича тузилган молиявий хисоботи, унинг молиявий ахволини хакконий
+            
+                корхонасининг {{$conclusion->cust_info->year}} йил {{quarter_statement($conclusion->cust_info->quarter_start, $conclusion->cust_info->quarter_finish)}} холати буйича тузилган молиявий хисоботи, унинг молиявий ахволини хакконий
                 акс
                 эттиради ва мазкур хўжалик юритувчи субъект томонидан амалга оширилган молиявий ва хўжалик операциялари
                 Ўзбекистон Республикаси қонун хужжатларининг талабларига жавоб беради.

@@ -1,5 +1,5 @@
 @php
-$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields", "message", "status","qr_hash","A2","P2","DO","A1","P1","DEK2","PUDN","P","is_coefficent","conclusion_base","contract_name","contract_passport_serie","contract_where_given","contract_address","contract_company_name","contract_company_inn","contract_type","cust_comp_director_name","cust_comp_oked","cust_comp_bank_mfo","cust_comp_bank_name","cust_comp_address"," cust_comp_activity"];
+$not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields", "message", "status","qr_hash","A2","P2","DO","A1","P1","DEK2","PUDN","P","is_coefficent","conclusion_base","contract_name","contract_passport_serie","contract_where_given","contract_address","contract_company_name","contract_company_inn","contract_type","cust_comp_director_name","cust_comp_oked","cust_comp_bank_mfo","cust_comp_bank_name","cust_comp_address","cust_comp_activity","cust_comp_bank_acc","cust_comp_gov_reg_num","cust_comp_registered_by"];
 $files=['cust_comp_gov_registration_copy', 'cust_comp_director_passport_copy']
 @endphp
 <div class="card">
@@ -21,10 +21,10 @@ $files=['cust_comp_gov_registration_copy', 'cust_comp_director_passport_copy']
 				<span>{{json_decode($uc->title)->ru}}</span>
 				@endforeach
 			</li>
-			@foreach($conclusion->getAttributes() as $key=>$value)
+			{{-- @foreach($conclusion->getAttributes() as $key=>$value)
 			@continue(in_array($key, $not_iterated, TRUE))
 				<li>{{lang($key)}}: {{$value}}</li>
-			@endforeach
+			@endforeach --}}
 		</ul>
 		{{-- Customer info --}}
 		<h3>{{lang('clientInfo')}}</h3>

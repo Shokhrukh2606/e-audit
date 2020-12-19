@@ -1475,3 +1475,23 @@ function getQuarter($type, $val)
 		}
 	}
 }
+function quarter_statement($start,$finish){
+	if($start==1&&$finish==4){
+		return "";
+	}
+
+	if($start==4&&$finish==4){
+		return "";
+	}
+
+	$string="";
+
+	for($i=(int) $start;$i<=(int) $finish;$i++){
+		if($i==$start){
+			$string.=$i;
+			continue;
+		}
+		$string.=",".$i;
+	}
+	return $string." квартал";
+}

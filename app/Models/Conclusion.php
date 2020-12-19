@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Cust_comp_info;
 use App\Models\Invoice;
 use App\Models\Blank;
+use App\Models\Contract;
 
 
 class Conclusion extends Model
@@ -59,6 +60,10 @@ class Conclusion extends Model
   public function customer()
   {
     return $this->belongsTo(User::class, "customer_id");
+  }
+  public function contract()
+  {
+    return $this->hasOne(Contract::class, "conclusion_id");
   }
   public function auditor()
   {
@@ -137,7 +142,7 @@ class Conclusion extends Model
         ];
     return [
           'error'=>0,
-          'value'=>$this->PUDN/$this->P
+          'value'=>round(($this->PUDN1+$this->PUDN2+$this->PUDN3+$this->PUDN4)/$this->P,2)
         ];
   }
 

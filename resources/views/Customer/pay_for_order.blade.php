@@ -7,8 +7,8 @@
     <div class="bill mb-30">
         <div class="title center mb-30">
             <h3 class="bold mb-5">СЧЕТ НА ЗАКЛЮЧЕНИЕ № {{ $invoice->conclusion->id }} от
-                {{ $invoice->conclusion->created_at }}</h3>
-            <h3 class="bold mt-0">к Договору № {{ $invoice->id }} от {{ $invoice->created_at }}</h3>
+                {{ date('Y-m-d',strtotime($invoice->conclusion->created_at)) }}</h3>
+            <h3 class="bold mt-0">к Договору № {{ $invoice->conclusion->contract->id }} от {{ date('Y-m-d',strtotime($invoice->conclusion->contract->created_at)) }}</h3>
         </div>
         <div class="mb-15 users">
             <div>
@@ -25,19 +25,39 @@
                 <p><span class="bold">Расчетный счет: </span>{{ $invoice->conclusion->audit_comp_bank_acc }} в
                     {{ $invoice->conclusion->audit_comp_bank_name }}
                 </p>
-                <p><span class="bold">МФО: </span>{{ $invoice->conclusion->audit_comp_mfo }}</p>
+                <p><span class="bold">МФО: </span>{{ $invoice->conclusion->audit_comp_bank_mfo }}</p>
                 <p><span class="bold">ИНН: </span>{{ $invoice->conclusion->audit_comp_inn }}</p>
                 <p><span class="bold">ОКЭД: </span>{{ $invoice->conclusion->audit_comp_oked }}</p>
             </div>
             <div>
+                @php
+                    $conclusion=$invoice->conclusion;
+                    $yur_fields=['contract_company_name','contract_company_inn',"cust_comp_address","cust_comp_bank_name","cust_comp_bank_acc","cust_comp_bank_mfo","cust_comp_oked","cust_comp_director_name"];
+                    $fiz_fields=["contract_name","contract_passport_serie","contract_where_given","contract_address"];
+                @endphp
                 <p class="mb-10"><span class="bold">Заказчик:
-                    </span>{{ $invoice->conclusion->cust_info['cust_comp_name'] }}</p>
-                <p><span class="bold">Адрес: </span>{{ $invoice->conclusion->cust_info['cust_comp_address'] }}</p>
-                <p><span class="bold">Расчетный счет: </span>{{ $invoice->conclusion->cust_info['cust_comp_bank_acc'] }}
-                    в {{ $invoice->conclusion->cust_info['cust_comp_bank_name'] }}
-                <p><span class="bold">МФО: </span>{{ $invoice->conclusion->cust_info['cust_comp_bank_mfo'] }}</p>
-                <p><span class="bold">ИНН: </span>{{ $invoice->conclusion->cust_info['cust_comp_inn'] }}</p>
-                <p><span class="bold">ОКЭД: </span>{{ $invoice->conclusion->cust_info['cust_comp_oked'] }}</p>
+                @if($conclusion->cust_info->contract_type=='yur')
+                @foreach($yur_fields as $key)
+                    <p class="mb-10">
+                        <span class="bold">
+                            {{lang($key)}}
+                        </span>
+               {{$conclusion->cust_info->$key}}</p>
+                
+                @endforeach
+
+                @else
+
+                 @foreach($fiz_fields as $key)
+                    <p class="mb-10">
+                        <span class="bold">
+                            {{lang($key)}}
+                        </span>
+                {{$conclusion->cust_info->$key}}</p>
+                
+                @endforeach 
+                @endif
+                
 
 
             </div>
@@ -62,16 +82,14 @@
                 <td class="center">{{ $invoice->price }}</td>
             </tr>
         </table>
-        <p class="bold mb-60">Итого к оплате: {{$invoice->price}} сум (восемь тысяч четыреста сум), без НДС.</p>
+        <p class="bold mb-60">Итого к оплате: {{$invoice->price}} сум , без НДС.</p>
     </div>
 
     <div class="attentation mb-60">
         <p class="bold mb-5">Внимание! Оплата данного счета означает согласие с условиями предоставления услуг.</p>
         <p class="mt-0">Уведомление об оплате необязательно. Услуги предоставляются по факту поступления денежных
             средств
-            на расчетный счет Исполнителя. После предоставления услуги, Исполнитель уведомляет об этом Заказчика
-            посредством
-            отправки электронного письма на электронный почтовый адрес Заказчика: axtrem13@gmail.com.</p>
+            на расчетный счет Исполнителя.</p>
     </div>
     @if ($invoice->status == 'waiting')
         <div class="mb-30">

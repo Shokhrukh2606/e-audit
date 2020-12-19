@@ -121,8 +121,20 @@
 					</div>
 				</div>
 				<div class="kpp">
-					<label>{{lang('PUDN')}}</label>
-					<input class="form-control" type="number" name="conclusion[PUDN]" onkeyup="kpp()">
+					<label>{{lang('PUDN1')}}</label>
+					<input class="form-control" type="number" name="conclusion[PUDN1]" onkeyup="kpp()">
+				</div>
+				<div class="kpp">
+					<label>{{lang('PUDN2')}}</label>
+					<input class="form-control" type="number" name="conclusion[PUDN2]" onkeyup="kpp()">
+				</div>
+				<div class="kpp">
+					<label>{{lang('PUDN3')}}</label>
+					<input class="form-control" type="number" name="conclusion[PUDN3]" onkeyup="kpp()">
+				</div>
+				<div class="kpp">
+					<label>{{lang('PUDN4')}}</label>
+					<input class="form-control" type="number" name="conclusion[PUDN4]" onkeyup="kpp()">
 				</div>
 				<div class="kpp">
 					<label>{{lang('P')}}</label>

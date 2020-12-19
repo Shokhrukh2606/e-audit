@@ -25,19 +25,19 @@
                 <p><span class="bold">Расчетный счет: </span>{{ $invoice->conclusion->audit_comp_bank_acc }} в
                     {{ $invoice->conclusion->audit_comp_bank_name }}
                 </p>
-                <p><span class="bold">МФО: </span>{{ $invoice->conclusion->audit_comp_mfo }}</p>
+                <p><span class="bold">МФО: </span>{{ $invoice->conclusion->audit_comp_bank_mfo }}</p>
                 <p><span class="bold">ИНН: </span>{{ $invoice->conclusion->audit_comp_inn }}</p>
                 <p><span class="bold">ОКЭД: </span>{{ $invoice->conclusion->audit_comp_oked }}</p>
             </div>
             <div>
                 <p class="mb-10"><span class="bold">Заказчик:
-                    </span>{{ $invoice->conclusion->cust_info['cust_comp_name'] }}</p>
-                <p><span class="bold">Адрес: </span>{{ $invoice->conclusion->cust_info['cust_comp_address'] }}</p>
-                <p><span class="bold">Расчетный счет: </span>{{ $invoice->conclusion->cust_info['cust_comp_bank_acc'] }}
+                    </span>{{ auth()->user()->fullName }}</p>
+                <p><span class="bold">Адрес: </span>{{  auth()->user()->address }}</p>
+               {{--  <p><span class="bold">Расчетный счет: </span>{{ $invoice->conclusion->cust_info['cust_comp_bank_acc'] }}
                     в {{ $invoice->conclusion->cust_info['cust_comp_bank_name'] }}
-                <p><span class="bold">МФО: </span>{{ $invoice->conclusion->cust_info['cust_comp_bank_mfo'] }}</p>
+                <p><span class="bold">МФО: </span>{{ $invoice->conclusion->cust_info['cust_comp_bank_mfo'] }}</p> --}}
                 <p><span class="bold">ИНН: </span>{{ $invoice->conclusion->cust_info['cust_comp_inn'] }}</p>
-                <p><span class="bold">ОКЭД: </span>{{ $invoice->conclusion->cust_info['cust_comp_oked'] }}</p>
+                {{-- <p><span class="bold">ОКЭД: </span>{{ $invoice->conclusion->cust_info['cust_comp_oked'] }}</p> --}}
 
 
             </div>

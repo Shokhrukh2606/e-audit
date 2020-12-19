@@ -82,9 +82,9 @@
         </span></p>
 
     <p class=MsoNormal style='text-align:justify;text-indent:35.4pt'><span lang=UZ-CYR>Маъсулияти чекланган жамияти
-            {{$contract->conclusion->cust_info->audit_comp_name}}нинг расмий хамкори {{$contract->conclusion->cust_info->cust_comp_name}} (кейинги ўринларда
+            {{$contract->conclusion->cust_info->audit_comp_name}}нинг расмий хамкори МЧЖ “StartUp-Invest” (кейинги ўринларда
             “Иш бажарувчи” деб юритилади) номидан “Низом” асосида фаолият юритувчи раҳбари {{$contract->conclusion->audit_comp_director_name}}
-            ва {{$contract->conclusion->cust_info->cust_comp_director_name}} (кейинги ўринларда “Буюртмачи” деб юритилади)
+            ва {{$contract->conclusion->cust_info->contract_name}} (кейинги ўринларда “Буюртмачи” деб юритилади)
             номидан паспорт серия рақами {{$contract->conclusion->cust_info->contract_passport_serie}}(паспорт {{$contract->conclusion->cust_info->contract_where_given}} томонидан берилган) малумотлари эгаси
             {{$contract->conclusion->contract_address}} манзилда
             яшовчи фукаро томонидан мазкур шартнома аудиторлик профессинал хизматлар
@@ -286,7 +286,7 @@
                     <p class=MsoNormal><span lang=RU>Паспорт серия: {{substr($contract->conclusion->cust_info->contract_passport_serie, 0,2)}} </span></p>
                     <p class=MsoNormal style='text-align:justify'><span lang=RU>Паспорт раками:
                         {{substr($contract->conclusion->cust_info->contract_passport_serie, 2)}}</span></p>
-                    <p class=MsoNormal><span lang=RU>СТИР: {{$contract->conclusion->cust_info->contract_company_inn}} </span></p>
+                    <p class=MsoNormal><span lang=RU>СТИР: {{$contract->conclusion->cust_info->contract_fiz_inn}} </span></p>
                     <p class=MsoNormal style='text-align:justify'><span lang=RU> </span></p>
                     <p class=MsoNormal style='text-align:justify'><span lang=RU>&nbsp;</span></p>
                     <p class=MsoNormal style='text-align:justify'><span lang=RU>

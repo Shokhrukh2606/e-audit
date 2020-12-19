@@ -109,7 +109,7 @@ class Admin_Controller extends Controller
         $order->status = '3';
         $order->save();
         $auditor=User::where(['id'=>$req->input('auditor_id')])->first();
-        sms($auditor->full_name, '','auditor_order_assigned',[
+        sms($auditor->phone, '','auditor_order_assigned',[
             '{full_name}'=>$auditor->full_name,
             '{order_id}'=>$order->id
         ]);

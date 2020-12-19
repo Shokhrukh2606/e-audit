@@ -173,6 +173,10 @@
 						<input class="form-control" type="text" name="cust_info[contract_name]" required>
 					</div>
 					<div class="mb-4">
+						<label>{{lang('contract_fiz_inn')}}</label>
+						<input class="form-control" type="text" name="cust_info[contract_fiz_inn]" required>
+					</div>
+					<div class="mb-4">
 						<label>{{lang('passport_serie')}}</label>
 						<input class="form-control" type="text" name="cust_info[contract_passport_serie]" required>
 					</div>

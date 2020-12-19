@@ -85,8 +85,8 @@ function kpp() {
     console.log(kppParams);
   });
   const denominator = kppParams.P;
-  const result = Number((kppParams.PUDN / denominator).toFixed(2));
-
+  const result = Number((kppParams.PUDN1+kppParams.PUDN2+kppParams.PUDN3+kppParams.PUDN4 / denominator).toFixed(2));
+  console.log(denominator);
   if (denominator !== 0 && result >= 0.03) {
     kppResult.style.border = '1px solid #2b3553'
     kppResult.innerHTML = result;
