@@ -1,5 +1,6 @@
 @section('loginCss')
 <link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
+<title>e-audit</title>
 @endsection
 <x-guest-layout>
     <x-jet-authentication-card>
