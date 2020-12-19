@@ -17,15 +17,13 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
             line-height: 13px;
             text-align: justify;
         }
-        @if($protected)
-        body{
-            background-image: url("{{asset('shutterstock.png')}}");
+
+        @if ($protected)body {
+            /* background-image: url("{{ asset('shutterstock.png') }}"); */
             background-size: 100px 100px;
         }
-        @endif
-       
 
-        .qr-code {
+        @endif.qr-code {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -37,78 +35,91 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 <body>
     <div class="container">
         <div class="uz">
-            <p class="right blue bold mb">Рег.№{{$conclusion->id}} {{$conclusion->created_at}} йил</p>
-            <p class="blue center bold uppercase">01.05.2020 ЙИЛ ХОЛАТИ ТУЗИЛГАН МОЛИЯВИЙ ХИСОБОТЛАР БУЙИЧА ИҚТИСОДИЙ
+            Рег.№{{ $conclusion->id }} {{ date('d-m-Y', strtotime($conclusion->created_at)) }} йил
+            <p class="blue center bold uppercase">
+                01.05.2020 ЙИЛ ХОЛАТИ ТУЗИЛГАН МОЛИЯВИЙ ХИСОБОТЛАР БУЙИЧА ИҚТИСОДИЙ
                 КУРСАТКИЧЛАРИНИ ТАХЛИЛ ҚИЛИШ НАТИЖАЛАРИ БЎЙИЧА ИЖОБИЙ АУДИТОРЛИК ХУЛОСАСИ.
             </p>
+            <p class="bold center">{{ $conclusion->cust_info->cust_comp_name }} STIR:
+                {{ $conclusion->cust_info->cust_comp_inn }}
+            </p>
+            <p class="bold center">
+                {{ $conclusion->audit_comp_name }}.
+            </p>
+            <p>
+                Ўзбекистон Республикаси Адлия Вазирлигидан {{ $conclusion->audit_comp_gov_reg_date }} йилда
+                №{{ $conclusion->audit_comp_gov_reg_num }}-сонли гувохномаси билан рўйхатдан
+                ўтказилган. ИНН - {{ $conclusion->audit_comp_inn }}, ОКЭД - {{ $conclusion->audit_comp_oked }}.
+                Узбекистон Республикаси Молия Вазирлиги томонидан {{ $conclusion->audit_comp_lic_date }} йилда берилган
+                барча хўжалик юритувчи
+                субъектларда аудиторлик текширувини ўтказишга рухсат берувчи АФ №{{ $conclusion->audit_comp_lic }}
+                -сонли Лицензия.
+                Аудитор {{ $conclusion->auditor ? $conclusion->auditor->full_name : $conclusion->agent->full_name }}
+                Ўзбекистон Республикаси Молия Вазирлиги томонидан {{ $conclusion->cert_date }} да берилган
+                №{{ $conclusion->cert_number }}-сонли аудитор малака сертификатига эга.
+                Банк: {{ $conclusion->audit_comp_bank_name }} Р/С:
+                {{ implode(' ', str_split($conclusion->audit_comp_bank_acc, 4)) }}
+                МФО:
+                {{ $conclusion->audit_comp_bank_mfo }}.
+                Ушбу махсус саволни текшириш юзасидан утказилган аудиторлик текшируви Узбекистон Республикасининг
+                «Аудиторлик фаолияти тугрисида» ги конуни хамда 80-сонли «Махсус саволни текшириш натижалари бўйича
+                аудитор ҳисоботи» АФМСга асосан утказилди.
+            </p>
+            <p>
+                <span class="underline bold">Мазкур {{ $conclusion->cust_info->cust_comp_name }} </span>
+                корхонасининг 01.05.2020 йил холати бўйича амалдаги конунчиликга
+                асосан тузилган ва аудитга такдим этилган молиявий хисоботларига асосан,
+                16.03.2005 йилдаги ГС-05/0271/1 сонли Қарори билан тасдиқланган, хамда
+                Ўзбекистон Республикаси Адлия Вазирлиги томонидан 14.04.2005 йилда №1469 сон
+                тартиб рақами билан рўйхатга олинган «Корхоналарнинг молиявий-иқтисодий ахволи
+                мониторинги ва тахлилини ўтказиш мезонларини аниқлаш тартиби тўгрисида»
+                ги Низомга асосан текширув амалга оширилди:
+            </p>
+            <p class="bold center">Хўжалик юритувчи субъект раҳбариятининг жавобгарлиги</p>
+            <p>Хўжалик юритувчи субъект раҳбарияти бухгалтерия ҳисоби тўғрисидаги қонун ҳужжатларига мувофиқ молиявий
+                ҳисоботнинг тайёрланиши ва ҳаққонийлиги, ҳамда ички назорат тизими учун жавобгардир.</p>
+            <p class="bold center">Аудиторлик ташкилотининг жавобгарлиги</p>
+            <p>Аудиторлик ташкилотининг жавобгарлиги ўтказилган аудиторлик текширувига асосан ушбу молиявий ҳисобот
+                юзасидан фикр билдиришдан иборат.
+                Биз {{ $conclusion->cust_info->cust_comp_name }} ташкилотининг илова қилинган молиявий ҳисоботини
+                аудиторлик текширувидан
+                ўтказдик. Аудиторлик текшируви молиявий ҳисобот ва бошқа молиявий ахборотлар барча муҳимлилик жиҳатлари
+                бўйича бухгалтерия ҳисоби тўғрисидаги қонун ҳужжатларига мувофиқлиги ва ҳаққонийлигини баҳолашдан
+                иборат.
+                Биз аудиторлик текширувини Аудиторлик фаолиятининг миллий стандартларига мувофиқ ўтказдик. Ушбу
+                стандартлар молиявий ҳисобот жиддий бузиб кўрсатишларга эга эмаслигига етарли даражадаги ишончга эга
+                бўлишни таъминловчи аудиторлик текширувини режалаштиришни ва ўтказишни тақозо этади.
+                Аудиторлик текшируви аудиторлик далилларини олишга йўналтирилган аудиторлик амалларини ўтказишни ўз
+                ичига олади. Аудиторлик амалларини танлаш бизнинг мулоҳазамизнинг предмети ҳисобланади.
+                Аудиторлик текшируви давомида олинган аудиторлик далиллари молиявий ҳисобот ишончлилиги тўғрисида фикр
+                билдириш учун етарлича асослар беради деб ҳисоблаймиз.
+            </p>
+            <p class="bold center">Ижобий фикр</p>
+            <p>
+                <span class="bold underline">Шунингдек {{ $conclusion->cust_info->cust_comp_name }}</span>
+                корхонасининг 01.05.2020 йил холати буйича тузилган молиявий хисоботи, унинг молиявий ахволини хакконий
+                акс
+                эттиради ва мазкур хўжалик юритувчи субъект томонидан амалга оширилган молиявий ва хўжалик операциялари
+                Ўзбекистон Республикаси қонун хужжатларининг талабларига жавоб беради.
+                Шуни инобатга олиб корхонанинг молиявий хисоботларига ижобий хулоса берилди.
+            </p>
+            <p class="bold">{{ $conclusion->audit_comp_name }}
+                директори: &nbsp;&nbsp;&nbsp;&nbsp;
+                {{ $conclusion->audit_comp_director_name }}
+            </p>
             <p class="bold">
-              {{ $conclusion->audit_comp_name }}.
-          </p>
-          <p>
-            Ўзбекистон Республикаси Адлия Вазирлигидан {{ $conclusion->audit_comp_gov_reg_date }} йилда
-            №{{ $conclusion->audit_comp_gov_reg_num }}-сонли гувохномаси билан рўйхатдан ўтказилган. ИНН -
-            {{ $conclusion->audit_comp_inn }}, ОКЭД - {{ $conclusion->audit_comp_oked }}.
-        </p>
-        <p>Узбекистон Республикаси Молия Вазирлиги томонидан {{ $conclusion->audit_comp_lic_date }} да берилган
-            барча хўжалик юритувчи
-            субъектларда аудиторлик текширувини ўтказишга рухсат берувчи АФ №{{ $conclusion->audit_comp_lic }}
-        -сонли Лицензия. </p>
-        <p>Аудитор {{ $conclusion->auditor ? $conclusion->auditor->full_name : $conclusion->agent->full_name }} Ўзбекистон Республикаси Молия Вазирлиги томонидан
-            {{ $conclusion->cert_date }} да берилган
-            №{{ $conclusion->cert_number }}-сонли аудитор малака сертификатига эга.</p>
-            <p>Банк: {{ $conclusion->audit_comp_bank_name }} Р/С:
-                {{ implode(' ', str_split($conclusion->audit_comp_bank_acc, 4)) }} МФО:
-                {{ $conclusion->audit_comp_bank_mfo }}.</p>
-                <p><span class="bold">Мазкур {{ $conclusion->cust_info->cust_comp_name }}</span> корхонасига
-                    {{ $conclusion->cust_info->cust_comp_registered_by }} томонидан
-                    {{ $conclusion->cust_info->cust_comp_gov_reg_date }} да
-                    {{ $conclusion->cust_info->cust_comp_gov_reg_number }}-сонли реестр раками билан руйхатга олинган
-                ва унинг фаолиятига гувохнома берилган.</p>
-                <p>STIR: {{ $conclusion->cust_info->cust_comp_inn }} Фаолият тури:
-                    {{ $conclusion->cust_info->cust_comp_activity }} фаолияти ХХТУТ:
-                    {{ $conclusion->cust_info->cust_comp_oked }}.</p>
-                    <p>Ушбу махсус саволни текшириш юзасидан утказилган аудиторлик текшируви Узбекистон Республикасининг
-                        «Аудиторлик фаолияти тугрисида» ги конуни хамда
-                        {{ $conclusion->cust_info->template->standart_num }}-сонли
-                        {{ json_decode($conclusion->cust_info->template->name, true)[config('global.lang')] }}га асосан
-                    утказилди. </p>
-                    <p><span class="bold">Мазкур {{ $conclusion->cust_info->cust_comp_name }}</span> корхонасининг 01.05.2020
-                        йил холати бўйича
-                        амалдаги конунчиликга асосан тузилган ва аудитга такдим этилган молиявий хисоботларига асосан,
-                        16.03.2005 йилдаги ГС-05/0271/1 сонли Қарори билан тасдиқланган, хамда Ўзбекистон Республикаси Адлия
-                        Вазирлиги томонидан 14.04.2005 йилда №1469 сон тартиб рақами билан рўйхатга олинган «Корхоналарнинг
-                        молиявий-иқтисодий ахволи мониторинги ва тахлилини ўтказиш мезонларини аниқлаш тартиби тўгрисида» ги
-                        Низомда кўрсатилган корхонанинг молиявий-иктисодий ахволини белгиловчи асосий кўрсаткичлари
-                    қўйидагиларни ташкил этади:</p>
-                    <p>1. Коплаш коэффициенти= {{$conclusion->fcoefficient}}% </p>
-                    <p>2.Ўз айланма маблағлари билан таъминланиш коэффициенти={{$conclusion->scoefficient}}</p>
-                    <p>3. Харажатларнинг рентабеллик коэффициенти= 0,06 </p>
-                    <p>Натижада <span class="bold">01.05.2020 йил холатига корхонанинг тўлов қобилияти юқорилиги, уз айланма
-                        маблаглари билан таъминланиши етарли даражада булганлиги аникланди ва рентабеллик коэффициенти юқори
-                    даражани ташкил этади.</span></p>
-                    <p class="bold">Юкоридагиларни хисобга олган холда умумий хисобда корхона иктисодий барқарор хисобланади.
-                    </p>
-                    <p><span class="bold">Шунингдек {{ $conclusion->cust_info->cust_comp_name }} корхонасининг 01.05.2020 йил
-                    холати буйича</span>
-                    тузилган молиявий хисоботи, унинг молиявий ахволини хакконий акс эттиради ва мазкур хўжалик юритувчи
-                    субъект томонидан амалга оширилган молиявий ва хўжалик операциялари Ўзбекистон Республикаси қонун
-                хужжатларининг талабларига жавоб беради.</p>
-                <p class="bold">Шуни инобатга олиб корхонанинг молиявий хисоботларига ижобий хулоса берилди.</p>
-                <div class="authority bold">
-                    <p>{{ $conclusion->audit_comp_name }}
-                    аудиторлик корхонаси ф/л директори: </p>
-                    <p class="right">{{ $conclusion->audit_comp_director_name }}</p>
-                    <p>Аудитор: </p>
-                    <p class="right">{{ $conclusion->auditor ? $conclusion->auditor->full_name : $conclusion->agent->full_name }}</p>
-                </div>
-                <p class="italic underline">(Сертификат № {{$conclusion->audit_comp_director_cert_num }}. {{$conclusion->audit_comp_director_cert_date}} да УзР Молия Вазирлиги томонидан
-                берилган.)</p>
-                <p class="italic underline right bold">Такдим этилган сана : {{$conclusion->created_at}} й</p>
+                Аудитор:
+                <span
+                    class="space-needed">{{ $conclusion->auditor ? $conclusion->auditor->full_name : $conclusion->agent->full_name }}</span>
+            </p>
+            <p class="text-right">Такдим этилган сана : {{ date('d-m-Y', strtotime($conclusion->created_at)) }} й</p>
+            <p class="text-left">
+            <div class="qr-code">
+                <img src="data:application/octet-stream;base64, {{ $qrcode }}" alt="">
             </div>
+            </p>
         </div>
-        <div class="qr-code">
-            <img src="data:application/octet-stream;base64, {{ $qrcode }}" alt="">
-        </div>
-    </body>
+    </div>
+</body>
 
-    </html>
+</html>

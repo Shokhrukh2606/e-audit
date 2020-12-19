@@ -242,6 +242,7 @@ class Audit_Controller extends Controller
                 $data['protected'] = false;
                 $data['blank'] = $blank;
             }
+            
         }
         $data['conclusion'] = Conclusion::where('id', $req->id)->first();
         if ($data['conclusion']) {
