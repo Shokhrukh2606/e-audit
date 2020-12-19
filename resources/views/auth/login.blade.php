@@ -1,4 +1,5 @@
 @section('loginCss')
+<title>e-audit</title>
 <link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
 @endsection
 <x-guest-layout>
