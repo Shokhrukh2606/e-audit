@@ -13,4 +13,11 @@ class Template extends Model
     public function service(){
       return $this->hasOne(Service::class);
     }
+    
+    public function findServicePrice(){
+    	return Service::where([
+    		'template_id'=>$this->id,
+    		'user_groups'=>auth()->user()->group_id
+    	])->first()->price;
+    }
 }

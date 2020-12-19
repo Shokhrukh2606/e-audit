@@ -73,6 +73,8 @@
             посредством
             отправки электронного письма на электронный почтовый адрес Заказчика: axtrem13@gmail.com.</p>
     </div>
+
+    
     @if ($invoice->status == 'waiting')
         <div class="mb-30">
             <h2 class="center">Способ оплаты</h2>

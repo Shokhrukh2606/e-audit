@@ -174,7 +174,7 @@ class Agent_Controller extends Controller
             $service = $conclusion->cust_info->template->service;
             $invoice = new Invoice();
             $invoice->conclusion_id = $conclusion->id;
-            $invoice->price = $conclusion->cust_info->template->service->id;
+            $invoice->price = $conclusion->cust_info->template->findServicePrice();
             $invoice->user_id = auth()->user()->id;
             $invoice->service_id = $service->id;
             $invoice->save();
