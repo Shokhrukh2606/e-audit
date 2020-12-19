@@ -10,7 +10,7 @@
                 <th>{{ lang('useCases') }}</th>
                 <th>{{ lang('date') }}</th>
                 <th>{{ lang('reject')}} </th>
-                <th>{{ lang('show') }}</th>
+                <th>{{ lang('showOrder') }}</th>
                 <th>{{ lang('showConclusion') }}</th>
                 <th>{{ lang('pay') }}</th>
             </thead>
@@ -29,7 +29,7 @@
                         </td>
                         <td>{{ $order->created_at }}</td>
                         <td>
-                            @if (!$order->cust_info->conclusion->invoice)
+                            @if($order->cust_info->conclusion->status!='5')
                             <button 
                                 class="btn btn-simple btn-danger"  
                                 data-toggle="modal" data-target="#rejectModal" data-id="{{$order->id}}"
@@ -46,7 +46,7 @@
                             href="{{ route('customer.order_view', $order->id) }}"
                             class="btn btn-danger btn-sm"
                         >
-                            {{ lang('show') }}
+                            {{ lang('showOrder') }}
                         </a>
                         </td>
                         <td>
@@ -57,29 +57,42 @@
                                 >
                                     {{ lang('show') }}
                                 </a>
+                                @foreach ($order->cust_info->conclusion->blanks as $blank)
+                                @continue($blank->is_brak)
+                                <br> <br>
+                                <a class="btn btn-sm btn-simple btn-success"
+                                    href="{{ route('customer.conclusion',
+                                        [
+                                        'id'=>$order->cust_info->conclusion->id, 
+                                        'blank_id'=>$blank->id
+                                        ]
+                                    ) 
+
+                                    }}">
+                                    {{ lang('show') }} - blank {{ $blank->id }}
+                                </a>
+                            @endforeach
                             @else
                                 {{ __('custom.conclusion_not_written') }}
                             @endif
                         </td>
                         <td>
                             @if ($order->cust_info->conclusion->id ?? false)
-                                @if(count($order->cust_info->conclusion->blanks)!=0)
-                                <a href="{{ route('customer.create_invoice', $order->cust_info->conclusion->id) }}"
-                                   class="btn btn-danger btn-simple btn-sm"
-                                >
-                                    {{ lang('pay') }}
-                                </a>
-                                @else
+                            
                                     @if($order->cust_info->conclusion->status=='5')
-                                    {{lang('in_progress')}}
+                                    <a href="{{ route('customer.create_invoice', $order->cust_info->conclusion->id) }}"
+                                   class="btn btn-danger btn-simple btn-sm"
+                                    >
+                                        {{ lang('pay') }}
+                                    </a>
                                     @else
                                    <a href="{{ route('customer.accept', $order->cust_info->conclusion->id) }}"
                                    class="btn btn-danger btn-simple btn-sm"
                                     >
-                                    {{ lang('accept') }}
+                                    {{ lang('accept_and_pay') }}
                                     </a>
                                     @endif
-                                @endif
+                                
                             @else
                                 {{ __('custom.conclusion_not_written') }}
                             @endif

@@ -9,7 +9,7 @@
                 <th>{{ lang('standartNumber') }}</th>
                 <th>{{ lang('useCases') }}</th>
                 <th>{{ lang('date') }}</th>
-                <th>{{ lang('show') }}</th>
+                <th>{{ lang('showOrder') }}</th>
                 <th>{{ lang('showConclusion') }}</th>
                 <th>{{ lang('pay') }}</th>
             </thead>
@@ -33,11 +33,14 @@
                                 <a href="{{ route('customer.conclusion', $order->cust_info->conclusion->id) }}">
                                     {{ __('custom.show_conclusion') }}
                                 </a>
+                                
+                                
                             @else
                                 {{ __('custom.conclusion_not_written') }}
                             @endif
                         </td>
                         <td>
+
                             @if ($order->cust_info->conclusion->id ?? false)
                                 <a href="{{ route('customer.pay', $order->cust_info->conclusion->id) }}">
                                     {{ __('custom.accept_pay') }}
