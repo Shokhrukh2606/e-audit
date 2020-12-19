@@ -352,11 +352,5 @@ class Customer_Controller extends Controller
         $conclusion->save();
         return redirect()->back();
     }
-    public function bills(){
-        $data['bills']=Invoice::where([
-            'user_id'=>auth()->user()->id,
-            'closed_with'=>'bill'
-        ])->get();
-        return $this->view('bills', $data);
-    }
+
 }

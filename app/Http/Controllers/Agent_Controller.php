@@ -394,4 +394,19 @@ class Agent_Controller extends Controller
         ])->get();
         return $this->view('bills', $data);
     }
+    public function contracts(){
+        $data['contracts']=Contract::where('user_id', auth()->user()->id)->get();
+        return $this->view('contracts', $data);
+    }
+    public function contracts_view(Request $req){
+        $data['contract']=Contract::where(['id'=>$req->id])->first();
+        if (!$data['contract'])
+            return  abort(404);
+        if($data['contract']->conclusion->cust_info->contract_type=='yur'){
+            return $this->view('juridic_contracts_view', $data);
+        }
+        if($data['contract']->conclusion->cust_info->contract_type=='fiz'){
+            return $this->view('contracts_view', $data);
+        }
+    }
 }

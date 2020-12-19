@@ -48,3 +48,7 @@ Route::post('pay_with_deposit', "Agent_Controller@pay_with_deposit")->name("pay_
 
 
 Route::get('bills', "Agent_Controller@bills")->name("bills");
+
+Route::get('contracts', "Agent_Controller@contracts")->name("contracts");
+
+Route::get('/contracts_view/{id}', 'Agent_Controller@contracts_view')->name('contracts_view');

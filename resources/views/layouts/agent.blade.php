@@ -101,6 +101,12 @@
             </a>
           </li>
           <li>
+            <a href="{{ route('agent.contracts') }}">
+              <i class="tim-icons icon-bank"></i>
+              <p>{{ lang('contracts') }}</p>
+            </a>
+          </li>
+          <li>
             <a href="{{ route('aac.certificates_list') }}">
               <i class="tim-icons icon-bank"></i>
               <p>{{ lang('certificates_list') }}</p>
@@ -167,6 +173,7 @@
                   {{ auth()->user()->funds }} UZS
                 </a>
               </li>
+
               <li class="nav-item br-1">
                 <a href="{{route('aac.fill_balance')}}" class="nav-link">
                   {{lang('fill_balance')}} <i class="tim-icons icon-simple-add fund"></i>

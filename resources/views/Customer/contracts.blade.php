@@ -12,7 +12,7 @@
 						<td>{{$contract->id}}</td>
 						<td>{{$contract->conclusion_id}}</td>
 						<td>
-							<a href="#" class="btn btn-info btn-simple">
+							<a href="{{route('customer.contracts_view',$contract->id)}}" class="btn btn-info btn-simple">
 							{{lang('show')}}
 							</a>
 						</td>
