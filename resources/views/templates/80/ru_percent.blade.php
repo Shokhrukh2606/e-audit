@@ -7,7 +7,9 @@
         * {
             font-family: DejaVu Sans, sans-serif;
             text-align: justify;
-        }
+	   font-size:12px;
+	   line-height:13px;
+	}
 
         @if ($protected)
         body {

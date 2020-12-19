@@ -79,7 +79,7 @@ class Click extends Controller
             $result+=[
                 'click_trans_id'=>$req->click_trans_id,
                 'merchant_trans_id'=>$invoice->id,
-                'merchant_confirm_id'=>$invoice->transaction->id
+                'merchant_confirm_id'=>$transaction->id
             ];
             return $result;
         }else{
