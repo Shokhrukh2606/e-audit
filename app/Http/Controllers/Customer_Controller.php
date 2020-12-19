@@ -352,5 +352,5 @@ class Customer_Controller extends Controller
         $conclusion->save();
         return redirect()->back();
     }
-   
+
 }

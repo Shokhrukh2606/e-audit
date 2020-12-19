@@ -109,6 +109,12 @@
               <p>{{ lang('certificates_list') }}</p>
             </a>
           </li>
+          {{-- <li>
+            <a href="{{ route('customer.bills') }}">
+              <i class="tim-icons icon-bank"></i>
+              <p>{{ lang('bills') }}</p>
+            </a>
+          </li> --}}
         </ul>
       </div>
     </div>
