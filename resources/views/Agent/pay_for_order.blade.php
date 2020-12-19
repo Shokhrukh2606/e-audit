@@ -73,6 +73,8 @@
             посредством
             отправки электронного письма на электронный почтовый адрес Заказчика: axtrem13@gmail.com.</p>
     </div>
+
+    
     @if ($invoice->status == 'waiting')
         <div class="mb-30">
             <h2 class="center">Способ оплаты</h2>
@@ -84,18 +86,17 @@
                 <input type="radio" id="payme" value="payme" name="payment">
                 <label for="payme"><img src="{{ asset('payment/payme.png') }}" alt=""></label><br>
             </div>
+            
             <div class="payment-box mb-20">
-                <input type="radio" id="paynet" value="paynet" name="payment">
-                <label for="paynet"><img src="{{ asset('payment/paynet.png') }}" alt=""></label>
+                <input type="radio" id="deposit" value="deposit" name="payment">
+                <label for="deposit">Кошелек</label>
             </div>
+            @if($invoice->closed_with!='bill'&&auth()->user()->bills()<=2)
             <div class="payment-box mb-20">
-                <input type="radio" id="cash" value="cash" name="payment">
-                <label for="cash">Наличные</label>
+                <input type="radio" id="bill" value="bill" name="payment">
+                <label for="bill">Долг</label>
             </div>
-            <div class="payment-box mb-20">
-                <input type="radio" id="transfer" value="transfer" name="payment">
-                <label for="transfer">Перечисление</label>
-            </div>
+            @endif
         </div>
 
         <style>
@@ -108,10 +109,10 @@
             }
 
         </style>
-        <form method="POST" action="https://test.paycom.uz/" id="payme" name="payme" target="_blank">
+        <form method="POST" action="https://checkout.paycom.uz/" id="payme" name="payme" target="_blank">
 
             <!-- Идентификатор WEB Кассы -->
-            <input type="hidden" name="merchant" value="5fa30924740f35d3638b7d41" />
+            <input type="hidden" name="merchant" value="5fcb54801c849a7578dd9a22" />
 
             <!-- Сумма платежа в тийинах -->
             <input type="hidden" name="amount" value="{{ $invoice->price*100 }}" />
@@ -142,7 +143,7 @@
    :transaction - id транзакции или "null" если транзакцию не удалось создать
    :account.{field} - поля объекта Account
    Пример: https://your-service.uz/paycom/:transaction -->
-            <input type="hidden" name="callback" value="{{ route('customer.pay', $invoice->id) }}" />
+            <input type="hidden" name="callback" value="{{ route('agent.pay', $invoice->id) }}" />
 
             <!-- Таймаут после успешного платежа в миллисекундах. 
    Значение по умолчанию 15
@@ -161,8 +162,19 @@
 		<p class="mt-0">Сумма оплаты: {{ $invoice->price }} сум</p>
 		<button class="btn btn-info" id="generator">{{lang('pay')}}</button>
         <a class="btn btn-primary" href="{{route('agent.download_invoice', $invoice->conclusion->id)}}">{{lang('download')}}</a>
+
+
+        <form action="{{route('agent.pay_with_bill')}}" method="POST" name="bill">
+            @csrf
+            <input type="hidden" name="invoice_id" value="{{$invoice->id}}">
+        </form>
+
+        <form action="{{route('agent.pay_with_deposit')}}" method="POST" name="deposit">
+            @csrf
+            <input type="hidden" name="invoice_id" value="{{$invoice->id}}">
+        </form>
     @else
-        <h3>Already paid</h3>
+        <h3>{{lang('already_paid')}}</h3>
     @endif
 </div>
 <script>
@@ -179,7 +191,23 @@
 			case 'payme':
 				var payme=document.payme.submit()
 				payme.submit();
+            case 'payme':
+                var payme=document.payme.submit()
+                payme.submit();
+            case 'deposit':
+                var amount={{$invoice->price}};
+                var available={{auth()->user()->funds}};
+                if(available-amount>=0){
+                     var deposit=document.deposit.submit()
+                    deposit.submit();
+                }else{
+                    alert("{{lang('not_enough_funds')}}")
+                }               
 			break;
+            case 'bill':
+                var bill=document.bill.submit()
+                bill.submit();
+            break;
 			default:
 				alert('Bunday yoq')
 		}

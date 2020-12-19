@@ -7,7 +7,7 @@ Route::match(["GET", "POST"], '/create_conclusion', 'Agent_Controller@create_con
 
 Route::get('/pay_for_conclusion', 'Agent_Controller@pay_for_conclusion')->name('pay_for_conclusion');
 
-Route::get('/view_conclusion_protected', 'Agent_Controller@view_conclusion_protected')->name('view_conclusion_protected');
+Route::get('/view_conclusion_protected/{id}', 'Agent_Controller@view_conclusion_protected')->name('view_conclusion_protected');
 
 
 Route::get('/cashback_log', 'Agent_Controller@cashback_log')->name('cashback_log');
@@ -24,7 +24,7 @@ Route::get("/create_invoice/{conclusion_id}", "Agent_Controller@create_invoice")
 			// pay
 			// view: pay_for_order
 Route::get("/pay/{invoice_id}", "Agent_Controller@pay")->name("pay");
-Route::get('/view_conclusion_open/{id}', 'Agent_Controller@view_conclusion_open')->name('view_conclusion_open');
+Route::get('/view_conclusion_open/{id}/{blank_id?}', 'Agent_Controller@view_conclusion_open')->name('view_conclusion_open');
 Route::get('/view_conclusion/{id}', 'Agent_Controller@view_conclusion')->name('view_conclusion');
 // change status of conclusion
 // view: conclusions
@@ -38,3 +38,13 @@ Route::post('break_all', "Agent_Controller@break_all")->name('break_all');
 Route::get('resend/{id}', "Agent_Controller@resend")->name("resend");
 
 Route::get('download_invoice/{conclusion_id}', "Agent_Controller@download_invoice")->name("download_invoice");
+
+
+Route::post('pay_with_bill', "Agent_Controller@pay_with_bill")->name("pay_with_bill");
+
+
+Route::post('pay_with_deposit', "Agent_Controller@pay_with_deposit")->name("pay_with_deposit");
+
+
+
+Route::get('bills', "Agent_Controller@bills")->name("bills");

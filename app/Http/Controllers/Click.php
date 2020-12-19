@@ -13,8 +13,7 @@ class Click extends Controller
     private $click_secret_key="1HzIg1cDboO";
 
 	public function prepare(Request $req){
-        if ($req->merchant_trans_id && $req->merchant_trans_id['0']=='U') 
-            return $this->prepareUser($req);
+       
         // error checking
         $error_check= new BasePaymentErrors();
         $result=$error_check->request_check($req, $this->click_secret_key);

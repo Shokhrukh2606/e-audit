@@ -58,12 +58,12 @@
               <p>{{lang('initialized_conclusions')}}</p>
             </a>
           </li>
-          <li>
+          {{-- <li>
             <a href="{{route("agent.list_conclusions", ['status'=>5])}}">
               <i class="tim-icons icon-attach-87"></i>
               <p>{{lang('received_admin_conclusions')}}</p>
             </a>
-          </li>
+          </li> --}}
           <li>
             <a href="{{route("agent.list_conclusions", ['status'=>2])}}">
               <i class="tim-icons icon-attach-87"></i>
@@ -86,6 +86,12 @@
             <a href="{{ route('agent.create_conclusion') }}">
               <i class="tim-icons icon-simple-add"></i>
               <p>{{lang('newConclusion')}}</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('agent.bills') }}">
+              <i class="tim-icons icon-attach-87"></i>
+              <p>{{lang('bills')}}</p>
             </a>
           </li>
           <li>

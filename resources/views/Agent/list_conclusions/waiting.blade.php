@@ -77,8 +77,7 @@
     </form>
   </div>
 </div>
-<h2>
-    {{ Auth::user()->agent_conclusions->count() . ' ' . lang('conclusion') }}</h2>
+<h2>{{ Auth::user()->agent_conclusions->count() . ' ' . lang('conclusion') }}</h2>
 <div class="card">
     <div class="card-header">
         <h1 class="card-title">{{ lang('conclusions') }}</h1>
@@ -88,7 +87,8 @@
         <table class="table tablesorter">
             <thead>
                 <th>{{ lang('id') }}</th>
-                
+                <th>{{ lang('inn') }}</th>
+                <th>{{ lang('standartNumber') }}</th>
                 <th>{{ lang('status') }}</th>
                 <th colspan="4">{{ lang('activity') }}</th>
             </thead>
@@ -96,7 +96,12 @@
                 @foreach ($conclusions as $conclusion)
                     <tr>
                         <td>{{ $conclusion->id }}</td>
-                        
+                        <td>
+                            {{-- {{ $conclusion->cust_info->cust_comp_inn }} --}}
+                        </td>
+                        <td>
+                            {{-- {{ $conclusion->cust_info->template['standart_num'] }} --}}
+                        </td>
                         <td>
                             @if ($conclusion->state == 'finished')
                             
@@ -113,8 +118,8 @@
                         <td>
                         </td>
                         <td>
-                        @if($conclusion->status=='3')
-                            @if($conclusion->invoice&&($conclusion->invoice->status=='confirmed'||$conclusion->invoice->closed_with=='bill'))
+                            @if($conclusion->status=='3')
+                            @if($conclusion->invoice&&$conclusion->invoice->status=='confirmed')
 
                             @if (count($conclusion->blanks) == 0)
                                 <button type="button" href="#" class="btn btn-simple btn-danger btn-sm"
@@ -138,6 +143,9 @@
                             @endif
                         </td>
                         <td>
+                            @if (!in_array($conclusion->status, [3,2]))
+                                <a class="btn btn-sm btn-simple btn-success" href="{{ route('agent.edit_conclusion', $conclusion->id) }}">{{ lang('update') }}</a>
+                            @endif
                             <a class="btn btn-sm btn-simple btn-success"
                                 href="{{ route('agent.view_conclusion_open', $conclusion->id) }}">
                                 {{ lang('show') }}
@@ -146,14 +154,7 @@
                                 @continue($blank->is_brak)
                                 <br> <br>
                                 <a class="btn btn-sm btn-simple btn-success"
-                                    href="{{ route('agent.view_conclusion_open',
-                                        [
-                                        'id'=>$conclusion->id, 
-                                        'blank_id'=>$blank->id
-                                        ]
-                                    ) 
-
-                                    }}">
+                                    href="{{ route('agent.view_conclusion_open', $conclusion->id, $blank->id) }}">
                                     {{ lang('show') }} - blank {{ $blank->id }}
                                 </a>
                             @endforeach
@@ -169,17 +170,16 @@
                                 </button>
                             </td>
                         @endif
-                    @if($conclusion->status==4)
+                        @if($conclusion->status==4)
                         <td>
                             <a class="btn btn-sm btn-simple btn-success" href="{{ route('agent.resend', $conclusion->id) }}" >{{ lang('resend') }}</a>
                         </td>
-                       
-                        @if($conclusion->is_coefficent=='no_coef'&&count($conclusion->valid_blanks())==0)
+                        @endif
+                         @if($conclusion->is_coefficent=='with_coef'&&count($conclusion->valid_blanks())==0)
                         <td>
                             <a class="btn btn-sm btn-simple btn-success" href="{{ route('agent.edit_conclusion', $conclusion->id) }}">{{ lang('update') }}</a>
                         </td>
                         @endif
-                     @endif
                     </tr>
                 @endforeach
             </tbody>

@@ -205,8 +205,7 @@ class Customer_Controller extends Controller
                 }
                 $original_custom = json_decode($CCI->custom_fields, true);
                 foreach ($custom_fields ?? [] as $key => $value) {
-                    Storage::delete($original_custom[$key] ?? null);
-                    /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
+                    
                     $original_custom[$key] = $value;
                 }
 
@@ -271,8 +270,13 @@ class Customer_Controller extends Controller
         if ($data['conclusion']) {
             $template = $data['conclusion']->cust_info->template->standart_num;
             $lang = $data['conclusion']->cust_info->lang;
-            $data['qrcode'] = base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
-            $pdf = PDF::loadView("templates.$template.$lang", $data);
+            $data['qrcode'] = base64_encode(QrCode::size(70)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
+            if($data['conclusion']->is_coefficent=='no_coef'){
+                $pdf = PDF::loadView("templates.$template.$lang", $data);
+            }else{
+                $pdf = PDF::loadView("templates.$template.$lang"."_percent", $data);
+            }
+
             return $pdf->stream('invoice.pdf');
         }
         abort(404);

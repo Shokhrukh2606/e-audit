@@ -45,7 +45,7 @@ class Agent_Controller extends Controller
         if($status_order=$req->input('status')){
             $data['conclusions'] = Auth::user()->agent_conclusions()->where(['status'=>$status_order])->orderBy('id', 'DESC')->paginate(20);
         }else{
-            $data['conclusions'] = Auth::user()->agent_conclusions()->orderBy('id', 'DESC')->paginate(20);
+            $data['conclusions'] = Auth::user()->agent_conclusions()->where(['status'=>'1'])->orderBy('id', 'DESC')->paginate(20);
         }
         $data['blanks'] = Blank::available(auth()->user()->id);
         return $this->view('list_conclusions', $data);
@@ -86,7 +86,8 @@ class Agent_Controller extends Controller
                 foreach ($conclusion_fields ?? [] as $key => $value) {
                     $conclusion->$key = $value;
                 }
-                if($conclusion->is_coefficent){
+               
+                if($conclusion->is_coefficent=='no_coef'){
                     $conclusion->status='2';
                 }else{
                     $conclusion->status='3';
@@ -173,7 +174,7 @@ class Agent_Controller extends Controller
             $service = $conclusion->cust_info->template->service;
             $invoice = new Invoice();
             $invoice->conclusion_id = $conclusion->id;
-            $invoice->price = $conclusion->cust_info->template->service->id;
+            $invoice->price = $conclusion->cust_info->template->findServicePrice();
             $invoice->user_id = auth()->user()->id;
             $invoice->service_id = $service->id;
             $invoice->save();
@@ -202,13 +203,8 @@ class Agent_Controller extends Controller
 
     public function view_conclusion_protected()
     {
-        return $this->view('view_conclusion_protected');
-    }
-    public function view_conclusion_open(Request $req)
-    {
-
-        $data['conclusion'] = Conclusion::where('id', $req->id)->first();
-        $data['protected'] = true;
+       $data['conclusion'] = Conclusion::where('id', $req->id)->first();
+        $data['protected'] = false;
         if ($data['conclusion']->invoice&&$data['conclusion']->invoice->status == 'confirmed') {
             $data['protected'] = true;
         }
@@ -219,6 +215,28 @@ class Agent_Controller extends Controller
             $pdf = PDF::loadView("templates.$template.$lang", $data);
             return $pdf->stream('invoice.pdf');
         }
+        abort(404);
+    }
+    public function view_conclusion_open(Request $req)
+    {
+
+        $data['conclusion'] = Conclusion::where('id', $req->id)->first();
+        
+        $data['protected'] = true;
+        if ($data['conclusion']->invoice&&($data['conclusion']->invoice->status == 'confirmed'||$data['conclusion']->invoice->closed_with=='bill')) {
+            if($req->blank_id??false){
+                $data['blank']=Blank::where('id',$req->blank_id)->first();
+                $data['protected'] = false;
+            }
+        }
+        if ($data['conclusion']) {
+            $template = $data['conclusion']->cust_info->template->standart_num;
+            $lang = $data['conclusion']->cust_info->lang;
+            $data['qrcode'] = base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
+            $pdf = PDF::loadView("templates.$template.$lang", $data);
+            return $pdf->stream('invoice.pdf');
+        }
+
         abort(404);
     }
     public function view_conclusion(Request $req)
@@ -240,11 +258,11 @@ class Agent_Controller extends Controller
             case 'POST':
 
                 $all = $req->all();
-                $conclusion = $req->input('conclusion');
+                $conclusion_fields = $req->input('conclusion');
                 $cust_info_fields = $req->input('cust_info');
                 $custom_fields_files = $req->file('custom');
                 $custom_fields = $req->input('custom');
-                
+                $cust_info_fields_files = $req->file('cust_info');
 
 
                 $conclusion = Conclusion::where(['id' => $req->id])->first();
@@ -255,23 +273,25 @@ class Agent_Controller extends Controller
                 
 
 
-                foreach ($conclusion ?? [] as $key => $value) {
+                foreach ($conclusion_fields ?? [] as $key => $value) {
                     $conclusion->$key = $value;
                 }
-                $conclusion->status = 2;
+               
                 $conclusion->save();
 
 
                 foreach ($cust_info_fields ?? [] as $key => $value) {
                     $CCI->$key = $value;
                 }
+
+
                 $original_custom = json_decode($CCI->custom_fields, true);
 
                 foreach ($custom_fields_files ?? [] as $key => $value) {
                     Storage::delete($original_custom[$key] ?? null);
                     /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
                     $original_custom[$key] = $value
-                        ->storeAs("agent_info/$conclusion->id", time() . $value->getClientOriginalName());
+                        ->storeAs("cust_info/$conclusion->id", time() . $value->getClientOriginalName());
                 }
 
                 foreach ($custom_fields ?? [] as $key => $value) {
@@ -280,9 +300,18 @@ class Agent_Controller extends Controller
 
                 $CCI->custom_fields = json_encode($original_custom);
 
+                foreach ($cust_info_fields_files ?? [] as $key => $value) {
+                    Storage::delete($CCI[$key] ?? null);
+                    /*store as added to keep the original name and extension because failed to detect correct extension for .docx */
+                    $$CCI->$key = $value
+                        ->storeAs("cust_info/$CCI->id", time() . 'cci' . $key . $value->getClientOriginalName());
+
+                }
+                
                 $CCI->save();
-                return redirect()
-                    ->route('agent.list_conclusions');
+                return redirect(
+                    route('agent.list_conclusions')."?status=4"
+                );
                 break;
             default:
                 # code...
@@ -329,5 +358,36 @@ class Agent_Controller extends Controller
         $conclusion->status=2;
         $conclusion->save();
         return redirect()->back();
+    }
+    public function pay_with_bill(Request $req){
+        $invoice=Invoice::where('id', $req->input('invoice_id'))->first();
+        $invoice->closed_with='bill';
+        $invoice->save();
+        return redirect(route('agent.list_conclusions')."?status=3");
+    }
+    public function pay_with_deposit(Request $req){
+        $invoice=Invoice::where('id', $req->input('invoice_id'))->first();
+        
+        $agent=auth()->user();
+        $agent->remove_funds($invoice->price);
+
+        $transaction=new Transaction();
+        $transaction->user_id=auth()->user()->id;
+        $transaction->payment_system='funds';
+        $transaction->amount=$invoice->price;
+        $transaction->invoice_id=$invoice->id;
+        $transaction->system_transaction_id=$invoice->id;
+        $transaction->save();
+
+        $invoice->status='confirmed';
+        $invoice->save();
+        return redirect(route('agent.list_conclusions')."?status=3");
+    }
+    public function bills(){
+        $data['bills']=Invoice::where([
+            'user_id'=>auth()->user()->id,
+            'closed_with'=>'bill'
+        ])->get();
+        return $this->view('bills', $data);
     }
 }
