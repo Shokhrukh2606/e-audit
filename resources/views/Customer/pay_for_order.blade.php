@@ -111,7 +111,7 @@
         <form method="POST" action="https://checkout.paycom.uz/" id="payme" name="payme" target="_blank">
 
             <!-- Идентификатор WEB Кассы -->
-            <input type="hidden" name="merchant" value="5fa30924740f35d3638b7d41" />
+            <input type="hidden" name="merchant" value="5fcb54801c849a7578dd9a22" />
 
             <!-- Сумма платежа в тийинах -->
             <input type="hidden" name="amount" value="{{ $invoice->price*100 }}" />
