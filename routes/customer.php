@@ -63,4 +63,7 @@ Route::get('contracts', 'Customer_Controller@contracts')->name('contracts');
 
 
 Route::get('accept/{conclusion_id}', 'Customer_Controller@accept')->name('accept');
+
+Route::get('bills', "Customer_Controller@bills")->name("bills");
+
 ?>

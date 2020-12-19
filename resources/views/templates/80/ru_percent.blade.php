@@ -43,7 +43,7 @@
         </p>
         <p class="bold text-right">Общество С Ограниченной Ответственностью {{ $conclusion->audit_comp_name }}</p>
         <p>
-            Государственная регистрация: Свидетельство Министерства Юстиции РУз. №{{ $conclusion->audit_comp_gov_reg_num }} от {{ $conclusion->audit_comp_gov_reg_date  года. ИНН -{{ $conclusion->audit_comp_inn }}
+            Государственная регистрация: Свидетельство Министерства Юстиции РУз. №{{ $conclusion->audit_comp_gov_reg_num }} от {{ $conclusion->audit_comp_gov_reg_date}}  года. ИНН -{{ $conclusion->audit_comp_inn }}
             , ОКЭД - {{ $conclusion->audit_comp_oked }}. www.e-audit.com Лицензия МФ РУз. серия АФ №{{ $conclusion->audit_comp_lic }} от 05 апреля 2019 года на
             осуществление аудиторских проверок всех хозяйствующих субъектов. АКБ "Агробанк" филиал Термез Р/С: 2020 8000
             7041 9594 2002 МФО: 00325. Директор аудиторской организации: Ш.Х.Бахромов, Квалификационный сертификат
