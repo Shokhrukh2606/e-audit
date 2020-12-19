@@ -198,7 +198,7 @@ class PaymeChecks
 
 		// validate amount
 
-		if ($invoice->price !=  $params->amount) {
+		if ($invoice->price*100 !=  $params->amount) {
 			return [
 				'error' => [
 					'message' => [
