@@ -84,17 +84,21 @@
                 <input type="radio" id="payme" value="payme" name="payment">
                 <label for="payme"><img src="{{ asset('payment/payme.png') }}" alt=""></label><br>
             </div>
-            <div class="payment-box mb-20">
+            {{-- <div class="payment-box mb-20">
                 <input type="radio" id="paynet" value="paynet" name="payment">
                 <label for="paynet"><img src="{{ asset('payment/paynet.png') }}" alt=""></label>
-            </div>
+            </div> --}}
             <div class="payment-box mb-20">
                 <input type="radio" id="cash" value="cash" name="payment">
                 <label for="cash">Наличные</label>
             </div>
-            <div class="payment-box mb-20">
+           {{--  <div class="payment-box mb-20">
                 <input type="radio" id="transfer" value="transfer" name="payment">
                 <label for="transfer">Перечисление</label>
+            </div> --}}
+            <div class="payment-box mb-20">
+                <input type="radio" id="deposit" value="deposit" name="payment">
+                <label for="deposit">Кошелек</label>
             </div>
         </div>
 
@@ -108,10 +112,10 @@
             }
 
         </style>
-        <form method="POST" action="https://test.paycom.uz/" id="payme" name="payme" target="_blank">
+        <form method="POST" action="https://checkout.paycom.uz/" id="payme" name="payme" target="_blank">
 
             <!-- Идентификатор WEB Кассы -->
-            <input type="hidden" name="merchant" value="5fa30924740f35d3638b7d41" />
+            <input type="hidden" name="merchant" value="5fcb54801c849a7578dd9a22" />
 
             <!-- Сумма платежа в тийинах -->
             <input type="hidden" name="amount" value="{{ $invoice->price*100 }}" />
@@ -176,24 +180,37 @@
 
 </div>
 <script>
-	var formGenerator=document.getElementById("generator")
-	formGenerator.addEventListener("click", function(e){
-		e.preventDefault()		
-		var selectedType=document.querySelector('input[name="payment"]:checked').value;
-		if(typeof selectedType != "undefined"){
-			switch(selectedType){
-			case 'click':
-				var click=document.click.submit()
-				click.submit();
-			break;
-			case 'payme':
-				var payme=document.payme.submit()
-				payme.submit();
-			break;
-			default:
-				alert('Bunday yoq')
-		}
-		}
-	});
-    
+    var formGenerator=document.getElementById("generator")
+    formGenerator.addEventListener("click", function(e){
+        e.preventDefault()      
+        var selectedType=document.querySelector('input[name="payment"]:checked').value;
+        if(typeof selectedType != "undefined"){
+            switch(selectedType){
+            case 'click':
+                var click=document.click.submit()
+                click.submit();
+            break;
+            case 'payme':
+                var payme=document.payme.submit()
+                payme.submit();
+            case 'deposit':
+                var amount={{$invoice->price}};
+                var available={{auth()->user()->funds}};
+                if(available-amount>=0){
+                     var deposit=document.deposit.submit()
+                    deposit.submit();
+                }else{
+                    alert("{{lang('not_enough_funds')}}")
+                }               
+            break;
+            case 'cash':
+                alert('{{lang('contact_admin_for_cach')}}')
+            break;
+            default:
+                alert('Bunday yoq')
+        }
+        }
+    });
+
 </script>
+
