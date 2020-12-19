@@ -102,7 +102,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
                     <p class="right">{{ $conclusion->auditor ? $conclusion->auditor->full_name : $conclusion->agent->full_name }}</p>
                 </div>
                 <p class="italic underline">(Сертификат № {{$conclusion->audit_comp_director_cert_num }}. {{$conclusion->audit_comp_director_cert_date}} да УзР Молия Вазирлиги томонидан
-                берилган.)</p>
+                берилган.</p>
                 <p class="italic underline right bold">Такдим этилган сана : {{$conclusion->created_at}} й</p>
             </div>
         </div>

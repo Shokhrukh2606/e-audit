@@ -15,25 +15,25 @@
 			<form  id="regForm" action="{{route('auditor.edit_conclusion', $conclusion->id)}}" method="POST">
 				@csrf
 				
-				<div>
+				{{-- <div>
 					<label>{{lang('conclusion_base')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]" value="{{$conclusion->conclusion_base}}">
-				</div>
+				</div> --}}
 				
 			<div id="wrapper">
 				@if($conclusion->is_coefficent=='with_coef')
 				<div id="coefs">
 				<div class="kps">
 					<label>{{lang('A2')}}</label>
-					<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source">
+					<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source" value="{{$conclusion->A2}}">
 				</div>
 				<div class="kps">
 					<label>{{lang('P2')}}</label>
-					<input class="form-control" type="number" name="conclusion[P2]" onkeyup="kps()">
+					<input class="form-control" type="number" name="conclusion[P2]" onkeyup="kps()" value="{{$conclusion->P2}}">
 				</div>
 				<div class="kps">
 					<label>{{lang('DO')}}</label>
-					<input class="form-control" type="number" name="conclusion[DO]" onkeyup="kps()">
+					<input class="form-control" type="number" name="conclusion[DO]" onkeyup="kps()" value="{{$conclusion->DO}}">
 				</div>
 				<div class="result-wrapper">
 					<span>коэффициент платежеспособности:</span>
@@ -43,15 +43,15 @@
 				</div>
 				<div class="osos">
 					<label>{{lang("P1")}}</label>
-					<input class="form-control" type="number" name="conclusion[P1]" onkeyup="osos()">
+					<input class="form-control" type="number" name="conclusion[P1]" onkeyup="osos()" value="{{$conclusion->P1}}">
 				</div>
 				<div class="osos">
 					<label>{{lang("DEK2")}}</label>
-					<input class="form-control" type="number" name="conclusion[DEK2]" onkeyup="osos()">
+					<input class="form-control" type="number" name="conclusion[DEK2]" onkeyup="osos()" value="{{$conclusion->DEK2}}">
 				</div>
 				<div class="osos">
 					<label>{{lang("A1")}}</label>
-					<input class="form-control" type="number" name="conclusion[A1]" onkeyup="osos()">
+					<input class="form-control" type="number" name="conclusion[A1]" onkeyup="osos()" value="{{$conclusion->A1}}">
 				</div>
 				<div class="osos">
 					<label>{{lang("A2")}}</label>
@@ -65,11 +65,11 @@
 				</div>
 				<div class="kpp">
 					<label>{{lang('PUDN')}}</label>
-					<input class="form-control" type="number" name="conclusion[PUDN]" onkeyup="kpp()">
+					<input class="form-control" type="number" name="conclusion[PUDN]" onkeyup="kpp()" value="{{$conclusion->PUDN}}">
 				</div>
 				<div class="kpp">
 					<label>{{lang('P')}}</label>
-					<input class="form-control" type="number" name="conclusion[P]" onkeyup="kpp()">
+					<input class="form-control" type="number" name="conclusion[P]" onkeyup="kpp()" value="{{$conclusion->P}}">
 				</div>
 				<div class="result-wrapper">
 					<span>Крр:</span>
@@ -104,4 +104,9 @@
 <script script src="{{asset('assets/js/againMultistep.js')}}">
 </script>
 <script src="{{asset('assets/js/coefficient.js')}}"></script>
+<script>
+@if($conclusion->is_coefficent=='with_coef')
+init_coef()
+@endif
+</script>
 @endsection

@@ -575,4 +575,26 @@ class Admin_Controller extends Controller
                 break;
         }
     }
+    public function view_conclusion_open(Request $req)
+    {
+
+        $data['conclusion'] = Conclusion::where('id', $req->id)->first();
+        
+        $data['protected'] = false;
+        if ($data['conclusion']->invoice&&($data['conclusion']->invoice->status == 'confirmed'||$data['conclusion']->invoice->closed_with=='bill')) {
+            if($req->blank_id??false){
+                $data['blank']=Blank::where('id',$req->blank_id)->first();
+                $data['protected'] = false;
+            }
+        }
+        if ($data['conclusion']) {
+            $template = $data['conclusion']->cust_info->template->standart_num;
+            $lang = $data['conclusion']->cust_info->lang;
+            $data['qrcode'] = base64_encode(QrCode::size(70)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
+            $pdf = PDF::loadView("templates.$template.$lang", $data);
+            return $pdf->stream('invoice.pdf');
+        }
+
+        abort(404);
+    }
 }

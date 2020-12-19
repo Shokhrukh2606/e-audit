@@ -20,6 +20,8 @@ Route::get("list_users", "Admin_Controller@list_users")->name("list_users");
 Route::get('/change_status/{status}/{id}', 'Admin_Controller@change_status')->name('change_status');
 
 
+
+
 Route::match(["GET", "POST"], "/view_user/{id}", "Admin_Controller@view_user")
 	->name("view_user");
 
@@ -135,3 +137,6 @@ Route::match(["GET", "POST"], "/certificates_create", "Admin_Controller@certific
 Route::match(["GET", "POST"], "/certificates_view/{id}", "Admin_Controller@certificates_view")
 	->name("certificates_view");
 Route::get('/rejected_blanks', 'Admin_Controller@rejected_blanks')->name('rejected_blanks');
+
+
+Route::get('/view_conclusion_open/{id}', 'Admin_Controller@view_conclusion_open')->name('view_conclusion_open');

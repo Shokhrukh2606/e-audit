@@ -74,10 +74,10 @@
 			<form  id="regForm" action="{{route('auditor.create_conc_on_order', $order->cust_info->id)}}" method="POST">
 				@csrf
 				
-				<div>
+				{{-- <div>
 					<label>{{lang('conclusion_base')}}</label>
 					<input class="form-control" type="text" name="conclusion[conclusion_base]">
-				</div>
+				</div> --}}
 			<div id="wrapper">
 				<div id="coefs">
 				<div class="kps">

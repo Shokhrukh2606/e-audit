@@ -13,6 +13,11 @@
 							{{$i}}
 						</option>
 					@endfor
+					@for($i=20;$i<51;$i=$i+10)
+						<option value="{{$i}}">
+							{{$i}}
+						</option>
+					@endfor
 				</select>
 			
 			</div>

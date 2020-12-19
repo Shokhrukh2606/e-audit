@@ -43,7 +43,7 @@ Route::get("cancel_order/{id}", "Customer_Controller@cancel_order")->name("cance
 
 			// one conclusion view protected
 			// view: pdf
-Route::get("conclusion/{id}", "Customer_Controller@conclusion")->name("conclusion");
+Route::get("conclusion/{id}/{blank_id?}", "Customer_Controller@conclusion")->name("conclusion");
 
 			// create invoice
 			// view: redirects to payment
