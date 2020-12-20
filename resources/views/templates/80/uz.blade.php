@@ -1,6 +1,5 @@
 @php
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-$protected=false;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -14,28 +13,37 @@ $protected=false;
     <style>
         * {
             font-family: DejaVu Sans, sans-serif;
-            font-size: 12px;
-            line-height: 13px;
+            font-size:10px;
+            line-height:10.5px;
             text-align: justify;
         }
+        @page { margin: 0px; }
+        body { margin: 0px; }
 
         @if ($protected)body {
-             background-image: url("{{ asset('shutterstock.png') }}"); 
-            background-size: 200px;
+            background-image: url({{asset('naqsh.png')}});
+            background-size:cover;
         }
 
-        @endif.qr-code {
+        @endif
+        .page-wrap{
+            padding:190px 100px 100px 100px;
+            position: relative;
+        }
+         .qr-code {
             position: absolute;
-            bottom: 0;
-            left: 0;
+            bottom: 0px;
+            
+        }
+        p{
+            margin:5px 0;
         }
 
     </style>
 </head>
 
 <body>
-    
-    <div class="container">
+    <div class="page-wrap">
         <div class="uz">
             Рег.№{{ $conclusion->id }} {{ date('d.m.Y', strtotime($conclusion->created_at)) }} йил
             <p class="blue center bold uppercase">

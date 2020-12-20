@@ -1,6 +1,6 @@
 @php
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-$protected=false;
+
 @endphp
 <html>
 
@@ -11,27 +11,34 @@ $protected=false;
         * {
             font-family: DejaVu Sans, sans-serif;
             text-align: justify;
-    	   font-size:11px;
-    	   line-height:13px;
-	}
+    	   font-size:9px;
+    	   line-height:9px;
+	}  
+    @page { margin: 0px; }
+        body { margin: 0px; }
 
         @if ($protected)
         body {
-            background-image: url("{{ asset('shutterstock.png') }}"); 
-            background-size: 200px;
+            background-image: url({{asset('naqsh.png')}});
+            background-size:cover;
         }
 
         @endif
-        .qr-code {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-
+        
+        .page-wrap{
+        padding:190px 100px 100px 100px;
+        position: relative;
+    }
+     .qr-code {
+        position: absolute;
+        bottom: 0px;
+        
+    }
     </style>
 </head>
 
 <body>
+    <div class="page-wrap">
     <div class="ru">
         АБА
         №: {{ $conclusion->id }}
@@ -148,5 +155,5 @@ $protected=false;
          Дата составления заключения: <br>
         {{date('d.m.Y', strtotime($conclusion->created_at))}}  года
      </div>
-
+ </div>
 </body>

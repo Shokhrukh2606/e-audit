@@ -1,8 +1,6 @@
 @php
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
 $author=$conclusion->auditor ??$conclusion->agent; 
-$protected=false;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -16,27 +14,36 @@ $protected=false;
     <style>
         * {
             font-family: DejaVu Sans, sans-serif;
-            font-size: 12px;
-            line-height: 13px;
+            font-size: 11px;
+            line-height: 12px;
             text-align: justify;
         }
+        @page { margin: 0px; }
+        body { margin: 0px; }
 
         @if ($protected)body {
-            background-image: url("{{ asset('shutterstock.png') }}");
-            background-size: 200px;
+            background-image: url({{asset('naqsh.png')}});
+            background-size:cover;
         }
 
-        @endif.qr-code {
+        @endif
+         .page-wrap{
+            padding:190px 100px 100px 100px;
+            position: relative;
+        }
+         .qr-code {
             position: absolute;
             bottom: 0px;
-            left: 0;
+            
         }
-
+        p{
+            margin:5px 0;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="page-wrap">
         <div class="uz">
             Рег.№{{ $conclusion->id }} {{ date('d-m-Y', strtotime($conclusion->created_at)) }} йил
             <p class="blue center bold uppercase">
@@ -89,14 +96,17 @@ $protected=false;
                 </p>
                 <p>
                     Натижада
+                    <strong>
                     <span>  {{$conclusion->cust_info->year}}  йил  {{quarter_statement($conclusion->cust_info->quarter_start, $conclusion->cust_info->quarter_finish)}} холатига корхонанинг тўлов қобилияти юқорилиги, уз айланма маблаглари билан таъминланиши етарли даражада булганлиги аникланди ва рентабеллик коэффициенти юқори даражани ташкил этади.
                     Юкоридагиларни хисобга олган холда умумий хисобда корхона иктисодий барқарор хисобланади. 
+                    </strong>
                 </p>
                 Шунингдек {{ $conclusion->cust_info->cust_comp_name }} корхонасининг {{$conclusion->cust_info->year}}  йил  {{quarter_statement($conclusion->cust_info->quarter_start, $conclusion->cust_info->quarter_finish)}} холати буйича тузилган
                 молиявий хисоботи,
                 унинг молиявий ахволини хакконий акс эттиради ва мазкур хўжалик юритувчи субъект томонидан амалга оширилган
                 молиявий ва хўжалик операциялари Ўзбекистон Республикаси қонун хужжатларининг талабларига жавоб беради.
-                Шуни инобатга олиб корхонанинг молиявий хисоботларига ижобий хулоса берилди.
+                <strong>
+                Шуни инобатга олиб корхонанинг молиявий хисоботларига ижобий хулоса берилди.</strong>
                 <p class="bold">
                     {{ $conclusion->audit_comp_name }} директори:&nbsp;&nbsp;&nbsp;&nbsp;
                     {{ $conclusion->audit_comp_director_name }}
@@ -109,9 +119,15 @@ $protected=false;
                     <div class="qr-code">
                         <img src="data:application/octet-stream;base64, {{ $qrcode }}" alt="">
                     </div>
-                </p>Сертификат
+                </p>
+                <small>Сертификат
                 №{{ $conclusion->auditor_cert_number }}.
                 {{ date('d-m-Y', strtotime($conclusion->auditor_cert_date)) }} да УзР Молия Вазирлиги томонидан берилган.
+                </small>
+                <p style="float:right;">
+                    Такдим этилган сана : <br>
+                    {{date('d.m.Y', strtotime($conclusion->created_at))}} й
+                </p>
             </div>
         </div>
     </body>

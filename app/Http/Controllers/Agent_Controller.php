@@ -212,6 +212,7 @@ class Agent_Controller extends Controller
             $template = $data['conclusion']->cust_info->template->standart_num;
             $lang = $data['conclusion']->cust_info->lang;
             $data['qrcode'] = base64_encode(QrCode::size(100)->generate(route('open_conclusion', ['id' => $data['conclusion']->qr_hash])));
+
             if($data['conclusion']->is_coefficent=='no_coef'){
                 $pdf = PDF::loadView("templates.$template.$lang", $data);
             }else{
