@@ -324,9 +324,12 @@
 	 }
 	 _yearly(document.getElementById('yearly'));
 
+	 
 	 (function(select, val, count) {
 	 	do {
-	 		select.add(new Option(val--, count--), null);
+	 		count--;
+	 		select.add(new Option(val, val), null);
+	 		val--;
 	 	} while (count);
 	 })(myselect, startYear, count);
 

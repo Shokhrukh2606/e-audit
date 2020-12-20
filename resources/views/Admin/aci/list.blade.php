@@ -7,7 +7,8 @@ $limiter=['audit_comp_inn'=>9, 'audit_comp_oked'=>5,
 $date=[
 	'audit_comp_gov_reg_date',
 	'audit_comp_director_cert_date', 
-	'audit_comp_lic_date'
+	'audit_comp_lic_date',
+	'auditor_cert_date'
 ];
 
 $columns=Schema::getColumnListing('audit_comp_info');

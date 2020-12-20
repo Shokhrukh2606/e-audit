@@ -1,5 +1,6 @@
 @php
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+$protected=false;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +37,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
     
     <div class="container">
         <div class="uz">
-            Рег.№{{ $conclusion->id }} {{ date('d-m-Y', strtotime($conclusion->created_at)) }} йил
+            Рег.№{{ $conclusion->id }} {{ date('d.m.Y', strtotime($conclusion->created_at)) }} йил
             <p class="blue center bold uppercase">
-                01.05.2020 ЙИЛ ХОЛАТИ ТУЗИЛГАН МОЛИЯВИЙ ХИСОБОТЛАР БУЙИЧА ИҚТИСОДИЙ
+                {{$conclusion->cust_info->year}} ЙИЛ {{quarter_statement($conclusion->cust_info->quarter_start, $conclusion->cust_info->quarter_finish)}} ХОЛАТИ ТУЗИЛГАН МОЛИЯВИЙ ХИСОБОТЛАР БУЙИЧА ИҚТИСОДИЙ
                 КУРСАТКИЧЛАРИНИ ТАХЛИЛ ҚИЛИШ НАТИЖАЛАРИ БЎЙИЧА ИЖОБИЙ АУДИТОРЛИК ХУЛОСАСИ.
             </p>
             <p class="bold center">{{ $conclusion->cust_info->cust_comp_name }} STIR:
@@ -53,11 +54,10 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
                 ўтказилган. ИНН - {{ $conclusion->audit_comp_inn }}, ОКЭД - {{ $conclusion->audit_comp_oked }}.
                 Узбекистон Республикаси Молия Вазирлиги томонидан {{ $conclusion->audit_comp_lic_date }} йилда берилган
                 барча хўжалик юритувчи
-                субъектларда аудиторлик текширувини ўтказишга рухсат берувчи АФ №{{ $conclusion->audit_comp_lic }}
-                -сонли Лицензия.
-                Аудитор {{ $conclusion->auditor ? $conclusion->auditor->full_name : $conclusion->agent->full_name }}
-                Ўзбекистон Республикаси Молия Вазирлиги томонидан {{ $conclusion->cert_date }} да берилган
-                №{{ $conclusion->cert_number }}-сонли аудитор малака сертификатига эга.
+                субъектларда аудиторлик текширувини ўтказишга рухсат берувчи АФ №{{ $conclusion->audit_comp_lic }}-сонли Лицензия.
+                Аудитор {{ $conclusion->auditor_name }}
+                Ўзбекистон Республикаси Молия Вазирлиги томонидан {{ date('d.m.Y', strtotime($conclusion->auditor_cert_date)) }} да берилган
+                №{{ $conclusion->auditor_cert_number }}-сонли аудитор малака сертификатига эга.
                 Банк: {{ $conclusion->audit_comp_bank_name }} Р/С:
                 {{ implode(' ', str_split($conclusion->audit_comp_bank_acc, 4)) }}
                 МФО:
@@ -68,7 +68,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
             </p>
             <p>
                 <span class="underline bold">Мазкур {{ $conclusion->cust_info->cust_comp_name }} </span>
-                корхонасининг 01.05.2020 йил холати бўйича амалдаги конунчиликга
+                корхонасининг {{$conclusion->cust_info->year}}  йил  {{quarter_statement($conclusion->cust_info->quarter_start, $conclusion->cust_info->quarter_finish)}} холати бўйича амалдаги конунчиликга
                 асосан тузилган ва аудитга такдим этилган молиявий хисоботларига асосан,
                 16.03.2005 йилдаги ГС-05/0271/1 сонли Қарори билан тасдиқланган, хамда
                 Ўзбекистон Республикаси Адлия Вазирлиги томонидан 14.04.2005 йилда №1469 сон
@@ -112,9 +112,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
             <p class="bold">
                 Аудитор:
                 <span
-                    class="space-needed">{{ $conclusion->auditor ? $conclusion->auditor->full_name : $conclusion->agent->full_name }}</span>
+                    class="space-needed">{{ $conclusion->auditor_name }}</span>
             </p>
-            <p class="text-right">Такдим этилган сана : {{ date('d-m-Y', strtotime($conclusion->created_at)) }} й</p>
+            <p class="text-right">Такдим этилган сана : {{ date('d.m.Y', strtotime($conclusion->created_at)) }} й</p>
             <p class="text-left">
             @if($blank??false)
             BLANK: {{$blank->id}}

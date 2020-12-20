@@ -163,14 +163,20 @@
                       </div>
                       <div class="form-group">
                         <input type="text" data-name="h_cert_number" placeholder="{{lang('sertificateNumber')}}" class="form-control" id="h_cert_number" onchange="set_cert_number(this)">
-                      </div>
+                      </div> --}}
 
                       <div class="form-group">
-                        <input type="hidden" name="cert_number" id="cert_number">
-                      </div> --}}
-                     {{--  <div class="form-group">
+                        <label for="cert_number">
+                          {{lang('cert_number')}}
+                        </label>
+                        <input type="text" name="cert_number" id="cert_number" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="cert_number">
+                          {{lang('cert_date')}}
+                        </label>
                         <input type="date" name="cert_date" class="form-control">
-                      </div> --}}
+                      </div>
                       <div class="form-group">
                         <label>{{lang('region')}}:</label>
                         <select name="region" class="form-control"

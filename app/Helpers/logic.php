@@ -1442,8 +1442,8 @@ function lang($word)
 	}
 }
 function getQuarter($type, $val)
-{
-	if ($type = 'quarter_start') {
+{	
+	if ($type =='quarter_start') {
 		switch ($val) {
 			case 1:
 				return '01.01';
