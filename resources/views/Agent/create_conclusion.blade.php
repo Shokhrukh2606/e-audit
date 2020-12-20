@@ -167,7 +167,8 @@
 				</div>
 				</div>
 			</div>
-				
+			</div>
+			<div class="tab">	
 				<h4>3. {{lang('requiredDocs')}}</h4>
 				<div class="form-group">
 					<p>
