@@ -66,12 +66,14 @@
 			</ul>
 		</div>
 		<div class="tab">
+			<form  id="regForm" action="{{route('auditor.create_conc_on_order', $order->cust_info->id)}}" method="POST">
+				
 			<h2>{{lang('custInfo')}}</h2>
 			<input type="radio" name="conclusion[is_coefficent]" value="no_coef" onclick="change_coef('off')" id="no_coef" style="width:10px">
-			<label for="#">{{lang('no_coef')}}</label><br>
+			<label for="no_coef">{{lang('no_coef')}}</label><br>
 			<input type="radio" name="conclusion[is_coefficent]" value="with_coef" onclick="change_coef('on')" id="with_coef" style="width:10px">
-			<label for="#">{{lang('with_coef')}}</label>
-			<form  id="regForm" action="{{route('auditor.create_conc_on_order', $order->cust_info->id)}}" method="POST">
+			<label for="with_coef">{{lang('with_coef')}}</label>
+			
 				@csrf
 				
 				{{-- <div>

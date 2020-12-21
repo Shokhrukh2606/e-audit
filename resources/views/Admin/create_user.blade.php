@@ -38,11 +38,11 @@
             <label>{{lang('passportSeries')}}</label>
             <input class="form-control" type="text" name="user[passport_number]"><br>
         
-            <label>{{lang('sertificateNumber')}}</label>
+            {{-- <label>{{lang('sertificateNumber')}}</label>
             <input class="form-control" type="text" name="user[cert_number]"><br>
         
             <label>{{lang('certificateDate')}}</label>
-            <input class="form-control" type="date" name="user[cert_date]"><br>
+            <input class="form-control" type="date" name="user[cert_date]"><br> --}}
         
             <label>{{lang('city')}}</label>
             <select class="form-control" id="region" name="user[region]" onchange="changeDistrict(this);">

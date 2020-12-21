@@ -19,13 +19,14 @@
 		</div>
 		@endif
 		<form id="regForm" action="{{route('agent.create_conclusion')}}" method="POST" enctype="multipart/form-data">
-			@csrf
-			<input type="hidden" name="cust_info[template_id]" value="{{$template_id}}">
-			@foreach($use_cases as $use_case=>$value)
-			<input class="form-control" type="hidden" name="ciucm[{{$use_case}}]" value="{{$use_case}}">
-			@endforeach
+			
 			<!-- One "tab" for each step in the form: -->
 			<div class="tab">
+				@csrf
+				<input type="hidden" name="cust_info[template_id]" value="{{$template_id}}">
+				@foreach($use_cases as $use_case=>$value)
+				<input class="form-control" type="hidden" name="ciucm[{{$use_case}}]" value="{{$use_case}}">
+				@endforeach
 				<h2>{{lang('conclusion')}}</h2>
 				<div class="mb-4">
 					<label>{{lang('lang')}}</label>
@@ -88,85 +89,85 @@
 			<div class="tab">
 				<h2>{{lang('custInfo')}}</h2>
 				<input type="radio" name="conclusion[is_coefficent]" value="no_coef" onclick="change_coef('off')" id="no_coef" style="width:10px">
-			<label for="#">{{lang('no_coef')}}</label><br>
-			<input type="radio" name="conclusion[is_coefficent]" value="with_coef" onclick="change_coef('on')" id="with_coef" style="width:10px">
-			<label for="#">{{lang('with_coef')}}</label>
-		
-				
-				{{-- <div>
-					<label>{{lang('conclusion_base')}}</label>
-					<input class="form-control" type="text" name="conclusion[conclusion_base]">
-				</div> --}}
-			<div id="wrapper">
-				<div id="coefs">
-				<div class="kps">
-					<label>{{lang('A2')}}</label>
-					<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source">
-				</div>
-				<div class="kps">
-					<label>{{lang('P2')}}</label>
-					<input class="form-control" type="number" name="conclusion[P2]" onkeyup="kps()">
-				</div>
-				<div class="kps">
-					<label>{{lang('DO')}}</label>
-					<input class="form-control" type="number" name="conclusion[DO]" onkeyup="kps()">
-				</div>
-				<div class="result-wrapper">
-					<span>коэффициент платежеспособности:</span>
-					<div class="result" id='kps-result'>
-						Result
+				<label for="#">{{lang('no_coef')}}</label><br>
+				<input type="radio" name="conclusion[is_coefficent]" value="with_coef" onclick="change_coef('on')" id="with_coef" style="width:10px">
+				<label for="#">{{lang('with_coef')}}</label>
+			
+					
+					{{-- <div>
+						<label>{{lang('conclusion_base')}}</label>
+						<input class="form-control" type="text" name="conclusion[conclusion_base]">
+					</div> --}}
+				<div id="wrapper">
+					<div id="coefs">
+					<div class="kps">
+						<label>{{lang('A2')}}</label>
+						<input class="form-control" type="number" name="conclusion[A2]" onkeyup="kps()" onchange="copy_A2(this)" id="A2_source">
+					</div>
+					<div class="kps">
+						<label>{{lang('P2')}}</label>
+						<input class="form-control" type="number" name="conclusion[P2]" onkeyup="kps()">
+					</div>
+					<div class="kps">
+						<label>{{lang('DO')}}</label>
+						<input class="form-control" type="number" name="conclusion[DO]" onkeyup="kps()">
+					</div>
+					<div class="result-wrapper">
+						<span>коэффициент платежеспособности:</span>
+						<div class="result" id='kps-result'>
+							Result
+						</div>
+					</div>
+					<div class="osos">
+						<label>{{lang("P1")}}</label>
+						<input class="form-control" type="number" name="conclusion[P1]" onkeyup="osos()">
+					</div>
+					<div class="osos">
+						<label>{{lang("DEK2")}}</label>
+						<input class="form-control" type="number" name="conclusion[DEK2]" onkeyup="osos()">
+					</div>
+					<div class="osos">
+						<label>{{lang("A1")}}</label>
+						<input class="form-control" type="number" name="conclusion[A1]" onkeyup="osos()">
+					</div>
+					<div class="osos">
+						<label>{{lang("A2")}}</label>
+						<div id="A2"></div>
+					</div>
+					<div class="result-wrapper">
+						<span>Коэффициент обеспеченности собственными оборотными средсвами:</span>
+						<div class="result" id='osos-result'>
+							Result
+						</div>
+					</div>
+					<div class="kpp">
+						<label>{{lang('PUDN1')}}</label>
+						<input class="form-control" type="number" name="conclusion[PUDN1]" onkeyup="kpp()">
+					</div>
+					<div class="kpp">
+						<label>{{lang('PUDN2')}}</label>
+						<input class="form-control" type="number" name="conclusion[PUDN2]" onkeyup="kpp()">
+					</div>
+					<div class="kpp">
+						<label>{{lang('PUDN3')}}</label>
+						<input class="form-control" type="number" name="conclusion[PUDN3]" onkeyup="kpp()">
+					</div>
+					<div class="kpp">
+						<label>{{lang('PUDN4')}}</label>
+						<input class="form-control" type="number" name="conclusion[PUDN4]" onkeyup="kpp()">
+					</div>
+					<div class="kpp">
+						<label>{{lang('P')}}</label>
+						<input class="form-control" type="number" name="conclusion[P]" onkeyup="kpp()">
+					</div>
+					<div class="result-wrapper">
+						<span>Крр:</span>
+						<div class="result" id='kpp-result'>
+							Result
+						</div>
+					</div>
 					</div>
 				</div>
-				<div class="osos">
-					<label>{{lang("P1")}}</label>
-					<input class="form-control" type="number" name="conclusion[P1]" onkeyup="osos()">
-				</div>
-				<div class="osos">
-					<label>{{lang("DEK2")}}</label>
-					<input class="form-control" type="number" name="conclusion[DEK2]" onkeyup="osos()">
-				</div>
-				<div class="osos">
-					<label>{{lang("A1")}}</label>
-					<input class="form-control" type="number" name="conclusion[A1]" onkeyup="osos()">
-				</div>
-				<div class="osos">
-					<label>{{lang("A2")}}</label>
-					<div id="A2"></div>
-				</div>
-				<div class="result-wrapper">
-					<span>Коэффициент обеспеченности собственными оборотными средсвами:</span>
-					<div class="result" id='osos-result'>
-						Result
-					</div>
-				</div>
-				<div class="kpp">
-					<label>{{lang('PUDN1')}}</label>
-					<input class="form-control" type="number" name="conclusion[PUDN1]" onkeyup="kpp()">
-				</div>
-				<div class="kpp">
-					<label>{{lang('PUDN2')}}</label>
-					<input class="form-control" type="number" name="conclusion[PUDN2]" onkeyup="kpp()">
-				</div>
-				<div class="kpp">
-					<label>{{lang('PUDN3')}}</label>
-					<input class="form-control" type="number" name="conclusion[PUDN3]" onkeyup="kpp()">
-				</div>
-				<div class="kpp">
-					<label>{{lang('PUDN4')}}</label>
-					<input class="form-control" type="number" name="conclusion[PUDN4]" onkeyup="kpp()">
-				</div>
-				<div class="kpp">
-					<label>{{lang('P')}}</label>
-					<input class="form-control" type="number" name="conclusion[P]" onkeyup="kpp()">
-				</div>
-				<div class="result-wrapper">
-					<span>Крр:</span>
-					<div class="result" id='kpp-result'>
-						Result
-					</div>
-				</div>
-				</div>
-			</div>
 			</div>
 			<div class="tab">	
 				<h4>3. {{lang('requiredDocs')}}</h4>
@@ -183,97 +184,97 @@
 						for="cust_comp_director_passport_copy" data-browse="{{lang('upload')}}">
 						{{lang('cust_comp_director_passport_copy')}}
 					</label>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<p>
-					{{lang('cust_comp_gov_registration_copy')}}
-				</p>
-				<div class="custom-file">
-					<input type="file" 
-					name="cust_info[cust_comp_gov_registration_copy]" 
-					class="custom-file-input" id="cust_comp_gov_registration_copy">
-					<label class="custom-file-label" for="cust_comp_gov_registration_copy" data-browse="{{lang('upload')}}">
+
+				<div class="form-group">
+					<p>
 						{{lang('cust_comp_gov_registration_copy')}}
-					</label>
+					</p>
+					<div class="custom-file">
+						<input type="file" 
+						name="cust_info[cust_comp_gov_registration_copy]" 
+						class="custom-file-input" id="cust_comp_gov_registration_copy">
+						<label class="custom-file-label" for="cust_comp_gov_registration_copy" data-browse="{{lang('upload')}}">
+							{{lang('cust_comp_gov_registration_copy')}}
+						</label>
+					</div>
+				</div>
+				<div class="file-wrapper mb-4">
+					@php
+					$dom = new DOMDocument('1.0');
+					@endphp
+					@foreach(custom_fields($template_id) as $index=>$field)
+					@php
+					$div= $dom->createElement("div");
+					$dom->appendChild($div);
+
+					$label = $dom->createElement("label", $field->label->uz.":");
+					if($field->type=='file'){
+						$allowed_types=$field->allowed_types;
+						$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
+					}
+					$div->appendChild($label);
+
+					$input = $dom->createElement($field->tag);
+
+					$required=$dom->createAttribute('required');
+					$required->value="true";
+					$input->appendChild($required);
+
+					$attr = $dom->createAttribute('type');
+					$attr->value = $field->type;
+
+					$input->appendChild($attr);
+
+					$attr = $dom->createAttribute('name');
+					$attr->value = "custom[$field->name]";
+					$input->appendChild($attr);
+
+					if($field->type=='file'){
+						$class=$dom->createAttribute('class');
+						$class->value="custom-file-input";
+						$id=$dom->createAttribute('id');
+						$id->value=$index;
+						$input->appendChild($id);
+						$input->appendChild($class);
+
+						$allowed_types=$dom->createAttribute('accept');
+						$allowed_types->value=$field->allowed_types;
+						$input->appendChild($allowed_types);
+
+						$wrapper=$dom->createElement('div');
+
+						$class=$dom->createAttribute('class');
+						$class->value="custom-file";
+						$wrapper->appendChild($class);
+
+						$inLabel=$dom->createElement('label');
+
+						$browse=$dom->createAttribute('data-browse');
+						$browse->value=lang('upload');
+						$class=$dom->createAttribute('class');
+						$class->value="custom-file-label";
+						$for=$dom->createAttribute('for');
+						$for->value=$index;
+
+						$inLabel->appendChild($for);
+						$inLabel->appendChild($browse);
+						$inLabel->appendChild($class);
+
+						$wrapper->appendChild($input);
+						$wrapper->appendChild($inLabel);
+
+						$div->appendChild($wrapper);
+						continue;
+					}
+					$div->appendChild($input);
+
+					@endphp
+					@endforeach
+					<?= $dom->saveHTML() ?>
 				</div>
 			</div>
-			<div class="file-wrapper mb-4">
-				@php
-				$dom = new DOMDocument('1.0');
-				@endphp
-				@foreach(custom_fields($template_id) as $index=>$field)
-				@php
-				$div= $dom->createElement("div");
-				$dom->appendChild($div);
-
-				$label = $dom->createElement("label", $field->label->uz.":");
-				if($field->type=='file'){
-					$allowed_types=$field->allowed_types;
-					$label=$dom->createElement("label", lang($field->label->uz)." ($allowed_types):");
-				}
-				$div->appendChild($label);
-
-				$input = $dom->createElement($field->tag);
-
-				$required=$dom->createAttribute('required');
-				$required->value="true";
-				$input->appendChild($required);
-
-				$attr = $dom->createAttribute('type');
-				$attr->value = $field->type;
-
-				$input->appendChild($attr);
-
-				$attr = $dom->createAttribute('name');
-				$attr->value = "custom[$field->name]";
-				$input->appendChild($attr);
-
-				if($field->type=='file'){
-					$class=$dom->createAttribute('class');
-					$class->value="custom-file-input";
-					$id=$dom->createAttribute('id');
-					$id->value=$index;
-					$input->appendChild($id);
-					$input->appendChild($class);
-
-					$allowed_types=$dom->createAttribute('accept');
-					$allowed_types->value=$field->allowed_types;
-					$input->appendChild($allowed_types);
-
-					$wrapper=$dom->createElement('div');
-
-					$class=$dom->createAttribute('class');
-					$class->value="custom-file";
-					$wrapper->appendChild($class);
-
-					$inLabel=$dom->createElement('label');
-
-					$browse=$dom->createAttribute('data-browse');
-					$browse->value=lang('upload');
-					$class=$dom->createAttribute('class');
-					$class->value="custom-file-label";
-					$for=$dom->createAttribute('for');
-					$for->value=$index;
-
-					$inLabel->appendChild($for);
-					$inLabel->appendChild($browse);
-					$inLabel->appendChild($class);
-
-					$wrapper->appendChild($input);
-					$wrapper->appendChild($inLabel);
-
-					$div->appendChild($wrapper);
-					continue;
-				}
-				$div->appendChild($input);
-
-				@endphp
-				@endforeach
-				<?= $dom->saveHTML() ?>
-			</div>
-			
-		</div>
 		<div style="overflow:auto;">
 			<div style="float:right;">
 				<button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-sm btn-primary btn-finish">{{lang('previous')}}</button>
@@ -283,6 +284,7 @@
 		</div>
 		<!-- Circles which indicates the steps of the form: -->
 		<div style="text-align:center;margin-top:40px;">
+			<span class="step"></span>
 			<span class="step"></span>
 			<span class="step"></span>
 			<span class="step"></span>

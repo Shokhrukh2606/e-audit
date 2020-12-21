@@ -25,6 +25,19 @@
       font-size: 10px;
       font-weight: 600;
     }
+    .sidebar .nav li>a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .sidebar .nav li.active>a:not([data-toggle="collapse"])::before {
+        top: 45%;
+    }
+
+    .sidebar .nav p {
+        white-space: initial;
+    }
   </style>
 </head>
 

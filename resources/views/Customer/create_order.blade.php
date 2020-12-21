@@ -99,6 +99,7 @@
 						onclick="switchit('on')"
 						name="cust_info[contract_type]"
 						value="yur"
+						checked 
 						>
 						<label for="perechislenie">
 							{{lang('yurlitso')}}
@@ -108,7 +109,6 @@
 						<input type="radio" id="others"
 						onclick="switchit('off')" 
 						name="cust_info[contract_type]"
-						checked="checked"
 						value="fiz"
 						>
 						<label for="others">
@@ -344,6 +344,9 @@
 	const quarters=document.getElementById('quarters');
 	const clone=switchable.innerHTML;
 	const fizClone=fiz.innerHTML;
+
+	switch_state=get_switch_state();
+	
 	/**
 	 * [yearly description]
 	 * @param  {[type]} elem [description]
@@ -382,6 +385,10 @@
 	 		fiz.innerHTML="";
 	 	}
 	 }
+	 function get_switch_state(){
+	 	return document.getElementById('others').checked?'off':'on';
+	 }
+	 
 	 switchit(switch_state);
 
 	 (function(select, val, count) {

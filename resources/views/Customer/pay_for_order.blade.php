@@ -32,11 +32,12 @@
             <div>
                 @php
                     $conclusion=$invoice->conclusion;
-                    $yur_fields=['contract_company_name','contract_company_inn',"cust_comp_address","cust_comp_bank_name","cust_comp_bank_acc","cust_comp_bank_mfo","cust_comp_oked","cust_comp_director_name"];
-                    $fiz_fields=["contract_name","contract_passport_serie","contract_where_given","contract_address"];
+                    $yur_fields=['contract_company_inn',"cust_comp_address","cust_comp_bank_name","cust_comp_bank_acc","cust_comp_bank_mfo","cust_comp_oked","cust_comp_director_name"];
+                    $fiz_fields=["contract_passport_serie","contract_where_given","contract_address"];
                 @endphp
-                <p class="mb-10"><span class="bold">Заказчик:
+                <p class="mb-10"><span class="bold">
                 @if($conclusion->cust_info->contract_type=='yur')
+                Заказчик: {{$conclusion->cust_info->contract_company_name}}
                 @foreach($yur_fields as $key)
                     <p class="mb-10">
                         <span class="bold">
@@ -47,7 +48,7 @@
                 @endforeach
 
                 @else
-
+                Заказчик: {{$conclusion->cust_info->contract_name}}
                  @foreach($fiz_fields as $key)
                     <p class="mb-10">
                         <span class="bold">
@@ -190,7 +191,7 @@
             <input type="hidden" name="amount" value="{{ $invoice->price }}" />
             <input type="hidden" name="return_url" value={{ route('customer.pay', $invoice->id) }} />
 		</form>
-		<p class="mt-0">Сумма оплаты: 8400.00 сум</p>
+		<p class="mt-0">Сумма оплаты: {{ $invoice->price }} сум</p>
 		<button class="btn btn-info" id="generator">Оплатить</button>
     @else
         <h3>Already paid</h3>

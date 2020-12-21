@@ -1,6 +1,6 @@
 @php
     $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields","cust_comp_registered_by",
-"cust_comp_gov_reg_num","cust_comp_director_name","contract_name","contract_passport_serie","contract_where_given","contract_address","contract_company_name","contract_company_inn","contract_type","cust_comp_activity"]
+"cust_comp_gov_reg_num","cust_comp_director_name","contract_name","contract_passport_serie","contract_where_given","contract_address","contract_company_name","contract_company_inn","contract_type","cust_comp_activity","cust_comp_address","cust_comp_bank_name","cust_comp_bank_mfo","cust_comp_bank_acc","cust_comp_oked"]
 ;
 $files=['cust_comp_gov_registration_copy', 'cust_comp_director_passport_copy'];
 @endphp

@@ -195,6 +195,7 @@ class Audit_Controller extends Controller
                     $this->conclusion_validation_rules
                 );
                 $all = $req->all();
+                
                 $conclusion_fields = $req->input('conclusion');
                 $conclusion = new Conclusion();
                 $conclusion->auditor_id = auth()->user()->id;

@@ -93,7 +93,7 @@
                 <th>{{lang('id')}}</th>
                 <th>{{lang('standartNumber')}}</th>
                 <th>{{lang('useCases')}}</th>
-                <
+                
                 <th>{{lang('assign_blank')}}</th>
                 <th>{{lang('show')}}</th>
                 <th>{{lang('resent')}}</th>
