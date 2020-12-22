@@ -108,6 +108,9 @@ class Agent_Controller extends Controller
 
                 $CCI = new Cust_comp_info();
                 $CCI->conclusion_id = $conclusion->id;
+                
+                $CCI->contract_type='fiz';
+
                 foreach ($cust_info_fields ?? [] as $key => $value) {
                     $CCI->$key = $value;
                 }

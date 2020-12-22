@@ -1,6 +1,6 @@
 @php
 $not_iterated=['id', 'customer_id', 'auditor_id',"conclusion_id","order_id", "template_id", "custom_fields","cust_comp_registered_by",
-"cust_comp_gov_reg_num","cust_comp_director_name","contract_name","contract_passport_serie","contract_where_given","contract_address","contract_company_name","contract_company_inn","contract_type","cust_comp_activity"]
+"cust_comp_gov_reg_num","cust_comp_director_name","contract_name","contract_passport_serie","contract_where_given","contract_address","contract_company_name","contract_company_inn","contract_type","cust_comp_activity","contract_fiz_inn"]
 ;
 $files=['cust_comp_gov_registration_copy', 'cust_comp_director_passport_copy'];
 $editable_status=[1, 5];
@@ -27,8 +27,13 @@ $editable_status=[1, 5];
 				@endforeach
 			</li>
 			@foreach($order->getAttributes() as $key=>$value)
+			@if($key=='status')
+				<li>{{lang($key)}}: status_{{$value}}</li>
+				@continue(true)
+			@endif
 			@continue(in_array($key, $not_iterated, TRUE))
 				<li>{{lang($key)}} :{{$value}}</li>
+
 			@endforeach
 		</ul>
 		{{-- Customer info --}}
@@ -36,7 +41,7 @@ $editable_status=[1, 5];
 		<ul>
 			@foreach($order->cust_info->getAttributes() as $key=>$value)
 			@continue(in_array($key, $not_iterated, TRUE))
-			
+
 			<li>{{lang($key)}} :
 			@if(in_array($key, $files, true))
 				<a href="{{route('file')."?path=".$value}}" target="blank"
@@ -48,6 +53,7 @@ $editable_status=[1, 5];
 				{{$value}}
 			@endif
 			</li>
+			
 			@endforeach
 			@php
 		// get custom fields array
@@ -74,6 +80,27 @@ $editable_status=[1, 5];
 				@endif
 			</li>
 			@endforeach
+		</ul>
+		<h3>{{lang('paying_info')}}</h3>
+		<ul>
+			@if($order->cust_info->contract_type=='yur')
+			<li>
+				{{lang('contract_company_name')}}: {{$order->cust_info->contract_company_name}}
+			</li>
+			<li>
+				{{lang('contract_company_inn')}}: {{$order->cust_info->contract_company_inn}}
+			</li>
+			@else
+               <li>
+				{{lang('contract_where_given')}}: {{$order->cust_info->contract_where_given}}
+			</li>
+			<li>
+				{{lang('contract_address')}}: {{$order->cust_info->contract_address}}
+			</li>
+			<li>
+				{{lang('contract_name')}}: {{$order->cust_info->contract_name}}
+			</li>
+			@endif
 		</ul>
 		@if($order->status=='1')
 		<a href="{{route('customer.cancel_order', $order->id)}}" class="btn btn-fill btn-danger btn-sm">

@@ -7,8 +7,12 @@
     <div class="bill mb-30">
         <div class="title center mb-30">
             <h3 class="bold mb-5">СЧЕТ НА ЗАКЛЮЧЕНИЕ № {{ $invoice->conclusion->id }} от
-                {{ $invoice->conclusion->created_at }}</h3>
-            <h3 class="bold mt-0">к Договору № {{ $invoice->id }} от {{ $invoice->created_at }}</h3>
+                {{ date('d.m.Y', strtotime($invoice->conclusion->created_at)) 
+                }}
+            </h3>
+            <h3 class="bold mt-0">к Договору № {{ $invoice->conclusion->contract->id }} от 
+                {{ date('d.m.Y', strtotime($invoice->conclusion->contract->created_at)) }}
+            </h3>
         </div>
         <div class="mb-15 users">
             <div>

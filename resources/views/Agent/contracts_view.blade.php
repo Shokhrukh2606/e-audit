@@ -82,11 +82,11 @@
         </span></p>
 
     <p class=MsoNormal style='text-align:justify;text-indent:35.4pt'><span lang=UZ-CYR>Маъсулияти чекланган жамияти
-            {{$contract->conclusion->cust_info->audit_comp_name}}нинг расмий хамкори {{$contract->conclusion->cust_info->cust_comp_name}} (кейинги ўринларда
+            {{$contract->conclusion->audit_comp_name}}нинг расмий хамкори {{$contract->conclusion->cust_info->cust_comp_name}} (кейинги ўринларда
             “Иш бажарувчи” деб юритилади) номидан “Низом” асосида фаолият юритувчи раҳбари {{$contract->conclusion->audit_comp_director_name}}
-            ва {{$contract->conclusion->cust_info->cust_comp_director_name}} (кейинги ўринларда “Буюртмачи” деб юритилади)
-            номидан паспорт серия рақами {{$contract->conclusion->cust_info->contract_passport_serie}}(паспорт {{$contract->conclusion->cust_info->contract_where_given}} томонидан берилган) малумотлари эгаси
-            {{$contract->conclusion->contract_address}} манзилда
+            ва {{$contract->conclusion->agent->fullName}} (кейинги ўринларда “Буюртмачи” деб юритилади)
+            номидан паспорт серия рақами {{$contract->conclusion->agent->passport_number}} (паспорт  томонидан берилган) малумотлари эгаси
+            {{$contract->conclusion->agent->address}} манзилда
             яшовчи фукаро томонидан мазкур шартнома аудиторлик профессинал хизматлар
             кўрсатиш тўғрисида тузилди.</span></p>
 
@@ -281,12 +281,12 @@
                 <td width=354 valign=top style='width:265.3pt;padding:0in 5.4pt 0in 5.4pt'>
                     <p class=MsoNormal style='text-align:justify'><b><u><span lang=RU>«Буюртмачи»</span></u></b></p>
                     <p class=MsoNormal><b><span lang=RU>&nbsp;</span></b></p>
-                    <p class=MsoNormal><span lang=RU>{{$contract->conclusion->cust_info->contract_company_name}}</span></p>
-                    <p class=MsoNormal><span lang=UZ-CYR>Манзили: {{$contract->conclusion->cust_info->contract_address}}</span></p>
-                    <p class=MsoNormal><span lang=RU>Паспорт серия: {{substr($contract->conclusion->cust_info->contract_passport_serie, 0,2)}} </span></p>
+                    <p class=MsoNormal><span lang=RU>{{$contract->conclusion->agent->fullName}}</span></p>
+                    <p class=MsoNormal><span lang=UZ-CYR>Манзили: {{$contract->conclusion->agent->address}}</span></p>
+                    <p class=MsoNormal><span lang=RU>Паспорт серия: {{substr($contract->conclusion->agent->passport_number, 0,2)}} </span></p>
                     <p class=MsoNormal style='text-align:justify'><span lang=RU>Паспорт раками:
-                        {{substr($contract->conclusion->cust_info->contract_passport_serie, 2)}}</span></p>
-                    <p class=MsoNormal><span lang=RU>СТИР: {{$contract->conclusion->cust_info->contract_company_inn}} </span></p>
+                        {{substr($contract->conclusion->agent->passport_number, 2)}}</span></p>
+                    <p class=MsoNormal><span lang=RU>СТИР: {{$contract->conclusion->agent->inn}} </span></p>
                     <p class=MsoNormal style='text-align:justify'><span lang=RU> </span></p>
                     <p class=MsoNormal style='text-align:justify'><span lang=RU>&nbsp;</span></p>
                     <p class=MsoNormal style='text-align:justify'><span lang=RU>
